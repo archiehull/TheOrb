@@ -1,0 +1,4 @@
+*.vsidx
+*.ipch
+*.opendb
+/.vs/TheOrb/CopilotIndices
