@@ -13,10 +13,57 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\src">
+      <UniqueIdentifier>{49f9d76c-4b2f-495e-98dd-38fc6570242a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\core">
+      <UniqueIdentifier>{297683fe-1d74-415d-b028-1498e9d01914}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\src\vulkan">
+      <UniqueIdentifier>{3a0f89c0-3e2d-4605-8788-1ebabf930409}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\main.cpp">
+      <Filter>Source Files\src</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\Window.cpp">
+      <Filter>Source Files\src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vulkan\VulkanUtils.cpp">
+      <Filter>Source Files\src\vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vulkan\VulkanDevice.cpp">
+      <Filter>Source Files\src\vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vulkan\VulkanSwapChain.cpp">
+      <Filter>Source Files\src\vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vulkan\VulkanContext.cpp">
+      <Filter>Source Files\src\vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\Application.cpp">
+      <Filter>Source Files\src\core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\core\Window.h">
+      <Filter>Source Files\src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vulkan\VulkanDevice.h">
+      <Filter>Source Files\src\vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vulkan\VulkanSwapChain.h">
+      <Filter>Source Files\src\vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vulkan\VulkanContext.h">
+      <Filter>Source Files\src\vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\Application.h">
+      <Filter>Source Files\src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\VulkanUtils.h">
+      <Filter>Source Files\src\vulkan</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
