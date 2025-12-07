@@ -6,7 +6,10 @@
 #include "../vulkan/VulkanRenderPass.h"
 #include "../vulkan/VulkanCommandBuffer.h"
 #include "../vulkan/VulkanSyncObjects.h"
+#include "../vulkan/VulkanDescriptorSet.h"
+#include "../vulkan/UniformBufferObject.h"
 #include "../pipelines/GraphicsPipeline.h"
+
 #include <memory>
 
 class Renderer {
@@ -16,12 +19,14 @@ public:
 
     void Initialize();
     void DrawFrame(Scene& scene, uint32_t currentFrame);
+    void UpdateUniformBuffer(uint32_t currentFrame, const UniformBufferObject& ubo);
     void WaitIdle();
     void Cleanup();
 
     // Accessors for recreation
     VulkanRenderPass* GetRenderPass() { return renderPass.get(); }
     GraphicsPipeline* GetPipeline() { return graphicsPipeline.get(); }
+
 
 private:
     // Vulkan components (not owned)
@@ -39,15 +44,22 @@ private:
     VkDeviceMemory offScreenImageMemory = VK_NULL_HANDLE;
     VkImageView offScreenImageView = VK_NULL_HANDLE;
 
+    // Uniform buffers
+    std::vector<std::unique_ptr<VulkanBuffer>> uniformBuffers;
+    std::vector<void*> uniformBuffersMapped;
+    std::unique_ptr<VulkanDescriptorSet> descriptorSet;
+
     // Helper functions
     void CreateRenderPass();
     void CreatePipeline();
     void CreateOffScreenResources();
     void CreateCommandBuffer();
     void CreateSyncObjects();
+    void CreateUniformBuffers();
+    void CreateDescriptorSets();
 
-    void RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex, Scene& scene);
-    void RenderScene(VkCommandBuffer cmd, Scene& scene);
+    void RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex, uint32_t currentFrame, Scene& scene);
+    void RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene);
     void CopyOffScreenToSwapChain(VkCommandBuffer cmd, uint32_t imageIndex);
 
     void CleanupOffScreenResources();

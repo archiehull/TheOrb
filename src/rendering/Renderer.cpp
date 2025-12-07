@@ -10,18 +10,69 @@ Renderer::~Renderer() {
 }
 
 void Renderer::Initialize() {
-    CreateRenderPass();           // 1. Create render pass FIRST
-    CreateOffScreenResources();   // 2. Create image and image view
+    CreateRenderPass();
+    CreateOffScreenResources();
 
-    // 3. NOW create the framebuffer (after image view exists)
     renderPass->CreateOffScreenFramebuffer(
         offScreenImageView,
         swapChain->GetExtent()
     );
 
-    CreatePipeline();             // 4. Create pipeline
-    CreateCommandBuffer();        // 5. Create command buffers
-    CreateSyncObjects();          // 6. Create sync objects
+    CreateUniformBuffers();
+    CreateDescriptorSets();
+
+    CreatePipeline();
+    CreateCommandBuffer();
+    CreateSyncObjects();
+}
+
+void Renderer::CreateUniformBuffers() {
+    VkDeviceSize bufferSize = sizeof(UniformBufferObject);
+
+    uniformBuffers.resize(MAX_FRAMES_IN_FLIGHT);
+    uniformBuffersMapped.resize(MAX_FRAMES_IN_FLIGHT);
+
+    for (size_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {
+        uniformBuffers[i] = std::make_unique<VulkanBuffer>(
+            device->GetDevice(),
+            device->GetPhysicalDevice()
+        );
+
+        uniformBuffers[i]->CreateBuffer(
+            bufferSize,
+            VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
+            VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT
+        );
+
+        // Keep mapped for updates
+        vkMapMemory(
+            device->GetDevice(),
+            uniformBuffers[i]->GetBufferMemory(),
+            0,
+            bufferSize,
+            0,
+            &uniformBuffersMapped[i]
+        );
+    }
+}
+
+void Renderer::CreateDescriptorSets() {
+    descriptorSet = std::make_unique<VulkanDescriptorSet>(device->GetDevice());
+
+    descriptorSet->CreateDescriptorSetLayout();
+    descriptorSet->CreateDescriptorPool(MAX_FRAMES_IN_FLIGHT);
+
+    // Get VkBuffer handles from VulkanBuffer wrappers
+    std::vector<VkBuffer> buffers;
+    for (const auto& uniformBuffer : uniformBuffers) {
+        buffers.push_back(uniformBuffer->GetBuffer());
+    }
+
+    descriptorSet->CreateDescriptorSets(buffers, sizeof(UniformBufferObject));
+}
+
+void Renderer::UpdateUniformBuffer(uint32_t currentFrame, const UniformBufferObject& ubo) {
+    memcpy(uniformBuffersMapped[currentFrame], &ubo, sizeof(ubo));
 }
 
 void Renderer::CreateRenderPass() {
@@ -44,6 +95,7 @@ void Renderer::CreatePipeline() {
     pipelineConfig.bindingDescription = &bindingDescription;
     pipelineConfig.attributeDescriptions = attributeDescriptions.data();
     pipelineConfig.attributeCount = static_cast<uint32_t>(attributeDescriptions.size());
+    pipelineConfig.descriptorSetLayout = descriptorSet->GetLayout();
 
     graphicsPipeline = std::make_unique<GraphicsPipeline>(
         device->GetDevice(),
@@ -121,7 +173,7 @@ void Renderer::DrawFrame(Scene& scene, uint32_t currentFrame) {
     vkResetFences(device->GetDevice(), 1, &fence);
 
     VkCommandBuffer cmd = commandBuffer->GetCommandBuffer(currentFrame);
-    RecordCommandBuffer(cmd, imageIndex, scene);
+    RecordCommandBuffer(cmd, imageIndex, currentFrame, scene);
 
     VkSubmitInfo submitInfo{};
     submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
@@ -155,7 +207,7 @@ void Renderer::DrawFrame(Scene& scene, uint32_t currentFrame) {
     vkQueuePresentKHR(device->GetPresentQueue(), &presentInfo);
 }
 
-void Renderer::RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex, Scene& scene) {
+void Renderer::RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex, uint32_t currentFrame, Scene& scene) {
     vkResetCommandBuffer(cmd, 0);
 
     VkCommandBufferBeginInfo beginInfo{};
@@ -166,7 +218,7 @@ void Renderer::RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex, Sce
     }
 
     // Render scene to off-screen
-    RenderScene(cmd, scene);
+    RenderScene(cmd, currentFrame, scene);
 
     // Copy to swap chain
     CopyOffScreenToSwapChain(cmd, imageIndex);
@@ -176,7 +228,7 @@ void Renderer::RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex, Sce
     }
 }
 
-void Renderer::RenderScene(VkCommandBuffer cmd, Scene& scene) {
+void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene) {
     VkRenderPassBeginInfo renderPassInfo{};
     renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
     renderPassInfo.renderPass = renderPass->GetRenderPass();
@@ -191,6 +243,17 @@ void Renderer::RenderScene(VkCommandBuffer cmd, Scene& scene) {
     vkCmdBeginRenderPass(cmd, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
     vkCmdBindPipeline(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->GetPipeline());
+
+    vkCmdBindDescriptorSets(
+        cmd,
+        VK_PIPELINE_BIND_POINT_GRAPHICS,
+        graphicsPipeline->GetLayout(),
+        0,
+        1,
+        &descriptorSet->GetDescriptorSets()[currentFrame],
+        0,
+        nullptr
+    );
 
     // Set dynamic states
     VkViewport viewport{};
@@ -209,7 +272,7 @@ void Renderer::RenderScene(VkCommandBuffer cmd, Scene& scene) {
 
     vkCmdSetLineWidth(cmd, 1.0f);
 
-    // DRAW ALL OBJECTS IN THE SCENE
+    // Draw all objects in the scene
     for (const auto& obj : scene.GetObjects()) {
         if (obj && obj->visible && obj->geometry) {
             obj->geometry->Bind(cmd);
@@ -282,6 +345,25 @@ void Renderer::WaitIdle() {
 }
 
 void Renderer::Cleanup() {
+    for (size_t i = 0; i < uniformBuffers.size(); i++) {
+        if (uniformBuffersMapped[i]) {
+            vkUnmapMemory(device->GetDevice(), uniformBuffers[i]->GetBufferMemory());
+        }
+    }
+
+    for (auto& uniformBuffer : uniformBuffers) {
+        if (uniformBuffer) {
+            uniformBuffer->Cleanup();
+        }
+    }
+    uniformBuffers.clear();
+    uniformBuffersMapped.clear();
+
+    if (descriptorSet) {
+        descriptorSet->Cleanup();
+        descriptorSet.reset();
+    }
+
     if (syncObjects) {
         syncObjects->Cleanup();
         syncObjects.reset();

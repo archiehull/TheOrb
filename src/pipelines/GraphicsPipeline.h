@@ -17,6 +17,9 @@ struct GraphicsPipelineConfig {
     VkVertexInputAttributeDescription* attributeDescriptions = nullptr;
     uint32_t attributeCount = 0;
 
+    // Descriptor set layout (for uniforms)
+    VkDescriptorSetLayout descriptorSetLayout = VK_NULL_HANDLE;
+
     // Rasterization
     VkPolygonMode polygonMode = VK_POLYGON_MODE_FILL;
     VkCullModeFlags cullMode = VK_CULL_MODE_BACK_BIT;
@@ -26,7 +29,7 @@ struct GraphicsPipelineConfig {
     // Multisampling
     VkSampleCountFlagBits samples = VK_SAMPLE_COUNT_1_BIT;
 
-    // Depth testing (for future use)
+    // Depth testing
     bool depthTestEnable = false;
     bool depthWriteEnable = false;
 

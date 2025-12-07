@@ -5,11 +5,14 @@ C:\Users\663073\Workspace\TheOrb\src\geometry\GeometryGenerator.cpp;C:\Users\663
 C:\Users\663073\Workspace\TheOrb\src\main.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\main.obj
 C:\Users\663073\Workspace\TheOrb\src\pipelines\GraphicsPipeline.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\GraphicsPipeline.obj
 C:\Users\663073\Workspace\TheOrb\src\pipelines\Pipeline.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\Pipeline.obj
+C:\Users\663073\Workspace\TheOrb\src\rendering\Camera.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\Camera.obj
+C:\Users\663073\Workspace\TheOrb\src\rendering\CameraController.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\CameraController.obj
 C:\Users\663073\Workspace\TheOrb\src\rendering\Renderer.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\Renderer.obj
 C:\Users\663073\Workspace\TheOrb\src\rendering\Scene.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\Scene.obj
 C:\Users\663073\Workspace\TheOrb\src\vulkan\VulkanBuffer.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\VulkanBuffer.obj
 C:\Users\663073\Workspace\TheOrb\src\vulkan\VulkanCommandBuffer.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\VulkanCommandBuffer.obj
 C:\Users\663073\Workspace\TheOrb\src\vulkan\VulkanContext.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\VulkanContext.obj
+C:\Users\663073\Workspace\TheOrb\src\vulkan\VulkanDescriptorSet.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\VulkanDescriptorSet.obj
 C:\Users\663073\Workspace\TheOrb\src\vulkan\VulkanDevice.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\VulkanDevice.obj
 C:\Users\663073\Workspace\TheOrb\src\vulkan\VulkanRenderPass.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\VulkanRenderPass.obj
 C:\Users\663073\Workspace\TheOrb\src\vulkan\VulkanShader.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\VulkanShader.obj
