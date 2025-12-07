@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include <glm/gtc/matrix_transform.hpp>
 
 Scene::Scene(VkDevice device, VkPhysicalDevice physicalDevice)
     : device(device), physicalDevice(physicalDevice) {
@@ -7,33 +8,45 @@ Scene::Scene(VkDevice device, VkPhysicalDevice physicalDevice)
 Scene::~Scene() {
 }
 
-void Scene::AddTriangle() {
+void Scene::AddTriangle(const glm::vec3& position) {
     auto geometry = GeometryGenerator::CreateTriangle(device, physicalDevice);
-    objects.push_back(std::make_unique<SceneObject>(std::move(geometry)));
+    auto obj = std::make_unique<SceneObject>(std::move(geometry));
+    obj->transform = glm::translate(glm::mat4(1.0f), position);
+    objects.push_back(std::move(obj));
 }
 
-void Scene::AddQuad() {
+void Scene::AddQuad(const glm::vec3& position) {
     auto geometry = GeometryGenerator::CreateQuad(device, physicalDevice);
-    objects.push_back(std::make_unique<SceneObject>(std::move(geometry)));
+    auto obj = std::make_unique<SceneObject>(std::move(geometry));
+    obj->transform = glm::translate(glm::mat4(1.0f), position);
+    objects.push_back(std::move(obj));
 }
 
-void Scene::AddCircle(int segments, float radius) {
+void Scene::AddCircle(int segments, float radius, const glm::vec3& position) {
     auto geometry = GeometryGenerator::CreateCircle(device, physicalDevice, segments, radius);
-    objects.push_back(std::make_unique<SceneObject>(std::move(geometry)));
+    auto obj = std::make_unique<SceneObject>(std::move(geometry));
+    obj->transform = glm::translate(glm::mat4(1.0f), position);
+    objects.push_back(std::move(obj));
 }
 
-void Scene::AddCube() {
+void Scene::AddCube(const glm::vec3& position) {
     auto geometry = GeometryGenerator::CreateCube(device, physicalDevice);
-    objects.push_back(std::make_unique<SceneObject>(std::move(geometry)));
+    auto obj = std::make_unique<SceneObject>(std::move(geometry));
+    obj->transform = glm::translate(glm::mat4(1.0f), position);
+    objects.push_back(std::move(obj));
 }
 
-void Scene::AddGrid(int rows, int cols, float cellSize) {
+void Scene::AddGrid(int rows, int cols, float cellSize, const glm::vec3& position) {
     auto geometry = GeometryGenerator::CreateGrid(device, physicalDevice, rows, cols, cellSize);
-    objects.push_back(std::make_unique<SceneObject>(std::move(geometry)));
+    auto obj = std::make_unique<SceneObject>(std::move(geometry));
+    obj->transform = glm::translate(glm::mat4(1.0f), position);
+    objects.push_back(std::move(obj));
 }
 
-void Scene::AddGeometry(std::unique_ptr<Geometry> geometry) {
-    objects.push_back(std::make_unique<SceneObject>(std::move(geometry)));
+void Scene::AddGeometry(std::unique_ptr<Geometry> geometry, const glm::vec3& position) {
+    auto obj = std::make_unique<SceneObject>(std::move(geometry));
+    obj->transform = glm::translate(glm::mat4(1.0f), position);
+    objects.push_back(std::move(obj));
 }
 
 void Scene::Clear() {

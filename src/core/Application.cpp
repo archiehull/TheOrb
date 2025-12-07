@@ -4,6 +4,10 @@
 
 Application::Application() {
     window = std::make_unique<Window>(800, 600, "TheOrb");
+
+    glfwSetWindowUserPointer(window->GetGLFWWindow(), this);
+    glfwSetKeyCallback(window->GetGLFWWindow(), KeyCallback);
+    glfwSetFramebufferSizeCallback(window->GetGLFWWindow(), FramebufferResizeCallback);
 }
 
 Application::~Application() {
@@ -52,18 +56,43 @@ void Application::InitVulkan() {
         vulkanDevice->GetPhysicalDevice()
     );
 
-	// Create camera controller
+    // Create camera controller
     cameraController = std::make_unique<CameraController>();
 }
 
 void Application::SetupScene() {
+    scene->AddGrid(10, 10, 0.5f, glm::vec3(0.0f, 0.0f, 0.0f));
 
-    //scene->AddTriangle();
+	scene->AddCube(glm::vec3(0.0f, 5.5f, 0.0f));
+	scene->AddCube(glm::vec3(5.0f, 0.5f, 0.0f));
+    scene->AddCube(glm::vec3(0.0f, 0.5f, 5.0f));
 
-    // scene->AddCircle(64, 0.3f);
-    // scene->AddQuad();
-     //scene->AddCube();
-     scene->AddGrid(10, 10, 0.05f);
+}
+
+void Application::RecreateSwapChain() {
+    int width = 0, height = 0;
+    glfwGetFramebufferSize(window->GetGLFWWindow(), &width, &height);
+
+    // Handle minimization
+    while (width == 0 || height == 0) {
+        glfwGetFramebufferSize(window->GetGLFWWindow(), &width, &height);
+        glfwWaitEvents();
+    }
+
+    vkDeviceWaitIdle(vulkanDevice->GetDevice());
+
+    // Cleanup old swapchain-dependent resources
+    renderer->Cleanup();
+    vulkanSwapChain->Cleanup();
+
+    // Recreate swapchain
+    vulkanSwapChain->Create(vulkanDevice->GetQueueFamilies());
+    vulkanSwapChain->CreateImageViews();
+
+    // Recreate renderer resources
+    renderer->Initialize();
+
+    framebufferResized = false;
 }
 
 void Application::MainLoop() {
@@ -79,17 +108,20 @@ void Application::MainLoop() {
         // Update camera
         cameraController->Update(deltaTime);
 
-        // Update uniform buffer with active camera
+        // Get camera matrices
         Camera* activeCamera = cameraController->GetActiveCamera();
-        UniformBufferObject ubo{};
-        ubo.model = glm::mat4(1.0f);
-        ubo.view = activeCamera->GetViewMatrix();
-        ubo.proj = activeCamera->GetProjectionMatrix(
+        glm::mat4 viewMatrix = activeCamera->GetViewMatrix();
+        glm::mat4 projMatrix = activeCamera->GetProjectionMatrix(
             vulkanSwapChain->GetExtent().width / (float)vulkanSwapChain->GetExtent().height
         );
 
-        renderer->UpdateUniformBuffer(currentFrame, ubo);
-        renderer->DrawFrame(*scene, currentFrame);
+        // Pass view and proj to renderer
+        renderer->DrawFrame(*scene, currentFrame, viewMatrix, projMatrix);
+
+        // Handle swapchain recreation if needed
+        if (framebufferResized) {
+            RecreateSwapChain();
+        }
 
         currentFrame = (currentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
     }
@@ -128,6 +160,11 @@ void Application::KeyCallback(GLFWwindow* window, int key, int scancode, int act
     else if (action == GLFW_RELEASE) {
         app->cameraController->OnKeyRelease(key);
     }
+}
+
+void Application::FramebufferResizeCallback(GLFWwindow* window, int width, int height) {
+    auto app = reinterpret_cast<Application*>(glfwGetWindowUserPointer(window));
+    app->framebufferResized = true;
 }
 
 void Application::Cleanup() {

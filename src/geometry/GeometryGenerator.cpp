@@ -113,7 +113,8 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateGrid(VkDevice device, VkPhysi
             float y = startY + row * cellSize;
 
             glm::vec3 color = GenerateColor(row * (cols + 1) + col, (rows + 1) * (cols + 1));
-            geometry->GetVertices().push_back({ glm::vec3(x, y, 0.0f), color });
+            // Place grid in the XZ plane (horizontal) at y = 0
+            geometry->GetVertices().push_back({ glm::vec3(x, 0.0f, y), color });
         }
     }
 

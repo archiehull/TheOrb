@@ -18,7 +18,7 @@ void CameraController::SetupCameras() {
     freeRoamCam->SetPosition(glm::vec3(2.0f, 2.0f, 2.0f));
     freeRoamCam->SetTarget(glm::vec3(0.0f, 0.0f, 0.0f));
     freeRoamCam->SetMoveSpeed(2.0f);
-    freeRoamCam->SetRotateSpeed(0.05f);
+    freeRoamCam->SetRotateSpeed(35.0f);
     cameras[CameraType::FREE_ROAM] = std::move(freeRoamCam);
 
     // BIRDS EYE Camera - looking straight down
@@ -52,14 +52,6 @@ void CameraController::Update(float deltaTime) {
 void CameraController::UpdateFreeRoamCamera(float deltaTime) {
     if (!activeCamera) return;
 
-    // Movement with WASD
-    if (keyW) activeCamera->MoveForward(deltaTime);
-    if (keyS) activeCamera->MoveBackward(deltaTime);
-    if (keyA) activeCamera->MoveLeft(deltaTime);
-    if (keyD) activeCamera->MoveRight(deltaTime);
-    if (keyQ) activeCamera->MoveDown(deltaTime);
-    if (keyE) activeCamera->MoveUp(deltaTime);
-
     // View rotation with IJKL or CTRL+WASD
     if (keyCtrl) {
         // CTRL+WASD for rotation
@@ -69,6 +61,13 @@ void CameraController::UpdateFreeRoamCamera(float deltaTime) {
         if (keyD) activeCamera->RotateYaw(deltaTime);     // Look right
     }
     else {
+        // Movement with WASD
+        if (keyW) activeCamera->MoveForward(deltaTime);
+        if (keyS) activeCamera->MoveBackward(deltaTime);
+        if (keyA) activeCamera->MoveLeft(deltaTime);
+        if (keyD) activeCamera->MoveRight(deltaTime);
+        if (keyQ) activeCamera->MoveDown(deltaTime);
+        if (keyE) activeCamera->MoveUp(deltaTime);
         // IJKL for rotation
         if (keyI) activeCamera->RotatePitch(deltaTime);   // Look up
         if (keyK) activeCamera->RotatePitch(-deltaTime);  // Look down

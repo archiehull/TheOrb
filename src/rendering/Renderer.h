@@ -18,7 +18,7 @@ public:
     ~Renderer();
 
     void Initialize();
-    void DrawFrame(Scene& scene, uint32_t currentFrame);
+    void DrawFrame(Scene& scene, uint32_t currentFrame, const glm::mat4& viewMatrix, const glm::mat4& projMatrix);
     void UpdateUniformBuffer(uint32_t currentFrame, const UniformBufferObject& ubo);
     void WaitIdle();
     void Cleanup();
@@ -58,8 +58,10 @@ private:
     void CreateUniformBuffers();
     void CreateDescriptorSets();
 
-    void RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex, uint32_t currentFrame, Scene& scene);
-    void RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene);
+    void RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex, uint32_t currentFrame,
+        Scene& scene, const glm::mat4& viewMatrix, const glm::mat4& projMatrix);
+    void RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene,
+        const glm::mat4& viewMatrix, const glm::mat4& projMatrix);
     void CopyOffScreenToSwapChain(VkCommandBuffer cmd, uint32_t imageIndex);
 
     void CleanupOffScreenResources();
@@ -68,6 +70,7 @@ private:
         VkImageTiling tiling, VkImageUsageFlags usage,
         VkMemoryPropertyFlags properties, VkImage& image,
         VkDeviceMemory& imageMemory);
+
     VkImageView createImageView(VkImage image, VkFormat format, VkImageAspectFlags aspectFlags);
     uint32_t findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
 

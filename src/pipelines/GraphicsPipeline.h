@@ -23,7 +23,7 @@ struct GraphicsPipelineConfig {
     // Rasterization
     VkPolygonMode polygonMode = VK_POLYGON_MODE_FILL;
     VkCullModeFlags cullMode = VK_CULL_MODE_BACK_BIT;
-    VkFrontFace frontFace = VK_FRONT_FACE_CLOCKWISE;
+    VkFrontFace frontFace = VK_FRONT_FACE_COUNTER_CLOCKWISE;
     float lineWidth = 1.0f;
 
     // Multisampling

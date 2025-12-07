@@ -140,7 +140,7 @@ void Renderer::CreateSyncObjects() {
     syncObjects->CreateSyncObjects(swapChain->GetImages().size());
 }
 
-void Renderer::DrawFrame(Scene& scene, uint32_t currentFrame) {
+void Renderer::DrawFrame(Scene& scene, uint32_t currentFrame, const glm::mat4& viewMatrix, const glm::mat4& projMatrix) {
     // Wait for this frame's fence
     VkFence fence = syncObjects->GetInFlightFence(currentFrame);
     vkWaitForFences(device->GetDevice(), 1, &fence, VK_TRUE, UINT64_MAX);
@@ -173,7 +173,7 @@ void Renderer::DrawFrame(Scene& scene, uint32_t currentFrame) {
     vkResetFences(device->GetDevice(), 1, &fence);
 
     VkCommandBuffer cmd = commandBuffer->GetCommandBuffer(currentFrame);
-    RecordCommandBuffer(cmd, imageIndex, currentFrame, scene);
+    RecordCommandBuffer(cmd, imageIndex, currentFrame, scene, viewMatrix, projMatrix);
 
     VkSubmitInfo submitInfo{};
     submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
@@ -207,7 +207,9 @@ void Renderer::DrawFrame(Scene& scene, uint32_t currentFrame) {
     vkQueuePresentKHR(device->GetPresentQueue(), &presentInfo);
 }
 
-void Renderer::RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex, uint32_t currentFrame, Scene& scene) {
+void Renderer::RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex,
+    uint32_t currentFrame, Scene& scene,
+    const glm::mat4& viewMatrix, const glm::mat4& projMatrix) {
     vkResetCommandBuffer(cmd, 0);
 
     VkCommandBufferBeginInfo beginInfo{};
@@ -217,8 +219,8 @@ void Renderer::RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex, uin
         throw std::runtime_error("failed to begin recording command buffer!");
     }
 
-    // Render scene to off-screen
-    RenderScene(cmd, currentFrame, scene);
+    // Render scene to off-screen (pass view and proj)
+    RenderScene(cmd, currentFrame, scene, viewMatrix, projMatrix);
 
     // Copy to swap chain
     CopyOffScreenToSwapChain(cmd, imageIndex);
@@ -228,7 +230,8 @@ void Renderer::RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex, uin
     }
 }
 
-void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene) {
+void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene,
+    const glm::mat4& viewMatrix, const glm::mat4& projMatrix) {
     VkRenderPassBeginInfo renderPassInfo{};
     renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
     renderPassInfo.renderPass = renderPass->GetRenderPass();
@@ -243,17 +246,6 @@ void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& sc
     vkCmdBeginRenderPass(cmd, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
     vkCmdBindPipeline(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->GetPipeline());
-
-    vkCmdBindDescriptorSets(
-        cmd,
-        VK_PIPELINE_BIND_POINT_GRAPHICS,
-        graphicsPipeline->GetLayout(),
-        0,
-        1,
-        &descriptorSet->GetDescriptorSets()[currentFrame],
-        0,
-        nullptr
-    );
 
     // Set dynamic states
     VkViewport viewport{};
@@ -275,6 +267,27 @@ void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& sc
     // Draw all objects in the scene
     for (const auto& obj : scene.GetObjects()) {
         if (obj && obj->visible && obj->geometry) {
+            // UPDATE: Use each object's transform!
+            UniformBufferObject ubo{};
+            ubo.model = obj->transform;  // Individual object transform
+            ubo.view = viewMatrix;       // Camera view (passed in)
+            ubo.proj = projMatrix;       // Camera projection (passed in)
+
+            // Update the uniform buffer for this specific object
+            UpdateUniformBuffer(currentFrame, ubo);
+
+            // Bind descriptor set (contains the updated UBO)
+            vkCmdBindDescriptorSets(
+                cmd,
+                VK_PIPELINE_BIND_POINT_GRAPHICS,
+                graphicsPipeline->GetLayout(),
+                0,
+                1,
+                &descriptorSet->GetDescriptorSets()[currentFrame],
+                0,
+                nullptr
+            );
+
             obj->geometry->Bind(cmd);
             obj->geometry->Draw(cmd);
         }
