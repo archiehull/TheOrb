@@ -54,6 +54,12 @@
     <ClCompile Include="src\vulkan\VulkanShader.cpp">
       <Filter>Source Files\src\vulkan</Filter>
     </ClCompile>
+    <ClCompile Include="src\vulkan\VulkanCommandBuffer.cpp">
+      <Filter>Source Files\src\vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vulkan\VulkanSyncObjects.cpp">
+      <Filter>Source Files\src\vulkan</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\Window.h">
@@ -78,6 +84,12 @@
       <Filter>Source Files\src\vulkan</Filter>
     </ClInclude>
     <ClInclude Include="src\vulkan\VulkanShader.h">
+      <Filter>Source Files\src\vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vulkan\VulkanCommandBuffer.h">
+      <Filter>Source Files\src\vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vulkan\VulkanSyncObjects.h">
       <Filter>Source Files\src\vulkan</Filter>
     </ClInclude>
   </ItemGroup>

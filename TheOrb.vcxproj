@@ -22,22 +22,26 @@
     <ClCompile Include="src\core\Application.cpp" />
     <ClCompile Include="src\core\Window.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\vulkan\VulkanCommandBuffer.cpp" />
     <ClCompile Include="src\vulkan\VulkanContext.cpp" />
     <ClCompile Include="src\vulkan\VulkanDevice.cpp" />
     <ClCompile Include="src\vulkan\VulkanPipeline.cpp" />
     <ClCompile Include="src\vulkan\VulkanShader.cpp" />
     <ClCompile Include="src\vulkan\VulkanSwapChain.cpp" />
+    <ClCompile Include="src\vulkan\VulkanSyncObjects.cpp" />
     <ClCompile Include="src\vulkan\VulkanUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\Application.h" />
     <ClInclude Include="src\core\VulkanUtils.h" />
     <ClInclude Include="src\core\Window.h" />
+    <ClInclude Include="src\vulkan\VulkanCommandBuffer.h" />
     <ClInclude Include="src\vulkan\VulkanContext.h" />
     <ClInclude Include="src\vulkan\VulkanDevice.h" />
     <ClInclude Include="src\vulkan\VulkanPipeline.h" />
     <ClInclude Include="src\vulkan\VulkanShader.h" />
     <ClInclude Include="src\vulkan\VulkanSwapChain.h" />
+    <ClInclude Include="src\vulkan\VulkanSyncObjects.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="src\shaders\shader.frag">
