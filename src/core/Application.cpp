@@ -61,12 +61,31 @@ void Application::InitVulkan() {
 }
 
 void Application::SetupScene() {
-    scene->AddGrid(10, 10, 0.5f, glm::vec3(0.0f, 0.0f, 0.0f));
+    // Grid parameters
+    const int rows = 10;
+    const int cols = 10;
+    const float cellSize = 0.5f;
 
-	scene->AddCube(glm::vec3(0.0f, 5.5f, 0.0f));
-	scene->AddCube(glm::vec3(5.0f, 0.5f, 0.0f));
-    scene->AddCube(glm::vec3(0.0f, 0.5f, 5.0f));
+    // Add a centered grid at origin (XZ plane, y=0)
+    scene->AddGrid(rows, cols, cellSize, glm::vec3(0.0f, 0.0f, 0.0f));
 
+    // Compute grid extents (GeometryGenerator centers the grid)
+    const float width = cols * cellSize;
+    const float depth = rows * cellSize;
+    const float startX = -width * 0.5f;
+    const float startZ = -depth * 0.5f;
+
+    // Cube sits on grid: cube half-height = 0.5 -> center y = 0.5
+    const float cubeY = 0.5f;
+
+    // Four corners in XZ plane (bottom-left, bottom-right, top-right, top-left)
+    scene->AddCube(glm::vec3(startX, cubeY, startZ));                    // bottom-left
+    scene->AddCube(glm::vec3(startX + width, cubeY, startZ));            // bottom-right
+    scene->AddCube(glm::vec3(startX + width, cubeY, startZ + depth));    // top-right
+    scene->AddCube(glm::vec3(startX, cubeY, startZ + depth));            // top-left
+
+    // Floating cube in the center, above the grid
+    scene->AddCube(glm::vec3(0.0f, 2.0f, 0.0f));
 }
 
 void Application::RecreateSwapChain() {
@@ -115,13 +134,8 @@ void Application::MainLoop() {
             vulkanSwapChain->GetExtent().width / (float)vulkanSwapChain->GetExtent().height
         );
 
-        // Pass view and proj to renderer
+        // Pass matrices to renderer (UBO update now happens in RenderScene)
         renderer->DrawFrame(*scene, currentFrame, viewMatrix, projMatrix);
-
-        // Handle swapchain recreation if needed
-        if (framebufferResized) {
-            RecreateSwapChain();
-        }
 
         currentFrame = (currentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
     }

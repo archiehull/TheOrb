@@ -1,3 +1,6 @@
-﻿  Renderer.cpp
+﻿  Application.cpp
+  main.cpp
+  Renderer.cpp
 C:\Users\663073\Workspace\TheOrb\src\rendering\Renderer.cpp(140,63): warning C4267: 'argument': conversion from 'size_t' to 'uint32_t', possible loss of data
+  Generating Code...
   TheOrb.vcxproj -> C:\Users\663073\Workspace\TheOrb\x64\Debug\TheOrb.exe

@@ -95,19 +95,19 @@ void GraphicsPipeline::Create() {
     colorBlending.attachmentCount = 1;
     colorBlending.pAttachments = &colorBlendAttachment;
 
-    // Pipeline layout
+    // Push constant range for model matrix
+    VkPushConstantRange pushConstantRange{};
+    pushConstantRange.stageFlags = VK_SHADER_STAGE_VERTEX_BIT;
+    pushConstantRange.offset = 0;
+    pushConstantRange.size = sizeof(glm::mat4);  // Size of model matrix
+
+    // Pipeline layout with descriptor set and push constants
     VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
     pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-
-    if (config.descriptorSetLayout != VK_NULL_HANDLE) {
-        pipelineLayoutInfo.setLayoutCount = 1;
-        pipelineLayoutInfo.pSetLayouts = &config.descriptorSetLayout;
-    }
-    else {
-        pipelineLayoutInfo.setLayoutCount = 0;
-    }
-
-    pipelineLayoutInfo.pushConstantRangeCount = 0;
+    pipelineLayoutInfo.setLayoutCount = 1;
+    pipelineLayoutInfo.pSetLayouts = &config.descriptorSetLayout;
+    pipelineLayoutInfo.pushConstantRangeCount = 1;       // Add this
+    pipelineLayoutInfo.pPushConstantRanges = &pushConstantRange;  // Add this
 
     if (vkCreatePipelineLayout(device, &pipelineLayoutInfo, nullptr, &pipelineLayout) != VK_SUCCESS) {
         throw std::runtime_error("failed to create pipeline layout!");

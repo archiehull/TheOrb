@@ -264,28 +264,38 @@ void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& sc
 
     vkCmdSetLineWidth(cmd, 1.0f);
 
+    // Update uniform buffer ONCE per frame with view and projection only
+    UniformBufferObject ubo{};
+    ubo.view = viewMatrix;
+    ubo.proj = projMatrix;
+    UpdateUniformBuffer(currentFrame, ubo);
+
+    // Bind descriptor set once (contains view/proj)
+    vkCmdBindDescriptorSets(
+        cmd,
+        VK_PIPELINE_BIND_POINT_GRAPHICS,
+        graphicsPipeline->GetLayout(),
+        0,
+        1,
+        &descriptorSet->GetDescriptorSets()[currentFrame],
+        0,
+        nullptr
+    );
+
     // Draw all objects in the scene
     for (const auto& obj : scene.GetObjects()) {
         if (obj && obj->visible && obj->geometry) {
-            // UPDATE: Use each object's transform!
-            UniformBufferObject ubo{};
-            ubo.model = obj->transform;  // Individual object transform
-            ubo.view = viewMatrix;       // Camera view (passed in)
-            ubo.proj = projMatrix;       // Camera projection (passed in)
+            // Push the model matrix for THIS specific object
+            PushConstantObject pco{};
+            pco.model = obj->transform;
 
-            // Update the uniform buffer for this specific object
-            UpdateUniformBuffer(currentFrame, ubo);
-
-            // Bind descriptor set (contains the updated UBO)
-            vkCmdBindDescriptorSets(
+            vkCmdPushConstants(
                 cmd,
-                VK_PIPELINE_BIND_POINT_GRAPHICS,
                 graphicsPipeline->GetLayout(),
+                VK_SHADER_STAGE_VERTEX_BIT,
                 0,
-                1,
-                &descriptorSet->GetDescriptorSets()[currentFrame],
-                0,
-                nullptr
+                sizeof(PushConstantObject),
+                &pco
             );
 
             obj->geometry->Bind(cmd);

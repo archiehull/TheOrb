@@ -53,6 +53,7 @@
     <ClInclude Include="src\rendering\CameraController.h" />
     <ClInclude Include="src\rendering\Renderer.h" />
     <ClInclude Include="src\rendering\Scene.h" />
+    <ClInclude Include="src\vulkan\PushConstantObject.h" />
     <ClInclude Include="src\vulkan\UniformBufferObject.h" />
     <ClInclude Include="src\vulkan\Vertex.h" />
     <ClInclude Include="src\vulkan\VulkanBuffer.h" />

@@ -167,6 +167,9 @@
     <ClInclude Include="src\rendering\CameraController.h">
       <Filter>Source Files\src\rendering</Filter>
     </ClInclude>
+    <ClInclude Include="src\vulkan\PushConstantObject.h">
+      <Filter>Source Files\src\vulkan</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="src\shaders\shader.frag">

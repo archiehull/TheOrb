@@ -8,6 +8,7 @@
 #include "../vulkan/VulkanSyncObjects.h"
 #include "../vulkan/VulkanDescriptorSet.h"
 #include "../vulkan/UniformBufferObject.h"
+#include "../vulkan/PushConstantObject.h"
 #include "../pipelines/GraphicsPipeline.h"
 
 #include <memory>
@@ -58,10 +59,8 @@ private:
     void CreateUniformBuffers();
     void CreateDescriptorSets();
 
-    void RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex, uint32_t currentFrame,
-        Scene& scene, const glm::mat4& viewMatrix, const glm::mat4& projMatrix);
-    void RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene,
-        const glm::mat4& viewMatrix, const glm::mat4& projMatrix);
+    void RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex, uint32_t currentFrame, Scene& scene, const glm::mat4& viewMatrix, const glm::mat4& projMatrix);
+    void RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene, const glm::mat4& viewMatrix, const glm::mat4& projMatrix);
     void CopyOffScreenToSwapChain(VkCommandBuffer cmd, uint32_t imageIndex);
 
     void CleanupOffScreenResources();
