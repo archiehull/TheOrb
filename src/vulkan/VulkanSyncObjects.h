@@ -1,28 +1,37 @@
 #pragma once
 
-#define GLFW_INCLUDE_VULKAN
-#include <GLFW/glfw3.h>
+#include <vulkan/vulkan.h>
 #include <vector>
 
 class VulkanSyncObjects {
 public:
-    VulkanSyncObjects(VkDevice device, size_t maxFramesInFlight = 2);
+    VulkanSyncObjects(VkDevice device, uint32_t maxFramesInFlight);
     ~VulkanSyncObjects();
 
-    void CreateSyncObjects(size_t swapChainImageCount);
+    void CreateSyncObjects(uint32_t swapChainImageCount);
     void Cleanup();
 
-    VkSemaphore GetImageAvailableSemaphore(size_t frame) const { return imageAvailableSemaphores[frame]; }
-    VkSemaphore GetRenderFinishedSemaphore(size_t imageIndex) const { return renderFinishedSemaphores[imageIndex]; }
-    VkFence GetInFlightFence(size_t frame) const { return inFlightFences[frame]; }
+    // Per-swapchain-image semaphores (indexed by imageIndex)
+    VkSemaphore GetImageAvailableSemaphore(uint32_t imageIndex) const;
+    VkSemaphore GetRenderFinishedSemaphore(uint32_t imageIndex) const;
 
-    size_t GetMaxFramesInFlight() const { return maxFramesInFlight; }
+    // Per-frame-in-flight fences (indexed by currentFrame)
+    VkFence GetInFlightFence(uint32_t currentFrame) const;
+
+    // Track which fence is using which image
+    VkFence& GetImageInFlight(uint32_t imageIndex);
 
 private:
     VkDevice device;
-    size_t maxFramesInFlight;
+    uint32_t maxFramesInFlight;
 
+    // One semaphore per swapchain image (usually 2-3)
     std::vector<VkSemaphore> imageAvailableSemaphores;
-    std::vector<VkSemaphore> renderFinishedSemaphores; // One per swap chain image
+    std::vector<VkSemaphore> renderFinishedSemaphores;
+
+    // One fence per frame in flight (2)
     std::vector<VkFence> inFlightFences;
+
+    // Track which frame's fence is using which swapchain image
+    std::vector<VkFence> imagesInFlight;
 };

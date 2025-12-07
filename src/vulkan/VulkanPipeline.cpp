@@ -61,7 +61,11 @@ void VulkanPipeline::CreateRenderPass(bool offScreen) {
     }
 }
 
-void VulkanPipeline::CreateGraphicsPipeline(const std::string& vertShaderPath, const std::string& fragShaderPath) {
+void VulkanPipeline::CreateGraphicsPipeline(const std::string& vertShaderPath,
+    const std::string& fragShaderPath,
+    VkVertexInputBindingDescription* bindingDescription,
+    VkVertexInputAttributeDescription* attributeDescriptions,
+    uint32_t attributeCount) {
     // Load shaders
     shader->LoadShader(vertShaderPath, VK_SHADER_STAGE_VERTEX_BIT);
     shader->LoadShader(fragShaderPath, VK_SHADER_STAGE_FRAGMENT_BIT);
@@ -81,11 +85,20 @@ void VulkanPipeline::CreateGraphicsPipeline(const std::string& vertShaderPath, c
 
     VkPipelineShaderStageCreateInfo shaderStages[] = { vertShaderStageInfo, fragShaderStageInfo };
 
-    // Vertex input
+    // Vertex input - NOW WITH SUPPORT FOR VERTEX BUFFERS
     VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
     vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
-    vertexInputInfo.vertexBindingDescriptionCount = 0;
-    vertexInputInfo.vertexAttributeDescriptionCount = 0;
+
+    if (bindingDescription != nullptr && attributeDescriptions != nullptr) {
+        vertexInputInfo.vertexBindingDescriptionCount = 1;
+        vertexInputInfo.pVertexBindingDescriptions = bindingDescription;
+        vertexInputInfo.vertexAttributeDescriptionCount = attributeCount;
+        vertexInputInfo.pVertexAttributeDescriptions = attributeDescriptions;
+    }
+    else {
+        vertexInputInfo.vertexBindingDescriptionCount = 0;
+        vertexInputInfo.vertexAttributeDescriptionCount = 0;
+    }
 
     // Input assembly
     VkPipelineInputAssemblyStateCreateInfo inputAssembly{};

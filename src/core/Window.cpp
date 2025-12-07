@@ -7,7 +7,7 @@ Window::Window(uint32_t width, uint32_t height, const std::string& title)
 }
 
 Window::~Window() {
-    cleanup();
+    Cleanup();
 }
 
 void Window::initWindow() {
@@ -38,7 +38,7 @@ void Window::SetFramebufferResizeCallback(GLFWframebuffersizefun callback) {
     glfwSetFramebufferSizeCallback(window, callback);
 }
 
-void Window::cleanup() {
+void Window::Cleanup() {
     if (window) {
         glfwDestroyWindow(window);
         window = nullptr;

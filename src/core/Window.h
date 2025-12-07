@@ -18,7 +18,7 @@ public:
 
 private:
     void initWindow();
-    void cleanup();
+    void Cleanup();
 
     uint32_t width;
     uint32_t height;
