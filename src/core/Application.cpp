@@ -31,6 +31,14 @@ void Application::InitVulkan() {
     );
     vulkanSwapChain->Create(vulkanDevice->GetQueueFamilies());
     vulkanSwapChain->CreateImageViews();
+
+    vulkanPipeline = std::make_unique<VulkanPipeline>(
+        vulkanDevice->GetDevice(),
+        vulkanSwapChain->GetExtent(),
+        vulkanSwapChain->GetImageFormat()
+	);  
+	vulkanPipeline->CreateRenderPass();
+    vulkanPipeline->CreateGraphicsPipeline("src/shaders/vert.spv", "src/shaders/frag.spv");
 }
 
 void Application::MainLoop() {
@@ -40,6 +48,10 @@ void Application::MainLoop() {
 }
 
 void Application::Cleanup() {
+    if (vulkanPipeline) {
+        vulkanPipeline->Cleanup();
+    }
+
     if (vulkanSwapChain) {
         vulkanSwapChain->Cleanup();
     }

@@ -4,6 +4,8 @@
 #include "vulkan/VulkanContext.h"
 #include "vulkan/VulkanDevice.h"
 #include "vulkan/VulkanSwapChain.h"
+#include "vulkan/VulkanPipeline.h"
+
 #include <memory>
 
 class Application {
@@ -22,4 +24,5 @@ private:
     std::unique_ptr<VulkanContext> vulkanContext;
     std::unique_ptr<VulkanDevice> vulkanDevice;
     std::unique_ptr<VulkanSwapChain> vulkanSwapChain;
+    std::unique_ptr<VulkanPipeline> vulkanPipeline;
 };

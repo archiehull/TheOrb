@@ -1,0 +1,4 @@
+^C:\USERS\663073\WORKSPACE\THEORB\SRC\SHADERS\SHADER.FRAG
+glslc ".\src\shaders\shader.frag" -o ".\src\shaders\frag.spv"
+^C:\USERS\663073\WORKSPACE\THEORB\SRC\SHADERS\SHADER.VERT
+glslc ".\src\shaders\shader.vert" -o ".\src\shaders\vert.spv"

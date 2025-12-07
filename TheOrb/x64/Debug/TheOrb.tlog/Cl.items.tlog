@@ -3,5 +3,7 @@ C:\Users\663073\Workspace\TheOrb\src\core\Window.cpp;C:\Users\663073\Workspace\T
 C:\Users\663073\Workspace\TheOrb\src\main.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\main.obj
 C:\Users\663073\Workspace\TheOrb\src\vulkan\VulkanContext.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\VulkanContext.obj
 C:\Users\663073\Workspace\TheOrb\src\vulkan\VulkanDevice.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\VulkanDevice.obj
+C:\Users\663073\Workspace\TheOrb\src\vulkan\VulkanPipeline.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\VulkanPipeline.obj
+C:\Users\663073\Workspace\TheOrb\src\vulkan\VulkanShader.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\VulkanShader.obj
 C:\Users\663073\Workspace\TheOrb\src\vulkan\VulkanSwapChain.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\VulkanSwapChain.obj
 C:\Users\663073\Workspace\TheOrb\src\vulkan\VulkanUtils.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\VulkanUtils.obj

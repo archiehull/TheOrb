@@ -24,6 +24,8 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\vulkan\VulkanContext.cpp" />
     <ClCompile Include="src\vulkan\VulkanDevice.cpp" />
+    <ClCompile Include="src\vulkan\VulkanPipeline.cpp" />
+    <ClCompile Include="src\vulkan\VulkanShader.cpp" />
     <ClCompile Include="src\vulkan\VulkanSwapChain.cpp" />
     <ClCompile Include="src\vulkan\VulkanUtils.cpp" />
   </ItemGroup>
@@ -33,7 +35,29 @@
     <ClInclude Include="src\core\Window.h" />
     <ClInclude Include="src\vulkan\VulkanContext.h" />
     <ClInclude Include="src\vulkan\VulkanDevice.h" />
+    <ClInclude Include="src\vulkan\VulkanPipeline.h" />
+    <ClInclude Include="src\vulkan\VulkanShader.h" />
     <ClInclude Include="src\vulkan\VulkanSwapChain.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="src\shaders\shader.frag">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">glslc ".\src\shaders\shader.frag" -o ".\src\shaders\frag.spv"</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\src\shaders\frag.spv</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">glslc ".\src\shaders\shader.frag" -o ".\src\shaders\frag.spv"</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\src\shaders\frag.spv</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="src\shaders\shader.vert">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">glslc ".\src\shaders\shader.vert" -o ".\src\shaders\vert.spv"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">glslc ".\src\shaders\shader.vert" -o ".\src\shaders\vert.spv"</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\src\shaders\vert.spv</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\src\shaders\vert.spv</Outputs>
+    </CustomBuild>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

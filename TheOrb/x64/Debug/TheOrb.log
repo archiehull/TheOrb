@@ -1,9 +1,2 @@
 ﻿  Application.cpp
-  Window.cpp
-  main.cpp
-  VulkanContext.cpp
-  VulkanDevice.cpp
-  VulkanSwapChain.cpp
-  VulkanUtils.cpp
-  Generating Code...
   TheOrb.vcxproj -> C:\Users\663073\Workspace\TheOrb\x64\Debug\TheOrb.exe

@@ -22,6 +22,9 @@
     <Filter Include="Source Files\src\vulkan">
       <UniqueIdentifier>{3a0f89c0-3e2d-4605-8788-1ebabf930409}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\src\shader">
+      <UniqueIdentifier>{25eafd59-90b9-41d5-b76e-9be264687a53}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -45,6 +48,12 @@
     <ClCompile Include="src\core\Application.cpp">
       <Filter>Source Files\src\core</Filter>
     </ClCompile>
+    <ClCompile Include="src\vulkan\VulkanPipeline.cpp">
+      <Filter>Source Files\src\vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vulkan\VulkanShader.cpp">
+      <Filter>Source Files\src\vulkan</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\Window.h">
@@ -65,5 +74,19 @@
     <ClInclude Include="src\core\VulkanUtils.h">
       <Filter>Source Files\src\vulkan</Filter>
     </ClInclude>
+    <ClInclude Include="src\vulkan\VulkanPipeline.h">
+      <Filter>Source Files\src\vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vulkan\VulkanShader.h">
+      <Filter>Source Files\src\vulkan</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="src\shaders\shader.frag">
+      <Filter>Source Files\src\shader</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\shaders\shader.vert">
+      <Filter>Source Files\src\shader</Filter>
+    </CustomBuild>
   </ItemGroup>
 </Project>
