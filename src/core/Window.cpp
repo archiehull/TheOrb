@@ -16,7 +16,7 @@ void Window::initWindow() {
     }
 
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 
     window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
 
@@ -32,6 +32,10 @@ bool Window::ShouldClose() const {
 
 void Window::PollEvents() const {
     glfwPollEvents();
+}
+
+void Window::SetFramebufferResizeCallback(GLFWframebuffersizefun callback) {
+    glfwSetFramebufferSizeCallback(window, callback);
 }
 
 void Window::cleanup() {

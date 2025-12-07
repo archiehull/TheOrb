@@ -91,7 +91,7 @@ void Application::DrawFrame() {
     );
 
     if (result == VK_ERROR_OUT_OF_DATE_KHR) {
-        // Swap chain needs to be recreated
+        RecreateSwapChain();
         return;
     }
     else if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR) {
@@ -158,14 +158,62 @@ void Application::DrawFrame() {
 
     result = vkQueuePresentKHR(vulkanDevice->GetPresentQueue(), &presentInfo);
 
-    if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR) {
-        // Swap chain needs to be recreated
+    if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || framebufferResized) {
+        framebufferResized = false;
+        RecreateSwapChain();
     }
     else if (result != VK_SUCCESS) {
         throw std::runtime_error("failed to present swap chain image!");
     }
 
     currentFrame = (currentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
+}
+
+void Application::RecreateSwapChain() {
+    // Handle minimization
+    int width = 0, height = 0;
+    glfwGetFramebufferSize(window->GetGLFWWindow(), &width, &height);
+    while (width == 0 || height == 0) {
+        glfwGetFramebufferSize(window->GetGLFWWindow(), &width, &height);
+        glfwWaitEvents();
+    }
+
+    // Wait for device to finish operations
+    vkDeviceWaitIdle(vulkanDevice->GetDevice());
+
+    // Cleanup old swap chain resources
+    CleanupSwapChain();
+
+    // Recreate swap chain
+    vulkanSwapChain->Create(vulkanDevice->GetQueueFamilies());
+    vulkanSwapChain->CreateImageViews();
+
+    // Recreate pipeline with new swap chain extent
+    vulkanPipeline = std::make_unique<VulkanPipeline>(
+        vulkanDevice->GetDevice(),
+        vulkanDevice->GetPhysicalDevice(),
+        vulkanSwapChain->GetExtent(),
+        vulkanSwapChain->GetImageFormat()
+    );
+    vulkanPipeline->CreateRenderPass(true);
+    vulkanPipeline->CreateGraphicsPipeline("src/shaders/vert.spv", "src/shaders/frag.spv");
+    vulkanPipeline->CreateOffScreenResources();
+
+    // Recreate synchronization objects for new swap chain image count
+    vulkanSyncObjects->Cleanup();
+    vulkanSyncObjects->CreateSyncObjects(vulkanSwapChain->GetImages().size());
+}
+
+void Application::CleanupSwapChain() {
+    // Cleanup pipeline (includes off-screen resources)
+    if (vulkanPipeline) {
+        vulkanPipeline->Cleanup();
+    }
+
+    // Cleanup swap chain
+    if (vulkanSwapChain) {
+        vulkanSwapChain->Cleanup();
+    }
 }
 
 void Application::RenderOffScreen(VkCommandBuffer commandBuffer) {
@@ -292,20 +340,15 @@ void Application::CopyOffScreenToSwapChain(VkCommandBuffer commandBuffer, uint32
 }
 
 void Application::Cleanup() {
+    // Cleanup swap chain resources
+    CleanupSwapChain();
+
     if (vulkanSyncObjects) {
         vulkanSyncObjects->Cleanup();
     }
 
     if (vulkanCommandBuffer) {
         vulkanCommandBuffer->Cleanup();
-    }
-
-    if (vulkanPipeline) {
-        vulkanPipeline->Cleanup();
-    }
-
-    if (vulkanSwapChain) {
-        vulkanSwapChain->Cleanup();
     }
 
     if (vulkanDevice) {

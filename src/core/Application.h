@@ -21,6 +21,8 @@ private:
     void InitVulkan();
     void MainLoop();
     void DrawFrame();
+    void RecreateSwapChain();
+    void CleanupSwapChain();
     void RenderOffScreen(VkCommandBuffer commandBuffer);
     void CopyOffScreenToSwapChain(VkCommandBuffer commandBuffer, uint32_t imageIndex);
     void Cleanup();
@@ -34,5 +36,6 @@ private:
     std::unique_ptr<VulkanSyncObjects> vulkanSyncObjects;
 
     uint32_t currentFrame = 0;
+    bool framebufferResized = false;
     static constexpr int MAX_FRAMES_IN_FLIGHT = 2;
 };
