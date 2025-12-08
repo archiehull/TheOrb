@@ -20,10 +20,12 @@ void Renderer::Initialize() {
     );
 
     CreateUniformBuffers();
+
+    CreateCommandBuffer();
+
     CreateDescriptorSets();
 
     CreatePipeline();
-    CreateCommandBuffer();
     CreateSyncObjects();
 }
 
@@ -63,13 +65,27 @@ void Renderer::CreateDescriptorSets() {
     descriptorSet->CreateDescriptorSetLayout();
     descriptorSet->CreateDescriptorPool(MAX_FRAMES_IN_FLIGHT);
 
+    // Load texture (uses command pool and graphics queue)
+    texture = std::make_unique<Texture>(
+        device->GetDevice(),
+        device->GetPhysicalDevice(),
+        commandBuffer->GetCommandPool(),
+        device->GetGraphicsQueue()
+    );
+
+    // Use project-relative path to texture; update as needed
+    if (!texture->LoadFromFile("textures/desert.jpg")) {
+        throw std::runtime_error("failed to load texture textures/desert.jpg");
+    }
+
     // Get VkBuffer handles from VulkanBuffer wrappers
     std::vector<VkBuffer> buffers;
     for (const auto& uniformBuffer : uniformBuffers) {
         buffers.push_back(uniformBuffer->GetBuffer());
     }
 
-    descriptorSet->CreateDescriptorSets(buffers, sizeof(UniformBufferObject));
+    // Pass texture image view + sampler to descriptor set creation
+    descriptorSet->CreateDescriptorSets(buffers, sizeof(UniformBufferObject), texture->GetImageView(), texture->GetSampler());
 }
 
 void Renderer::UpdateUniformBuffer(uint32_t currentFrame, const UniformBufferObject& ubo) {

@@ -106,15 +106,17 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateGrid(VkDevice device, VkPhysi
     float startX = -width / 2.0f;
     float startY = -height / 2.0f;
 
-    // Generate vertices
+    // Generate vertices (including UVs)
     for (int row = 0; row <= rows; ++row) {
         for (int col = 0; col <= cols; ++col) {
             float x = startX + col * cellSize;
             float y = startY + row * cellSize;
 
             glm::vec3 color = GenerateColor(row * (cols + 1) + col, (rows + 1) * (cols + 1));
+            glm::vec2 uv = glm::vec2(static_cast<float>(col) / static_cast<float>(cols),
+                static_cast<float>(row) / static_cast<float>(rows));
             // Place grid in the XZ plane (horizontal) at y = 0
-            geometry->GetVertices().push_back({ glm::vec3(x, 0.0f, y), color });
+            geometry->GetVertices().push_back({ glm::vec3(x, 0.0f, y), color, uv });
         }
     }
 

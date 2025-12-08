@@ -10,6 +10,7 @@
 #include "../vulkan/UniformBufferObject.h"
 #include "../vulkan/PushConstantObject.h"
 #include "../pipelines/GraphicsPipeline.h"
+#include "../rendering/Texture.h"
 
 #include <memory>
 
@@ -54,6 +55,9 @@ private:
     std::vector<std::unique_ptr<VulkanBuffer>> uniformBuffers;
     std::vector<void*> uniformBuffersMapped;
     std::unique_ptr<VulkanDescriptorSet> descriptorSet;
+
+    // Texture for grid
+    std::unique_ptr<Texture> texture; // added
 
     // Helper functions
     void CreateRenderPass();

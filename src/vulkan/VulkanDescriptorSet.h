@@ -10,7 +10,8 @@ public:
 
     void CreateDescriptorSetLayout();
     void CreateDescriptorPool(uint32_t maxSets);
-    void CreateDescriptorSets(const std::vector<VkBuffer>& uniformBuffers, VkDeviceSize bufferSize);
+    // now accepts texture imageView + sampler
+    void CreateDescriptorSets(const std::vector<VkBuffer>& uniformBuffers, VkDeviceSize bufferSize, VkImageView textureImageView, VkSampler textureSampler);
 
     void Cleanup();
 

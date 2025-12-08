@@ -99,6 +99,9 @@
     <ClCompile Include="src\rendering\CameraController.cpp">
       <Filter>Source Files\src\rendering</Filter>
     </ClCompile>
+    <ClCompile Include="src\rendering\Texture.cpp">
+      <Filter>Source Files\src\rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\Window.h">
@@ -169,6 +172,9 @@
     </ClInclude>
     <ClInclude Include="src\vulkan\PushConstantObject.h">
       <Filter>Source Files\src\vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rendering\Texture.h">
+      <Filter>Source Files\src\rendering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
