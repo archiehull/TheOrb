@@ -34,8 +34,8 @@ private:
     VkSurfaceKHR surface;
     VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
     VkDevice device = VK_NULL_HANDLE;
-    VkQueue graphicsQueue;
-    VkQueue presentQueue;
+    VkQueue graphicsQueue = VK_NULL_HANDLE;
+    VkQueue presentQueue = VK_NULL_HANDLE;
 
     QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device) const;
     bool isDeviceSuitable(VkPhysicalDevice device) const;

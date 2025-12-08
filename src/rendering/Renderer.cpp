@@ -137,7 +137,14 @@ void Renderer::CreateSyncObjects() {
         device->GetDevice(),
         MAX_FRAMES_IN_FLIGHT
     );
-    syncObjects->CreateSyncObjects(swapChain->GetImages().size());
+
+    // Explicitly cast size_t -> uint32_t and guard against empty swapchain
+    uint32_t imageCount = static_cast<uint32_t>(swapChain->GetImages().size());
+    if (imageCount == 0) {
+        throw std::runtime_error("swap chain contains no images");
+    }
+
+    syncObjects->CreateSyncObjects(imageCount);
 }
 
 void Renderer::DrawFrame(Scene& scene, uint32_t currentFrame, const glm::mat4& viewMatrix, const glm::mat4& projMatrix) {

@@ -84,6 +84,9 @@ void VulkanDevice::Cleanup() {
         vkDestroyDevice(device, nullptr);
         device = VK_NULL_HANDLE;
     }
+
+    graphicsQueue = VK_NULL_HANDLE;
+    presentQueue = VK_NULL_HANDLE;
 }
 
 QueueFamilyIndices VulkanDevice::findQueueFamilies(VkPhysicalDevice device) const {
