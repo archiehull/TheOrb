@@ -89,9 +89,12 @@ bool Texture::LoadFromFile(const std::string& filepath) {
         throw std::runtime_error("failed to create texture image view!");
     }
 
-    // sampler with anisotropy (clamp to device limit)
+    // sampler with anisotropy (clamp to device limit) - enable only if device supports it
     VkPhysicalDeviceProperties properties{};
     vkGetPhysicalDeviceProperties(physicalDevice, &properties);
+
+    VkPhysicalDeviceFeatures deviceFeatures{};
+    vkGetPhysicalDeviceFeatures(physicalDevice, &deviceFeatures);
 
     VkSamplerCreateInfo samplerInfo{};
     samplerInfo.sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;
@@ -100,9 +103,14 @@ bool Texture::LoadFromFile(const std::string& filepath) {
     samplerInfo.addressModeU = VK_SAMPLER_ADDRESS_MODE_REPEAT;
     samplerInfo.addressModeV = VK_SAMPLER_ADDRESS_MODE_REPEAT;
     samplerInfo.addressModeW = VK_SAMPLER_ADDRESS_MODE_REPEAT;
-    samplerInfo.anisotropyEnable = VK_TRUE;
-    float maxAniso = std::min<float>(properties.limits.maxSamplerAnisotropy, 16.0f);
-    samplerInfo.maxAnisotropy = maxAniso;
+    samplerInfo.anisotropyEnable = deviceFeatures.samplerAnisotropy ? VK_TRUE : VK_FALSE;
+    if (samplerInfo.anisotropyEnable == VK_TRUE) {
+        float maxAniso = std::min<float>(properties.limits.maxSamplerAnisotropy, 16.0f);
+        samplerInfo.maxAnisotropy = maxAniso;
+    }
+    else {
+        samplerInfo.maxAnisotropy = 1.0f;
+    }
     samplerInfo.borderColor = VK_BORDER_COLOR_INT_OPAQUE_BLACK;
     samplerInfo.unnormalizedCoordinates = VK_FALSE;
     samplerInfo.compareEnable = VK_FALSE;

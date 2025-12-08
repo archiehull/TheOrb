@@ -1,15 +1,6 @@
-﻿  Performing Custom Build Tools
-  Performing Custom Build Tools
-  Application.cpp
-  Geometry.cpp
-  GeometryGenerator.cpp
-C:\Users\663073\Workspace\TheOrb\src\geometry\GeometryGenerator.cpp(49,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  main.cpp
-  GraphicsPipeline.cpp
-  Renderer.cpp
-  Scene.cpp
+﻿  Renderer.cpp
   Texture.cpp
-  VulkanDescriptorSet.cpp
+  VulkanBuffer.cpp
+  VulkanDevice.cpp
   Generating Code...
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
   TheOrb.vcxproj -> C:\Users\663073\Workspace\TheOrb\x64\Debug\TheOrb.exe

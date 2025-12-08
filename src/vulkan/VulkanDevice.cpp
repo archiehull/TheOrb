@@ -53,7 +53,12 @@ void VulkanDevice::CreateLogicalDevice() {
         queueCreateInfos.push_back(queueCreateInfo);
     }
 
+    // Query available features and request anisotropy only if supported
+    VkPhysicalDeviceFeatures availableFeatures{};
+    vkGetPhysicalDeviceFeatures(physicalDevice, &availableFeatures);
+
     VkPhysicalDeviceFeatures deviceFeatures{};
+    deviceFeatures.samplerAnisotropy = availableFeatures.samplerAnisotropy ? VK_TRUE : VK_FALSE;
 
     VkDeviceCreateInfo createInfo{};
     createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;

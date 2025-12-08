@@ -7,6 +7,7 @@ VulkanBuffer::VulkanBuffer(VkDevice device, VkPhysicalDevice physicalDevice)
 }
 
 VulkanBuffer::~VulkanBuffer() {
+    Cleanup();
 }
 
 void VulkanBuffer::CreateBuffer(VkDeviceSize size, VkBufferUsageFlags usage,
