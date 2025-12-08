@@ -3,11 +3,11 @@
 layout(location = 0) in vec3 fragColor;
 layout(location = 1) in vec2 fragUV;
 
-layout(binding = 1) uniform sampler2D texSampler;
+// Set 1: Per-Object Texture
+layout(set = 1, binding = 0) uniform sampler2D texSampler;
+
 layout(location = 0) out vec4 outColor;
 
 void main() {
-    vec4 tex = texture(texSampler, fragUV);
-    // Use texture color (optionally modulate with vertex color)
-    outColor = tex; // or vec4(fragColor, 1.0) * tex;
+    outColor = texture(texSampler, fragUV);
 }

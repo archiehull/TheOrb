@@ -1,6 +1,7 @@
 #include "Renderer.h"
 #include "../vulkan/Vertex.h"
 #include <stdexcept>
+#include <iostream>
 
 Renderer::Renderer(VulkanDevice* device, VulkanSwapChain* swapChain)
     : device(device), swapChain(swapChain) {
@@ -12,20 +13,25 @@ Renderer::~Renderer() {
 void Renderer::Initialize() {
     CreateRenderPass();
     CreateOffScreenResources();
-
-    renderPass->CreateOffScreenFramebuffer(
-        offScreenImageView,
-        depthImageView,
-        swapChain->GetExtent()
-    );
-
+    renderPass->CreateOffScreenFramebuffer(offScreenImageView, depthImageView, swapChain->GetExtent());
     CreateUniformBuffers();
-
     CreateCommandBuffer();
 
-    CreateDescriptorSets();
+    // New Order:
+    CreateTextureDescriptorSetLayout();
+    CreateTextureDescriptorPool();
+    CreateDefaultTexture();
 
-    CreatePipeline();
+    // Create Set 0 (Global UBO)
+    descriptorSet = std::make_unique<VulkanDescriptorSet>(device->GetDevice());
+    descriptorSet->CreateDescriptorSetLayout();
+    descriptorSet->CreateDescriptorPool(MAX_FRAMES_IN_FLIGHT);
+
+    std::vector<VkBuffer> buffers;
+    for (const auto& uniformBuffer : uniformBuffers) buffers.push_back(uniformBuffer->GetBuffer());
+    descriptorSet->CreateDescriptorSets(buffers, sizeof(UniformBufferObject)); // No texture args
+
+    CreatePipeline(); // Updated to pass both layouts
     CreateSyncObjects();
 }
 
@@ -59,6 +65,125 @@ void Renderer::CreateUniformBuffers() {
     }
 }
 
+void Renderer::CreateTextureDescriptorSetLayout() {
+    VkDescriptorSetLayoutBinding samplerLayoutBinding{};
+    samplerLayoutBinding.binding = 0; // Binding 0 in Set 1
+    samplerLayoutBinding.descriptorCount = 1;
+    samplerLayoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+    samplerLayoutBinding.pImmutableSamplers = nullptr;
+    samplerLayoutBinding.stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
+
+    VkDescriptorSetLayoutCreateInfo layoutInfo{};
+    layoutInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
+    layoutInfo.bindingCount = 1;
+    layoutInfo.pBindings = &samplerLayoutBinding;
+
+    if (vkCreateDescriptorSetLayout(device->GetDevice(), &layoutInfo, nullptr, &textureSetLayout) != VK_SUCCESS) {
+        throw std::runtime_error("failed to create texture set layout!");
+    }
+}
+
+void Renderer::CreateTextureDescriptorPool() {
+    // Allow for a reasonable number of textures
+    VkDescriptorPoolSize poolSize{};
+    poolSize.type = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+    poolSize.descriptorCount = 100;
+
+    VkDescriptorPoolCreateInfo poolInfo{};
+    poolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
+    poolInfo.poolSizeCount = 1;
+    poolInfo.pPoolSizes = &poolSize;
+    poolInfo.maxSets = 100;
+
+    if (vkCreateDescriptorPool(device->GetDevice(), &poolInfo, nullptr, &textureDescriptorPool) != VK_SUCCESS) {
+        throw std::runtime_error("failed to create texture descriptor pool!");
+    }
+}
+
+void Renderer::CreateDefaultTexture() {
+    defaultTextureResource.texture = std::make_unique<Texture>(
+        device->GetDevice(), device->GetPhysicalDevice(),
+        commandBuffer->GetCommandPool(), device->GetGraphicsQueue());
+
+    // load default.png
+	 defaultTextureResource.texture->LoadFromFile("textures/default.png");
+
+    // Create Descriptor Set
+    VkDescriptorSetAllocateInfo allocInfo{};
+    allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
+    allocInfo.descriptorPool = textureDescriptorPool;
+    allocInfo.descriptorSetCount = 1;
+    allocInfo.pSetLayouts = &textureSetLayout;
+
+    vkAllocateDescriptorSets(device->GetDevice(), &allocInfo, &defaultTextureResource.descriptorSet);
+
+    // Update Descriptor Set
+    VkDescriptorImageInfo imageInfo{};
+    imageInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+    imageInfo.imageView = defaultTextureResource.texture->GetImageView();
+    imageInfo.sampler = defaultTextureResource.texture->GetSampler();
+
+    VkWriteDescriptorSet descriptorWrite{};
+    descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+    descriptorWrite.dstSet = defaultTextureResource.descriptorSet;
+    descriptorWrite.dstBinding = 0;
+    descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+    descriptorWrite.descriptorCount = 1;
+    descriptorWrite.pImageInfo = &imageInfo;
+
+    vkUpdateDescriptorSets(device->GetDevice(), 1, &descriptorWrite, 0, nullptr);
+}
+
+VkDescriptorSet Renderer::GetTextureDescriptorSet(const std::string& path) {
+    if (path.empty()) return defaultTextureResource.descriptorSet;
+
+    // Check cache
+    auto it = textureCache.find(path);
+    if (it != textureCache.end()) {
+        return it->second.descriptorSet;
+    }
+
+    // Load new texture
+    auto texture = std::make_unique<Texture>(
+        device->GetDevice(), device->GetPhysicalDevice(),
+        commandBuffer->GetCommandPool(), device->GetGraphicsQueue());
+
+    if (!texture->LoadFromFile(path)) {
+        std::cerr << "Failed to load texture: " << path << ", using default." << std::endl;
+        return defaultTextureResource.descriptorSet;
+    }
+
+    // Allocate Set
+    VkDescriptorSet descSet;
+    VkDescriptorSetAllocateInfo allocInfo{};
+    allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
+    allocInfo.descriptorPool = textureDescriptorPool;
+    allocInfo.descriptorSetCount = 1;
+    allocInfo.pSetLayouts = &textureSetLayout;
+
+    vkAllocateDescriptorSets(device->GetDevice(), &allocInfo, &descSet);
+
+    // Update Set
+    VkDescriptorImageInfo imageInfo{};
+    imageInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+    imageInfo.imageView = texture->GetImageView();
+    imageInfo.sampler = texture->GetSampler();
+
+    VkWriteDescriptorSet descriptorWrite{};
+    descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+    descriptorWrite.dstSet = descSet;
+    descriptorWrite.dstBinding = 0;
+    descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+    descriptorWrite.descriptorCount = 1;
+    descriptorWrite.pImageInfo = &imageInfo;
+
+    vkUpdateDescriptorSets(device->GetDevice(), 1, &descriptorWrite, 0, nullptr);
+
+    // Store in cache
+    textureCache[path] = { std::move(texture), descSet };
+    return descSet;
+}
+
 void Renderer::CreateDescriptorSets() {
     descriptorSet = std::make_unique<VulkanDescriptorSet>(device->GetDevice());
 
@@ -85,7 +210,7 @@ void Renderer::CreateDescriptorSets() {
     }
 
     // Pass texture image view + sampler to descriptor set creation
-    descriptorSet->CreateDescriptorSets(buffers, sizeof(UniformBufferObject), texture->GetImageView(), texture->GetSampler());
+    descriptorSet->CreateDescriptorSets(buffers, sizeof(UniformBufferObject));
 }
 
 void Renderer::UpdateUniformBuffer(uint32_t currentFrame, const UniformBufferObject& ubo) {
@@ -140,7 +265,10 @@ void Renderer::CreatePipeline() {
     pipelineConfig.bindingDescription = &bindingDescription;
     pipelineConfig.attributeDescriptions = attributeDescriptions.data();
     pipelineConfig.attributeCount = static_cast<uint32_t>(attributeDescriptions.size());
-    pipelineConfig.descriptorSetLayout = descriptorSet->GetLayout();
+    pipelineConfig.descriptorSetLayouts = {
+        descriptorSet->GetLayout(),
+        textureSetLayout
+    };
 
     graphicsPipeline = std::make_unique<GraphicsPipeline>(
         device->GetDevice(),
@@ -354,13 +482,13 @@ void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& sc
 
     // Bind descriptor set once (contains view/proj)
     vkCmdBindDescriptorSets(
-        cmd,
+        cmd, 
         VK_PIPELINE_BIND_POINT_GRAPHICS,
-        graphicsPipeline->GetLayout(),
-        0,
+        graphicsPipeline->GetLayout(), 
+        0, 
         1,
-        &descriptorSet->GetDescriptorSets()[currentFrame],
-        0,
+        &descriptorSet->GetDescriptorSets()[currentFrame], 
+        0, 
         nullptr
     );
 
@@ -379,6 +507,11 @@ void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& sc
                 sizeof(PushConstantObject),
                 &pco
             );
+
+            VkDescriptorSet textureSet = GetTextureDescriptorSet(obj->texturePath);
+            vkCmdBindDescriptorSets(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS,
+                graphicsPipeline->GetLayout(), 1, 1,
+                &textureSet, 0, nullptr);
 
             obj->geometry->Bind(cmd);
             obj->geometry->Draw(cmd);
@@ -541,10 +674,32 @@ void Renderer::Cleanup() {
         descriptorSet.reset();
     }
 
-    // Destroy texture before destroying device-owned resources.
-    if (texture) {
-        texture->Cleanup();
-        texture.reset();
+    // Destroy and free all cached texture resources first (image views, samplers, memory)
+    for (auto& entry : textureCache) {
+        if (entry.second.texture) {
+            entry.second.texture->Cleanup();
+            entry.second.texture.reset();
+        }
+        entry.second.descriptorSet = VK_NULL_HANDLE;
+    }
+    textureCache.clear();
+
+    // Default texture
+    if (defaultTextureResource.texture) {
+        defaultTextureResource.texture->Cleanup();
+        defaultTextureResource.texture.reset();
+    }
+    defaultTextureResource.descriptorSet = VK_NULL_HANDLE;
+
+    // Destroy texture descriptor pool and layout (they own descriptor sets)
+    if (textureDescriptorPool != VK_NULL_HANDLE) {
+        vkDestroyDescriptorPool(device->GetDevice(), textureDescriptorPool, nullptr);
+        textureDescriptorPool = VK_NULL_HANDLE;
+    }
+
+    if (textureSetLayout != VK_NULL_HANDLE) {
+        vkDestroyDescriptorSetLayout(device->GetDevice(), textureSetLayout, nullptr);
+        textureSetLayout = VK_NULL_HANDLE;
     }
 
     if (syncObjects) {

@@ -67,7 +67,7 @@ void Application::SetupScene() {
     const float cellSize = 0.5f;
 
     // Add a centered grid at origin (XZ plane, y=0)
-    scene->AddGrid(rows, cols, cellSize, glm::vec3(0.0f, 0.0f, 0.0f));
+    scene->AddGrid(rows, cols, cellSize, glm::vec3(0.0f, 0.0f, 0.0f), "textures/desert.jpg");
 
     // Compute grid extents (GeometryGenerator centers the grid)
     const float width = cols * cellSize;

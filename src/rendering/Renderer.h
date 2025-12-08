@@ -13,6 +13,8 @@
 #include "../rendering/Texture.h"
 
 #include <memory>
+#include <map>
+
 
 class Renderer {
 public:
@@ -58,6 +60,24 @@ private:
 
     // Texture for grid
     std::unique_ptr<Texture> texture; // added
+
+    // Texture management
+    VkDescriptorSetLayout textureSetLayout = VK_NULL_HANDLE;
+    VkDescriptorPool textureDescriptorPool = VK_NULL_HANDLE;
+
+    // Cache: Path -> {Texture, DescriptorSet}
+    struct TextureResource {
+        std::unique_ptr<Texture> texture;
+        VkDescriptorSet descriptorSet;
+    };
+    std::map<std::string, TextureResource> textureCache;
+
+    // Default texture (white)
+    TextureResource defaultTextureResource;
+    void CreateTextureDescriptorSetLayout();
+    void CreateTextureDescriptorPool();
+    void CreateDefaultTexture();
+    VkDescriptorSet GetTextureDescriptorSet(const std::string& path);
 
     // Helper functions
     void CreateRenderPass();

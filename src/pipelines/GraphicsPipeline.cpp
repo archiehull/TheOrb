@@ -117,8 +117,8 @@ void GraphicsPipeline::Create() {
     // Pipeline layout with descriptor set and push constants
     VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
     pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-    pipelineLayoutInfo.setLayoutCount = 1;
-    pipelineLayoutInfo.pSetLayouts = &config.descriptorSetLayout;
+    pipelineLayoutInfo.setLayoutCount = static_cast<uint32_t>(config.descriptorSetLayouts.size());
+    pipelineLayoutInfo.pSetLayouts = config.descriptorSetLayouts.data();
     pipelineLayoutInfo.pushConstantRangeCount = 1;       // Add this
     pipelineLayoutInfo.pPushConstantRanges = &pushConstantRange;  // Add this
 

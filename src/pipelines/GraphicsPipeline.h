@@ -19,6 +19,7 @@ struct GraphicsPipelineConfig {
 
     // Descriptor set layout (for uniforms)
     VkDescriptorSetLayout descriptorSetLayout = VK_NULL_HANDLE;
+    std::vector<VkDescriptorSetLayout> descriptorSetLayouts;
 
     // Rasterization
     VkPolygonMode polygonMode = VK_POLYGON_MODE_FILL;

@@ -5,14 +5,17 @@
 #include <vector>
 #include <memory>
 #include <glm/glm.hpp>
+#include <string>
 
-// Represents a drawable object in the scene
 struct SceneObject {
     std::unique_ptr<Geometry> geometry;
-    glm::mat4 transform = glm::mat4(1.0f);  // position/rotation/scale
+    glm::mat4 transform = glm::mat4(1.0f);
     bool visible = true;
+    std::string texturePath;
 
-    SceneObject(std::unique_ptr<Geometry> geo) : geometry(std::move(geo)) {}
+    SceneObject(std::unique_ptr<Geometry> geo, const std::string& texPath = "")
+        : geometry(std::move(geo)), texturePath(texPath) {
+    }
 };
 
 class Scene {
@@ -21,11 +24,11 @@ public:
     ~Scene();
 
     // Easy API to add shapes to your scene (now accept a position)
-    void AddTriangle(const glm::vec3& position = glm::vec3(0.0f));
-    void AddQuad(const glm::vec3& position = glm::vec3(0.0f));
-    void AddCircle(int segments = 32, float radius = 0.5f, const glm::vec3& position = glm::vec3(0.0f));
-    void AddCube(const glm::vec3& position = glm::vec3(0.0f));
-    void AddGrid(int rows, int cols, float cellSize = 0.1f, const glm::vec3& position = glm::vec3(0.0f));
+    void AddTriangle(const glm::vec3& position = glm::vec3(0.0f), const std::string& texturePath = "");
+    void AddQuad(const glm::vec3& position = glm::vec3(0.0f), const std::string& texturePath = "");
+    void AddCircle(int segments = 32, float radius = 0.5f, const glm::vec3& position = glm::vec3(0.0f), const std::string& texturePath = "");
+    void AddCube(const glm::vec3& position = glm::vec3(0.0f), const std::string& texturePath = "");
+    void AddGrid(int rows, int cols, float cellSize = 0.1f, const glm::vec3& position = glm::vec3(0.0f), const std::string& texturePath = "");
 
     // Custom geometry with optional placement
     void AddGeometry(std::unique_ptr<Geometry> geometry, const glm::vec3& position = glm::vec3(0.0f));
