@@ -45,6 +45,11 @@ private:
     VkDeviceMemory offScreenImageMemory = VK_NULL_HANDLE;
     VkImageView offScreenImageView = VK_NULL_HANDLE;
 
+    // Depth buffer (off-screen)
+    VkImage depthImage = VK_NULL_HANDLE;
+    VkDeviceMemory depthImageMemory = VK_NULL_HANDLE;
+    VkImageView depthImageView = VK_NULL_HANDLE;
+
     // Uniform buffers
     std::vector<std::unique_ptr<VulkanBuffer>> uniformBuffers;
     std::vector<void*> uniformBuffersMapped;

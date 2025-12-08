@@ -15,6 +15,7 @@ void Renderer::Initialize() {
 
     renderPass->CreateOffScreenFramebuffer(
         offScreenImageView,
+        depthImageView,
         swapChain->GetExtent()
     );
 
@@ -75,6 +76,34 @@ void Renderer::UpdateUniformBuffer(uint32_t currentFrame, const UniformBufferObj
     memcpy(uniformBuffersMapped[currentFrame], &ubo, sizeof(ubo));
 }
 
+static bool HasStencilComponent(VkFormat format) {
+    return format == VK_FORMAT_D32_SFLOAT_S8_UINT || format == VK_FORMAT_D24_UNORM_S8_UINT;
+}
+
+VkFormat findSupportedFormat(VkPhysicalDevice physicalDevice, const std::vector<VkFormat>& candidates,
+    VkImageTiling tiling, VkFormatFeatureFlags features) {
+    for (VkFormat format : candidates) {
+        VkFormatProperties props;
+        vkGetPhysicalDeviceFormatProperties(physicalDevice, format, &props);
+
+        if (tiling == VK_IMAGE_TILING_LINEAR && (props.linearTilingFeatures & features) == features) {
+            return format;
+        }
+        else if (tiling == VK_IMAGE_TILING_OPTIMAL && (props.optimalTilingFeatures & features) == features) {
+            return format;
+        }
+    }
+
+    throw std::runtime_error("failed to find supported format!");
+}
+
+VkFormat findDepthFormat(VkPhysicalDevice physicalDevice) {
+    return findSupportedFormat(physicalDevice,
+        { VK_FORMAT_D32_SFLOAT, VK_FORMAT_D32_SFLOAT_S8_UINT, VK_FORMAT_D24_UNORM_S8_UINT },
+        VK_IMAGE_TILING_OPTIMAL,
+        VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT);
+}
+
 void Renderer::CreateRenderPass() {
     renderPass = std::make_unique<VulkanRenderPass>(
         device->GetDevice(),
@@ -105,6 +134,7 @@ void Renderer::CreatePipeline() {
 }
 
 void Renderer::CreateOffScreenResources() {
+    // Create color attachment (off-screen)
     createImage(
         swapChain->GetExtent().width,
         swapChain->GetExtent().height,
@@ -120,6 +150,26 @@ void Renderer::CreateOffScreenResources() {
         offScreenImage,
         swapChain->GetImageFormat(),
         VK_IMAGE_ASPECT_COLOR_BIT
+    );
+
+    // Create depth attachment
+    VkFormat depthFormat = findDepthFormat(device->GetPhysicalDevice());
+
+    createImage(
+        swapChain->GetExtent().width,
+        swapChain->GetExtent().height,
+        depthFormat,
+        VK_IMAGE_TILING_OPTIMAL,
+        VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
+        VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
+        depthImage,
+        depthImageMemory
+    );
+
+    depthImageView = createImageView(
+        depthImage,
+        depthFormat,
+        VK_IMAGE_ASPECT_DEPTH_BIT
     );
 }
 
@@ -144,6 +194,7 @@ void Renderer::CreateSyncObjects() {
         throw std::runtime_error("swap chain contains no images");
     }
 
+    // Initialize sync objects (create semaphores/fences) using swapchain image count
     syncObjects->CreateSyncObjects(imageCount);
 }
 
@@ -152,13 +203,13 @@ void Renderer::DrawFrame(Scene& scene, uint32_t currentFrame, const glm::mat4& v
     VkFence fence = syncObjects->GetInFlightFence(currentFrame);
     vkWaitForFences(device->GetDevice(), 1, &fence, VK_TRUE, UINT64_MAX);
 
-    // Acquire next image - use a temporary semaphore indexed by currentFrame for acquisition
+    // Acquire next image - use the semaphore for THIS frame (one semaphore per frame in flight)
     uint32_t imageIndex;
     VkResult result = vkAcquireNextImageKHR(
         device->GetDevice(),
         swapChain->GetSwapChain(),
         UINT64_MAX,
-        syncObjects->GetImageAvailableSemaphore(currentFrame % swapChain->GetImages().size()),
+        syncObjects->GetImageAvailableSemaphore(currentFrame), // imageAvailable: indexed by frame
         VK_NULL_HANDLE,
         &imageIndex
     );
@@ -185,7 +236,8 @@ void Renderer::DrawFrame(Scene& scene, uint32_t currentFrame, const glm::mat4& v
     VkSubmitInfo submitInfo{};
     submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
 
-    VkSemaphore waitSemaphores[] = { syncObjects->GetImageAvailableSemaphore(currentFrame % swapChain->GetImages().size()) };
+    // Wait on the per-frame image-available semaphore
+    VkSemaphore waitSemaphores[] = { syncObjects->GetImageAvailableSemaphore(currentFrame) };
     VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT };
     submitInfo.waitSemaphoreCount = 1;
     submitInfo.pWaitSemaphores = waitSemaphores;
@@ -193,6 +245,7 @@ void Renderer::DrawFrame(Scene& scene, uint32_t currentFrame, const glm::mat4& v
     submitInfo.commandBufferCount = 1;
     submitInfo.pCommandBuffers = &cmd;
 
+    // Signal the render-finished semaphore associated with the acquired image (one per swapchain image)
     VkSemaphore signalSemaphores[] = { syncObjects->GetRenderFinishedSemaphore(imageIndex) };
     submitInfo.signalSemaphoreCount = 1;
     submitInfo.pSignalSemaphores = signalSemaphores;
@@ -204,6 +257,7 @@ void Renderer::DrawFrame(Scene& scene, uint32_t currentFrame, const glm::mat4& v
     VkPresentInfoKHR presentInfo{};
     presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
     presentInfo.waitSemaphoreCount = 1;
+    // Present waits on the render-finished semaphore for this image
     presentInfo.pWaitSemaphores = signalSemaphores;
 
     VkSwapchainKHR swapChains[] = { swapChain->GetSwapChain() };
@@ -247,8 +301,13 @@ void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& sc
     renderPassInfo.renderArea.extent = swapChain->GetExtent();
 
     VkClearValue clearColor = { {{0.0f, 0.0f, 0.0f, 1.0f}} };
-    renderPassInfo.clearValueCount = 1;
-    renderPassInfo.pClearValues = &clearColor;
+    VkClearValue clearDepth = {};
+    clearDepth.depthStencil.depth = 1.0f;
+    clearDepth.depthStencil.stencil = 0;
+    VkClearValue clearValues[2] = { clearColor, clearDepth };
+
+    renderPassInfo.clearValueCount = 2;
+    renderPassInfo.pClearValues = clearValues;
 
     vkCmdBeginRenderPass(cmd, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
@@ -418,6 +477,19 @@ void Renderer::Cleanup() {
 }
 
 void Renderer::CleanupOffScreenResources() {
+    if (depthImageView != VK_NULL_HANDLE) {
+        vkDestroyImageView(device->GetDevice(), depthImageView, nullptr);
+        depthImageView = VK_NULL_HANDLE;
+    }
+    if (depthImage != VK_NULL_HANDLE) {
+        vkDestroyImage(device->GetDevice(), depthImage, nullptr);
+        depthImage = VK_NULL_HANDLE;
+    }
+    if (depthImageMemory != VK_NULL_HANDLE) {
+        vkFreeMemory(device->GetDevice(), depthImageMemory, nullptr);
+        depthImageMemory = VK_NULL_HANDLE;
+    }
+
     if (offScreenImageView != VK_NULL_HANDLE) {
         vkDestroyImageView(device->GetDevice(), offScreenImageView, nullptr);
         offScreenImageView = VK_NULL_HANDLE;

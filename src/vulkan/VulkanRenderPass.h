@@ -10,7 +10,7 @@ public:
 
     void Create(bool offScreen = false);
     void CreateFramebuffers(const std::vector<VkImageView>& imageViews, VkExtent2D extent);
-    void CreateOffScreenFramebuffer(VkImageView imageView, VkExtent2D extent);
+    void CreateOffScreenFramebuffer(VkImageView colorImageView, VkImageView depthImageView, VkExtent2D extent);
     void Cleanup();
 
     VkRenderPass GetRenderPass() const { return renderPass; }
