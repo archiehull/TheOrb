@@ -1,6 +1,29 @@
 ﻿  Application.cpp
+  Window.cpp
+  Geometry.cpp
+  GeometryGenerator.cpp
+C:\Users\663073\Workspace\TheOrb\src\geometry\GeometryGenerator.cpp(49,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   main.cpp
+  GraphicsPipeline.cpp
+  Pipeline.cpp
+  Camera.cpp
+  CameraController.cpp
   Renderer.cpp
 C:\Users\663073\Workspace\TheOrb\src\rendering\Renderer.cpp(140,63): warning C4267: 'argument': conversion from 'size_t' to 'uint32_t', possible loss of data
+  Scene.cpp
+  VulkanBuffer.cpp
+  VulkanCommandBuffer.cpp
+  VulkanContext.cpp
+  VulkanDescriptorSet.cpp
+  VulkanDevice.cpp
+  VulkanRenderPass.cpp
+  VulkanShader.cpp
+  VulkanSwapChain.cpp
+  VulkanSyncObjects.cpp
   Generating Code...
+  Compiling...
+  VulkanUtils.cpp
+  Generating Code...
+  LINK : C:\Users\663073\Workspace\TheOrb\x64\Debug\TheOrb.exe not found or not built by the last incremental link; performing full link
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
   TheOrb.vcxproj -> C:\Users\663073\Workspace\TheOrb\x64\Debug\TheOrb.exe
