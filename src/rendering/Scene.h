@@ -6,6 +6,7 @@
 #include <memory>
 #include <glm/glm.hpp>
 #include <string>
+#include "../vulkan/UniformBufferObject.h"
 
 struct SceneObject {
     std::unique_ptr<Geometry> geometry;
@@ -34,6 +35,11 @@ public:
     void AddModel(const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale, const std::string& modelPath, const std::string& texturePath);
     void AddGeometry(std::unique_ptr<Geometry> geometry, const glm::vec3& position = glm::vec3(0.0f));
 
+    void AddLight(const glm::vec3& position, const glm::vec3& color, float intensity, int type);
+
+    const std::vector<Light>& GetLights() const { return m_Lights; }
+
+
     // Scene management
     void Clear();
     const std::vector<std::unique_ptr<SceneObject>>& GetObjects() const { return objects; }
@@ -45,6 +51,7 @@ public:
     void Cleanup();
 
 private:
+    std::vector<Light> m_Lights;
     VkDevice device;
     VkPhysicalDevice physicalDevice;
     std::vector<std::unique_ptr<SceneObject>> objects;

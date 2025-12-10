@@ -64,6 +64,10 @@ void Application::SetupScene() {
     scene->AddGrid(10, 10, 0.5f, glm::vec3(0.0f, 0.0f, 0.0f), "textures/desert.jpg");
 
    	scene->AddSphere(16, 32, 0.5f, glm::vec3(0.0f, 4.0f, 0.0f), "textures/moon.jpg");
+	scene->AddLight(glm::vec3(0.0f, 4.0f, 0.0f), glm::vec3(0.5f, 0.0f, 0.0f), 0.5f, 0);
+
+	scene->AddSphere(16, 32, 0.3f, glm::vec3(3.0f, 2.0f, -2.0f), "textures/sun.png");
+	scene->AddLight(glm::vec3(3.0f, 2.0f, -2.0f), glm::vec3(0.5f, 0.5f, 1.0f), 1.0f, 0);
 
 	scene->AddModel(glm::vec3(2.0f, 0.0f, -1.0f), glm::vec3(0.0f, 45.0f, 0.0f), glm::vec3(0.07f), "models/DeadTree.obj", "textures/bark.jpg");
     scene->AddModel(glm::vec3(-2.0f, 0.0f, 1.0f), glm::vec3(0.0f, 20.0f, 0.0f), glm::vec3(0.05f), "models/DeadTree.obj", "textures/bark.jpg");

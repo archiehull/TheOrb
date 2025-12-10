@@ -475,20 +475,19 @@ void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& sc
 
     vkCmdSetLineWidth(cmd, 1.0f);
 
-    // Update uniform buffer ONCE per frame with view and projection only
     UniformBufferObject ubo{};
     ubo.view = viewMatrix;
     ubo.proj = projMatrix;
-
-    ubo.lightPos = glm::vec3(2.0f, 4.0f, 2.0f);
-
-    // 2. Set Light Color (White)
-    ubo.lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
-
-    // 3. Calculate View Position (Camera position) from the inverse view matrix
-    // This is required for specular highlights in both Gouraud and Phong
     ubo.viewPos = glm::vec3(glm::inverse(viewMatrix)[3]);
 
+    const auto& sceneLights = scene.GetLights();
+    size_t count = std::min(sceneLights.size(), (size_t)MAX_LIGHTS);
+
+    // Copy array data
+    if (count > 0) {
+        std::memcpy(ubo.lights, sceneLights.data(), count * sizeof(Light));
+    }
+    ubo.numLights = static_cast<int>(count);
 
     UpdateUniformBuffer(currentFrame, ubo);
 

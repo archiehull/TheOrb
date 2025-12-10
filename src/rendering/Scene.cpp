@@ -6,7 +6,7 @@
 static void UpdateShadingMode(SceneObject* obj) {
     if (!obj || !obj->geometry) return;
 
-    const size_t HIGH_POLY_THRESHOLD = 1000;
+    const size_t HIGH_POLY_THRESHOLD = 500;
     size_t vertexCount = obj->geometry->GetVertices().size();
 
     if (vertexCount > HIGH_POLY_THRESHOLD) {
@@ -107,6 +107,21 @@ void Scene::AddModel(const glm::vec3& position, const glm::vec3& rotation, const
     catch (const std::exception& e) {
         std::cerr << "Failed to add model '" << modelPath << "': " << e.what() << std::endl;
     }
+}
+
+void Scene::AddLight(const glm::vec3& position, const glm::vec3& color, float intensity, int type) {
+    if (m_Lights.size() >= MAX_LIGHTS) {
+        std::cerr << "Warning: Maximum number of lights (" << MAX_LIGHTS << ") reached. Light not added." << std::endl;
+        return;
+    }
+
+    Light newLight{};
+    newLight.position = position;
+    newLight.color = color;
+    newLight.intensity = intensity;
+    newLight.type = type;
+
+    m_Lights.push_back(newLight);
 }
 
 void Scene::AddGeometry(std::unique_ptr<Geometry> geometry, const glm::vec3& position) {
