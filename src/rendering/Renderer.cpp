@@ -479,6 +479,17 @@ void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& sc
     UniformBufferObject ubo{};
     ubo.view = viewMatrix;
     ubo.proj = projMatrix;
+
+    ubo.lightPos = glm::vec3(2.0f, 4.0f, 2.0f);
+
+    // 2. Set Light Color (White)
+    ubo.lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
+
+    // 3. Calculate View Position (Camera position) from the inverse view matrix
+    // This is required for specular highlights in both Gouraud and Phong
+    ubo.viewPos = glm::vec3(glm::inverse(viewMatrix)[3]);
+
+
     UpdateUniformBuffer(currentFrame, ubo);
 
     // Bind descriptor set once (contains view/proj)
@@ -499,11 +510,12 @@ void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& sc
             // Push the model matrix for THIS specific object
             PushConstantObject pco{};
             pco.model = obj->transform;
+            pco.shadingMode = obj->shadingMode; // Set shading mode
 
             vkCmdPushConstants(
                 cmd,
                 graphicsPipeline->GetLayout(),
-                VK_SHADER_STAGE_VERTEX_BIT,
+                VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT, // Available in both
                 0,
                 sizeof(PushConstantObject),
                 &pco

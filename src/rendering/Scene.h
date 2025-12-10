@@ -12,6 +12,7 @@ struct SceneObject {
     glm::mat4 transform = glm::mat4(1.0f);
     bool visible = true;
     std::string texturePath;
+    int shadingMode = 1; // 0=Gouraud, 1=Phong (Default)
 
     SceneObject(std::unique_ptr<Geometry> geo, const std::string& texPath = "")
         : geometry(std::move(geo)), texturePath(texPath) {

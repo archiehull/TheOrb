@@ -14,6 +14,8 @@
 
 #include <memory>
 #include <map>
+#include <vulkan/VulkanContext.h>
+#include "Camera.h"
 
 
 class Renderer {
@@ -34,6 +36,10 @@ public:
 
 
 private:
+    Camera* m_camera;
+    VulkanContext* m_vulkanContext;
+    std::vector<void*> m_uniformBuffersMapped;
+
     // Vulkan components (not owned)
     VulkanDevice* device;
     VulkanSwapChain* swapChain;

@@ -1,2 +1,5 @@
-﻿  Application.cpp
+﻿  GraphicsPipeline.cpp
+  CameraController.cpp
+  VulkanDescriptorSet.cpp
+  Generating Code...
   TheOrb.vcxproj -> C:\Users\663073\Workspace\TheOrb\x64\Debug\TheOrb.exe

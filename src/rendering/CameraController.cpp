@@ -52,28 +52,47 @@ void CameraController::Update(float deltaTime) {
 void CameraController::UpdateFreeRoamCamera(float deltaTime) {
     if (!activeCamera) return;
 
-    // View rotation with IJKL or CTRL+WASD
-    if (keyCtrl) {
-        // CTRL+WASD for rotation
-        if (keyW) activeCamera->RotatePitch(deltaTime);   // Look up
-        if (keyS) activeCamera->RotatePitch(-deltaTime);  // Look down
-        if (keyA) activeCamera->RotateYaw(-deltaTime);    // Look left
-        if (keyD) activeCamera->RotateYaw(deltaTime);     // Look right
-    }
-    else {
-        // Movement with WASD
-        if (keyW) activeCamera->MoveForward(deltaTime);
-        if (keyS) activeCamera->MoveBackward(deltaTime);
-        if (keyA) activeCamera->MoveLeft(deltaTime);
-        if (keyD) activeCamera->MoveRight(deltaTime);
-        if (keyQ) activeCamera->MoveDown(deltaTime);
-        if (keyE) activeCamera->MoveUp(deltaTime);
-        // IJKL for rotation
-        if (keyI) activeCamera->RotatePitch(deltaTime);   // Look up
-        if (keyK) activeCamera->RotatePitch(-deltaTime);  // Look down
-        if (keyJ) activeCamera->RotateYaw(-deltaTime);    // Look left
-        if (keyL) activeCamera->RotateYaw(deltaTime);     // Look right
-    }
+    // Compute exclusive (swapped) input mapping so one key set can't trigger both move and rotate.
+    // Default (no CTRL): Group A (WASD) = movement, Group B (IJKL + Arrows) = rotation.
+    // With CTRL held: groups swap roles (WASD = rotation, IJKL+Arrows = movement).
+    bool groupA_forward   = keyW;
+    bool groupA_backward  = keyS;
+    bool groupA_left      = keyA;
+    bool groupA_right     = keyD;
+    bool groupB_forward   = keyI || keyUp;
+    bool groupB_backward  = keyK || keyDown;
+    bool groupB_left      = keyJ || keyLeft;
+    bool groupB_right     = keyL || keyRight;
+
+    // Effective movement flags
+    bool moveForward  = keyCtrl ? groupB_forward  : groupA_forward;
+    bool moveBackward = keyCtrl ? groupB_backward : groupA_backward;
+    bool moveLeft     = keyCtrl ? groupB_left     : groupA_left;
+    bool moveRight    = keyCtrl ? groupB_right    : groupA_right;
+
+    // Vertical movement (Q/E) remain movement in both modes.
+    bool moveDown = keyQ;
+    bool moveUp   = keyE;
+
+    // Effective rotation flags (pitch = look up/down, yaw = look left/right)
+    bool rotatePitchUp    = keyCtrl ? groupA_forward  : groupB_forward;  // Look up
+    bool rotatePitchDown  = keyCtrl ? groupA_backward : groupB_backward; // Look down
+    bool rotateYawLeft    = keyCtrl ? groupA_left     : groupB_left;     // Look left
+    bool rotateYawRight   = keyCtrl ? groupA_right    : groupB_right;    // Look right
+
+    // Apply movement (exclusive)
+    if (moveForward)  activeCamera->MoveForward(deltaTime);
+    if (moveBackward) activeCamera->MoveBackward(deltaTime);
+    if (moveLeft)     activeCamera->MoveLeft(deltaTime);
+    if (moveRight)    activeCamera->MoveRight(deltaTime);
+    if (moveDown)     activeCamera->MoveDown(deltaTime);
+    if (moveUp)       activeCamera->MoveUp(deltaTime);
+
+    // Apply rotation (exclusive)
+    if (rotatePitchUp)   activeCamera->RotatePitch(deltaTime);
+    if (rotatePitchDown) activeCamera->RotatePitch(-deltaTime);
+    if (rotateYawLeft)   activeCamera->RotateYaw(-deltaTime);
+    if (rotateYawRight)  activeCamera->RotateYaw(deltaTime);
 }
 
 void CameraController::OnKeyPress(int key, bool pressed) {
@@ -85,14 +104,20 @@ void CameraController::OnKeyPress(int key, bool pressed) {
     if (key == GLFW_KEY_Q) keyQ = pressed;
     if (key == GLFW_KEY_E) keyE = pressed;
 
-    // Rotation keys
+    // Rotation / alternate movement keys (IJKL)
     if (key == GLFW_KEY_I) keyI = pressed;
     if (key == GLFW_KEY_J) keyJ = pressed;
     if (key == GLFW_KEY_K) keyK = pressed;
     if (key == GLFW_KEY_L) keyL = pressed;
 
+    // Arrow keys handled separately so they can participate in swap
+    if (key == GLFW_KEY_UP) keyUp = pressed;
+    if (key == GLFW_KEY_LEFT) keyLeft = pressed;
+    if (key == GLFW_KEY_DOWN) keyDown = pressed;
+    if (key == GLFW_KEY_RIGHT) keyRight = pressed;
+
     // Modifier
-    if(key == GLFW_KEY_LEFT_CONTROL || key == GLFW_KEY_RIGHT_CONTROL) {
+    if (key == GLFW_KEY_LEFT_CONTROL || key == GLFW_KEY_RIGHT_CONTROL) {
         keyCtrl = pressed;
     }
 }

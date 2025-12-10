@@ -28,7 +28,8 @@ private:
     // Key states for free roam camera
     bool keyW = false, keyA = false, keyS = false, keyD = false;
     bool keyI = false, keyJ = false, keyK = false, keyL = false;
-    bool keyQ = false, keyE = false;
+    bool keyQ = false, keyE = false; 
+    bool keyUp = false, keyDown = false, keyLeft = false, keyRight = false;
     bool keyCtrl = false;
 
     void SetupCameras();

@@ -70,8 +70,6 @@ void Application::SetupScene() {
     scene->AddModel(glm::vec3(-1.0f, 0.0f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.08f), "models/DeadTree.obj", "textures/bark.jpg");
     scene->AddModel(glm::vec3(1.0f, 0.0f, -2.0f), glm::vec3(0.0f, 90.0f, 0.0f), glm::vec3(0.09f), "models/DeadTree.obj", "textures/bark.jpg");
 
-
-
 	scene->AddModel(glm::vec3(0.0f, -0.1f, 0.0f), glm::vec3(-90.0f, 0.0f, 0.0f), glm::vec3(0.006f), "models/cactus.obj", "textures/cactus.jpg");
 }
 

@@ -3,6 +3,22 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
 
+static void UpdateShadingMode(SceneObject* obj) {
+    if (!obj || !obj->geometry) return;
+
+    const size_t HIGH_POLY_THRESHOLD = 1000;
+    size_t vertexCount = obj->geometry->GetVertices().size();
+
+    if (vertexCount > HIGH_POLY_THRESHOLD) {
+        obj->shadingMode = 0; // Gouraud
+        // std::cout << "Auto-Shading: High Poly (" << vertexCount << "v) -> Gouraud" << std::endl;
+    }
+    else {
+        obj->shadingMode = 1; // Phong
+        // std::cout << "Auto-Shading: Low Poly (" << vertexCount << "v) -> Phong" << std::endl;
+    }
+}
+
 Scene::Scene(VkDevice device, VkPhysicalDevice physicalDevice)
     : device(device), physicalDevice(physicalDevice) {
 }
@@ -14,6 +30,9 @@ void Scene::AddTriangle(const glm::vec3& position, const std::string& texturePat
     auto geometry = GeometryGenerator::CreateTriangle(device, physicalDevice);
     auto obj = std::make_unique<SceneObject>(std::move(geometry), texturePath);
     obj->transform = glm::translate(glm::mat4(1.0f), position);
+
+    UpdateShadingMode(obj.get()); 
+
     objects.push_back(std::move(obj));
 }
 
@@ -21,6 +40,9 @@ void Scene::AddQuad(const glm::vec3& position, const std::string& texturePath) {
     auto geometry = GeometryGenerator::CreateQuad(device, physicalDevice);
     auto obj = std::make_unique<SceneObject>(std::move(geometry), texturePath);
     obj->transform = glm::translate(glm::mat4(1.0f), position);
+
+    UpdateShadingMode(obj.get()); 
+
     objects.push_back(std::move(obj));
 }
 
@@ -28,6 +50,9 @@ void Scene::AddCircle(int segments, float radius, const glm::vec3& position, con
     auto geometry = GeometryGenerator::CreateCircle(device, physicalDevice, segments, radius);
     auto obj = std::make_unique<SceneObject>(std::move(geometry), texturePath);
     obj->transform = glm::translate(glm::mat4(1.0f), position);
+
+    UpdateShadingMode(obj.get()); 
+
     objects.push_back(std::move(obj));
 }
 
@@ -35,6 +60,9 @@ void Scene::AddCube(const glm::vec3& position, const std::string& texturePath) {
     auto geometry = GeometryGenerator::CreateCube(device, physicalDevice);
     auto obj = std::make_unique<SceneObject>(std::move(geometry), texturePath);
     obj->transform = glm::translate(glm::mat4(1.0f), position);
+
+    UpdateShadingMode(obj.get()); 
+
     objects.push_back(std::move(obj));
 }
 
@@ -42,6 +70,9 @@ void Scene::AddGrid(int rows, int cols, float cellSize, const glm::vec3& positio
     auto geometry = GeometryGenerator::CreateGrid(device, physicalDevice, rows, cols, cellSize);
     auto obj = std::make_unique<SceneObject>(std::move(geometry), texturePath);
     obj->transform = glm::translate(glm::mat4(1.0f), position);
+
+    UpdateShadingMode(obj.get()); 
+
     objects.push_back(std::move(obj));
 }
 
@@ -49,6 +80,9 @@ void Scene::AddSphere(int stacks, int slices, float radius, const glm::vec3& pos
     auto geometry = GeometryGenerator::CreateSphere(device, physicalDevice, stacks, slices, radius);
     auto obj = std::make_unique<SceneObject>(std::move(geometry), texturePath);
     obj->transform = glm::translate(glm::mat4(1.0f), position);
+
+    UpdateShadingMode(obj.get()); 
+
     objects.push_back(std::move(obj));
 }
 
@@ -58,20 +92,16 @@ void Scene::AddModel(const glm::vec3& position, const glm::vec3& rotation, const
         auto obj = std::make_unique<SceneObject>(std::move(geometry), texturePath);
 
         glm::mat4 transform = glm::mat4(1.0f);
-
-        // 1. Translate
         transform = glm::translate(transform, position);
-
-        // 2. Rotate (Applied in order: X, then Y, then Z)
-        // We convert degrees to radians because glm expects radians
         transform = glm::rotate(transform, glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
         transform = glm::rotate(transform, glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
         transform = glm::rotate(transform, glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
-
-        // 3. Scale
         transform = glm::scale(transform, scale);
 
         obj->transform = transform;
+
+        UpdateShadingMode(obj.get()); 
+
         objects.push_back(std::move(obj));
     }
     catch (const std::exception& e) {
@@ -82,6 +112,9 @@ void Scene::AddModel(const glm::vec3& position, const glm::vec3& rotation, const
 void Scene::AddGeometry(std::unique_ptr<Geometry> geometry, const glm::vec3& position) {
     auto obj = std::make_unique<SceneObject>(std::move(geometry));
     obj->transform = glm::translate(glm::mat4(1.0f), position);
+
+    UpdateShadingMode(obj.get()); 
+
     objects.push_back(std::move(obj));
 }
 

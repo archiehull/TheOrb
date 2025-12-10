@@ -1,8 +1,7 @@
 #pragma once
-
 #include <glm/glm.hpp>
 
-// Push constant for per-object data (model matrix)
 struct PushConstantObject {
     alignas(16) glm::mat4 model;
+    alignas(4) int shadingMode; // 0 = Gouraud, 1 = Phong
 };

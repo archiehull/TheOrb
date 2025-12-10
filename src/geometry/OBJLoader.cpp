@@ -37,7 +37,7 @@ std::unique_ptr<Geometry> OBJLoader::Load(VkDevice device, VkPhysicalDevice phys
     // Temporary storage for raw file data
     std::vector<glm::vec3> temp_positions;
     std::vector<glm::vec2> temp_texCoords;
-    // std::vector<glm::vec3> temp_normals; // Unused by Vertex struct currently
+    std::vector<glm::vec3> temp_normals; 
 
     // Deduplication map: Key -> Index in the final geometry vertex array
     std::unordered_map<VertexKey, uint32_t, VertexKeyHash> uniqueVertices;
@@ -68,10 +68,9 @@ std::unique_ptr<Geometry> OBJLoader::Load(VkDevice device, VkPhysicalDevice phys
             temp_texCoords.push_back(uv);
         }
         else if (prefix == "vn") {
-            // Normals ignored for now as Vertex struct doesn't support them
-            // glm::vec3 norm;
-            // ss >> norm.x >> norm.y >> norm.z;
-            // temp_normals.push_back(norm);
+            glm::vec3 norm;
+            ss >> norm.x >> norm.y >> norm.z;
+            temp_normals.push_back(norm);
         }
         else if (prefix == "f") {
             std::vector<VertexKey> faceVertices;
@@ -120,6 +119,14 @@ std::unique_ptr<Geometry> OBJLoader::Load(VkDevice device, VkPhysicalDevice phys
                         // Set TexCoord (default 0,0 if missing)
                         if (keys[k].vt_idx >= 0 && keys[k].vt_idx < temp_texCoords.size()) {
                             newVertex.texCoord = temp_texCoords[keys[k].vt_idx];
+                        }
+
+						// Set Normal (default up vector if missing)
+                        if (keys[k].vn_idx >= 0 && keys[k].vn_idx < temp_normals.size()) {
+                            newVertex.normal = temp_normals[keys[k].vn_idx];
+                        }
+                        else {
+                            newVertex.normal = glm::vec3(0.0f, 1.0f, 0.0f); // Default normal
                         }
 
                         // Set Default Color (White) since OBJ usually doesn't provide it per vertex
