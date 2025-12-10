@@ -23,6 +23,7 @@
     <ClCompile Include="src\core\Window.cpp" />
     <ClCompile Include="src\geometry\Geometry.cpp" />
     <ClCompile Include="src\geometry\GeometryGenerator.cpp" />
+    <ClCompile Include="src\geometry\OBJLoader.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\pipelines\GraphicsPipeline.cpp" />
     <ClCompile Include="src\pipelines\Pipeline.cpp" />
@@ -48,6 +49,7 @@
     <ClInclude Include="src\core\Window.h" />
     <ClInclude Include="src\geometry\Geometry.h" />
     <ClInclude Include="src\geometry\GeometryGenerator.h" />
+    <ClInclude Include="src\geometry\OBJLoader.h" />
     <ClInclude Include="src\pipelines\GraphicsPipeline.h" />
     <ClInclude Include="src\pipelines\Pipeline.h" />
     <ClInclude Include="src\rendering\Camera.h" />

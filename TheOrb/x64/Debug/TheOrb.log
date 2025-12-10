@@ -1,3 +1,2 @@
-﻿  GeometryGenerator.cpp
-C:\Users\663073\Workspace\TheOrb\src\geometry\GeometryGenerator.cpp(49,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+﻿  Application.cpp
   TheOrb.vcxproj -> C:\Users\663073\Workspace\TheOrb\x64\Debug\TheOrb.exe

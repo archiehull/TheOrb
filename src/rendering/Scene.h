@@ -29,8 +29,8 @@ public:
     void AddCircle(int segments = 32, float radius = 0.5f, const glm::vec3& position = glm::vec3(0.0f), const std::string& texturePath = "");
     void AddCube(const glm::vec3& position = glm::vec3(0.0f), const std::string& texturePath = "");
     void AddGrid(int rows, int cols, float cellSize = 0.1f, const glm::vec3& position = glm::vec3(0.0f), const std::string& texturePath = "");
-
-    // Custom geometry with optional placement
+	void AddSphere(int stacks = 16, int slices = 32, float radius = 0.5f, const glm::vec3& position = glm::vec3(0.0f), const std::string& texturePath = "");
+    void AddModel(const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale, const std::string& modelPath, const std::string& texturePath);
     void AddGeometry(std::unique_ptr<Geometry> geometry, const glm::vec3& position = glm::vec3(0.0f));
 
     // Scene management

@@ -1,5 +1,7 @@
 #include "Scene.h"
+#include "../geometry/OBJLoader.h"
 #include <glm/gtc/matrix_transform.hpp>
+#include <iostream>
 
 Scene::Scene(VkDevice device, VkPhysicalDevice physicalDevice)
     : device(device), physicalDevice(physicalDevice) {
@@ -41,6 +43,40 @@ void Scene::AddGrid(int rows, int cols, float cellSize, const glm::vec3& positio
     auto obj = std::make_unique<SceneObject>(std::move(geometry), texturePath);
     obj->transform = glm::translate(glm::mat4(1.0f), position);
     objects.push_back(std::move(obj));
+}
+
+void Scene::AddSphere(int stacks, int slices, float radius, const glm::vec3& position, const std::string& texturePath) {
+    auto geometry = GeometryGenerator::CreateSphere(device, physicalDevice, stacks, slices, radius);
+    auto obj = std::make_unique<SceneObject>(std::move(geometry), texturePath);
+    obj->transform = glm::translate(glm::mat4(1.0f), position);
+    objects.push_back(std::move(obj));
+}
+
+void Scene::AddModel(const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale, const std::string& modelPath, const std::string& texturePath) {
+    try {
+        auto geometry = OBJLoader::Load(device, physicalDevice, modelPath);
+        auto obj = std::make_unique<SceneObject>(std::move(geometry), texturePath);
+
+        glm::mat4 transform = glm::mat4(1.0f);
+
+        // 1. Translate
+        transform = glm::translate(transform, position);
+
+        // 2. Rotate (Applied in order: X, then Y, then Z)
+        // We convert degrees to radians because glm expects radians
+        transform = glm::rotate(transform, glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+        transform = glm::rotate(transform, glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+        transform = glm::rotate(transform, glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+
+        // 3. Scale
+        transform = glm::scale(transform, scale);
+
+        obj->transform = transform;
+        objects.push_back(std::move(obj));
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Failed to add model '" << modelPath << "': " << e.what() << std::endl;
+    }
 }
 
 void Scene::AddGeometry(std::unique_ptr<Geometry> geometry, const glm::vec3& position) {

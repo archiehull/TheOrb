@@ -168,6 +168,56 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateGrid(VkDevice device, VkPhysi
     return geometry;
 }
 
+std::unique_ptr<Geometry> GeometryGenerator::CreateSphere(VkDevice device, VkPhysicalDevice physicalDevice,
+    int stacks, int slices, float radius) {
+    // enforce sensible minimums
+    if (stacks < 2) stacks = 2;
+    if (slices < 3) slices = 3;
+
+    auto geometry = std::make_unique<Geometry>(device, physicalDevice);
+
+    // Create vertices: (stacks + 1) rows, (slices + 1) columns (duplicate last column for proper UV wrapping)
+    for (int i = 0; i <= stacks; ++i) {
+        float phi = M_PI * static_cast<float>(i) / static_cast<float>(stacks); // 0..PI
+        float y = radius * cos(phi);
+        float sinPhi = static_cast<float>(sin(phi));
+
+        for (int j = 0; j <= slices; ++j) {
+            float theta = 2.0f * M_PI * static_cast<float>(j) / static_cast<float>(slices); // 0..2PI
+            float x = radius * sinPhi * static_cast<float>(cos(theta));
+            float z = radius * sinPhi * static_cast<float>(sin(theta));
+
+            int index = i * (slices + 1) + j;
+            glm::vec3 color = GenerateColor(index, (stacks + 1) * (slices + 1));
+            glm::vec2 uv = glm::vec2(static_cast<float>(j) / static_cast<float>(slices),
+                1.0f - static_cast<float>(i) / static_cast<float>(stacks)); // v flipped so poles map nicely
+
+            geometry->GetVertices().push_back({ glm::vec3(x, y, z), color, uv });
+        }
+    }
+
+    // Generate indices (two triangles per quad)
+    for (int i = 0; i < stacks; ++i) {
+        for (int j = 0; j < slices; ++j) {
+            uint32_t first = static_cast<uint32_t>(i * (slices + 1) + j);
+            uint32_t second = first + static_cast<uint32_t>(slices + 1);
+
+            // Triangle 1: (TL, TR, BL) - CCW order when viewed from outside
+            geometry->GetIndices().push_back(first);
+            geometry->GetIndices().push_back(first + 1); 
+            geometry->GetIndices().push_back(second);   
+
+            // Triangle 2: (TR, BR, BL) - CCW order when viewed from outside
+            geometry->GetIndices().push_back(first + 1);
+            geometry->GetIndices().push_back(second + 1); 
+            geometry->GetIndices().push_back(second);   
+        }
+    }
+
+    geometry->CreateBuffers();
+    return geometry;
+}
+
 glm::vec3 GeometryGenerator::GenerateColor(int index, int total) {
     float hue = (float)index / (float)total;
     float r, g, b;

@@ -61,31 +61,18 @@ void Application::InitVulkan() {
 }
 
 void Application::SetupScene() {
-    // Grid parameters
-    const int rows = 10;
-    const int cols = 10;
-    const float cellSize = 0.5f;
+    scene->AddGrid(10, 10, 0.5f, glm::vec3(0.0f, 0.0f, 0.0f), "textures/desert.jpg");
 
-    // Add a centered grid at origin (XZ plane, y=0)
-    scene->AddGrid(rows, cols, cellSize, glm::vec3(0.0f, 0.0f, 0.0f), "textures/desert.jpg");
+   	scene->AddSphere(16, 32, 0.5f, glm::vec3(0.0f, 4.0f, 0.0f), "textures/moon.jpg");
 
-    // Compute grid extents (GeometryGenerator centers the grid)
-    const float width = cols * cellSize;
-    const float depth = rows * cellSize;
-    const float startX = -width * 0.5f;
-    const float startZ = -depth * 0.5f;
+	scene->AddModel(glm::vec3(2.0f, 0.0f, -1.0f), glm::vec3(0.0f, 45.0f, 0.0f), glm::vec3(0.07f), "models/DeadTree.obj", "textures/bark.jpg");
+    scene->AddModel(glm::vec3(-2.0f, 0.0f, 1.0f), glm::vec3(0.0f, 20.0f, 0.0f), glm::vec3(0.05f), "models/DeadTree.obj", "textures/bark.jpg");
+    scene->AddModel(glm::vec3(-1.0f, 0.0f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.08f), "models/DeadTree.obj", "textures/bark.jpg");
+    scene->AddModel(glm::vec3(1.0f, 0.0f, -2.0f), glm::vec3(0.0f, 90.0f, 0.0f), glm::vec3(0.09f), "models/DeadTree.obj", "textures/bark.jpg");
 
-    // Cube sits on grid: cube half-height = 0.5 -> center y = 0.5
-    const float cubeY = 0.5f;
 
-    // Four corners in XZ plane (bottom-left, bottom-right, top-right, top-left)
-    scene->AddCube(glm::vec3(startX, cubeY, startZ));                    // bottom-left
-    scene->AddCube(glm::vec3(startX + width, cubeY, startZ));            // bottom-right
-    scene->AddCube(glm::vec3(startX + width, cubeY, startZ + depth));    // top-right
-    scene->AddCube(glm::vec3(startX, cubeY, startZ + depth));            // top-left
 
-    // Floating cube in the center, above the grid
-    scene->AddCube(glm::vec3(0.0f, 2.0f, 0.0f));
+	scene->AddModel(glm::vec3(0.0f, -0.1f, 0.0f), glm::vec3(-90.0f, 0.0f, 0.0f), glm::vec3(0.006f), "models/cactus.obj", "textures/cactus.jpg");
 }
 
 void Application::RecreateSwapChain() {
@@ -123,6 +110,10 @@ void Application::MainLoop() {
 
         window->PollEvents();
         ProcessInput();
+
+        if (framebufferResized) {
+            RecreateSwapChain();
+        }
 
         // Update camera
         cameraController->Update(deltaTime);

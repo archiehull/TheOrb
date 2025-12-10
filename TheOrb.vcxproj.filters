@@ -102,6 +102,9 @@
     <ClCompile Include="src\rendering\Texture.cpp">
       <Filter>Source Files\src\rendering</Filter>
     </ClCompile>
+    <ClCompile Include="src\geometry\OBJLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\Window.h">
@@ -175,6 +178,9 @@
     </ClInclude>
     <ClInclude Include="src\rendering\Texture.h">
       <Filter>Source Files\src\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\geometry\OBJLoader.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

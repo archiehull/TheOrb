@@ -2,6 +2,7 @@ C:\Users\663073\Workspace\TheOrb\src\core\Application.cpp;C:\Users\663073\Worksp
 C:\Users\663073\Workspace\TheOrb\src\core\Window.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\Window.obj
 C:\Users\663073\Workspace\TheOrb\src\geometry\Geometry.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\Geometry.obj
 C:\Users\663073\Workspace\TheOrb\src\geometry\GeometryGenerator.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\GeometryGenerator.obj
+C:\Users\663073\Workspace\TheOrb\src\geometry\OBJLoader.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\OBJLoader.obj
 C:\Users\663073\Workspace\TheOrb\src\main.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\main.obj
 C:\Users\663073\Workspace\TheOrb\src\pipelines\GraphicsPipeline.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\GraphicsPipeline.obj
 C:\Users\663073\Workspace\TheOrb\src\pipelines\Pipeline.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\Pipeline.obj

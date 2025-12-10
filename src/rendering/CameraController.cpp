@@ -15,8 +15,8 @@ CameraController::~CameraController() {
 void CameraController::SetupCameras() {
     // FREE ROAM Camera - starts at a nice viewing position
     auto freeRoamCam = std::make_unique<Camera>();
-    freeRoamCam->SetPosition(glm::vec3(2.0f, 2.0f, 2.0f));
-    freeRoamCam->SetTarget(glm::vec3(0.0f, 0.0f, 0.0f));
+    freeRoamCam->SetPosition(glm::vec3(0.0f, 3.0f, 10.0f));
+    freeRoamCam->SetTarget(glm::vec3(0.0f, 2.0f, 0.0f));
     freeRoamCam->SetMoveSpeed(2.0f);
     freeRoamCam->SetRotateSpeed(35.0f);
     cameras[CameraType::FREE_ROAM] = std::move(freeRoamCam);
