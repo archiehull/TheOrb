@@ -16,6 +16,10 @@ Application::~Application() {
 void Application::Run() {
     InitVulkan();
     SetupScene();
+
+    lastFrameTime = std::chrono::high_resolution_clock::now();
+
+
     MainLoop();
     Cleanup();
 }
@@ -61,21 +65,39 @@ void Application::InitVulkan() {
 }
 
 void Application::SetupScene() {
-    scene->AddGrid(10, 10, 0.5f, glm::vec3(0.0f, 0.0f, 0.0f), "textures/desert.jpg");
+    scene->AddGrid("GroundGrid", 10, 10, 0.5f, glm::vec3(0.0f, 0.0f, 0.0f), "textures/desert.jpg");
 
-   	scene->AddSphere(16, 32, 0.5f, glm::vec3(0.0f, 4.0f, 0.0f), "textures/moon.jpg");
-	scene->AddLight(glm::vec3(0.0f, 4.0f, 0.0f), glm::vec3(0.5f, 0.0f, 0.0f), 0.5f, 0);
+    scene->AddSphere("Moon", 16, 32, 0.5f, glm::vec3(0.0f, 4.0f, 0.0f), "textures/moon.jpg");
+    scene->AddLight("MoonLight", glm::vec3(0.0f, 4.0f, 0.0f), glm::vec3(0.5f, 0.0f, 0.0f), 0.5f, 0);
 
-	scene->AddSphere(16, 32, 0.3f, glm::vec3(3.0f, 2.0f, -2.0f), "textures/sun.png");
-	scene->AddLight(glm::vec3(3.0f, 2.0f, -2.0f), glm::vec3(0.5f, 0.5f, 1.0f), 1.0f, 0);
+    scene->AddSphere("Sun", 16, 32, 0.3f, glm::vec3(3.0f, 2.0f, -2.0f), "textures/sun.png");
+    scene->AddLight("SunLight", glm::vec3(3.0f, 2.0f, -2.0f), glm::vec3(0.5f, 0.5f, 1.0f), 1.0f, 0);
 
-	scene->AddModel(glm::vec3(2.0f, 0.0f, -1.0f), glm::vec3(0.0f, 45.0f, 0.0f), glm::vec3(0.07f), "models/DeadTree.obj", "textures/bark.jpg");
-    scene->AddModel(glm::vec3(-2.0f, 0.0f, 1.0f), glm::vec3(0.0f, 20.0f, 0.0f), glm::vec3(0.05f), "models/DeadTree.obj", "textures/bark.jpg");
-    scene->AddModel(glm::vec3(-1.0f, 0.0f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.08f), "models/DeadTree.obj", "textures/bark.jpg");
-    scene->AddModel(glm::vec3(1.0f, 0.0f, -2.0f), glm::vec3(0.0f, 90.0f, 0.0f), glm::vec3(0.09f), "models/DeadTree.obj", "textures/bark.jpg");
+    scene->SetObjectOrbit("Sun", // <--- Use Name
+        glm::vec3(0.0f, 1.0f, 0.0f),  // Center of orbit
+        3.0f,                         // Radius
+        glm::radians(30.0f),          // Speed: 30 degrees/sec
+        glm::vec3(0.0f, 1.0f, 0.0f),  // Axis: Y-axis
+        glm::radians(45.0f)           // Initial angle
+    );
 
-	scene->AddModel(glm::vec3(0.0f, -0.1f, 0.0f), glm::vec3(-90.0f, 0.0f, 0.0f), glm::vec3(0.006f), "models/cactus.obj", "textures/cactus.jpg");
+    // Light Orbit: Make "OrbitingLight" orbit around the "Moon"
+    scene->SetLightOrbit("SunLight", // <--- Use Name
+        glm::vec3(0.0f, 4.0f, 0.0f),  // Center of orbit (around the "Moon")
+        1.5f,                         // Radius
+        glm::radians(90.0f),          // Speed: 90 degrees/sec
+        glm::vec3(1.0f, 0.0f, 0.0f),  // Axis: X-axis
+        0.0f
+    );
+
+    scene->AddModel("Tree1", glm::vec3(2.0f, 0.0f, -1.0f), glm::vec3(0.0f, 45.0f, 0.0f), glm::vec3(0.07f), "models/DeadTree.obj", "textures/bark.jpg");
+    scene->AddModel("Tree2", glm::vec3(-2.0f, 0.0f, 1.0f), glm::vec3(0.0f, 20.0f, 0.0f), glm::vec3(0.05f), "models/DeadTree.obj", "textures/bark.jpg");
+    scene->AddModel("Tree3", glm::vec3(-1.0f, 0.0f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.08f), "models/DeadTree.obj", "textures/bark.jpg");
+    scene->AddModel("Tree4", glm::vec3(1.0f, 0.0f, -2.0f), glm::vec3(0.0f, 90.0f, 0.0f), glm::vec3(0.09f), "models/DeadTree.obj", "textures/bark.jpg");
+
+    scene->AddModel("Cactus", glm::vec3(0.0f, -0.1f, 0.0f), glm::vec3(-90.0f, 0.0f, 0.0f), glm::vec3(0.006f), "models/cactus.obj", "textures/cactus.jpg");
 }
+
 
 void Application::RecreateSwapChain() {
     int width = 0, height = 0;
@@ -117,8 +139,8 @@ void Application::MainLoop() {
             RecreateSwapChain();
         }
 
-        // Update camera
         cameraController->Update(deltaTime);
+        scene->Update(deltaTime);
 
         // Get camera matrices
         Camera* activeCamera = cameraController->GetActiveCamera();
