@@ -13,7 +13,8 @@ layout(set = 0, binding = 0) uniform UniformBufferObject {
     mat4 view;
     mat4 proj;
     vec3 viewPos;
-    Light lights[MAX_LIGHTS]; // Updated to Array
+    mat4 lightSpaceMatrix;
+    Light lights[MAX_LIGHTS];
     int numLights;
 } ubo;
 
@@ -31,7 +32,9 @@ layout(location = 0) out vec3 fragColor;
 layout(location = 1) out vec2 fragUV;
 layout(location = 2) out vec3 fragNormal;
 layout(location = 3) out vec3 fragPos;
-layout(location = 4) out vec3 fragGouraudColor;
+layout(location = 4) out vec3 fragGouraudColor;    // Holds ONLY Sun light (Index 0)
+layout(location = 5) out vec4 fragPosLightSpace;
+layout(location = 6) out vec3 fragOtherLightColor; // Holds Moon/Other lights (Index 1+)
 
 void main() {
     vec4 worldPos = pco.model * vec4(inPosition, 1.0);
@@ -46,9 +49,14 @@ void main() {
     fragNormal = normal;
     fragPos = vec3(worldPos);
 
-    // GOURAUD SHADING (Loop through lights)
+    fragPosLightSpace = ubo.lightSpaceMatrix * worldPos;
+
+    // Initialize accumulators
+    vec3 sunColor = vec3(0.0);
+    vec3 otherColor = vec3(0.0);
+
+    // GOURAUD SHADING CALCULATION
     if (pco.shadingMode == 0) {
-        vec3 finalColor = vec3(0.0);
         vec3 viewDir = normalize(ubo.viewPos - fragPos);
 
         for(int i = 0; i < ubo.numLights; i++) {
@@ -67,10 +75,17 @@ void main() {
             float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
             vec3 specular = specularStrength * spec * ubo.lights[i].color * ubo.lights[i].intensity;
 
-            finalColor += (ambient + diffuse + specular);
+            vec3 result = ambient + diffuse + specular;
+
+            // Separate Sun (0) from Moon (1+)
+            if (i == 0) {
+                sunColor += result;
+            } else {
+                otherColor += result;
+            }
         }
-        fragGouraudColor = finalColor;
-    } else {
-        fragGouraudColor = vec3(0.0);
     }
+    
+    fragGouraudColor = sunColor;
+    fragOtherLightColor = otherColor;
 }

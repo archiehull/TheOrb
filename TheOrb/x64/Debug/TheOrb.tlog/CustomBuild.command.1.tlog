@@ -2,3 +2,7 @@
 glslc ".\src\shaders\shader.frag" -o ".\src\shaders\frag.spv"
 ^C:\USERS\663073\WORKSPACE\THEORB\SRC\SHADERS\SHADER.VERT
 glslc ".\src\shaders\shader.vert" -o ".\src\shaders\vert.spv"
+^C:\USERS\663073\WORKSPACE\THEORB\SRC\SHADERS\SHADOW.FRAG
+glslc ".\src\shaders\shadow.frag" -o ".\src\shaders\shadow_frag.spv"
+^C:\USERS\663073\WORKSPACE\THEORB\SRC\SHADERS\SHADOW.VERT
+glslc ".\src\shaders\shadow.vert" -o ".\src\shaders\shadow_vert.spv"

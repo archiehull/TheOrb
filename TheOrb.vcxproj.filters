@@ -28,9 +28,6 @@
     <Filter Include="Source Files\src\geometry">
       <UniqueIdentifier>{749ffbbe-4302-4d12-a54e-88a4a9f38190}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\src\pipelines">
-      <UniqueIdentifier>{8c2f2ce8-a6e0-4911-89f4-62da211fd544}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\src\rendering">
       <UniqueIdentifier>{730c4f90-6446-4b55-9703-505a73e90ad7}</UniqueIdentifier>
     </Filter>
@@ -75,12 +72,6 @@
     <ClCompile Include="src\geometry\GeometryGenerator.cpp">
       <Filter>Source Files\src\geometry</Filter>
     </ClCompile>
-    <ClCompile Include="src\pipelines\Pipeline.cpp">
-      <Filter>Source Files\src\pipelines</Filter>
-    </ClCompile>
-    <ClCompile Include="src\pipelines\GraphicsPipeline.cpp">
-      <Filter>Source Files\src\pipelines</Filter>
-    </ClCompile>
     <ClCompile Include="src\vulkan\VulkanRenderPass.cpp">
       <Filter>Source Files\src\vulkan</Filter>
     </ClCompile>
@@ -102,8 +93,14 @@
     <ClCompile Include="src\rendering\Texture.cpp">
       <Filter>Source Files\src\rendering</Filter>
     </ClCompile>
+    <ClCompile Include="src\rendering\ShadowPass.cpp">
+      <Filter>Source Files\src\rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\rendering\GraphicsPipeline.cpp">
+      <Filter>Source Files\src\rendering</Filter>
+    </ClCompile>
     <ClCompile Include="src\geometry\OBJLoader.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\src\geometry</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -121,9 +118,6 @@
     </ClInclude>
     <ClInclude Include="src\core\Application.h">
       <Filter>Source Files\src\core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\VulkanUtils.h">
-      <Filter>Source Files\src\vulkan</Filter>
     </ClInclude>
     <ClInclude Include="src\vulkan\VulkanShader.h">
       <Filter>Source Files\src\vulkan</Filter>
@@ -145,12 +139,6 @@
     </ClInclude>
     <ClInclude Include="src\geometry\GeometryGenerator.h">
       <Filter>Source Files\src\geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="src\pipelines\Pipeline.h">
-      <Filter>Source Files\src\pipelines</Filter>
-    </ClInclude>
-    <ClInclude Include="src\pipelines\GraphicsPipeline.h">
-      <Filter>Source Files\src\pipelines</Filter>
     </ClInclude>
     <ClInclude Include="src\vulkan\VulkanRenderPass.h">
       <Filter>Source Files\src\vulkan</Filter>
@@ -179,8 +167,17 @@
     <ClInclude Include="src\rendering\Texture.h">
       <Filter>Source Files\src\rendering</Filter>
     </ClInclude>
+    <ClInclude Include="src\rendering\ShadowPass.h">
+      <Filter>Source Files\src\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vulkan\VulkanUtils.h">
+      <Filter>Source Files\src\vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rendering\GraphicsPipeline.h">
+      <Filter>Source Files\src\rendering</Filter>
+    </ClInclude>
     <ClInclude Include="src\geometry\OBJLoader.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\src\geometry</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -188,6 +185,12 @@
       <Filter>Source Files\src\shader</Filter>
     </CustomBuild>
     <CustomBuild Include="src\shaders\shader.vert">
+      <Filter>Source Files\src\shader</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\shaders\shadow.frag">
+      <Filter>Source Files\src\shader</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\shaders\shadow.vert">
       <Filter>Source Files\src\shader</Filter>
     </CustomBuild>
   </ItemGroup>

@@ -10,8 +10,7 @@ public:
 
     void CreateDescriptorSetLayout();
     void CreateDescriptorPool(uint32_t maxSets);
-    // Removed texture params
-    void CreateDescriptorSets(const std::vector<VkBuffer>& uniformBuffers, VkDeviceSize bufferSize);
+    void CreateDescriptorSets(const std::vector<VkBuffer>& uniformBuffers, VkDeviceSize bufferSize, VkImageView shadowImageView, VkSampler shadowSampler);    
     void Cleanup();
 
     VkDescriptorSetLayout GetLayout() const { return descriptorSetLayout; }

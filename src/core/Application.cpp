@@ -65,32 +65,33 @@ void Application::InitVulkan() {
 }
 
 void Application::SetupScene() {
-    scene->AddGrid("GroundGrid", 10, 10, 0.5f, glm::vec3(0.0f, 0.0f, 0.0f), "textures/desert.jpg");
+    scene->AddGrid("GroundGrid", 10, 10, 20.0f, glm::vec3(0.0f, 0.0f, 0.0f), "textures/desert.jpg");
 
-    float orbitRadius = 5.0f;
+    float orbitRadius = 200.0f;
     float startSpeed = 0.5f;
     dayNightSpeed = startSpeed;
 
+    scene->AddSphere("Sun", 16, 32, 20.0f, glm::vec3(0.0f), "textures/sun.png");
+    scene->AddLight("Sun", glm::vec3(0.0f), glm::vec3(1.0f, 0.9f, 0.8f), 1.0f, 0);
+    scene->SetObjectCastsShadow("Sun", false);
 
-    scene->AddSphere("Sun", 16, 32, 0.5f, glm::vec3(0.0f), "textures/sun.png");
-    scene->AddLight("Sun", glm::vec3(0.0f), glm::vec3(1.0f, 0.9f, 0.8f), 1.5f, 0);
+    scene->SetObjectOrbit("Sun", glm::vec3(0.0f, 0.0f, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), 0.0f);
+    scene->SetLightOrbit("Sun", glm::vec3(0.0f, 0.0f, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), 0.0f);
 
-    scene->SetObjectOrbit("Sun",glm::vec3(0.0f, 0.0f, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), 0.0f);
-    scene->SetLightOrbit("Sun",glm::vec3(0.0f, 0.0f, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), 0.0f);
+    scene->AddSphere("Moon", 16, 32, 12.0f, glm::vec3(0.0f), "textures/moon.jpg");
+    scene->AddLight("Moon", glm::vec3(0.0f), glm::vec3(0.1f, 0.1f, 0.3f), 1.5f, 0);
+    scene->SetObjectCastsShadow("Moon", false);
 
-
-    scene->AddSphere("Moon", 16, 32, 0.3f, glm::vec3(0.0f), "textures/moon.jpg");
-    scene->AddLight("Moon", glm::vec3(0.0f), glm::vec3(0.1f, 0.1f, 0.3f), 0.5f, 0);
 
     scene->SetObjectOrbit("Moon", glm::vec3(0.0f, 0.0f, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), glm::pi<float>());
     scene->SetLightOrbit("Moon", glm::vec3(0.0f, 0.0f, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), glm::pi<float>());
 
-    scene->AddModel("Tree1", glm::vec3(2.0f, 0.0f, -1.0f), glm::vec3(0.0f, 45.0f, 0.0f), glm::vec3(0.07f), "models/DeadTree.obj", "textures/bark.jpg");
-    scene->AddModel("Tree2", glm::vec3(-2.0f, 0.0f, 1.0f), glm::vec3(0.0f, 20.0f, 0.0f), glm::vec3(0.05f), "models/DeadTree.obj", "textures/bark.jpg");
-    scene->AddModel("Tree3", glm::vec3(-1.0f, 0.0f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.08f), "models/DeadTree.obj", "textures/bark.jpg");
-    scene->AddModel("Tree4", glm::vec3(1.0f, 0.0f, -2.0f), glm::vec3(0.0f, 90.0f, 0.0f), glm::vec3(0.09f), "models/DeadTree.obj", "textures/bark.jpg");
+    scene->AddModel("Tree1", glm::vec3(80.0f, 0.0f, -40.0f), glm::vec3(0.0f, 45.0f, 0.0f), glm::vec3(2.8f), "models/DeadTree.obj", "textures/bark.jpg");
+    scene->AddModel("Tree2", glm::vec3(-80.0f, 0.0f, 40.0f), glm::vec3(0.0f, 20.0f, 0.0f), glm::vec3(2.0f), "models/DeadTree.obj", "textures/bark.jpg");
+    scene->AddModel("Tree3", glm::vec3(-40.0f, 0.0f, 80.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(3.2f), "models/DeadTree.obj", "textures/bark.jpg");
+    scene->AddModel("Tree4", glm::vec3(40.0f, 0.0f, -80.0f), glm::vec3(0.0f, 90.0f, 0.0f), glm::vec3(3.6f), "models/DeadTree.obj", "textures/bark.jpg");
 
-    scene->AddModel("Cactus", glm::vec3(0.0f, -0.1f, 0.0f), glm::vec3(-90.0f, 0.0f, 0.0f), glm::vec3(0.006f), "models/cactus.obj", "textures/cactus.jpg");
+    scene->AddModel("Cactus", glm::vec3(0.0f, -4.0f, 0.0f), glm::vec3(-90.0f, 0.0f, 0.0f), glm::vec3(0.24f), "models/cactus.obj", "textures/cactus.jpg");
 }
 
 

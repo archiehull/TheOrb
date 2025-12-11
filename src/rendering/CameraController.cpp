@@ -13,24 +13,27 @@ CameraController::~CameraController() {
 }
 
 void CameraController::SetupCameras() {
-    // FREE ROAM Camera - starts at a nice viewing position
+    // FREE ROAM Camera
     auto freeRoamCam = std::make_unique<Camera>();
-    freeRoamCam->SetPosition(glm::vec3(0.0f, 3.0f, 10.0f));
-    freeRoamCam->SetTarget(glm::vec3(0.0f, 2.0f, 0.0f));
-    freeRoamCam->SetMoveSpeed(2.0f);
+    // SCALED UP: Move back and up
+    freeRoamCam->SetPosition(glm::vec3(0.0f, 60.0f, 200.0f));
+    freeRoamCam->SetTarget(glm::vec3(0.0f, 40.0f, 0.0f));
+    freeRoamCam->SetMoveSpeed(50.0f); // Faster default
     freeRoamCam->SetRotateSpeed(35.0f);
     cameras[CameraType::FREE_ROAM] = std::move(freeRoamCam);
 
-    // BIRDS EYE Camera - looking straight down
+    // BIRDS EYE Camera
     auto birdsEyeCam = std::make_unique<Camera>();
-    birdsEyeCam->SetPosition(glm::vec3(0.0f, 5.0f, 0.0f));
+    // SCALED UP: High up
+    birdsEyeCam->SetPosition(glm::vec3(0.0f, 350.0f, 0.0f));
     birdsEyeCam->SetTarget(glm::vec3(0.0f, 0.0f, 0.0f));
-    birdsEyeCam->SetUp(glm::vec3(0.0f, 0.0f, -1.0f));  // Z is up when looking down
+    birdsEyeCam->SetUp(glm::vec3(0.0f, 0.0f, -1.0f));
+    birdsEyeCam->SetMoveSpeed(100.0f);
     cameras[CameraType::BIRDS_EYE] = std::move(birdsEyeCam);
 
-    // ORBIT Camera - looking at center from side
+    // ORBIT Camera
     auto orbitCam = std::make_unique<Camera>();
-    orbitCam->SetPosition(glm::vec3(3.0f, 0.0f, 0.0f));
+    orbitCam->SetPosition(glm::vec3(150.0f, 0.0f, 0.0f)); // Further out
     orbitCam->SetTarget(glm::vec3(0.0f, 0.0f, 0.0f));
     cameras[CameraType::ORBIT] = std::move(orbitCam);
 }

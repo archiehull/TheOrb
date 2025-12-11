@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vulkan/vulkan.h>
+#include "VulkanUtils.h"
 
 class VulkanBuffer {
 public:
@@ -23,5 +24,4 @@ private:
     VkBuffer buffer = VK_NULL_HANDLE;
     VkDeviceMemory bufferMemory = VK_NULL_HANDLE;
 
-    uint32_t findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
 };

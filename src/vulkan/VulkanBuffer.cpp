@@ -1,3 +1,4 @@
+#define GLM_FORCE_DEPTH_ZERO_TO_ONE
 #include "VulkanBuffer.h"
 #include <stdexcept>
 #include <cstring>
@@ -28,7 +29,13 @@ void VulkanBuffer::CreateBuffer(VkDeviceSize size, VkBufferUsageFlags usage,
     VkMemoryAllocateInfo allocInfo{};
     allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
     allocInfo.allocationSize = memRequirements.size;
-    allocInfo.memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, properties);
+
+    // REFACTORED: Use VulkanUtils to find memory type
+    allocInfo.memoryTypeIndex = VulkanUtils::FindMemoryType(
+        physicalDevice,
+        memRequirements.memoryTypeBits,
+        properties
+    );
 
     if (vkAllocateMemory(device, &allocInfo, nullptr, &bufferMemory) != VK_SUCCESS) {
         throw std::runtime_error("failed to allocate buffer memory!");
@@ -42,20 +49,6 @@ void VulkanBuffer::CopyData(const void* data, VkDeviceSize size) {
     vkMapMemory(device, bufferMemory, 0, size, 0, &mappedData);
     memcpy(mappedData, data, (size_t)size);
     vkUnmapMemory(device, bufferMemory);
-}
-
-uint32_t VulkanBuffer::findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties) {
-    VkPhysicalDeviceMemoryProperties memProperties;
-    vkGetPhysicalDeviceMemoryProperties(physicalDevice, &memProperties);
-
-    for (uint32_t i = 0; i < memProperties.memoryTypeCount; i++) {
-        if ((typeFilter & (1 << i)) &&
-            (memProperties.memoryTypes[i].propertyFlags & properties) == properties) {
-            return i;
-        }
-    }
-
-    throw std::runtime_error("failed to find suitable memory type!");
 }
 
 void VulkanBuffer::Cleanup() {

@@ -1,5 +1,8 @@
+#define GLM_FORCE_DEPTH_ZERO_TO_ONE
+
 #include "Renderer.h"
 #include "../vulkan/Vertex.h"
+#include "../vulkan/VulkanUtils.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <stdexcept>
 #include <iostream>
@@ -18,51 +21,116 @@ void Renderer::Initialize() {
     CreateUniformBuffers();
     CreateCommandBuffer();
 
-    // New Order:
     CreateTextureDescriptorSetLayout();
     CreateTextureDescriptorPool();
     CreateDefaultTexture();
 
-    // Create Set 0 (Global UBO)
     descriptorSet = std::make_unique<VulkanDescriptorSet>(device->GetDevice());
     descriptorSet->CreateDescriptorSetLayout();
+
+    CreateShadowPass();
+
     descriptorSet->CreateDescriptorPool(MAX_FRAMES_IN_FLIGHT);
 
     std::vector<VkBuffer> buffers;
     for (const auto& uniformBuffer : uniformBuffers) buffers.push_back(uniformBuffer->GetBuffer());
-    descriptorSet->CreateDescriptorSets(buffers, sizeof(UniformBufferObject)); // No texture args
 
-    CreatePipeline(); // Updated to pass both layouts
+    // PASS SHADOW RESOURCES HERE
+    descriptorSet->CreateDescriptorSets(
+        buffers,
+        sizeof(UniformBufferObject),
+        shadowPass->GetShadowImageView(),
+        shadowPass->GetShadowSampler()
+    );
+
+    CreatePipeline();
     CreateSyncObjects();
+}
+
+void Renderer::DrawFrame(Scene& scene, uint32_t currentFrame, const glm::mat4& viewMatrix, const glm::mat4& projMatrix) {
+    // Wait for this frame's fence
+    VkFence fence = syncObjects->GetInFlightFence(currentFrame);
+    vkWaitForFences(device->GetDevice(), 1, &fence, VK_TRUE, UINT64_MAX);
+
+    // Acquire next image
+    uint32_t imageIndex;
+    VkResult result = vkAcquireNextImageKHR(
+        device->GetDevice(),
+        swapChain->GetSwapChain(),
+        UINT64_MAX,
+        syncObjects->GetImageAvailableSemaphore(currentFrame),
+        VK_NULL_HANDLE,
+        &imageIndex
+    );
+
+    if (result == VK_ERROR_OUT_OF_DATE_KHR) {
+        return;
+    }
+    else if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR) {
+        throw std::runtime_error("failed to acquire swap chain image!");
+    }
+
+    // Check if this image is already in use
+    VkFence& imageInFlightFence = syncObjects->GetImageInFlight(imageIndex);
+    if (imageInFlightFence != VK_NULL_HANDLE) {
+        vkWaitForFences(device->GetDevice(), 1, &imageInFlightFence, VK_TRUE, UINT64_MAX);
+    }
+    imageInFlightFence = fence;
+
+    vkResetFences(device->GetDevice(), 1, &fence);
+
+    VkCommandBuffer cmd = commandBuffer->GetCommandBuffer(currentFrame);
+    RecordCommandBuffer(cmd, imageIndex, currentFrame, scene, viewMatrix, projMatrix);
+
+    VkSubmitInfo submitInfo{};
+    submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+
+    VkSemaphore waitSemaphores[] = { syncObjects->GetImageAvailableSemaphore(currentFrame) };
+    VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT };
+    submitInfo.waitSemaphoreCount = 1;
+    submitInfo.pWaitSemaphores = waitSemaphores;
+    submitInfo.pWaitDstStageMask = waitStages;
+    submitInfo.commandBufferCount = 1;
+    submitInfo.pCommandBuffers = &cmd;
+
+    VkSemaphore signalSemaphores[] = { syncObjects->GetRenderFinishedSemaphore(imageIndex) };
+    submitInfo.signalSemaphoreCount = 1;
+    submitInfo.pSignalSemaphores = signalSemaphores;
+
+    if (vkQueueSubmit(device->GetGraphicsQueue(), 1, &submitInfo, fence) != VK_SUCCESS) {
+        throw std::runtime_error("failed to submit draw command buffer!");
+    }
+
+    VkPresentInfoKHR presentInfo{};
+    presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
+    presentInfo.waitSemaphoreCount = 1;
+    presentInfo.pWaitSemaphores = signalSemaphores;
+
+    VkSwapchainKHR swapChains[] = { swapChain->GetSwapChain() };
+    presentInfo.swapchainCount = 1;
+    presentInfo.pSwapchains = swapChains;
+    presentInfo.pImageIndices = &imageIndex;
+
+    vkQueuePresentKHR(device->GetPresentQueue(), &presentInfo);
+}
+
+
+void Renderer::CreateShadowPass() {
+    // Shadow resolution typically higher than screen, e.g., 2048 or 4096
+    shadowPass = std::make_unique<ShadowPass>(device, 2048, 2048);
+    // Initialize passing the Global UBO Layout (Set 0)
+    shadowPass->Initialize(descriptorSet->GetLayout());
 }
 
 void Renderer::CreateUniformBuffers() {
     VkDeviceSize bufferSize = sizeof(UniformBufferObject);
-
     uniformBuffers.resize(MAX_FRAMES_IN_FLIGHT);
     uniformBuffersMapped.resize(MAX_FRAMES_IN_FLIGHT);
 
     for (size_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {
-        uniformBuffers[i] = std::make_unique<VulkanBuffer>(
-            device->GetDevice(),
-            device->GetPhysicalDevice()
-        );
-
-        uniformBuffers[i]->CreateBuffer(
-            bufferSize,
-            VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
-            VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT
-        );
-
-        // Keep mapped for updates
-        vkMapMemory(
-            device->GetDevice(),
-            uniformBuffers[i]->GetBufferMemory(),
-            0,
-            bufferSize,
-            0,
-            &uniformBuffersMapped[i]
-        );
+        uniformBuffers[i] = std::make_unique<VulkanBuffer>(device->GetDevice(), device->GetPhysicalDevice());
+        uniformBuffers[i]->CreateBuffer(bufferSize, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+        vkMapMemory(device->GetDevice(), uniformBuffers[i]->GetBufferMemory(), 0, bufferSize, 0, &uniformBuffersMapped[i]);
     }
 }
 
@@ -107,7 +175,7 @@ void Renderer::CreateDefaultTexture() {
         commandBuffer->GetCommandPool(), device->GetGraphicsQueue());
 
     // load default.png
-	 defaultTextureResource.texture->LoadFromFile("textures/default.png");
+    defaultTextureResource.texture->LoadFromFile("textures/default.png");
 
     // Create Descriptor Set
     VkDescriptorSetAllocateInfo allocInfo{};
@@ -186,32 +254,32 @@ VkDescriptorSet Renderer::GetTextureDescriptorSet(const std::string& path) {
 }
 
 void Renderer::CreateDescriptorSets() {
-    descriptorSet = std::make_unique<VulkanDescriptorSet>(device->GetDevice());
+    //descriptorSet = std::make_unique<VulkanDescriptorSet>(device->GetDevice());
 
-    descriptorSet->CreateDescriptorSetLayout();
-    descriptorSet->CreateDescriptorPool(MAX_FRAMES_IN_FLIGHT);
+    //descriptorSet->CreateDescriptorSetLayout();
+    //descriptorSet->CreateDescriptorPool(MAX_FRAMES_IN_FLIGHT);
 
-    // Load texture (uses command pool and graphics queue)
-    texture = std::make_unique<Texture>(
-        device->GetDevice(),
-        device->GetPhysicalDevice(),
-        commandBuffer->GetCommandPool(),
-        device->GetGraphicsQueue()
-    );
+    //// Load texture (uses command pool and graphics queue)
+    //texture = std::make_unique<Texture>(
+    //    device->GetDevice(),
+    //    device->GetPhysicalDevice(),
+    //    commandBuffer->GetCommandPool(),
+    //    device->GetGraphicsQueue()
+    //);
 
-    // Use project-relative path to texture; update as needed
-    if (!texture->LoadFromFile("textures/desert.jpg")) {
-        throw std::runtime_error("failed to load texture textures/desert.jpg");
-    }
+    //// Use project-relative path to texture; update as needed
+    //if (!texture->LoadFromFile("textures/desert.jpg")) {
+    //    throw std::runtime_error("failed to load texture textures/desert.jpg");
+    //}
 
-    // Get VkBuffer handles from VulkanBuffer wrappers
-    std::vector<VkBuffer> buffers;
-    for (const auto& uniformBuffer : uniformBuffers) {
-        buffers.push_back(uniformBuffer->GetBuffer());
-    }
+    //// Get VkBuffer handles from VulkanBuffer wrappers
+    //std::vector<VkBuffer> buffers;
+    //for (const auto& uniformBuffer : uniformBuffers) {
+    //    buffers.push_back(uniformBuffer->GetBuffer());
+    //}
 
-    // Pass texture image view + sampler to descriptor set creation
-    descriptorSet->CreateDescriptorSets(buffers, sizeof(UniformBufferObject));
+    //// Pass texture image view + sampler to descriptor set creation
+    //descriptorSet->CreateDescriptorSets(buffers, sizeof(UniformBufferObject));
 }
 
 void Renderer::UpdateUniformBuffer(uint32_t currentFrame, const UniformBufferObject& ubo) {
@@ -271,18 +339,23 @@ void Renderer::CreatePipeline() {
         textureSetLayout
     };
 
-    graphicsPipeline = std::make_unique<GraphicsPipeline>(
-        device->GetDevice(),
-        pipelineConfig
-    );
+    // Main pipeline standard settings
+    pipelineConfig.cullMode = VK_CULL_MODE_BACK_BIT;
+    pipelineConfig.depthTestEnable = true;
+    pipelineConfig.depthWriteEnable = true;
+
+    graphicsPipeline = std::make_unique<GraphicsPipeline>(device->GetDevice(), pipelineConfig);
     graphicsPipeline->Create();
 }
 
 void Renderer::CreateOffScreenResources() {
-    // Create color attachment (off-screen)
-    createImage(
+    // 1. Create color attachment (off-screen)
+    VulkanUtils::CreateImage(
+        device->GetDevice(),
+        device->GetPhysicalDevice(),
         swapChain->GetExtent().width,
         swapChain->GetExtent().height,
+        1, 1,
         swapChain->GetImageFormat(),
         VK_IMAGE_TILING_OPTIMAL,
         VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT,
@@ -291,18 +364,22 @@ void Renderer::CreateOffScreenResources() {
         offScreenImageMemory
     );
 
-    offScreenImageView = createImageView(
+    offScreenImageView = VulkanUtils::CreateImageView(
+        device->GetDevice(),
         offScreenImage,
         swapChain->GetImageFormat(),
         VK_IMAGE_ASPECT_COLOR_BIT
     );
 
-    // Create depth attachment
+    // 2. Create depth attachment
     VkFormat depthFormat = findDepthFormat(device->GetPhysicalDevice());
 
-    createImage(
+    VulkanUtils::CreateImage(
+        device->GetDevice(),
+        device->GetPhysicalDevice(),
         swapChain->GetExtent().width,
         swapChain->GetExtent().height,
+        1, 1,
         depthFormat,
         VK_IMAGE_TILING_OPTIMAL,
         VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
@@ -311,7 +388,8 @@ void Renderer::CreateOffScreenResources() {
         depthImageMemory
     );
 
-    depthImageView = createImageView(
+    depthImageView = VulkanUtils::CreateImageView(
+        device->GetDevice(),
         depthImage,
         depthFormat,
         VK_IMAGE_ASPECT_DEPTH_BIT
@@ -343,79 +421,53 @@ void Renderer::CreateSyncObjects() {
     syncObjects->CreateSyncObjects(imageCount);
 }
 
-void Renderer::DrawFrame(Scene& scene, uint32_t currentFrame, const glm::mat4& viewMatrix, const glm::mat4& projMatrix) {
-    // Wait for this frame's fence
-    VkFence fence = syncObjects->GetInFlightFence(currentFrame);
-    vkWaitForFences(device->GetDevice(), 1, &fence, VK_TRUE, UINT64_MAX);
+void Renderer::DrawSceneObjects(VkCommandBuffer cmd, Scene& scene, VkPipelineLayout layout, bool bindTextures, bool skipIfNotCastingShadow) {
+    for (const auto& obj : scene.GetObjects()) {
+        if (!obj || !obj->visible || !obj->geometry) continue;
+        if (skipIfNotCastingShadow && !obj->castsShadow) continue;
 
-    // Acquire next image - use the semaphore for THIS frame (one semaphore per frame in flight)
-    uint32_t imageIndex;
-    VkResult result = vkAcquireNextImageKHR(
-        device->GetDevice(),
-        swapChain->GetSwapChain(),
-        UINT64_MAX,
-        syncObjects->GetImageAvailableSemaphore(currentFrame), // imageAvailable: indexed by frame
-        VK_NULL_HANDLE,
-        &imageIndex
+        PushConstantObject pco{};
+        pco.model = obj->transform;
+        pco.shadingMode = obj->shadingMode;
+
+        vkCmdPushConstants(cmd, layout, VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(PushConstantObject), &pco);
+
+        if (bindTextures) {
+            VkDescriptorSet textureSet = GetTextureDescriptorSet(obj->texturePath);
+            vkCmdBindDescriptorSets(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, layout, 1, 1, &textureSet, 0, nullptr);
+        }
+
+        obj->geometry->Bind(cmd);
+        obj->geometry->Draw(cmd);
+    }
+}
+
+void Renderer::RenderShadowMap(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene) {
+    shadowPass->Begin(cmd);
+
+    // Bind Global UBO (Set 0) - Contains LightSpaceMatrix
+    vkCmdBindDescriptorSets(
+        cmd,
+        VK_PIPELINE_BIND_POINT_GRAPHICS,
+        shadowPass->GetPipeline()->GetLayout(),
+        0,
+        1,
+        &descriptorSet->GetDescriptorSets()[currentFrame],
+        0,
+        nullptr
     );
 
-    if (result == VK_ERROR_OUT_OF_DATE_KHR) {
-        return;
-    }
-    else if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR) {
-        throw std::runtime_error("failed to acquire swap chain image!");
-    }
+    // Draw objects using shadow pipeline layout (No textures needed)
+    // Skip objects that should not cast shadows (e.g. the Sun/Moon spheres)
+    DrawSceneObjects(cmd, scene, shadowPass->GetPipeline()->GetLayout(), false, true);
 
-    // Check if this image is already in use
-    VkFence& imageInFlightFence = syncObjects->GetImageInFlight(imageIndex);
-    if (imageInFlightFence != VK_NULL_HANDLE) {
-        vkWaitForFences(device->GetDevice(), 1, &imageInFlightFence, VK_TRUE, UINT64_MAX);
-    }
-    imageInFlightFence = fence;
-
-    vkResetFences(device->GetDevice(), 1, &fence);
-
-    VkCommandBuffer cmd = commandBuffer->GetCommandBuffer(currentFrame);
-    RecordCommandBuffer(cmd, imageIndex, currentFrame, scene, viewMatrix, projMatrix);
-
-    VkSubmitInfo submitInfo{};
-    submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-
-    // Wait on the per-frame image-available semaphore
-    VkSemaphore waitSemaphores[] = { syncObjects->GetImageAvailableSemaphore(currentFrame) };
-    VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT };
-    submitInfo.waitSemaphoreCount = 1;
-    submitInfo.pWaitSemaphores = waitSemaphores;
-    submitInfo.pWaitDstStageMask = waitStages;
-    submitInfo.commandBufferCount = 1;
-    submitInfo.pCommandBuffers = &cmd;
-
-    // Signal the render-finished semaphore associated with the acquired image (one per swapchain image)
-    VkSemaphore signalSemaphores[] = { syncObjects->GetRenderFinishedSemaphore(imageIndex) };
-    submitInfo.signalSemaphoreCount = 1;
-    submitInfo.pSignalSemaphores = signalSemaphores;
-
-    if (vkQueueSubmit(device->GetGraphicsQueue(), 1, &submitInfo, fence) != VK_SUCCESS) {
-        throw std::runtime_error("failed to submit draw command buffer!");
-    }
-
-    VkPresentInfoKHR presentInfo{};
-    presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
-    presentInfo.waitSemaphoreCount = 1;
-    // Present waits on the render-finished semaphore for this image
-    presentInfo.pWaitSemaphores = signalSemaphores;
-
-    VkSwapchainKHR swapChains[] = { swapChain->GetSwapChain() };
-    presentInfo.swapchainCount = 1;
-    presentInfo.pSwapchains = swapChains;
-    presentInfo.pImageIndices = &imageIndex;
-
-    vkQueuePresentKHR(device->GetPresentQueue(), &presentInfo);
+    shadowPass->End(cmd);
 }
 
 void Renderer::RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex,
     uint32_t currentFrame, Scene& scene,
     const glm::mat4& viewMatrix, const glm::mat4& projMatrix) {
+
     vkResetCommandBuffer(cmd, 0);
 
     VkCommandBufferBeginInfo beginInfo{};
@@ -425,10 +477,43 @@ void Renderer::RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex,
         throw std::runtime_error("failed to begin recording command buffer!");
     }
 
-    // Render scene to off-screen (pass view and proj)
+    // --- 1. Update UBO with Light Matrices ---
+    // Find the main light (Sun)
+    glm::vec3 lightPos = glm::vec3(0.0f, 200.0f, 0.0f);
+    const auto& lights = scene.GetLights();
+    if (!lights.empty()) lightPos = lights[0].position;
+
+    // Calculate Light Space Matrix
+    float near_plane = 1.0f, far_plane = 500.0f;
+    glm::mat4 lightProj = glm::ortho(-200.0f, 200.0f, -200.0f, 200.0f, near_plane, far_plane);
+
+    glm::mat4 lightView = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+
+    lightProj[1][1] *= -1; // Correct for Vulkan Y-flip
+    glm::mat4 lightSpaceMatrix = lightProj * lightView;
+
+    UniformBufferObject ubo{};
+    ubo.view = viewMatrix;
+    ubo.proj = projMatrix;
+    ubo.viewPos = glm::vec3(glm::inverse(viewMatrix)[3]);
+    ubo.lightSpaceMatrix = lightSpaceMatrix;
+
+    size_t count = std::min(lights.size(), (size_t)MAX_LIGHTS);
+    if (count > 0) std::memcpy(ubo.lights, lights.data(), count * sizeof(Light));
+    ubo.numLights = static_cast<int>(count);
+
+    UpdateUniformBuffer(currentFrame, ubo);
+
+    // --- 2. Render Shadow Pass ---
+    RenderShadowMap(cmd, currentFrame, scene);
+
+    // Barrier not strictly needed if using RenderPass dependencies correctly, 
+    // but ensures shadow map write finishes before read.
+
+    // --- 3. Render Main Scene ---
     RenderScene(cmd, currentFrame, scene, viewMatrix, projMatrix);
 
-    // Copy to swap chain
+    // --- 4. Copy to SwapChain ---
     CopyOffScreenToSwapChain(cmd, imageIndex);
 
     if (vkEndCommandBuffer(cmd) != VK_SUCCESS) {
@@ -438,6 +523,7 @@ void Renderer::RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex,
 
 void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene,
     const glm::mat4& viewMatrix, const glm::mat4& projMatrix) {
+
     VkRenderPassBeginInfo renderPassInfo{};
     renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
     renderPassInfo.renderPass = renderPass->GetRenderPass();
@@ -445,11 +531,9 @@ void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& sc
     renderPassInfo.renderArea.offset = { 0, 0 };
     renderPassInfo.renderArea.extent = swapChain->GetExtent();
 
-    VkClearValue clearColor = { {{0.0f, 0.0f, 0.0f, 1.0f}} };
-    VkClearValue clearDepth = {};
-    clearDepth.depthStencil.depth = 1.0f;
-    clearDepth.depthStencil.stencil = 0;
-    VkClearValue clearValues[2] = { clearColor, clearDepth };
+    VkClearValue clearValues[2];
+    clearValues[0].color = { {0.0f, 0.0f, 0.0f, 1.0f} };
+    clearValues[1].depthStencil = { 1.0f, 0 };
 
     renderPassInfo.clearValueCount = 2;
     renderPassInfo.pClearValues = clearValues;
@@ -458,151 +542,33 @@ void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& sc
 
     vkCmdBindPipeline(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->GetPipeline());
 
-    // Set dynamic states
     VkViewport viewport{};
-    viewport.x = 0.0f;
-    viewport.y = 0.0f;
-    viewport.width = static_cast<float>(swapChain->GetExtent().width);
-    viewport.height = static_cast<float>(swapChain->GetExtent().height);
+    viewport.width = (float)swapChain->GetExtent().width;
+    viewport.height = (float)swapChain->GetExtent().height;
     viewport.minDepth = 0.0f;
     viewport.maxDepth = 1.0f;
     vkCmdSetViewport(cmd, 0, 1, &viewport);
 
     VkRect2D scissor{};
-    scissor.offset = { 0, 0 };
     scissor.extent = swapChain->GetExtent();
     vkCmdSetScissor(cmd, 0, 1, &scissor);
 
-    vkCmdSetLineWidth(cmd, 1.0f);
-
-    UniformBufferObject ubo{};
-    ubo.view = viewMatrix;
-    ubo.proj = projMatrix;
-    ubo.viewPos = glm::vec3(glm::inverse(viewMatrix)[3]);
-
-    const auto& sceneLights = scene.GetLights();
-    size_t count = std::min(sceneLights.size(), (size_t)MAX_LIGHTS);
-
-    // Copy array data
-    if (count > 0) {
-        std::memcpy(ubo.lights, sceneLights.data(), count * sizeof(Light));
-    }
-    ubo.numLights = static_cast<int>(count);
-
-    UpdateUniformBuffer(currentFrame, ubo);
-
-    // Bind descriptor set once (contains view/proj)
+    // Bind Global UBO (Set 0) - Contains View/Proj + Lights + ShadowMap info
     vkCmdBindDescriptorSets(
-        cmd, 
+        cmd,
         VK_PIPELINE_BIND_POINT_GRAPHICS,
-        graphicsPipeline->GetLayout(), 
-        0, 
+        graphicsPipeline->GetLayout(),
+        0,
         1,
-        &descriptorSet->GetDescriptorSets()[currentFrame], 
-        0, 
+        &descriptorSet->GetDescriptorSets()[currentFrame],
+        0,
         nullptr
     );
 
-    // Draw all objects in the scene
-    for (const auto& obj : scene.GetObjects()) {
-        if (obj && obj->visible && obj->geometry) {
-            // Push the model matrix for THIS specific object
-            PushConstantObject pco{};
-            pco.model = obj->transform;
-            pco.shadingMode = obj->shadingMode; // Set shading mode
-
-            vkCmdPushConstants(
-                cmd,
-                graphicsPipeline->GetLayout(),
-                VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT, // Available in both
-                0,
-                sizeof(PushConstantObject),
-                &pco
-            );
-
-            VkDescriptorSet textureSet = GetTextureDescriptorSet(obj->texturePath);
-            vkCmdBindDescriptorSets(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS,
-                graphicsPipeline->GetLayout(), 1, 1,
-                &textureSet, 0, nullptr);
-
-            obj->geometry->Bind(cmd);
-            obj->geometry->Draw(cmd);
-        }
-    }
+    // Draw objects using main pipeline layout (Bind Textures = true)
+    DrawSceneObjects(cmd, scene, graphicsPipeline->GetLayout(), true);
 
     vkCmdEndRenderPass(cmd);
-}
-
-void Renderer::createImage(uint32_t width, uint32_t height, VkFormat format,
-    VkImageTiling tiling, VkImageUsageFlags usage,
-    VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory) {
-
-    VkImageCreateInfo imageInfo{};
-    imageInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
-    imageInfo.imageType = VK_IMAGE_TYPE_2D;
-    imageInfo.extent.width = width;
-    imageInfo.extent.height = height;
-    imageInfo.extent.depth = 1;
-    imageInfo.mipLevels = 1;
-    imageInfo.arrayLayers = 1;
-    imageInfo.format = format;
-    imageInfo.tiling = tiling;
-    imageInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-    imageInfo.usage = usage;
-    imageInfo.samples = VK_SAMPLE_COUNT_1_BIT;
-    imageInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
-
-    if (vkCreateImage(device->GetDevice(), &imageInfo, nullptr, &image) != VK_SUCCESS) {
-        throw std::runtime_error("failed to create image!");
-    }
-
-    VkMemoryRequirements memRequirements;
-    vkGetImageMemoryRequirements(device->GetDevice(), image, &memRequirements);
-
-    VkMemoryAllocateInfo allocInfo{};
-    allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
-    allocInfo.allocationSize = memRequirements.size;
-    allocInfo.memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, properties);
-
-    if (vkAllocateMemory(device->GetDevice(), &allocInfo, nullptr, &imageMemory) != VK_SUCCESS) {
-        throw std::runtime_error("failed to allocate image memory!");
-    }
-
-    vkBindImageMemory(device->GetDevice(), image, imageMemory, 0);
-}
-
-VkImageView Renderer::createImageView(VkImage image, VkFormat format, VkImageAspectFlags aspectFlags) {
-    VkImageViewCreateInfo viewInfo{};
-    viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-    viewInfo.image = image;
-    viewInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
-    viewInfo.format = format;
-    viewInfo.subresourceRange.aspectMask = aspectFlags;
-    viewInfo.subresourceRange.baseMipLevel = 0;
-    viewInfo.subresourceRange.levelCount = 1;
-    viewInfo.subresourceRange.baseArrayLayer = 0;
-    viewInfo.subresourceRange.layerCount = 1;
-
-    VkImageView imageView;
-    if (vkCreateImageView(device->GetDevice(), &viewInfo, nullptr, &imageView) != VK_SUCCESS) {
-        throw std::runtime_error("failed to create texture image view!");
-    }
-
-    return imageView;
-}
-
-uint32_t Renderer::findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties) {
-    VkPhysicalDeviceMemoryProperties memProperties;
-    vkGetPhysicalDeviceMemoryProperties(device->GetPhysicalDevice(), &memProperties);
-
-    for (uint32_t i = 0; i < memProperties.memoryTypeCount; i++) {
-        if ((typeFilter & (1 << i)) &&
-            (memProperties.memoryTypes[i].propertyFlags & properties) == properties) {
-            return i;
-        }
-    }
-
-    throw std::runtime_error("failed to find suitable memory type!");
 }
 
 void Renderer::CopyOffScreenToSwapChain(VkCommandBuffer cmd, uint32_t imageIndex) {
@@ -729,6 +695,11 @@ void Renderer::Cleanup() {
         graphicsPipeline.reset();
     }
 
+    if (shadowPass) {
+        shadowPass->Cleanup();
+        shadowPass.reset();
+    }
+
     if (renderPass) {
         renderPass->Cleanup();
         renderPass.reset();
@@ -764,4 +735,3 @@ void Renderer::CleanupOffScreenResources() {
         offScreenImageMemory = VK_NULL_HANDLE;
     }
 }
-

@@ -2,14 +2,14 @@
 
 #include <vulkan/vulkan.h>
 #include <string>
+#include "../vulkan/VulkanUtils.h" 
 
 class Texture {
 public:
     Texture(VkDevice device, VkPhysicalDevice physicalDevice, VkCommandPool commandPool, VkQueue graphicsQueue);
     ~Texture();
 
-    // Loads file via stb_image, uploads to GPU, creates image view + sampler (anisotropic if supported).
-    // Returns false on failure.
+    // Loads file via stb_image, uploads to GPU, creates image view + sampler.
     bool LoadFromFile(const std::string& filepath);
 
     VkImageView GetImageView() const { return imageView; }
@@ -29,9 +29,4 @@ private:
     VkImageView imageView = VK_NULL_HANDLE;
     VkSampler sampler = VK_NULL_HANDLE;
 
-    uint32_t findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties) const;
-    VkCommandBuffer beginSingleTimeCommands() const;
-    void endSingleTimeCommands(VkCommandBuffer commandBuffer) const;
-    void transitionImageLayout(VkImage img, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout);
-    void copyBufferToImage(VkBuffer buffer, VkImage img, uint32_t width, uint32_t height);
 };

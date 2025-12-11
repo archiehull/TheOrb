@@ -4,6 +4,7 @@
 #include <glm/gtc/quaternion.hpp>
 #include <glm/common.hpp>
 #include <iostream>
+#include <algorithm>
 
 static void UpdateShadingMode(SceneObject* obj) {
     if (!obj || !obj->geometry) return;
@@ -13,11 +14,9 @@ static void UpdateShadingMode(SceneObject* obj) {
 
     if (vertexCount > HIGH_POLY_THRESHOLD) {
         obj->shadingMode = 0; // Gouraud
-        // std::cout << "Auto-Shading: High Poly (" << vertexCount << "v) -> Gouraud" << std::endl;
     }
     else {
         obj->shadingMode = 1; // Phong
-        // std::cout << "Auto-Shading: Low Poly (" << vertexCount << "v) -> Phong" << std::endl;
     }
 }
 
@@ -47,8 +46,15 @@ void Scene::AddCircle(const std::string& name, int segments, float radius, const
     AddObjectInternal(name, GeometryGenerator::CreateCircle(device, physicalDevice, segments, radius), position, texturePath);
 }
 
-void Scene::AddCube(const std::string& name, const glm::vec3& position, const std::string& texturePath) {
+void Scene::AddCube(const std::string& name, const glm::vec3& position, const glm::vec3& scale, const std::string& texturePath) {
     AddObjectInternal(name, GeometryGenerator::CreateCube(device, physicalDevice), position, texturePath);
+
+    if (!objects.empty()) {
+        glm::mat4 t = glm::translate(glm::mat4(1.0f), position);
+        t = glm::scale(t, scale);
+        objects.back()->transform = t;
+        UpdateShadingMode(objects.back().get());
+    }
 }
 
 void Scene::AddGrid(const std::string& name, int rows, int cols, float cellSize, const glm::vec3& position, const std::string& texturePath) {
@@ -84,8 +90,7 @@ void Scene::AddModel(const std::string& name, const glm::vec3& position, const g
     catch (const std::exception& e) {
         std::cerr << "Failed to add model '" << modelPath << "': " << e.what() << std::endl;
     }
-} 
-
+}
 
 void Scene::AddLight(const std::string& name, const glm::vec3& position, const glm::vec3& color, float intensity, int type) {
     if (m_SceneLights.size() >= MAX_LIGHTS) {
@@ -108,13 +113,11 @@ glm::vec3 Scene::InitializeOrbit(OrbitData& data, const glm::vec3& center, float
     data.center = center;
     data.radius = radius;
     data.speed = speedRadPerSec;
-    // guard against zero-length axis
     float axisLen = glm::length(axis);
     data.axis = (axisLen > 1e-6f) ? glm::normalize(axis) : glm::vec3(0.0f, 1.0f, 0.0f);
     data.initialAngle = initialAngleRad;
     data.currentAngle = initialAngleRad;
 
-    // compute initial offset using quaternion (faster / clearer than building a 4x4 rotation matrix)
     glm::quat rot = glm::angleAxis(data.initialAngle, data.axis);
     glm::vec3 offset = rot * glm::vec3(data.radius, 0.0f, 0.0f);
     return data.center + offset;
@@ -139,7 +142,6 @@ void Scene::SetObjectOrbit(const std::string& name, const glm::vec3& center, flo
 }
 
 void Scene::SetLightOrbit(const std::string& name, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad) {
-    // Find the light by name
     auto it = std::find_if(m_SceneLights.begin(), m_SceneLights.end(),
         [&name](const SceneLight& light) {
             return light.name == name;
@@ -180,32 +182,20 @@ void Scene::Update(float deltaTime) {
         return data.center + offset;
         };
 
-    // --- Light Orbit Update ---
     for (auto& sceneLight : m_SceneLights) {
         if (sceneLight.orbitData.isOrbiting) {
             sceneLight.vulkanLight.position = CalculateNewPos(sceneLight.orbitData);
-            /*if (sceneLight.name == "SunLight") {
-                const auto& p = sceneLight.vulkanLight.position;
-                std::cout << "SunLight pos = (" << p.x << "," << p.y << "," << p.z << ")\n";
-            }*/
         }
     }
 
-    // --- Object Orbit Update ---
     for (auto& obj : objects) {
         if (obj->orbitData.isOrbiting) {
             glm::vec3 newPos = CalculateNewPos(obj->orbitData);
             obj->transform[3] = glm::vec4(newPos, 1.0f);
-            /*if (obj->name == "Sun") {
-                std::cout << "Sun pos = (" << newPos.x << "," << newPos.y << "," << newPos.z << ") angle="
-                    << obj->orbitData.currentAngle << "\n";
-            }*/
         }
     }
 }
 
-
-// Extracts the Light structs from the SceneLight wrappers
 const std::vector<Light> Scene::GetLights() const {
     std::vector<Light> lights;
     lights.reserve(m_SceneLights.size());
@@ -233,6 +223,20 @@ void Scene::SetObjectTransform(size_t index, const glm::mat4& transform) {
 void Scene::SetObjectVisible(size_t index, bool visible) {
     if (index < objects.size()) {
         objects[index]->visible = visible;
+    }
+}
+
+void Scene::SetObjectCastsShadow(const std::string& name, bool casts) {
+    auto it = std::find_if(objects.begin(), objects.end(),
+        [&name](const std::unique_ptr<SceneObject>& obj) {
+            return obj->name == name;
+        });
+
+    if (it != objects.end()) {
+        (*it)->castsShadow = casts;
+    }
+    else {
+        std::cerr << "Warning: Scene object with name '" << name << "' not found to set castsShadow=" << casts << std::endl;
     }
 }
 

@@ -4,12 +4,12 @@ C:\Users\663073\Workspace\TheOrb\src\geometry\Geometry.cpp;C:\Users\663073\Works
 C:\Users\663073\Workspace\TheOrb\src\geometry\GeometryGenerator.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\GeometryGenerator.obj
 C:\Users\663073\Workspace\TheOrb\src\geometry\OBJLoader.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\OBJLoader.obj
 C:\Users\663073\Workspace\TheOrb\src\main.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\main.obj
-C:\Users\663073\Workspace\TheOrb\src\pipelines\GraphicsPipeline.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\GraphicsPipeline.obj
-C:\Users\663073\Workspace\TheOrb\src\pipelines\Pipeline.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\Pipeline.obj
 C:\Users\663073\Workspace\TheOrb\src\rendering\Camera.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\Camera.obj
 C:\Users\663073\Workspace\TheOrb\src\rendering\CameraController.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\CameraController.obj
+C:\Users\663073\Workspace\TheOrb\src\rendering\GraphicsPipeline.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\GraphicsPipeline.obj
 C:\Users\663073\Workspace\TheOrb\src\rendering\Renderer.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\Renderer.obj
 C:\Users\663073\Workspace\TheOrb\src\rendering\Scene.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\Scene.obj
+C:\Users\663073\Workspace\TheOrb\src\rendering\ShadowPass.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\ShadowPass.obj
 C:\Users\663073\Workspace\TheOrb\src\rendering\Texture.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\Texture.obj
 C:\Users\663073\Workspace\TheOrb\src\vulkan\VulkanBuffer.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\VulkanBuffer.obj
 C:\Users\663073\Workspace\TheOrb\src\vulkan\VulkanCommandBuffer.cpp;C:\Users\663073\Workspace\TheOrb\TheOrb\x64\Debug\VulkanCommandBuffer.obj
