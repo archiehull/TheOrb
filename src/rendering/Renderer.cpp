@@ -44,6 +44,13 @@ void Renderer::Initialize() {
     );
 
     CreatePipeline();
+
+    skyboxPass = std::make_unique<SkyboxPass>(
+        device->GetDevice(), device->GetPhysicalDevice(),
+        commandBuffer->GetCommandPool(), device->GetGraphicsQueue()
+    );
+    skyboxPass->Initialize(renderPass->GetRenderPass(), swapChain->GetExtent(), descriptorSet->GetLayout());
+
     CreateSyncObjects();
 }
 
@@ -251,35 +258,6 @@ VkDescriptorSet Renderer::GetTextureDescriptorSet(const std::string& path) {
     // Store in cache
     textureCache[path] = { std::move(texture), descSet };
     return descSet;
-}
-
-void Renderer::CreateDescriptorSets() {
-    //descriptorSet = std::make_unique<VulkanDescriptorSet>(device->GetDevice());
-
-    //descriptorSet->CreateDescriptorSetLayout();
-    //descriptorSet->CreateDescriptorPool(MAX_FRAMES_IN_FLIGHT);
-
-    //// Load texture (uses command pool and graphics queue)
-    //texture = std::make_unique<Texture>(
-    //    device->GetDevice(),
-    //    device->GetPhysicalDevice(),
-    //    commandBuffer->GetCommandPool(),
-    //    device->GetGraphicsQueue()
-    //);
-
-    //// Use project-relative path to texture; update as needed
-    //if (!texture->LoadFromFile("textures/desert.jpg")) {
-    //    throw std::runtime_error("failed to load texture textures/desert.jpg");
-    //}
-
-    //// Get VkBuffer handles from VulkanBuffer wrappers
-    //std::vector<VkBuffer> buffers;
-    //for (const auto& uniformBuffer : uniformBuffers) {
-    //    buffers.push_back(uniformBuffer->GetBuffer());
-    //}
-
-    //// Pass texture image view + sampler to descriptor set creation
-    //descriptorSet->CreateDescriptorSets(buffers, sizeof(UniformBufferObject));
 }
 
 void Renderer::UpdateUniformBuffer(uint32_t currentFrame, const UniformBufferObject& ubo) {
@@ -521,28 +499,27 @@ void Renderer::RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex,
     }
 }
 
-void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene,
-    const glm::mat4& viewMatrix, const glm::mat4& projMatrix) {
-
+void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene, const glm::mat4& viewMatrix, const glm::mat4& projMatrix) {
+    // Begin Render Pass
     VkRenderPassBeginInfo renderPassInfo{};
     renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
     renderPassInfo.renderPass = renderPass->GetRenderPass();
-    renderPassInfo.framebuffer = renderPass->GetOffScreenFramebuffer();
+    renderPassInfo.framebuffer = renderPass->GetOffScreenFramebuffer(); // Note: This uses the off-screen FB
     renderPassInfo.renderArea.offset = { 0, 0 };
     renderPassInfo.renderArea.extent = swapChain->GetExtent();
 
-    VkClearValue clearValues[2];
+    std::array<VkClearValue, 2> clearValues{};
     clearValues[0].color = { {0.0f, 0.0f, 0.0f, 1.0f} };
     clearValues[1].depthStencil = { 1.0f, 0 };
-
-    renderPassInfo.clearValueCount = 2;
-    renderPassInfo.pClearValues = clearValues;
+    renderPassInfo.clearValueCount = static_cast<uint32_t>(clearValues.size());
+    renderPassInfo.pClearValues = clearValues.data();
 
     vkCmdBeginRenderPass(cmd, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
-    vkCmdBindPipeline(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->GetPipeline());
-
+    // --- ADD THIS BLOCK TO FIX VIEWPORT/SCISSOR ---
     VkViewport viewport{};
+    viewport.x = 0.0f;
+    viewport.y = 0.0f;
     viewport.width = (float)swapChain->GetExtent().width;
     viewport.height = (float)swapChain->GetExtent().height;
     viewport.minDepth = 0.0f;
@@ -550,23 +527,42 @@ void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& sc
     vkCmdSetViewport(cmd, 0, 1, &viewport);
 
     VkRect2D scissor{};
+    scissor.offset = { 0, 0 };
     scissor.extent = swapChain->GetExtent();
     vkCmdSetScissor(cmd, 0, 1, &scissor);
+    // ----------------------------------------------
 
-    // Bind Global UBO (Set 0) - Contains View/Proj + Lights + ShadowMap info
-    vkCmdBindDescriptorSets(
-        cmd,
-        VK_PIPELINE_BIND_POINT_GRAPHICS,
-        graphicsPipeline->GetLayout(),
-        0,
-        1,
-        &descriptorSet->GetDescriptorSets()[currentFrame],
-        0,
-        nullptr
-    );
+    // --- 1. Main Pipeline (Standard Objects) ---
+    vkCmdBindPipeline(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->GetPipeline());
 
-    // Draw objects using main pipeline layout (Bind Textures = true)
-    DrawSceneObjects(cmd, scene, graphicsPipeline->GetLayout(), true);
+    // Bind Global UBO (Set 0) 
+    // This set contains: Binding 0 (UBO) and Binding 1 (Shadow Map Sampler)
+    vkCmdBindDescriptorSets(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->GetLayout(), 0, 1, &descriptorSet->GetDescriptorSets()[currentFrame], 0, nullptr);
+
+    for (const auto& obj : scene.GetObjects()) {
+        // Skip invisible, empty, OR Skybox objects (Mode 2)
+        if (!obj || !obj->visible || !obj->geometry || obj->shadingMode == 2) continue;
+
+        // Push Constants
+        PushConstantObject pco{};
+        pco.model = obj->transform;
+        pco.shadingMode = obj->shadingMode;
+        vkCmdPushConstants(cmd, graphicsPipeline->GetLayout(), VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(PushConstantObject), &pco);
+
+        // Bind Texture (Set 1)
+        VkDescriptorSet textureSet = GetTextureDescriptorSet(obj->texturePath);
+        vkCmdBindDescriptorSets(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->GetLayout(), 1, 1, &textureSet, 0, nullptr);
+
+        // Draw Geometry
+        obj->geometry->Bind(cmd);
+        obj->geometry->Draw(cmd);
+    }
+
+    // --- 2. Skybox Pipeline (Crystal Ball) ---
+    // Delegate drawing to the SkyboxPass. This will only draw objects with shadingMode == 2.
+    if (skyboxPass) {
+        skyboxPass->Draw(cmd, scene, currentFrame, descriptorSet->GetDescriptorSets()[currentFrame]);
+    }
 
     vkCmdEndRenderPass(cmd);
 }
@@ -703,6 +699,11 @@ void Renderer::Cleanup() {
     if (renderPass) {
         renderPass->Cleanup();
         renderPass.reset();
+    }
+
+    if (skyboxPass) {
+        skyboxPass->Cleanup();
+        skyboxPass.reset();
     }
 
     CleanupOffScreenResources();

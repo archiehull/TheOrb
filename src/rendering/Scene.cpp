@@ -240,6 +240,17 @@ void Scene::SetObjectCastsShadow(const std::string& name, bool casts) {
     }
 }
 
+void Scene::SetObjectShadingMode(const std::string& name, int mode) {
+    auto it = std::find_if(objects.begin(), objects.end(),
+        [&name](const std::unique_ptr<SceneObject>& obj) {
+            return obj->name == name;
+        });
+
+    if (it != objects.end()) {
+        (*it)->shadingMode = mode;
+    }
+}
+
 void Scene::Cleanup() {
     Clear();
 }

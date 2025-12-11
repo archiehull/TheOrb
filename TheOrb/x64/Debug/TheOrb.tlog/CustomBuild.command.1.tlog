@@ -6,3 +6,7 @@ glslc ".\src\shaders\shader.vert" -o ".\src\shaders\vert.spv"
 glslc ".\src\shaders\shadow.frag" -o ".\src\shaders\shadow_frag.spv"
 ^C:\USERS\663073\WORKSPACE\THEORB\SRC\SHADERS\SHADOW.VERT
 glslc ".\src\shaders\shadow.vert" -o ".\src\shaders\shadow_vert.spv"
+^C:\USERS\663073\WORKSPACE\THEORB\SRC\SHADERS\SKYBOX.FRAG
+glslc ".\src\shaders\skybox.frag" -o ".\src\shaders\skybox_frag.spv"
+^C:\USERS\663073\WORKSPACE\THEORB\SRC\SHADERS\SKYBOX.VERT
+glslc ".\src\shaders\skybox.vert" -o ".\src\shaders\skybox_vert.spv"

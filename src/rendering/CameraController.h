@@ -31,6 +31,7 @@ private:
     bool keyQ = false, keyE = false; 
     bool keyUp = false, keyDown = false, keyLeft = false, keyRight = false;
     bool keyCtrl = false;
+    bool keyShift = false;
 
     void SetupCameras();
     void UpdateFreeRoamCamera(float deltaTime);

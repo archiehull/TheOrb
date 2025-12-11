@@ -35,6 +35,8 @@ struct GraphicsPipelineConfig {
     bool depthWriteEnable = false;
     bool depthBiasEnable = false; // Added missing config field from previous context
 
+    VkCompareOp depthCompareOp = VK_COMPARE_OP_LESS;
+
     // Blending
     bool blendEnable = false;
 };

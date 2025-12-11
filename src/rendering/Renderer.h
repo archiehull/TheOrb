@@ -1,5 +1,7 @@
 #pragma once
 
+#include "SkyboxPass.h"
+#include "Cubemap.h"
 #include "Scene.h"
 #include "../vulkan/VulkanDevice.h"
 #include "../vulkan/VulkanSwapChain.h"
@@ -46,9 +48,8 @@ private:
     std::unique_ptr<GraphicsPipeline> graphicsPipeline;
     std::unique_ptr<VulkanCommandBuffer> commandBuffer;
     std::unique_ptr<VulkanSyncObjects> syncObjects;
-
-    // Shadow Pass Component
     std::unique_ptr<ShadowPass> shadowPass;
+    std::unique_ptr<SkyboxPass> skyboxPass;
 
     VkImage offScreenImage = VK_NULL_HANDLE;
     VkDeviceMemory offScreenImageMemory = VK_NULL_HANDLE;
@@ -86,7 +87,6 @@ private:
     void CreateCommandBuffer();
     void CreateSyncObjects();
     void CreateUniformBuffers();
-    void CreateDescriptorSets(); // Renamed/Updated
 
     void RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex, uint32_t currentFrame, Scene& scene, const glm::mat4& viewMatrix, const glm::mat4& projMatrix);
 

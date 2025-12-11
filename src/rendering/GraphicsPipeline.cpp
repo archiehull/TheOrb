@@ -91,7 +91,10 @@ void GraphicsPipeline::Create() {
     depthStencil.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
     depthStencil.depthTestEnable = config.depthTestEnable ? VK_TRUE : VK_FALSE;
     depthStencil.depthWriteEnable = config.depthWriteEnable ? VK_TRUE : VK_FALSE;
-    depthStencil.depthCompareOp = VK_COMPARE_OP_LESS;
+
+    // FIX: Use the value from config instead of hardcoded VK_COMPARE_OP_LESS
+    depthStencil.depthCompareOp = config.depthCompareOp;
+
     depthStencil.depthBoundsTestEnable = VK_FALSE;
     depthStencil.stencilTestEnable = VK_FALSE;
 

@@ -92,6 +92,16 @@ void Application::SetupScene() {
     scene->AddModel("Tree4", glm::vec3(40.0f, 0.0f, -80.0f), glm::vec3(0.0f, 90.0f, 0.0f), glm::vec3(3.6f), "models/DeadTree.obj", "textures/bark.jpg");
 
     scene->AddModel("Cactus", glm::vec3(0.0f, -4.0f, 0.0f), glm::vec3(-90.0f, 0.0f, 0.0f), glm::vec3(0.24f), "models/cactus.obj", "textures/cactus.jpg");
+
+
+    // Positioned at (0, 50, 0) with radius 50. Large enough to walk inside.
+    scene->AddSphere("CrystalBall", 32, 64, 150.0f, glm::vec3(0.0f, 0.0f, 0.0f), "");
+
+    // Set to shading mode 2 (Skybox mode)
+    scene->SetObjectShadingMode("CrystalBall", 2);
+
+    // Ensure it doesn't cast shadows
+    scene->SetObjectCastsShadow("CrystalBall", false);
 }
 
 

@@ -77,6 +77,8 @@ public:
     // New: enable/disable shadow casting for named object
     void SetObjectCastsShadow(const std::string& name, bool casts);
 
+    void SetObjectShadingMode(const std::string& name, int mode);
+
     void Cleanup();
 
 private:

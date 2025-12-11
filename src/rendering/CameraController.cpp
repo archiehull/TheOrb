@@ -16,7 +16,7 @@ void CameraController::SetupCameras() {
     // FREE ROAM Camera
     auto freeRoamCam = std::make_unique<Camera>();
     // SCALED UP: Move back and up
-    freeRoamCam->SetPosition(glm::vec3(0.0f, 60.0f, 200.0f));
+    freeRoamCam->SetPosition(glm::vec3(0.0f, 60.0f, 300.0f));
     freeRoamCam->SetTarget(glm::vec3(0.0f, 40.0f, 0.0f));
     freeRoamCam->SetMoveSpeed(50.0f); // Faster default
     freeRoamCam->SetRotateSpeed(35.0f);
@@ -58,44 +58,51 @@ void CameraController::UpdateFreeRoamCamera(float deltaTime) {
     // Compute exclusive (swapped) input mapping so one key set can't trigger both move and rotate.
     // Default (no CTRL): Group A (WASD) = movement, Group B (IJKL + Arrows) = rotation.
     // With CTRL held: groups swap roles (WASD = rotation, IJKL+Arrows = movement).
-    bool groupA_forward   = keyW;
-    bool groupA_backward  = keyS;
-    bool groupA_left      = keyA;
-    bool groupA_right     = keyD;
-    bool groupB_forward   = keyI || keyUp;
-    bool groupB_backward  = keyK || keyDown;
-    bool groupB_left      = keyJ || keyLeft;
-    bool groupB_right     = keyL || keyRight;
+    bool groupA_forward = keyW;
+    bool groupA_backward = keyS;
+    bool groupA_left = keyA;
+    bool groupA_right = keyD;
+    bool groupB_forward = keyI || keyUp;
+    bool groupB_backward = keyK || keyDown;
+    bool groupB_left = keyJ || keyLeft;
+    bool groupB_right = keyL || keyRight;
 
     // Effective movement flags
-    bool moveForward  = keyCtrl ? groupB_forward  : groupA_forward;
+    bool moveForward = keyCtrl ? groupB_forward : groupA_forward;
     bool moveBackward = keyCtrl ? groupB_backward : groupA_backward;
-    bool moveLeft     = keyCtrl ? groupB_left     : groupA_left;
-    bool moveRight    = keyCtrl ? groupB_right    : groupA_right;
+    bool moveLeft = keyCtrl ? groupB_left : groupA_left;
+    bool moveRight = keyCtrl ? groupB_right : groupA_right;
 
     // Vertical movement (Q/E) remain movement in both modes.
     bool moveDown = keyQ;
-    bool moveUp   = keyE;
+    bool moveUp = keyE;
 
     // Effective rotation flags (pitch = look up/down, yaw = look left/right)
-    bool rotatePitchUp    = keyCtrl ? groupA_forward  : groupB_forward;  // Look up
-    bool rotatePitchDown  = keyCtrl ? groupA_backward : groupB_backward; // Look down
-    bool rotateYawLeft    = keyCtrl ? groupA_left     : groupB_left;     // Look left
-    bool rotateYawRight   = keyCtrl ? groupA_right    : groupB_right;    // Look right
+    bool rotatePitchUp = keyCtrl ? groupA_forward : groupB_forward;  // Look up
+    bool rotatePitchDown = keyCtrl ? groupA_backward : groupB_backward; // Look down
+    bool rotateYawLeft = keyCtrl ? groupA_left : groupB_left;     // Look left
+    bool rotateYawRight = keyCtrl ? groupA_right : groupB_right;    // Look right
+
+    // Movement and rotation multipliers adjusted by SHIFT
+    float shiftMultiplier = keyShift ? 3.0f : 1.0f; // movement multiplier
+    float rotationMultiplier = keyShift ? 3.0f : 1.0f; // rotation multiplier
+
+    float moveDelta = deltaTime * shiftMultiplier;
+    float rotateDelta = deltaTime * rotationMultiplier;
 
     // Apply movement (exclusive)
-    if (moveForward)  activeCamera->MoveForward(deltaTime);
-    if (moveBackward) activeCamera->MoveBackward(deltaTime);
-    if (moveLeft)     activeCamera->MoveLeft(deltaTime);
-    if (moveRight)    activeCamera->MoveRight(deltaTime);
-    if (moveDown)     activeCamera->MoveDown(deltaTime);
-    if (moveUp)       activeCamera->MoveUp(deltaTime);
+    if (moveForward)  activeCamera->MoveForward(moveDelta);
+    if (moveBackward) activeCamera->MoveBackward(moveDelta);
+    if (moveLeft)     activeCamera->MoveLeft(moveDelta);
+    if (moveRight)    activeCamera->MoveRight(moveDelta);
+    if (moveDown)     activeCamera->MoveDown(moveDelta);
+    if (moveUp)       activeCamera->MoveUp(moveDelta);
 
-    // Apply rotation (exclusive)
-    if (rotatePitchUp)   activeCamera->RotatePitch(deltaTime);
-    if (rotatePitchDown) activeCamera->RotatePitch(-deltaTime);
-    if (rotateYawLeft)   activeCamera->RotateYaw(-deltaTime);
-    if (rotateYawRight)  activeCamera->RotateYaw(deltaTime);
+    // Apply rotation (exclusive) -- now affected by SHIFT multiplier
+    if (rotatePitchUp)   activeCamera->RotatePitch(rotateDelta);
+    if (rotatePitchDown) activeCamera->RotatePitch(-rotateDelta);
+    if (rotateYawLeft)   activeCamera->RotateYaw(-rotateDelta);
+    if (rotateYawRight)  activeCamera->RotateYaw(rotateDelta);
 }
 
 void CameraController::OnKeyPress(int key, bool pressed) {
@@ -119,9 +126,12 @@ void CameraController::OnKeyPress(int key, bool pressed) {
     if (key == GLFW_KEY_DOWN) keyDown = pressed;
     if (key == GLFW_KEY_RIGHT) keyRight = pressed;
 
-    // Modifier
+    // Modifiers
     if (key == GLFW_KEY_LEFT_CONTROL || key == GLFW_KEY_RIGHT_CONTROL) {
         keyCtrl = pressed;
+    }
+    if (key == GLFW_KEY_LEFT_SHIFT || key == GLFW_KEY_RIGHT_SHIFT) {
+        keyShift = pressed;
     }
 }
 

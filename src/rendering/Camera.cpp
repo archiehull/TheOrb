@@ -8,10 +8,10 @@ Camera::Camera()
     , yaw(-90.0f)
     , pitch(0.0f)
     , fov(45.0f)
-    , nearPlane(0.1f)
+    , nearPlane(1.0f)
     , farPlane(1000.0f)
-    , moveSpeed(50.0f)
-    , rotateSpeed(50.0f)
+    , moveSpeed(125.0f)
+    , rotateSpeed(125.0f)
 {
     UpdateCameraVectors();
 }
