@@ -155,7 +155,21 @@ void Scene::SetLightOrbit(const std::string& name, const glm::vec3& center, floa
     }
 }
 
+void Scene::SetOrbitSpeed(const std::string& name, float speedRadPerSec) {
+    auto itObj = std::find_if(objects.begin(), objects.end(),
+        [&](const std::unique_ptr<SceneObject>& obj) { return obj->name == name; });
 
+    if (itObj != objects.end()) {
+        (*itObj)->orbitData.speed = speedRadPerSec;
+    }
+
+    auto itLight = std::find_if(m_SceneLights.begin(), m_SceneLights.end(),
+        [&](const SceneLight& light) { return light.name == name; });
+
+    if (itLight != m_SceneLights.end()) {
+        itLight->orbitData.speed = speedRadPerSec;
+    }
+}
 
 void Scene::Update(float deltaTime) {
 

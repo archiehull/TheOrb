@@ -68,6 +68,7 @@ public:
     // Transform / visibility helpers
     void SetObjectTransform(size_t index, const glm::mat4& transform);
     void SetObjectVisible(size_t index, bool visible);
+    void SetOrbitSpeed(const std::string& name, float speedRadPerSec);
 
     void Cleanup();
 

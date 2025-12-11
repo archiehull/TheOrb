@@ -46,4 +46,6 @@ private:
     // Timing
     std::chrono::time_point<std::chrono::high_resolution_clock> lastFrameTime;
     float deltaTime = 0.0f;
+
+    float dayNightSpeed = 1.0f;
 };

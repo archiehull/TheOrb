@@ -67,28 +67,23 @@ void Application::InitVulkan() {
 void Application::SetupScene() {
     scene->AddGrid("GroundGrid", 10, 10, 0.5f, glm::vec3(0.0f, 0.0f, 0.0f), "textures/desert.jpg");
 
-    scene->AddSphere("Moon", 16, 32, 0.5f, glm::vec3(0.0f, 4.0f, 0.0f), "textures/moon.jpg");
-    scene->AddLight("MoonLight", glm::vec3(0.0f, 4.0f, 0.0f), glm::vec3(0.5f, 0.0f, 0.0f), 0.5f, 0);
+    float orbitRadius = 5.0f;
+    float startSpeed = 0.5f;
+    dayNightSpeed = startSpeed;
 
-    scene->AddSphere("Sun", 16, 32, 0.3f, glm::vec3(3.0f, 2.0f, -2.0f), "textures/sun.png");
-    scene->AddLight("SunLight", glm::vec3(3.0f, 2.0f, -2.0f), glm::vec3(0.5f, 0.5f, 1.0f), 1.0f, 0);
 
-    scene->SetObjectOrbit("Sun", // <--- Use Name
-        glm::vec3(0.0f, 1.0f, 0.0f),  // Center of orbit
-        3.0f,                         // Radius
-        glm::radians(30.0f),          // Speed: 30 degrees/sec
-        glm::vec3(0.0f, 1.0f, 0.0f),  // Axis: Y-axis
-        glm::radians(45.0f)           // Initial angle
-    );
+    scene->AddSphere("Sun", 16, 32, 0.5f, glm::vec3(0.0f), "textures/sun.png");
+    scene->AddLight("Sun", glm::vec3(0.0f), glm::vec3(1.0f, 0.9f, 0.8f), 1.5f, 0);
 
-    // Light Orbit: Make "OrbitingLight" orbit around the "Moon"
-    scene->SetLightOrbit("SunLight", // <--- Use Name
-        glm::vec3(0.0f, 4.0f, 0.0f),  // Center of orbit (around the "Moon")
-        1.5f,                         // Radius
-        glm::radians(90.0f),          // Speed: 90 degrees/sec
-        glm::vec3(1.0f, 0.0f, 0.0f),  // Axis: X-axis
-        0.0f
-    );
+    scene->SetObjectOrbit("Sun",glm::vec3(0.0f, 0.0f, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), 0.0f);
+    scene->SetLightOrbit("Sun",glm::vec3(0.0f, 0.0f, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), 0.0f);
+
+
+    scene->AddSphere("Moon", 16, 32, 0.3f, glm::vec3(0.0f), "textures/moon.jpg");
+    scene->AddLight("Moon", glm::vec3(0.0f), glm::vec3(0.1f, 0.1f, 0.3f), 0.5f, 0);
+
+    scene->SetObjectOrbit("Moon", glm::vec3(0.0f, 0.0f, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), glm::pi<float>());
+    scene->SetLightOrbit("Moon", glm::vec3(0.0f, 0.0f, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), glm::pi<float>());
 
     scene->AddModel("Tree1", glm::vec3(2.0f, 0.0f, -1.0f), glm::vec3(0.0f, 45.0f, 0.0f), glm::vec3(0.07f), "models/DeadTree.obj", "textures/bark.jpg");
     scene->AddModel("Tree2", glm::vec3(-2.0f, 0.0f, 1.0f), glm::vec3(0.0f, 20.0f, 0.0f), glm::vec3(0.05f), "models/DeadTree.obj", "textures/bark.jpg");
@@ -162,6 +157,26 @@ void Application::ProcessInput() {
     // ESC to close
     if (glfwGetKey(window->GetGLFWWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window->GetGLFWWindow(), true);
+    }
+
+    bool speedChanged = false;
+    float speedChangeRate = 2.0f; // How fast the speed adjusts
+
+    if (glfwGetKey(window->GetGLFWWindow(), GLFW_KEY_RIGHT_BRACKET) == GLFW_PRESS) {
+        dayNightSpeed += speedChangeRate * deltaTime;
+        speedChanged = true;
+    }
+    if (glfwGetKey(window->GetGLFWWindow(), GLFW_KEY_LEFT_BRACKET) == GLFW_PRESS) {
+        dayNightSpeed -= speedChangeRate * deltaTime;
+        speedChanged = true;
+    }
+
+    if (speedChanged) {
+        // Apply new speed to both Sun and Moon (Mesh + Light)
+        scene->SetOrbitSpeed("Sun", dayNightSpeed);
+        scene->SetOrbitSpeed("Moon", dayNightSpeed);
+
+        //std::cout << "Orbit Speed: " << dayNightSpeed << std::endl; // Optional debug
     }
 }
 
