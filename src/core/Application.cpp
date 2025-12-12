@@ -65,7 +65,9 @@ void Application::InitVulkan() {
 }
 
 void Application::SetupScene() {
-    scene->AddGrid("GroundGrid", 10, 10, 20.0f, glm::vec3(0.0f, 0.0f, 0.0f), "textures/desert.jpg");
+    float deltaY = -50.0f;
+
+    scene->AddGrid("GroundGrid", 10, 10, 20.0f, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), "textures/desert.jpg");
 
     float orbitRadius = 200.0f;
     float startSpeed = 0.5f;
@@ -86,22 +88,20 @@ void Application::SetupScene() {
     scene->SetObjectOrbit("Moon", glm::vec3(0.0f, 0.0f, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), glm::pi<float>());
     scene->SetLightOrbit("Moon", glm::vec3(0.0f, 0.0f, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), glm::pi<float>());
 
-    scene->AddModel("Tree1", glm::vec3(80.0f, 0.0f, -40.0f), glm::vec3(0.0f, 45.0f, 0.0f), glm::vec3(2.8f), "models/DeadTree.obj", "textures/bark.jpg");
-    scene->AddModel("Tree2", glm::vec3(-80.0f, 0.0f, 40.0f), glm::vec3(0.0f, 20.0f, 0.0f), glm::vec3(2.0f), "models/DeadTree.obj", "textures/bark.jpg");
-    scene->AddModel("Tree3", glm::vec3(-40.0f, 0.0f, 80.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(3.2f), "models/DeadTree.obj", "textures/bark.jpg");
-    scene->AddModel("Tree4", glm::vec3(40.0f, 0.0f, -80.0f), glm::vec3(0.0f, 90.0f, 0.0f), glm::vec3(3.6f), "models/DeadTree.obj", "textures/bark.jpg");
+    scene->AddModel("Tree1", glm::vec3(80.0f, 0.0f + deltaY, -40.0f), glm::vec3(0.0f, 45.0f, 0.0f), glm::vec3(2.8f), "models/DeadTree.obj", "textures/bark.jpg");
+    scene->AddModel("Tree2", glm::vec3(-80.0f, 0.0f + deltaY, 40.0f), glm::vec3(0.0f, 20.0f, 0.0f), glm::vec3(2.0f), "models/DeadTree.obj", "textures/bark.jpg");
+    scene->AddModel("Tree3", glm::vec3(-40.0f, 0.0f + deltaY, 80.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(3.2f), "models/DeadTree.obj", "textures/bark.jpg");
+    scene->AddModel("Tree4", glm::vec3(40.0f, 0.0f + deltaY, -80.0f), glm::vec3(0.0f, 90.0f, 0.0f), glm::vec3(3.6f), "models/DeadTree.obj", "textures/bark.jpg");
 
-    scene->AddModel("Cactus", glm::vec3(0.0f, -4.0f, 0.0f), glm::vec3(-90.0f, 0.0f, 0.0f), glm::vec3(0.24f), "models/cactus.obj", "textures/cactus.jpg");
+    scene->AddModel("Cactus", glm::vec3(0.0f, -4.0f + deltaY, 0.0f), glm::vec3(-90.0f, 0.0f, 0.0f), glm::vec3(0.24f), "models/cactus.obj", "textures/cactus.jpg");
 
 
-    // Positioned at (0, 50, 0) with radius 50. Large enough to walk inside.
     scene->AddSphere("CrystalBall", 32, 64, 150.0f, glm::vec3(0.0f, 0.0f, 0.0f), "");
 
-    // Set to shading mode 2 (Skybox mode)
-    scene->SetObjectShadingMode("CrystalBall", 2);
+    scene->SetObjectShadingMode("CrystalBall", 3);
 
-    // Ensure it doesn't cast shadows
     scene->SetObjectCastsShadow("CrystalBall", false);
+
 }
 
 

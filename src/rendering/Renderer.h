@@ -70,7 +70,7 @@ private:
 
     struct TextureResource {
         std::unique_ptr<Texture> texture;
-        VkDescriptorSet descriptorSet;
+        VkDescriptorSet descriptorSet = VK_NULL_HANDLE;
     };
     std::map<std::string, TextureResource> textureCache;
     TextureResource defaultTextureResource;

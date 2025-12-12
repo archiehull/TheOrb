@@ -25,32 +25,37 @@ void Renderer::Initialize() {
     CreateTextureDescriptorPool();
     CreateDefaultTexture();
 
+    // 1. Create Layout first
     descriptorSet = std::make_unique<VulkanDescriptorSet>(device->GetDevice());
     descriptorSet->CreateDescriptorSetLayout();
 
-    CreateShadowPass();
-
-    descriptorSet->CreateDescriptorPool(MAX_FRAMES_IN_FLIGHT);
-
-    std::vector<VkBuffer> buffers;
-    for (const auto& uniformBuffer : uniformBuffers) buffers.push_back(uniformBuffer->GetBuffer());
-
-    // PASS SHADOW RESOURCES HERE
-    descriptorSet->CreateDescriptorSets(
-        buffers,
-        sizeof(UniformBufferObject),
-        shadowPass->GetShadowImageView(),
-        shadowPass->GetShadowSampler()
-    );
-
-    CreatePipeline();
-
+    // 2. Initialize SkyboxPass NOW (to load the cubemap)
+    // We move this up so we can use its texture in the next step
     skyboxPass = std::make_unique<SkyboxPass>(
         device->GetDevice(), device->GetPhysicalDevice(),
         commandBuffer->GetCommandPool(), device->GetGraphicsQueue()
     );
     skyboxPass->Initialize(renderPass->GetRenderPass(), swapChain->GetExtent(), descriptorSet->GetLayout());
 
+    CreateShadowPass();
+
+    // 3. Create Descriptor Sets using both Shadow and Skybox textures
+    descriptorSet->CreateDescriptorPool(MAX_FRAMES_IN_FLIGHT);
+
+    std::vector<VkBuffer> buffers;
+    for (const auto& uniformBuffer : uniformBuffers) buffers.push_back(uniformBuffer->GetBuffer());
+
+    descriptorSet->CreateDescriptorSets(
+        buffers,
+        sizeof(UniformBufferObject),
+        shadowPass->GetShadowImageView(),
+        shadowPass->GetShadowSampler(),
+        // Pass Skybox resources:
+        skyboxPass->GetCubemap()->GetImageView(),
+        skyboxPass->GetCubemap()->GetSampler()
+    );
+
+    CreatePipeline();
     CreateSyncObjects();
 }
 
@@ -322,6 +327,8 @@ void Renderer::CreatePipeline() {
     pipelineConfig.depthTestEnable = true;
     pipelineConfig.depthWriteEnable = true;
 
+    pipelineConfig.blendEnable = true;
+
     graphicsPipeline = std::make_unique<GraphicsPipeline>(device->GetDevice(), pipelineConfig);
     graphicsPipeline->Create();
 }
@@ -504,7 +511,7 @@ void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& sc
     VkRenderPassBeginInfo renderPassInfo{};
     renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
     renderPassInfo.renderPass = renderPass->GetRenderPass();
-    renderPassInfo.framebuffer = renderPass->GetOffScreenFramebuffer(); // Note: This uses the off-screen FB
+    renderPassInfo.framebuffer = renderPass->GetOffScreenFramebuffer(); 
     renderPassInfo.renderArea.offset = { 0, 0 };
     renderPassInfo.renderArea.extent = swapChain->GetExtent();
 
@@ -516,7 +523,6 @@ void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& sc
 
     vkCmdBeginRenderPass(cmd, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
-    // --- ADD THIS BLOCK TO FIX VIEWPORT/SCISSOR ---
     VkViewport viewport{};
     viewport.x = 0.0f;
     viewport.y = 0.0f;
@@ -530,17 +536,21 @@ void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& sc
     scissor.offset = { 0, 0 };
     scissor.extent = swapChain->GetExtent();
     vkCmdSetScissor(cmd, 0, 1, &scissor);
-    // ----------------------------------------------
 
-    // --- 1. Main Pipeline (Standard Objects) ---
+    // --- 1. Skybox Pipeline (Background & Interiors) ---
+    // Draw this FIRST so it appears behind the transparent glass.
+    if (skyboxPass) {
+        skyboxPass->Draw(cmd, scene, currentFrame, descriptorSet->GetDescriptorSets()[currentFrame]);
+    }
+
+    // --- 2. Main Pipeline (Standard Objects + Transparent Front Faces) ---
     vkCmdBindPipeline(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->GetPipeline());
 
     // Bind Global UBO (Set 0) 
-    // This set contains: Binding 0 (UBO) and Binding 1 (Shadow Map Sampler)
     vkCmdBindDescriptorSets(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->GetLayout(), 0, 1, &descriptorSet->GetDescriptorSets()[currentFrame], 0, nullptr);
 
     for (const auto& obj : scene.GetObjects()) {
-        // Skip invisible, empty, OR Skybox objects (Mode 2)
+        // Skip invisible, empty, OR Skybox objects (Mode 2 is handled by SkyboxPass)
         if (!obj || !obj->visible || !obj->geometry || obj->shadingMode == 2) continue;
 
         // Push Constants
@@ -556,12 +566,6 @@ void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& sc
         // Draw Geometry
         obj->geometry->Bind(cmd);
         obj->geometry->Draw(cmd);
-    }
-
-    // --- 2. Skybox Pipeline (Crystal Ball) ---
-    // Delegate drawing to the SkyboxPass. This will only draw objects with shadingMode == 2.
-    if (skyboxPass) {
-        skyboxPass->Draw(cmd, scene, currentFrame, descriptorSet->GetDescriptorSets()[currentFrame]);
     }
 
     vkCmdEndRenderPass(cmd);

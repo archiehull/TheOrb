@@ -64,12 +64,14 @@ void SkyboxPass::Draw(VkCommandBuffer cmd, Scene& scene, uint32_t currentFrame, 
     VkDescriptorSet skySet = cubemap->GetDescriptorSet();
     vkCmdBindDescriptorSets(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline->GetLayout(), 1, 1, &skySet, 0, nullptr);
 
-    // Render only objects marked with shadingMode = 2 (Skybox Mode)
+    // Render objects marked with shadingMode = 2 (Skybox) OR 3 (Combined)
     for (const auto& obj : scene.GetObjects()) {
-        if (!obj->visible || !obj->geometry || obj->shadingMode != 2) continue;
+        // UPDATE: Allow mode 3 to be drawn by this pass (for the inside view)
+        if (!obj->visible || !obj->geometry || (obj->shadingMode != 2 && obj->shadingMode != 3)) continue;
 
         PushConstantObject pco{};
         pco.model = obj->transform;
+        // For the inside view, we force Mode 2 (Pure Skybox) look
         pco.shadingMode = 2;
 
         vkCmdPushConstants(cmd, pipeline->GetLayout(), VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(PushConstantObject), &pco);

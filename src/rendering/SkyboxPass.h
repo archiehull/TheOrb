@@ -16,6 +16,8 @@ public:
     void Draw(VkCommandBuffer cmd, Scene& scene, uint32_t currentFrame, VkDescriptorSet globalDescriptorSet);
     void Cleanup();
 
+    Cubemap* GetCubemap() const { return cubemap.get(); }
+
 private:
     VkDevice device;
     VkPhysicalDevice physicalDevice;

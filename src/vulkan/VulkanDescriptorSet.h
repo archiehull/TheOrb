@@ -10,7 +10,10 @@ public:
 
     void CreateDescriptorSetLayout();
     void CreateDescriptorPool(uint32_t maxSets);
-    void CreateDescriptorSets(const std::vector<VkBuffer>& uniformBuffers, VkDeviceSize bufferSize, VkImageView shadowImageView, VkSampler shadowSampler);    
+    // Update the signature to accept skybox resources
+    void CreateDescriptorSets(const std::vector<VkBuffer>& uniformBuffers, VkDeviceSize bufferSize,
+        VkImageView shadowImageView, VkSampler shadowSampler,
+        VkImageView skyboxImageView, VkSampler skyboxSampler);
     void Cleanup();
 
     VkDescriptorSetLayout GetLayout() const { return descriptorSetLayout; }

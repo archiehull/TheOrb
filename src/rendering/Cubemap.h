@@ -15,6 +15,9 @@ public:
     VkDescriptorSetLayout GetDescriptorSetLayout() const { return descriptorSetLayout; }
     VkDescriptorSet GetDescriptorSet() const { return descriptorSet; }
 
+    VkImageView GetImageView() const { return imageView; }
+    VkSampler   GetSampler() const { return sampler; }
+
     void Cleanup();
 
 private:
