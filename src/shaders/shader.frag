@@ -102,18 +102,19 @@ void main() {
         vec3 N = normalize(fragNormal);
 
         // A. Base Color (Smoked Glass / Dark Tint)
-        // CHANGE: Darkened significantly from white (0.95) to dark blue-grey (0.05)
         vec3 darkTint = vec3(0.02, 0.02, 0.05); 
 
-        // B. Specular Highlight (High Gloss)
+        // B. Specular Highlight (Diffused / Soft)
         vec3 lightDir = normalize(ubo.lights[0].position - fragPos);
         vec3 H = normalize(lightDir - I);
 
-        float spec = pow(max(dot(N, H), 0.0), 256.0);
-        vec3 specularColor = spec * ubo.lights[0].color * 3.0;
+        // CHANGE 1: Reduced exponent drastically (256.0 -> 8.0) to make the spot much wider/softer
+        float spec = pow(max(dot(N, H), 0.0), 8.0);
+        
+        // CHANGE 2: Lowered intensity (3.0 -> 1.0) so the wide highlight doesn't blind the camera
+        vec3 specularColor = spec * ubo.lights[0].color * 0.5;
 
         // C. Alpha / Opacity
-        // Increased base opacity slightly (0.15 -> 0.25) so the dark tint is more visible
         float fresnel = pow(1.0 - max(dot(-I, N), 0.0), 3.0);
         float alpha = clamp(0.25 + (fresnel * 0.6), 0.0, 1.0);
 

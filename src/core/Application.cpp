@@ -69,7 +69,7 @@ void Application::SetupScene() {
 
     scene->AddGrid("GroundGrid", 10, 10, 18.0f, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), "textures/desert.jpg");
 
-    float orbitRadius = 200.0f;
+    float orbitRadius = 275.0f;
     float startSpeed = 0.5f;
     dayNightSpeed = startSpeed;
 
@@ -77,16 +77,16 @@ void Application::SetupScene() {
     scene->AddLight("Sun", glm::vec3(0.0f), glm::vec3(1.0f, 0.9f, 0.8f), 1.0f, 0);
     scene->SetObjectCastsShadow("Sun", false);
 
-    scene->SetObjectOrbit("Sun", glm::vec3(0.0f, 0.0f, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), 0.0f);
-    scene->SetLightOrbit("Sun", glm::vec3(0.0f, 0.0f, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), 0.0f);
+    scene->SetObjectOrbit("Sun", glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), 0.0f);
+    scene->SetLightOrbit("Sun", glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), 0.0f);
 
     scene->AddSphere("Moon", 16, 32, 12.0f, glm::vec3(0.0f), "textures/moon.jpg");
     scene->AddLight("Moon", glm::vec3(0.0f), glm::vec3(0.1f, 0.1f, 0.3f), 1.5f, 0);
     scene->SetObjectCastsShadow("Moon", false);
 
 
-    scene->SetObjectOrbit("Moon", glm::vec3(0.0f, 0.0f, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), glm::pi<float>());
-    scene->SetLightOrbit("Moon", glm::vec3(0.0f, 0.0f, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), glm::pi<float>());
+    scene->SetObjectOrbit("Moon", glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), glm::pi<float>());
+    scene->SetLightOrbit("Moon", glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), glm::pi<float>());
 
     scene->AddModel("Tree1", glm::vec3(80.0f, 0.0f + deltaY, -40.0f), glm::vec3(0.0f, 45.0f, 0.0f), glm::vec3(1.8f), "models/DeadTree.obj", "textures/bark.jpg");
     scene->AddModel("Tree2", glm::vec3(-80.0f, 0.0f + deltaY, 40.0f), glm::vec3(0.0f, 20.0f, 0.0f), glm::vec3(1.0f), "models/DeadTree.obj", "textures/bark.jpg");
