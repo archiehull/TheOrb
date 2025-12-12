@@ -65,9 +65,9 @@ void Application::InitVulkan() {
 }
 
 void Application::SetupScene() {
-    float deltaY = -50.0f;
+    float deltaY = -75.0f;
 
-    scene->AddGrid("GroundGrid", 10, 10, 20.0f, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), "textures/desert.jpg");
+    scene->AddGrid("GroundGrid", 10, 10, 18.0f, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), "textures/desert.jpg");
 
     float orbitRadius = 200.0f;
     float startSpeed = 0.5f;
@@ -88,19 +88,27 @@ void Application::SetupScene() {
     scene->SetObjectOrbit("Moon", glm::vec3(0.0f, 0.0f, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), glm::pi<float>());
     scene->SetLightOrbit("Moon", glm::vec3(0.0f, 0.0f, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), glm::pi<float>());
 
-    scene->AddModel("Tree1", glm::vec3(80.0f, 0.0f + deltaY, -40.0f), glm::vec3(0.0f, 45.0f, 0.0f), glm::vec3(2.8f), "models/DeadTree.obj", "textures/bark.jpg");
-    scene->AddModel("Tree2", glm::vec3(-80.0f, 0.0f + deltaY, 40.0f), glm::vec3(0.0f, 20.0f, 0.0f), glm::vec3(2.0f), "models/DeadTree.obj", "textures/bark.jpg");
-    scene->AddModel("Tree3", glm::vec3(-40.0f, 0.0f + deltaY, 80.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(3.2f), "models/DeadTree.obj", "textures/bark.jpg");
-    scene->AddModel("Tree4", glm::vec3(40.0f, 0.0f + deltaY, -80.0f), glm::vec3(0.0f, 90.0f, 0.0f), glm::vec3(3.6f), "models/DeadTree.obj", "textures/bark.jpg");
+    scene->AddModel("Tree1", glm::vec3(80.0f, 0.0f + deltaY, -40.0f), glm::vec3(0.0f, 45.0f, 0.0f), glm::vec3(1.8f), "models/DeadTree.obj", "textures/bark.jpg");
+    scene->AddModel("Tree2", glm::vec3(-80.0f, 0.0f + deltaY, 40.0f), glm::vec3(0.0f, 20.0f, 0.0f), glm::vec3(1.0f), "models/DeadTree.obj", "textures/bark.jpg");
+    scene->AddModel("Tree3", glm::vec3(-40.0f, 0.0f + deltaY, 80.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(2.2f), "models/DeadTree.obj", "textures/bark.jpg");
+    scene->AddModel("Tree4", glm::vec3(40.0f, 0.0f + deltaY, -80.0f), glm::vec3(0.0f, 90.0f, 0.0f), glm::vec3(2.6f), "models/DeadTree.obj", "textures/bark.jpg");
 
-    scene->AddModel("Cactus", glm::vec3(0.0f, -4.0f + deltaY, 0.0f), glm::vec3(-90.0f, 0.0f, 0.0f), glm::vec3(0.24f), "models/cactus.obj", "textures/cactus.jpg");
+    scene->AddModel("Cactus", glm::vec3(0.0f, -4.0f + deltaY, 0.0f), glm::vec3(-90.0f, 0.0f, 0.0f), glm::vec3(0.14f), "models/cactus.obj", "textures/cactus.jpg");
 
 
     scene->AddSphere("CrystalBall", 32, 64, 150.0f, glm::vec3(0.0f, 0.0f, 0.0f), "");
-
     scene->SetObjectShadingMode("CrystalBall", 3);
-
     scene->SetObjectCastsShadow("CrystalBall", false);
+
+    // --- NEW FOG SHELL ---
+    // Slightly larger radius (152.0f) so it sits on top
+    scene->AddSphere("FogShell", 32, 64, 152.0f, glm::vec3(0.0f, 0.0f, 0.0f), "");
+
+    // Mode 4 = Fog/Cloud Layer
+    scene->SetObjectShadingMode("FogShell", 4);
+
+    // Disable shadows so it doesn't darken the inner sphere
+    scene->SetObjectCastsShadow("FogShell", false);
 
 }
 
@@ -171,7 +179,7 @@ void Application::ProcessInput() {
     }
 
     bool speedChanged = false;
-    float speedChangeRate = 2.0f; // How fast the speed adjusts
+    float speedChangeRate = 1.2f; // How fast the speed adjusts
 
     if (glfwGetKey(window->GetGLFWWindow(), GLFW_KEY_RIGHT_BRACKET) == GLFW_PRESS) {
         dayNightSpeed += speedChangeRate * deltaTime;

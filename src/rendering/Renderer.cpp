@@ -16,8 +16,33 @@ Renderer::~Renderer() {
 
 void Renderer::Initialize() {
     CreateRenderPass();
+
+    // 1. Main Offscreen Framebuffer (Color + Depth)
     CreateOffScreenResources();
     renderPass->CreateOffScreenFramebuffer(offScreenImageView, depthImageView, swapChain->GetExtent());
+
+    // 2. Refraction Framebuffer (Refraction Image + Shared Depth)
+    // We reuse the existing renderPass because the format and attachments (Color+Depth) are compatible.
+    {
+        std::array<VkImageView, 2> attachments = {
+            refractionImageView,
+            depthImageView // Reuse depth buffer
+        };
+
+        VkFramebufferCreateInfo framebufferInfo{};
+        framebufferInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
+        framebufferInfo.renderPass = renderPass->GetRenderPass();
+        framebufferInfo.attachmentCount = static_cast<uint32_t>(attachments.size());
+        framebufferInfo.pAttachments = attachments.data();
+        framebufferInfo.width = swapChain->GetExtent().width;
+        framebufferInfo.height = swapChain->GetExtent().height;
+        framebufferInfo.layers = 1;
+
+        if (vkCreateFramebuffer(device->GetDevice(), &framebufferInfo, nullptr, &refractionFramebuffer) != VK_SUCCESS) {
+            throw std::runtime_error("failed to create refraction framebuffer!");
+        }
+    }
+
     CreateUniformBuffers();
     CreateCommandBuffer();
 
@@ -25,12 +50,11 @@ void Renderer::Initialize() {
     CreateTextureDescriptorPool();
     CreateDefaultTexture();
 
-    // 1. Create Layout first
+    // 1. Create Layout 
     descriptorSet = std::make_unique<VulkanDescriptorSet>(device->GetDevice());
     descriptorSet->CreateDescriptorSetLayout();
 
-    // 2. Initialize SkyboxPass NOW (to load the cubemap)
-    // We move this up so we can use its texture in the next step
+    // 2. Initialize SkyboxPass 
     skyboxPass = std::make_unique<SkyboxPass>(
         device->GetDevice(), device->GetPhysicalDevice(),
         commandBuffer->GetCommandPool(), device->GetGraphicsQueue()
@@ -39,7 +63,9 @@ void Renderer::Initialize() {
 
     CreateShadowPass();
 
-    // 3. Create Descriptor Sets using both Shadow and Skybox textures
+    // 3. Create Descriptor Sets
+    // NOTE: We pass 'refractionImageView' and 'refractionSampler' instead of Skybox resources
+    // because we are hijacking Binding 2 in Set 0 for the Refraction Texture.
     descriptorSet->CreateDescriptorPool(MAX_FRAMES_IN_FLIGHT);
 
     std::vector<VkBuffer> buffers;
@@ -50,9 +76,8 @@ void Renderer::Initialize() {
         sizeof(UniformBufferObject),
         shadowPass->GetShadowImageView(),
         shadowPass->GetShadowSampler(),
-        // Pass Skybox resources:
-        skyboxPass->GetCubemap()->GetImageView(),
-        skyboxPass->GetCubemap()->GetSampler()
+        refractionImageView, // Pass Refraction View here
+        refractionSampler    // Pass Refraction Sampler here
     );
 
     CreatePipeline();
@@ -333,15 +358,18 @@ void Renderer::CreatePipeline() {
     graphicsPipeline->Create();
 }
 
+// ... existing code ...
+
 void Renderer::CreateOffScreenResources() {
-    // 1. Create color attachment (off-screen)
+    VkExtent2D extent = swapChain->GetExtent();
+    VkFormat imageFormat = swapChain->GetImageFormat();
+
+    // --- 1. Main OffScreen Color Attachment ---
     VulkanUtils::CreateImage(
         device->GetDevice(),
         device->GetPhysicalDevice(),
-        swapChain->GetExtent().width,
-        swapChain->GetExtent().height,
-        1, 1,
-        swapChain->GetImageFormat(),
+        extent.width, extent.height, 1, 1,
+        imageFormat,
         VK_IMAGE_TILING_OPTIMAL,
         VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT,
         VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
@@ -350,21 +378,50 @@ void Renderer::CreateOffScreenResources() {
     );
 
     offScreenImageView = VulkanUtils::CreateImageView(
-        device->GetDevice(),
-        offScreenImage,
-        swapChain->GetImageFormat(),
-        VK_IMAGE_ASPECT_COLOR_BIT
+        device->GetDevice(), offScreenImage, imageFormat, VK_IMAGE_ASPECT_COLOR_BIT
     );
 
-    // 2. Create depth attachment
+    // --- 2. Refraction Color Attachment (CORRECTED) ---
+    // FIX: Added VK_IMAGE_USAGE_TRANSFER_SRC_BIT
+    // This is required because the RenderPass we reuse transitions the image to 
+    // VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL at the end.
+    VulkanUtils::CreateImage(
+        device->GetDevice(),
+        device->GetPhysicalDevice(),
+        extent.width, extent.height, 1, 1,
+        imageFormat,
+        VK_IMAGE_TILING_OPTIMAL,
+        VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT,
+        VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
+        refractionImage,
+        refractionImageMemory
+    );
+
+    refractionImageView = VulkanUtils::CreateImageView(
+        device->GetDevice(), refractionImage, imageFormat, VK_IMAGE_ASPECT_COLOR_BIT
+    );
+
+    // Create Sampler for Refraction
+    VkSamplerCreateInfo samplerInfo{};
+    samplerInfo.sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;
+    samplerInfo.magFilter = VK_FILTER_LINEAR;
+    samplerInfo.minFilter = VK_FILTER_LINEAR;
+    samplerInfo.addressModeU = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
+    samplerInfo.addressModeV = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
+    samplerInfo.addressModeW = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
+    samplerInfo.mipmapMode = VK_SAMPLER_MIPMAP_MODE_LINEAR;
+
+    if (vkCreateSampler(device->GetDevice(), &samplerInfo, nullptr, &refractionSampler) != VK_SUCCESS) {
+        throw std::runtime_error("failed to create refraction sampler!");
+    }
+
+    // --- 3. Shared Depth Attachment ---
     VkFormat depthFormat = findDepthFormat(device->GetPhysicalDevice());
 
     VulkanUtils::CreateImage(
         device->GetDevice(),
         device->GetPhysicalDevice(),
-        swapChain->GetExtent().width,
-        swapChain->GetExtent().height,
-        1, 1,
+        extent.width, extent.height, 1, 1,
         depthFormat,
         VK_IMAGE_TILING_OPTIMAL,
         VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
@@ -374,11 +431,89 @@ void Renderer::CreateOffScreenResources() {
     );
 
     depthImageView = VulkanUtils::CreateImageView(
-        device->GetDevice(),
-        depthImage,
-        depthFormat,
-        VK_IMAGE_ASPECT_DEPTH_BIT
+        device->GetDevice(), depthImage, depthFormat, VK_IMAGE_ASPECT_DEPTH_BIT
     );
+}
+
+void Renderer::RenderRefractionPass(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene) {
+    // 1. Begin Render Pass targeting the Refraction Framebuffer
+    VkRenderPassBeginInfo renderPassInfo{};
+    renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+    renderPassInfo.renderPass = renderPass->GetRenderPass();
+    renderPassInfo.framebuffer = refractionFramebuffer;
+    renderPassInfo.renderArea.offset = { 0, 0 };
+    renderPassInfo.renderArea.extent = swapChain->GetExtent();
+
+    std::array<VkClearValue, 2> clearValues{};
+    clearValues[0].color = { {0.1f, 0.1f, 0.1f, 1.0f} };
+    clearValues[1].depthStencil = { 1.0f, 0 };
+    renderPassInfo.clearValueCount = static_cast<uint32_t>(clearValues.size());
+    renderPassInfo.pClearValues = clearValues.data();
+
+    vkCmdBeginRenderPass(cmd, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+
+    VkViewport viewport{};
+    viewport.width = (float)swapChain->GetExtent().width;
+    viewport.height = (float)swapChain->GetExtent().height;
+    viewport.minDepth = 0.0f;
+    viewport.maxDepth = 1.0f;
+    vkCmdSetViewport(cmd, 0, 1, &viewport);
+
+    VkRect2D scissor{};
+    scissor.extent = swapChain->GetExtent();
+    vkCmdSetScissor(cmd, 0, 1, &scissor);
+
+    // 2. Draw Skybox
+    if (skyboxPass) {
+        skyboxPass->Draw(cmd, scene, currentFrame, descriptorSet->GetDescriptorSets()[currentFrame]);
+    }
+
+    // 3. Draw Scene Objects (Excluding Refractive objects)
+    vkCmdBindPipeline(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->GetPipeline());
+    vkCmdBindDescriptorSets(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->GetLayout(), 0, 1, &descriptorSet->GetDescriptorSets()[currentFrame], 0, nullptr);
+
+    for (const auto& obj : scene.GetObjects()) {
+        if (!obj || !obj->visible || !obj->geometry || obj->shadingMode == 3 || obj->shadingMode == 2 || obj->shadingMode == 4) continue;
+        PushConstantObject pco{};
+        pco.model = obj->transform;
+        pco.shadingMode = obj->shadingMode;
+        vkCmdPushConstants(cmd, graphicsPipeline->GetLayout(), VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(PushConstantObject), &pco);
+
+        VkDescriptorSet textureSet = GetTextureDescriptorSet(obj->texturePath);
+        vkCmdBindDescriptorSets(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->GetLayout(), 1, 1, &textureSet, 0, nullptr);
+
+        obj->geometry->Bind(cmd);
+        obj->geometry->Draw(cmd);
+    }
+
+    vkCmdEndRenderPass(cmd);
+
+    // 4. Barrier: Synchronize so Main Pass can read this texture
+    // FIX: Changed oldLayout to VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL
+    // The RenderPass automatically transitions the attachment to its 'finalLayout' when it ends.
+    // Since we reused the offscreen render pass, that final layout is TRANSFER_SRC_OPTIMAL.
+    VkImageMemoryBarrier barrier{};
+    barrier.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
+    barrier.oldLayout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
+    barrier.newLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+    barrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+    barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+    barrier.image = refractionImage;
+    barrier.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+    barrier.subresourceRange.baseMipLevel = 0;
+    barrier.subresourceRange.levelCount = 1;
+    barrier.subresourceRange.baseArrayLayer = 0;
+    barrier.subresourceRange.layerCount = 1;
+
+    // We are waiting for Color Attachment Writes to finish (from the render pass)
+    barrier.srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+    // We want to read it in the Fragment Shader in the next pass
+    barrier.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
+
+    vkCmdPipelineBarrier(cmd,
+        VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT,
+        VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT,
+        0, 0, nullptr, 0, nullptr, 1, &barrier);
 }
 
 void Renderer::CreateCommandBuffer() {
@@ -462,19 +597,15 @@ void Renderer::RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex,
         throw std::runtime_error("failed to begin recording command buffer!");
     }
 
-    // --- 1. Update UBO with Light Matrices ---
-    // Find the main light (Sun)
+    // --- 0. Update UBO ---
+    // (Existing UBO update code here...)
     glm::vec3 lightPos = glm::vec3(0.0f, 200.0f, 0.0f);
     const auto& lights = scene.GetLights();
     if (!lights.empty()) lightPos = lights[0].position;
 
-    // Calculate Light Space Matrix
-    float near_plane = 1.0f, far_plane = 500.0f;
-    glm::mat4 lightProj = glm::ortho(-200.0f, 200.0f, -200.0f, 200.0f, near_plane, far_plane);
-
+    glm::mat4 lightProj = glm::ortho(-200.0f, 200.0f, -200.0f, 200.0f, 1.0f, 500.0f);
     glm::mat4 lightView = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-
-    lightProj[1][1] *= -1; // Correct for Vulkan Y-flip
+    lightProj[1][1] *= -1;
     glm::mat4 lightSpaceMatrix = lightProj * lightView;
 
     UniformBufferObject ubo{};
@@ -482,18 +613,16 @@ void Renderer::RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex,
     ubo.proj = projMatrix;
     ubo.viewPos = glm::vec3(glm::inverse(viewMatrix)[3]);
     ubo.lightSpaceMatrix = lightSpaceMatrix;
-
     size_t count = std::min(lights.size(), (size_t)MAX_LIGHTS);
     if (count > 0) std::memcpy(ubo.lights, lights.data(), count * sizeof(Light));
     ubo.numLights = static_cast<int>(count);
-
     UpdateUniformBuffer(currentFrame, ubo);
 
-    // --- 2. Render Shadow Pass ---
+    // --- 1. Render Shadow Pass ---
     RenderShadowMap(cmd, currentFrame, scene);
 
-    // Barrier not strictly needed if using RenderPass dependencies correctly, 
-    // but ensures shadow map write finishes before read.
+    // --- 2. Render Refraction Pass (NEW) ---
+    RenderRefractionPass(cmd, currentFrame, scene);
 
     // --- 3. Render Main Scene ---
     RenderScene(cmd, currentFrame, scene, viewMatrix, projMatrix);
@@ -714,29 +843,17 @@ void Renderer::Cleanup() {
 }
 
 void Renderer::CleanupOffScreenResources() {
-    if (depthImageView != VK_NULL_HANDLE) {
-        vkDestroyImageView(device->GetDevice(), depthImageView, nullptr);
-        depthImageView = VK_NULL_HANDLE;
-    }
-    if (depthImage != VK_NULL_HANDLE) {
-        vkDestroyImage(device->GetDevice(), depthImage, nullptr);
-        depthImage = VK_NULL_HANDLE;
-    }
-    if (depthImageMemory != VK_NULL_HANDLE) {
-        vkFreeMemory(device->GetDevice(), depthImageMemory, nullptr);
-        depthImageMemory = VK_NULL_HANDLE;
-    }
+    if (depthImageView != VK_NULL_HANDLE) vkDestroyImageView(device->GetDevice(), depthImageView, nullptr);
+    if (depthImage != VK_NULL_HANDLE) vkDestroyImage(device->GetDevice(), depthImage, nullptr);
+    if (depthImageMemory != VK_NULL_HANDLE) vkFreeMemory(device->GetDevice(), depthImageMemory, nullptr);
 
-    if (offScreenImageView != VK_NULL_HANDLE) {
-        vkDestroyImageView(device->GetDevice(), offScreenImageView, nullptr);
-        offScreenImageView = VK_NULL_HANDLE;
-    }
-    if (offScreenImage != VK_NULL_HANDLE) {
-        vkDestroyImage(device->GetDevice(), offScreenImage, nullptr);
-        offScreenImage = VK_NULL_HANDLE;
-    }
-    if (offScreenImageMemory != VK_NULL_HANDLE) {
-        vkFreeMemory(device->GetDevice(), offScreenImageMemory, nullptr);
-        offScreenImageMemory = VK_NULL_HANDLE;
-    }
+    if (offScreenImageView != VK_NULL_HANDLE) vkDestroyImageView(device->GetDevice(), offScreenImageView, nullptr);
+    if (offScreenImage != VK_NULL_HANDLE) vkDestroyImage(device->GetDevice(), offScreenImage, nullptr);
+    if (offScreenImageMemory != VK_NULL_HANDLE) vkFreeMemory(device->GetDevice(), offScreenImageMemory, nullptr);
+
+    if (refractionFramebuffer != VK_NULL_HANDLE) vkDestroyFramebuffer(device->GetDevice(), refractionFramebuffer, nullptr);
+    if (refractionSampler != VK_NULL_HANDLE) vkDestroySampler(device->GetDevice(), refractionSampler, nullptr);
+    if (refractionImageView != VK_NULL_HANDLE) vkDestroyImageView(device->GetDevice(), refractionImageView, nullptr);
+    if (refractionImage != VK_NULL_HANDLE) vkDestroyImage(device->GetDevice(), refractionImage, nullptr);
+    if (refractionImageMemory != VK_NULL_HANDLE) vkFreeMemory(device->GetDevice(), refractionImageMemory, nullptr);
 }

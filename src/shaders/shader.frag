@@ -32,7 +32,8 @@ layout(push_constant) uniform PushConstantObject {
 } pco;
 
 layout(set = 0, binding = 1) uniform sampler2D shadowMap;
-layout(set = 0, binding = 2) uniform samplerCube skyboxSampler;
+layout(set = 0, binding = 2) uniform sampler2D refractionSampler; 
+
 layout(set = 1, binding = 0) uniform sampler2D texSampler;
 
 layout(location = 0) out vec4 outColor;
@@ -44,10 +45,11 @@ float ShadowCalculation(vec4 fragPosLightSpace) {
 
     if(projCoords.z > 1.0 || projCoords.z < 0.0) return 0.0;
     if(projCoords.x < 0.0 || projCoords.x > 1.0 || projCoords.y < 0.0 || projCoords.y > 1.0) return 0.0;
-
+    
     float bias = 0.005;
     float shadow = 0.0;
     vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
+    
     for(int x = -1; x <= 1; ++x) {
         for(int y = -1; y <= 1; ++y) {
             float pcfDepth = texture(shadowMap, projCoords.xy + vec2(x, y) * texelSize).r;
@@ -60,32 +62,63 @@ float ShadowCalculation(vec4 fragPosLightSpace) {
 }
 
 void main() {
-    // --- 1. REFRACTIVE GLASS MODE (Mode 3) ---
+    // --- 1. SCREEN-SPACE REFRACTION MODE (Mode 3: Inner Sphere) ---
     if (pco.shadingMode == 3) {
         vec3 I = normalize(fragPos - ubo.viewPos);
         vec3 N = normalize(fragNormal);
         
-        // 1. Refraction (Distortion)
-        // CHANGE: Reduced index from 1.52 (Glass) to 1.12.
-        // This makes the bending of light much more subtle/less extreme.
-        vec3 R = refract(I, N, 1.00 / 1.02);
-        
-        vec3 refractionColor = texture(skyboxSampler, R).rgb;
-        
-        // 2. Specular Highlight (The Sun)
+        // 1. Calculate Screen Coordinates
+        vec2 viewportSize = vec2(textureSize(refractionSampler, 0));
+        vec2 screenUV = gl_FragCoord.xy / viewportSize;
+
+        // 2. Distort UVs
+        vec2 distortion = N.xy * 0.40; 
+        vec2 refractedUV = screenUV + distortion;
+
+        // 3. Sample
+        vec3 refractionColor = texture(refractionSampler, refractedUV).rgb;
+
+        // 4. Foggy Tint
+        vec3 foggyTint = vec3(0.9, 0.95, 1.0) * 0.2;
+        vec3 baseColor = mix(refractionColor, foggyTint, 0.6);
+
+        // 5. Specular
         vec3 lightDir = normalize(ubo.lights[0].position - fragPos);
-        vec3 H = normalize(lightDir - I); // ViewDir is -I
+        vec3 H = normalize(lightDir - I);
         float spec = pow(max(dot(N, H), 0.0), 64.0);
         vec3 specularColor = spec * ubo.lights[0].color * 1.5;
 
-        // 3. Alpha / Opacity
-        // CHANGE: Increased base alpha to 0.45 (was 0.2).
-        // This makes the sphere look more "milky" or solid translucent, rather than clear air.
+        // 6. Alpha
         float fresnel = pow(1.0 - max(dot(-I, N), 0.0), 2.0);
-        float alpha = clamp(0.2 + (fresnel * 0.85), 0.0, 1.0);
-
-        outColor = vec4(refractionColor + specularColor, alpha);
+        float alpha = clamp(0.2 + (fresnel * 0.7), 0.0, 1.0);
+        
+        outColor = vec4(baseColor + specularColor, alpha);
         return; 
+    }
+
+    // --- 2. DARK GLOSS SHELL (Mode 4: Outer Sphere) ---
+    if (pco.shadingMode == 4) {
+        vec3 I = normalize(fragPos - ubo.viewPos);
+        vec3 N = normalize(fragNormal);
+
+        // A. Base Color (Smoked Glass / Dark Tint)
+        // CHANGE: Darkened significantly from white (0.95) to dark blue-grey (0.05)
+        vec3 darkTint = vec3(0.02, 0.02, 0.05); 
+
+        // B. Specular Highlight (High Gloss)
+        vec3 lightDir = normalize(ubo.lights[0].position - fragPos);
+        vec3 H = normalize(lightDir - I);
+
+        float spec = pow(max(dot(N, H), 0.0), 256.0);
+        vec3 specularColor = spec * ubo.lights[0].color * 3.0;
+
+        // C. Alpha / Opacity
+        // Increased base opacity slightly (0.15 -> 0.25) so the dark tint is more visible
+        float fresnel = pow(1.0 - max(dot(-I, N), 0.0), 3.0);
+        float alpha = clamp(0.25 + (fresnel * 0.6), 0.0, 1.0);
+
+        outColor = vec4(darkTint + specularColor, alpha);
+        return;
     }
 
     // --- STANDARD LIGHTING (Modes 0 & 1) ---
@@ -114,7 +147,7 @@ void main() {
             vec3 reflectDir = reflect(-lightDir, normal);
             float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
             vec3 specular = specularStrength * spec * ubo.lights[i].color * ubo.lights[i].intensity;
-
+            
             float lightShadow = 0.0;
             if (i == 0) {
                 lightShadow = shadow;

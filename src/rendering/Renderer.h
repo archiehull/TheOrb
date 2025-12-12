@@ -51,6 +51,16 @@ private:
     std::unique_ptr<ShadowPass> shadowPass;
     std::unique_ptr<SkyboxPass> skyboxPass;
 
+    // --- Refraction Resources ---
+    VkImage refractionImage = VK_NULL_HANDLE;
+    VkDeviceMemory refractionImageMemory = VK_NULL_HANDLE;
+    VkImageView refractionImageView = VK_NULL_HANDLE;
+    VkSampler refractionSampler = VK_NULL_HANDLE;
+    VkFramebuffer refractionFramebuffer = VK_NULL_HANDLE;
+
+    // Helper to run the refraction pass
+    void RenderRefractionPass(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene);
+
     VkImage offScreenImage = VK_NULL_HANDLE;
     VkDeviceMemory offScreenImageMemory = VK_NULL_HANDLE;
     VkImageView offScreenImageView = VK_NULL_HANDLE;

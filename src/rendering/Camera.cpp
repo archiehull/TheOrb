@@ -11,7 +11,7 @@ Camera::Camera()
     , nearPlane(1.0f)
     , farPlane(1000.0f)
     , moveSpeed(125.0f)
-    , rotateSpeed(125.0f)
+    , rotateSpeed(100.0f)
 {
     UpdateCameraVectors();
 }
