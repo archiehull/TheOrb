@@ -1,6 +1,6 @@
 #include "ParticleSystem.h"
 #include <random>
-#include <algorithm> // For std::sort
+#include <algorithm> 
 
 // Helper for random numbers
 static float RandomFloat(float min, float max) {
@@ -14,38 +14,27 @@ ParticleSystem::ParticleSystem(VkDevice device, VkPhysicalDevice physicalDevice,
     : device(device), physicalDevice(physicalDevice), maxParticles(maxParticles) {
     particles.resize(maxParticles);
     poolIndex = maxParticles - 1;
-
-    // Create Texture Loader
     texture = std::make_unique<Texture>(device, physicalDevice, commandPool, graphicsQueue);
 }
 
 ParticleSystem::~ParticleSystem() {
+    // Only destroy resources this class actually owns
     vkDestroyDescriptorPool(device, descriptorPool, nullptr);
-    vkDestroyDescriptorSetLayout(device, textureLayout, nullptr);
+    // textureLayout and pipeline are owned by Renderer, do not destroy them here.
 
-    pipeline.reset();
     texture.reset();
     vertexBuffer.reset();
     instanceBuffer.reset();
 }
 
-void ParticleSystem::Initialize(VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout, const std::string& texturePath, bool additiveBlending) {
+void ParticleSystem::Initialize(VkDescriptorSetLayout textureLayout, GraphicsPipeline* pipeline, const std::string& texturePath) {
+    this->textureLayout = textureLayout;
+    this->pipeline = pipeline;
+
     texture->LoadFromFile(texturePath);
     SetupBuffers();
 
-    // Create Layout for texture
-    VkDescriptorSetLayoutBinding binding{};
-    binding.binding = 0;
-    binding.descriptorCount = 1;
-    binding.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-    binding.stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
-
-    VkDescriptorSetLayoutCreateInfo layoutInfo{ VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO };
-    layoutInfo.bindingCount = 1;
-    layoutInfo.pBindings = &binding;
-    vkCreateDescriptorSetLayout(device, &layoutInfo, nullptr, &textureLayout);
-
-    // Pool & Set
+    // Pool & Set creation remains here because each system needs its own descriptor set (for its specific texture)
     VkDescriptorPoolSize poolSize{ VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 1 };
     VkDescriptorPoolCreateInfo poolInfo{ VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO };
     poolInfo.poolSizeCount = 1;
@@ -71,28 +60,23 @@ void ParticleSystem::Initialize(VkRenderPass renderPass, VkDescriptorSetLayout g
     write.descriptorCount = 1;
     write.pImageInfo = &imageInfo;
     vkUpdateDescriptorSets(device, 1, &write, 0, nullptr);
-
-    SetupPipeline(renderPass, globalSetLayout, additiveBlending);
 }
 
+// ... Emit, AddEmitter, Update, UpdateInstanceBuffer remain unchanged ...
 void ParticleSystem::Emit(const ParticleProps& props) {
     Particle& p = particles[poolIndex];
     p.active = true;
     p.position = props.position;
-
-    // Random velocity
     p.velocity = props.velocity;
     p.velocity.x += props.velocityVariation.x * RandomFloat(-1.0f, 1.0f);
     p.velocity.y += props.velocityVariation.y * RandomFloat(-1.0f, 1.0f);
     p.velocity.z += props.velocityVariation.z * RandomFloat(-1.0f, 1.0f);
-
     p.colorBegin = props.colorBegin;
     p.colorEnd = props.colorEnd;
     p.lifeTime = props.lifeTime;
     p.lifeRemaining = props.lifeTime;
     p.sizeBegin = props.sizeBegin + props.sizeVariation * RandomFloat(-1.0f, 1.0f);
     p.sizeEnd = props.sizeEnd;
-
     poolIndex = (poolIndex - 1) % maxParticles;
 }
 
@@ -108,45 +92,32 @@ void ParticleSystem::Update(float dt) {
     for (auto& emitter : emitters) {
         emitter.timeSinceLastEmit += dt;
         float emitInterval = 1.0f / emitter.particlesPerSecond;
-
         float maxTime = 0.1f;
         if (emitter.timeSinceLastEmit > maxTime) emitter.timeSinceLastEmit = maxTime;
-
-        // Spawn particles if enough time has passed
         while (emitter.timeSinceLastEmit >= emitInterval) {
             Emit(emitter.props);
             emitter.timeSinceLastEmit -= emitInterval;
         }
     }
-
     for (auto& p : particles) {
         if (!p.active) continue;
-
         if (p.lifeRemaining <= 0.0f) {
             p.active = false;
             continue;
         }
-
         p.lifeRemaining -= dt;
         p.position += p.velocity * dt;
-
-        // Simple sorting distance (squared) relative to origin for now
-        // Real sorting requires camera position passed to Update
-        // But for additive blending (Fire), sorting isn't needed!
     }
-
     UpdateInstanceBuffer();
 }
 
 void ParticleSystem::UpdateInstanceBuffer() {
     std::vector<InstanceData> instanceData;
-    instanceData.reserve(maxParticles); // Estimation
+    instanceData.reserve(maxParticles);
 
     for (const auto& p : particles) {
         if (!p.active) continue;
-
-        float lifeT = 1.0f - (p.lifeRemaining / p.lifeTime); // 0 to 1
-
+        float lifeT = 1.0f - (p.lifeRemaining / p.lifeTime);
         InstanceData data;
         data.position = p.position;
         data.color = glm::mix(p.colorBegin, p.colorEnd, lifeT);
@@ -156,8 +127,6 @@ void ParticleSystem::UpdateInstanceBuffer() {
 
     if (!instanceData.empty()) {
         VkDeviceSize size = instanceData.size() * sizeof(InstanceData);
-        // Map and Copy. Ideally use a staging buffer for best practice, 
-        // but mapping a HOST_VISIBLE buffer directly is fine for dynamic particles.
         void* data;
         vkMapMemory(device, instanceBuffer->GetBufferMemory(), 0, size, 0, &data);
         memcpy(data, instanceData.data(), (size_t)size);
@@ -169,8 +138,9 @@ void ParticleSystem::Draw(VkCommandBuffer cmd, VkDescriptorSet globalDescriptorS
     uint32_t activeCount = 0;
     for (const auto& p : particles) if (p.active) activeCount++;
 
-    if (activeCount == 0) return;
+    if (activeCount == 0 || !pipeline) return;
 
+    // Use the shared pipeline
     vkCmdBindPipeline(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline->GetPipeline());
 
     // Set 0: Global UBO, Set 1: Particle Texture
@@ -181,16 +151,13 @@ void ParticleSystem::Draw(VkCommandBuffer cmd, VkDescriptorSet globalDescriptorS
     VkDeviceSize offsets[] = { 0 };
     vkCmdBindVertexBuffers(cmd, 0, 1, vertexBuffers, offsets);
 
-    // Bind Instance Buffer as binding 1
     VkBuffer instanceBuffers[] = { instanceBuffer->GetBuffer() };
-    vkCmdBindVertexBuffers(cmd, 1, 1, instanceBuffers, offsets); // Binding 1
+    vkCmdBindVertexBuffers(cmd, 1, 1, instanceBuffers, offsets);
 
-    // Draw 6 vertices (1 quad) * activeCount instances
     vkCmdDraw(cmd, 6, activeCount, 0, 0);
 }
 
 void ParticleSystem::SetupBuffers() {
-    // 1. Static Quad Vertex Buffer
     // x, y, z, u, v
     float vertices[] = {
         -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
@@ -206,74 +173,41 @@ void ParticleSystem::SetupBuffers() {
         VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
     vertexBuffer->CopyData(vertices, sizeof(vertices));
 
-    // 2. Dynamic Instance Buffer
     instanceBuffer = std::make_unique<VulkanBuffer>(device, physicalDevice);
     instanceBuffer->CreateBuffer(maxParticles * sizeof(InstanceData),
         VK_BUFFER_USAGE_VERTEX_BUFFER_BIT,
         VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 }
 
-void ParticleSystem::SetupPipeline(VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout, bool additive) {
-    GraphicsPipelineConfig config{};
-    config.vertShaderPath = "src/shaders/particle_vert.spv"; // Make sure to compile this!
-    config.fragShaderPath = "src/shaders/particle_frag.spv";
-    config.renderPass = renderPass;
-    config.extent = { 800, 600 }; // Viewport, updated dynamic anyway
+// Static definitions for Pipeline Creation
+std::vector<VkVertexInputBindingDescription> ParticleSystem::GetBindingDescriptions() {
+    std::vector<VkVertexInputBindingDescription> bindings(2);
 
     // Binding 0: Mesh Data
-    VkVertexInputBindingDescription mainBinding{};
-    mainBinding.binding = 0;
-    mainBinding.stride = 5 * sizeof(float); // x,y,z,u,v
-    mainBinding.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+    bindings[0].binding = 0;
+    bindings[0].stride = 5 * sizeof(float); // x,y,z,u,v
+    bindings[0].inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
 
     // Binding 1: Instance Data
-    VkVertexInputBindingDescription instanceBinding{};
-    instanceBinding.binding = 1;
-    instanceBinding.stride = sizeof(InstanceData);
-    instanceBinding.inputRate = VK_VERTEX_INPUT_RATE_INSTANCE;
+    bindings[1].binding = 1;
+    bindings[1].stride = sizeof(InstanceData);
+    bindings[1].inputRate = VK_VERTEX_INPUT_RATE_INSTANCE;
 
-    VkVertexInputBindingDescription bindings[] = { mainBinding, instanceBinding };
-    config.bindingDescription = bindings; // Pointer workaround: store in member if needed, or array logic in GraphicsPipeline
+    return bindings;
+}
 
-    // Attributes
+std::vector<VkVertexInputAttributeDescription> ParticleSystem::GetAttributeDescriptions() {
     std::vector<VkVertexInputAttributeDescription> attribs;
-    // Binding 0
-    attribs.push_back({ 0, 0, VK_FORMAT_R32G32B32_SFLOAT, 0 });    // Pos
-    attribs.push_back({ 1, 0, VK_FORMAT_R32G32_SFLOAT, 3 * sizeof(float) }); // UV
-    // Binding 1 (Instance)
+
+    // Binding 0: Pos (Loc 0), UV (Loc 1)
+    attribs.push_back({ 0, 0, VK_FORMAT_R32G32B32_SFLOAT, 0 });
+    attribs.push_back({ 1, 0, VK_FORMAT_R32G32_SFLOAT, 3 * sizeof(float) });
+
+    // Binding 1: Instance Data
+    // Pos (Loc 2), Color (Loc 3), Size (Loc 4)
     attribs.push_back({ 2, 1, VK_FORMAT_R32G32B32_SFLOAT, offsetof(InstanceData, position) });
     attribs.push_back({ 3, 1, VK_FORMAT_R32G32B32A32_SFLOAT, offsetof(InstanceData, color) });
     attribs.push_back({ 4, 1, VK_FORMAT_R32_SFLOAT, offsetof(InstanceData, size) });
 
-    // Hack: The GraphicsPipeline class expects pointers. 
-    // You might need to adjust GraphicsPipeline to take a vector, or handle this carefully.
-    // For now, assuming you update GraphicsPipeline to handle multiple bindings/attributes nicely.
-
-    config.descriptorSetLayouts = { globalSetLayout, textureLayout };
-
-    // Blending
-    config.blendEnable = true;
-    if (additive) {
-        // Fire / Magic
-        config.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
-        config.dstColorBlendFactor = VK_BLEND_FACTOR_ONE;
-    }
-    else {
-        // Smoke / Dust
-        config.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
-        config.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
-    }
-
-    config.depthWriteEnable = false; // Important for particles!
-    config.depthTestEnable = true;
-
-    config.attributeDescriptions = attribs.data();
-    config.attributeCount = static_cast<uint32_t>(attribs.size());
-
-    config.bindingCount = 2; // Binding 0 (Quad) + Binding 1 (Instance Data)
-
-    // 3. Create the Pipeline
-    pipeline = std::make_unique<GraphicsPipeline>(device, config);
-    pipeline->Create();
+    return attribs;
 }
-

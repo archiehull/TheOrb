@@ -21,8 +21,7 @@ void Renderer::Initialize() {
     CreateOffScreenResources();
     renderPass->CreateOffScreenFramebuffer(offScreenImageView, depthImageView, swapChain->GetExtent());
 
-    // 2. Refraction Framebuffer (Refraction Image + Shared Depth)
-    // We reuse the existing renderPass because the format and attachments (Color+Depth) are compatible.
+    // 2. Refraction Framebuffer
     {
         std::array<VkImageView, 2> attachments = {
             refractionImageView,
@@ -50,11 +49,11 @@ void Renderer::Initialize() {
     CreateTextureDescriptorPool();
     CreateDefaultTexture();
 
-    // 1. Create Layout 
+    // Global Descriptor Set (UBOs)
     descriptorSet = std::make_unique<VulkanDescriptorSet>(device->GetDevice());
     descriptorSet->CreateDescriptorSetLayout();
 
-    // 2. Initialize SkyboxPass 
+    // Initialize Skybox
     skyboxPass = std::make_unique<SkyboxPass>(
         device->GetDevice(), device->GetPhysicalDevice(),
         commandBuffer->GetCommandPool(), device->GetGraphicsQueue()
@@ -63,9 +62,7 @@ void Renderer::Initialize() {
 
     CreateShadowPass();
 
-    // 3. Create Descriptor Sets
-    // NOTE: We pass 'refractionImageView' and 'refractionSampler' instead of Skybox resources
-    // because we are hijacking Binding 2 in Set 0 for the Refraction Texture.
+    // Create Descriptor Sets
     descriptorSet->CreateDescriptorPool(MAX_FRAMES_IN_FLIGHT);
 
     std::vector<VkBuffer> buffers;
@@ -76,19 +73,22 @@ void Renderer::Initialize() {
         sizeof(UniformBufferObject),
         shadowPass->GetShadowImageView(),
         shadowPass->GetShadowSampler(),
-        refractionImageView, // Pass Refraction View here
-        refractionSampler    // Pass Refraction Sampler here
+        refractionImageView,
+        refractionSampler
     );
 
-    // Initialize Fire (Additive)
+    // --- NEW: Create Shared Particle Pipelines ---
+    CreateParticlePipelines();
+
+    // Initialize Fire (Uses Additive Pipeline & Shared Layout)
     fireSystem = std::make_unique<ParticleSystem>(device->GetDevice(), device->GetPhysicalDevice(), commandBuffer->GetCommandPool(), device->GetGraphicsQueue(), 1000);
-    fireSystem->Initialize(renderPass->GetRenderPass(), descriptorSet->GetLayout(), "textures/kenney_particle-pack/transparent/fire_01.png", true);
+    fireSystem->Initialize(particleTextureLayout, particlePipelineAdditive.get(), "textures/kenney_particle-pack/transparent/fire_01.png");
 
-    // Initialize Smoke (Alpha Blend)
+    // Initialize Smoke (Uses Alpha Pipeline & Shared Layout)
     smokeSystem = std::make_unique<ParticleSystem>(device->GetDevice(), device->GetPhysicalDevice(), commandBuffer->GetCommandPool(), device->GetGraphicsQueue(), 1000);
-    smokeSystem->Initialize(renderPass->GetRenderPass(), descriptorSet->GetLayout(), "textures/kenney_particle-pack/transparent/smoke_01.png", false);
+    smokeSystem->Initialize(particleTextureLayout, particlePipelineAlpha.get(), "textures/kenney_particle-pack/transparent/smoke_01.png");
 
-    CreatePipeline();
+    CreatePipeline(); // Main scene object pipeline
     CreateSyncObjects();
 }
 
@@ -570,6 +570,65 @@ void Renderer::DrawSceneObjects(VkCommandBuffer cmd, Scene& scene, VkPipelineLay
     }
 }
 
+void Renderer::CreateParticlePipelines() {
+    // 1. Create the Shared Descriptor Set Layout for Particle Textures
+    // Every particle system needs a texture, but they can all use this same layout definition.
+    VkDescriptorSetLayoutBinding binding{};
+    binding.binding = 0;
+    binding.descriptorCount = 1;
+    binding.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+    binding.stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
+
+    VkDescriptorSetLayoutCreateInfo layoutInfo{ VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO };
+    layoutInfo.bindingCount = 1;
+    layoutInfo.pBindings = &binding;
+
+    if (vkCreateDescriptorSetLayout(device->GetDevice(), &layoutInfo, nullptr, &particleTextureLayout) != VK_SUCCESS) {
+        throw std::runtime_error("failed to create particle texture layout!");
+    }
+
+    // 2. Get Vertex Input Info from ParticleSystem (Static Helpers)
+    // We assume ParticleSystem::GetBindingDescriptions() and GetAttributeDescriptions() are implemented.
+    auto bindings = ParticleSystem::GetBindingDescriptions();
+    auto attribs = ParticleSystem::GetAttributeDescriptions();
+
+    // 3. Configure the Base Pipeline
+    GraphicsPipelineConfig config{};
+    config.vertShaderPath = "src/shaders/particle_vert.spv";
+    config.fragShaderPath = "src/shaders/particle_frag.spv";
+    config.renderPass = renderPass->GetRenderPass();
+    config.extent = swapChain->GetExtent();
+
+    config.bindingDescription = bindings.data();
+    config.bindingCount = static_cast<uint32_t>(bindings.size());
+    config.attributeDescriptions = attribs.data();
+    config.attributeCount = static_cast<uint32_t>(attribs.size());
+
+    // Set 0: Global UBO (Camera), Set 1: Particle Texture
+    config.descriptorSetLayouts = { descriptorSet->GetLayout(), particleTextureLayout };
+
+    // Particles don't write to depth buffer (transparent), but they do test against it.
+    config.depthWriteEnable = false;
+    config.depthTestEnable = true;
+    config.blendEnable = true;
+
+    // --- Variant A: Additive Pipeline (e.g., Fire, Magic) ---
+    // Source + Destination (accumulates brightness)
+    config.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
+    config.dstColorBlendFactor = VK_BLEND_FACTOR_ONE;
+
+    particlePipelineAdditive = std::make_unique<GraphicsPipeline>(device->GetDevice(), config);
+    particlePipelineAdditive->Create();
+
+    // --- Variant B: Alpha Blended Pipeline (e.g., Smoke, Dust) ---
+    // Standard transparency
+    config.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
+    config.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
+
+    particlePipelineAlpha = std::make_unique<GraphicsPipeline>(device->GetDevice(), config);
+    particlePipelineAlpha->Create();
+}
+
 void Renderer::RenderShadowMap(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene) {
     shadowPass->Begin(cmd);
 
@@ -786,6 +845,7 @@ void Renderer::WaitIdle() {
 }
 
 void Renderer::Cleanup() {
+    // 1. Cleanup Scene Uniform Buffers
     for (size_t i = 0; i < uniformBuffers.size(); i++) {
         if (uniformBuffersMapped[i]) {
             vkUnmapMemory(device->GetDevice(), uniformBuffers[i]->GetBufferMemory());
@@ -805,7 +865,7 @@ void Renderer::Cleanup() {
         descriptorSet.reset();
     }
 
-    // Destroy and free all cached texture resources first (image views, samplers, memory)
+    // 2. Cleanup Texture Cache
     for (auto& entry : textureCache) {
         if (entry.second.texture) {
             entry.second.texture->Cleanup();
@@ -815,14 +875,12 @@ void Renderer::Cleanup() {
     }
     textureCache.clear();
 
-    // Default texture
     if (defaultTextureResource.texture) {
         defaultTextureResource.texture->Cleanup();
         defaultTextureResource.texture.reset();
     }
     defaultTextureResource.descriptorSet = VK_NULL_HANDLE;
 
-    // Destroy texture descriptor pool and layout (they own descriptor sets)
     if (textureDescriptorPool != VK_NULL_HANDLE) {
         vkDestroyDescriptorPool(device->GetDevice(), textureDescriptorPool, nullptr);
         textureDescriptorPool = VK_NULL_HANDLE;
@@ -833,6 +891,26 @@ void Renderer::Cleanup() {
         textureSetLayout = VK_NULL_HANDLE;
     }
 
+    // 3. Cleanup Particle Systems (They no longer own the pipeline/layout)
+    // Note: We reset them BEFORE destroying the pipelines they depend on.
+    if (fireSystem) fireSystem.reset();
+    if (smokeSystem) smokeSystem.reset();
+
+    // 4. Cleanup Shared Particle Resources (NEW)
+    if (particlePipelineAdditive) {
+        particlePipelineAdditive->Cleanup();
+        particlePipelineAdditive.reset();
+    }
+    if (particlePipelineAlpha) {
+        particlePipelineAlpha->Cleanup();
+        particlePipelineAlpha.reset();
+    }
+    if (particleTextureLayout != VK_NULL_HANDLE) {
+        vkDestroyDescriptorSetLayout(device->GetDevice(), particleTextureLayout, nullptr);
+        particleTextureLayout = VK_NULL_HANDLE;
+    }
+
+    // 5. Cleanup Core Renderer Components
     if (syncObjects) {
         syncObjects->Cleanup();
         syncObjects.reset();

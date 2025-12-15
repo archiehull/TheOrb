@@ -20,12 +20,25 @@ public:
     ParticleSystem(VkDevice device, VkPhysicalDevice physicalDevice, VkCommandPool commandPool, VkQueue graphicsQueue, uint32_t maxParticles);
     ~ParticleSystem();
 
-    void Initialize(VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout, const std::string& texturePath, bool additiveBlending);
+    // Modified: Accepts shared pipeline resources
+    void Initialize(VkDescriptorSetLayout textureLayout, GraphicsPipeline* pipeline, const std::string& texturePath);
+
     void Update(float dt);
     void Draw(VkCommandBuffer cmd, VkDescriptorSet globalDescriptorSet);
 
     void Emit(const ParticleProps& props);
     void AddEmitter(const ParticleProps& props, float particlesPerSecond);
+
+    // Data sent to GPU per instance (Made public for pipeline config)
+    struct InstanceData {
+        glm::vec3 position;
+        glm::vec4 color;
+        float size;
+    };
+
+    // Static helpers to describe vertex input for the shared pipeline
+    static std::vector<VkVertexInputBindingDescription> GetBindingDescriptions();
+    static std::vector<VkVertexInputAttributeDescription> GetAttributeDescriptions();
 
 private:
     struct Particle {
@@ -36,13 +49,6 @@ private:
         float lifeTime, lifeRemaining;
         bool active = false;
         float camDistance = -1.0f; // For sorting
-    };
-
-    // Data sent to GPU per instance
-    struct InstanceData {
-        glm::vec3 position;
-        glm::vec4 color;
-        float size;
     };
 
     struct ParticleEmitter {
@@ -58,19 +64,21 @@ private:
 
     std::vector<Particle> particles;
     uint32_t maxParticles;
-    uint32_t poolIndex = 9999; // Simple circular buffer index
+    uint32_t poolIndex = 9999;
 
     // Rendering resources
-    std::unique_ptr<GraphicsPipeline> pipeline;
+    GraphicsPipeline* pipeline = nullptr; // Weak pointer to shared pipeline
+
     std::unique_ptr<Texture> texture;
-    std::unique_ptr<VulkanBuffer> vertexBuffer;   // The Quad (4 verts)
-    std::unique_ptr<VulkanBuffer> instanceBuffer; // The Instance Data
+    std::unique_ptr<VulkanBuffer> vertexBuffer;
+    std::unique_ptr<VulkanBuffer> instanceBuffer;
 
-    VkDescriptorSet descriptorSet; // For Texture
+    VkDescriptorSet descriptorSet;
     VkDescriptorPool descriptorPool;
-    VkDescriptorSetLayout textureLayout;
 
-    void SetupPipeline(VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout, bool additive);
+    // We do not own the layout anymore
+    VkDescriptorSetLayout textureLayout = VK_NULL_HANDLE;
+
     void SetupBuffers();
     void UpdateInstanceBuffer();
 };

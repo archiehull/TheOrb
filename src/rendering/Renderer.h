@@ -41,7 +41,6 @@ public:
     GraphicsPipeline* GetPipeline() { return graphicsPipeline.get(); }
 
 private:
-    // Initialized to nullptr to satisfy static analysis and avoid use-before-init
     Camera* m_camera = nullptr;
     VulkanContext* m_vulkanContext = nullptr;
     std::vector<void*> m_uniformBuffersMapped;
@@ -59,6 +58,12 @@ private:
     std::unique_ptr<ParticleSystem> fireSystem;
     std::unique_ptr<ParticleSystem> smokeSystem;
 
+    // --- Shared Particle Resources ---
+    VkDescriptorSetLayout particleTextureLayout = VK_NULL_HANDLE;
+    std::unique_ptr<GraphicsPipeline> particlePipelineAdditive;
+    std::unique_ptr<GraphicsPipeline> particlePipelineAlpha;
+    void CreateParticlePipelines();
+
     // --- Refraction Resources ---
     VkImage refractionImage = VK_NULL_HANDLE;
     VkDeviceMemory refractionImageMemory = VK_NULL_HANDLE;
@@ -66,7 +71,6 @@ private:
     VkSampler refractionSampler = VK_NULL_HANDLE;
     VkFramebuffer refractionFramebuffer = VK_NULL_HANDLE;
 
-    // Helper to run the refraction pass
     void RenderRefractionPass(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene);
 
     VkImage offScreenImage = VK_NULL_HANDLE;
@@ -99,7 +103,7 @@ private:
     VkDescriptorSet GetTextureDescriptorSet(const std::string& path);
 
     void CreateRenderPass();
-    void CreateShadowPass(); // New helper
+    void CreateShadowPass();
     void CreatePipeline();
     void CreateOffScreenResources();
     void CreateCommandBuffer();
@@ -108,8 +112,6 @@ private:
 
     void RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex, uint32_t currentFrame, Scene& scene, const glm::mat4& viewMatrix, const glm::mat4& projMatrix);
 
-    // Split rendering logic
-    // If 'skipIfNotCastingShadow' is true then objects with castsShadow == false are skipped.
     void DrawSceneObjects(VkCommandBuffer cmd, Scene& scene, VkPipelineLayout layout, bool bindTextures, bool skipIfNotCastingShadow = false);
     void RenderShadowMap(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene);
     void RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene, const glm::mat4& viewMatrix, const glm::mat4& projMatrix);
