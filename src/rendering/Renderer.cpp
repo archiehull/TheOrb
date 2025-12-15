@@ -80,6 +80,14 @@ void Renderer::Initialize() {
         refractionSampler    // Pass Refraction Sampler here
     );
 
+    // Initialize Fire (Additive)
+    fireSystem = std::make_unique<ParticleSystem>(device->GetDevice(), device->GetPhysicalDevice(), commandBuffer->GetCommandPool(), device->GetGraphicsQueue(), 1000);
+    fireSystem->Initialize(renderPass->GetRenderPass(), descriptorSet->GetLayout(), "textures/kenney_particle-pack/transparent/fire_01.png", true);
+
+    // Initialize Smoke (Alpha Blend)
+    smokeSystem = std::make_unique<ParticleSystem>(device->GetDevice(), device->GetPhysicalDevice(), commandBuffer->GetCommandPool(), device->GetGraphicsQueue(), 1000);
+    smokeSystem->Initialize(renderPass->GetRenderPass(), descriptorSet->GetLayout(), "textures/kenney_particle-pack/transparent/smoke_01.png", false);
+
     CreatePipeline();
     CreateSyncObjects();
 }
@@ -695,9 +703,25 @@ void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& sc
         // Draw Geometry
         obj->geometry->Bind(cmd);
         obj->geometry->Draw(cmd);
+
+    }
+
+    // Draw Fire
+    if (fireSystem) {
+        fireSystem->Draw(cmd, descriptorSet->GetDescriptorSets()[currentFrame]);
+    }
+
+    // Draw Smoke
+    if (smokeSystem) {
+        smokeSystem->Draw(cmd, descriptorSet->GetDescriptorSets()[currentFrame]);
     }
 
     vkCmdEndRenderPass(cmd);
+}
+
+void Renderer::Update(float deltaTime) {
+    if (fireSystem) fireSystem->Update(deltaTime);
+    if (smokeSystem) smokeSystem->Update(deltaTime);
 }
 
 void Renderer::CopyOffScreenToSwapChain(VkCommandBuffer cmd, uint32_t imageIndex) {

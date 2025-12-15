@@ -14,6 +14,7 @@
 #include "../rendering/GraphicsPipeline.h"
 #include "../rendering/Texture.h"
 #include "../rendering/ShadowPass.h"
+#include "ParticleSystem.h"
 
 #include <memory>
 #include <map>
@@ -27,10 +28,14 @@ public:
 
     void Initialize();
     void DrawFrame(Scene& scene, uint32_t currentFrame, const glm::mat4& viewMatrix, const glm::mat4& projMatrix);
-    void RecreateSwapChain();
     void UpdateUniformBuffer(uint32_t currentFrame, const UniformBufferObject& ubo);
     void WaitIdle();
     void Cleanup();
+
+    void Update(float deltaTime);
+
+    ParticleSystem* GetFireSystem() { return fireSystem.get(); }
+    ParticleSystem* GetSmokeSystem() { return smokeSystem.get(); }
 
     VulkanRenderPass* GetRenderPass() { return renderPass.get(); }
     GraphicsPipeline* GetPipeline() { return graphicsPipeline.get(); }
@@ -50,6 +55,9 @@ private:
     std::unique_ptr<VulkanSyncObjects> syncObjects;
     std::unique_ptr<ShadowPass> shadowPass;
     std::unique_ptr<SkyboxPass> skyboxPass;
+
+    std::unique_ptr<ParticleSystem> fireSystem;
+    std::unique_ptr<ParticleSystem> smokeSystem;
 
     // --- Refraction Resources ---
     VkImage refractionImage = VK_NULL_HANDLE;

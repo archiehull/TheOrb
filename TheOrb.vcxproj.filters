@@ -108,6 +108,9 @@
     <ClCompile Include="src\rendering\SkyboxPass.cpp">
       <Filter>Source Files\src\rendering</Filter>
     </ClCompile>
+    <ClCompile Include="src\rendering\ParticleSystem.cpp">
+      <Filter>Source Files\src\rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\Window.h">
@@ -191,6 +194,12 @@
     <ClInclude Include="src\rendering\SkyboxPass.h">
       <Filter>Source Files\src\rendering</Filter>
     </ClInclude>
+    <ClInclude Include="src\rendering\ParticleSystem.h">
+      <Filter>Source Files\src\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\rendering\ParticleLibrary.h">
+      <Filter>Source Files\src\rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="src\shaders\shader.frag">
@@ -209,6 +218,12 @@
       <Filter>Source Files\src\shader</Filter>
     </CustomBuild>
     <CustomBuild Include="src\shaders\skybox.vert">
+      <Filter>Source Files\src\shader</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\shaders\particle.frag">
+      <Filter>Source Files\src\shader</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\shaders\particle.vert">
       <Filter>Source Files\src\shader</Filter>
     </CustomBuild>
   </ItemGroup>

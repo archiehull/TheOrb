@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "../rendering/ParticleLibrary.h"
 #include <iostream>
 
 
@@ -105,6 +106,15 @@ void Application::SetupScene() {
     scene->SetObjectShadingMode("FogShell", 4);
     scene->SetObjectCastsShadow("FogShell", false);
 
+
+    //ParticleProps fire = ParticleLibrary::GetFireProps();
+    //fire.position = glm::vec3(0.0f, 0.5f, 0.0f);
+    //renderer->GetFireSystem()->AddEmitter(fire, 300.0f);
+
+    // 2. Setup Smoke (e.g., slightly above the fire)
+    ParticleProps smoke = ParticleLibrary::GetSmokeProps();
+    smoke.position = glm::vec3(0.0f, 2.5f, 0.0f);
+    renderer->GetSmokeSystem()->AddEmitter(smoke, 100.0f);
 }
 
 
@@ -150,6 +160,7 @@ void Application::MainLoop() {
 
         cameraController->Update(deltaTime);
         scene->Update(deltaTime);
+        renderer->Update(deltaTime);
 
         // Get camera matrices
         Camera* activeCamera = cameraController->GetActiveCamera();

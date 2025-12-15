@@ -41,15 +41,14 @@ void GraphicsPipeline::Create() {
     vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
 
     if (config.bindingDescription && config.attributeDescriptions) {
-        vertexInputInfo.vertexBindingDescriptionCount = 1;
+        // CHANGE: Use config.bindingCount instead of 1
+        vertexInputInfo.vertexBindingDescriptionCount = config.bindingCount;
         vertexInputInfo.pVertexBindingDescriptions = config.bindingDescription;
+
         vertexInputInfo.vertexAttributeDescriptionCount = config.attributeCount;
         vertexInputInfo.pVertexAttributeDescriptions = config.attributeDescriptions;
     }
-    else {
-        vertexInputInfo.vertexBindingDescriptionCount = 0;
-        vertexInputInfo.vertexAttributeDescriptionCount = 0;
-    }
+
 
     // Input assembly
     VkPipelineInputAssemblyStateCreateInfo inputAssembly{};
@@ -104,14 +103,14 @@ void GraphicsPipeline::Create() {
         VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
     colorBlendAttachment.blendEnable = config.blendEnable ? VK_TRUE : VK_FALSE;
 
-    // ADDED: Standard Alpha Blending Factors
     if (config.blendEnable) {
-        colorBlendAttachment.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
-        colorBlendAttachment.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
-        colorBlendAttachment.colorBlendOp = VK_BLEND_OP_ADD;
-        colorBlendAttachment.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
-        colorBlendAttachment.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
-        colorBlendAttachment.alphaBlendOp = VK_BLEND_OP_ADD;
+        // CHANGED: Use the values from 'config', do not hardcode!
+        colorBlendAttachment.srcColorBlendFactor = config.srcColorBlendFactor;
+        colorBlendAttachment.dstColorBlendFactor = config.dstColorBlendFactor;
+        colorBlendAttachment.colorBlendOp = config.colorBlendOp;
+        colorBlendAttachment.srcAlphaBlendFactor = config.srcAlphaBlendFactor;
+        colorBlendAttachment.dstAlphaBlendFactor = config.dstAlphaBlendFactor;
+        colorBlendAttachment.alphaBlendOp = config.alphaBlendOp;
     }
 
     VkPipelineColorBlendStateCreateInfo colorBlending{};

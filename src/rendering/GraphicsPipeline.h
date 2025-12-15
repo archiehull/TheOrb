@@ -16,6 +16,7 @@ struct GraphicsPipelineConfig {
     // Vertex input
     VkVertexInputBindingDescription* bindingDescription = nullptr;
     VkVertexInputAttributeDescription* attributeDescriptions = nullptr;
+    uint32_t bindingCount = 1;
     uint32_t attributeCount = 0;
 
     // Descriptor set layout (for uniforms)
@@ -39,6 +40,13 @@ struct GraphicsPipelineConfig {
 
     // Blending
     bool blendEnable = false;
+
+    VkBlendFactor srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
+    VkBlendFactor dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
+    VkBlendOp colorBlendOp = VK_BLEND_OP_ADD;
+    VkBlendFactor srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
+    VkBlendFactor dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
+    VkBlendOp alphaBlendOp = VK_BLEND_OP_ADD;
 };
 
 class GraphicsPipeline {
