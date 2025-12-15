@@ -74,14 +74,26 @@ void ParticleSystem::Initialize(VkDescriptorSetLayout textureLayout, GraphicsPip
     vkUpdateDescriptorSets(device, 1, &write, 0, nullptr);
 }
 
+void ParticleSystem::SetSimulationBounds(const glm::vec3& center, float radius) {
+    this->boundsCenter = center;
+    this->boundsRadius = radius;
+    this->useBounds = true;
+}
+
 void ParticleSystem::Emit(const ParticleProps& props) {
     Particle& p = particles[poolIndex];
     p.active = true;
-    p.position = props.position;
+
+    // NEW: Position Jitter (Box Emitter)
+    p.position.x = props.position.x + props.positionVariation.x * RandomFloat(-1.0f, 1.0f);
+    p.position.y = props.position.y + props.positionVariation.y * RandomFloat(-1.0f, 1.0f);
+    p.position.z = props.position.z + props.positionVariation.z * RandomFloat(-1.0f, 1.0f);
+
     p.velocity = props.velocity;
     p.velocity.x += props.velocityVariation.x * RandomFloat(-1.0f, 1.0f);
     p.velocity.y += props.velocityVariation.y * RandomFloat(-1.0f, 1.0f);
     p.velocity.z += props.velocityVariation.z * RandomFloat(-1.0f, 1.0f);
+
     p.colorBegin = props.colorBegin;
     p.colorEnd = props.colorEnd;
     p.lifeTime = props.lifeTime;
@@ -124,6 +136,19 @@ void ParticleSystem::Update(float dt) {
         }
         p.lifeRemaining -= dt;
         p.position += p.velocity * dt;
+
+        // --- Clamping Logic ---
+        if (useBounds) {
+            float dist = glm::distance(p.position, boundsCenter);
+            // If outside the radius, pull back to surface
+            if (dist > boundsRadius) {
+                // Avoid division by zero
+                if (dist > 0.0001f) {
+                    glm::vec3 dir = (p.position - boundsCenter) / dist;
+                    p.position = boundsCenter + dir * boundsRadius;
+                }
+            }
+        }
     }
 }
 

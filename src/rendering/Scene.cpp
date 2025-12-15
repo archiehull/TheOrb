@@ -169,16 +169,27 @@ void Scene::AddRain() {
     rain.velocityVariation.x = 80.0f; // Width
     rain.velocityVariation.z = 80.0f; // Depth
 
-    GetOrCreateSystem(rain)->AddEmitter(rain, 1000.0f); // Heavy rain
+    // Set bounds for rain (matches CrystalBall radius)
+    auto* sys = GetOrCreateSystem(rain);
+    sys->SetSimulationBounds(glm::vec3(0.0f), 150.0f);
+    sys->AddEmitter(rain, 1000.0f); // Heavy rain
 }
 
 void Scene::AddSnow() {
     ParticleProps snow = ParticleLibrary::GetSnowProps();
     snow.position = glm::vec3(0.0f, 50.0f, 0.0f);
-    snow.velocityVariation.x = 100.0f;
-    snow.velocityVariation.z = 100.0f;
 
-    GetOrCreateSystem(snow)->AddEmitter(snow, 500.0f);
+    // CHANGE: Use Position Variation for area spawning, rather than Velocity Variation
+    // This allows them to spawn over a wide area but fall straight down gently
+    snow.positionVariation = glm::vec3(100.0f, 0.0f, 100.0f);
+
+    // CHANGE: Reduced velocity variation for gentle drift
+    snow.velocityVariation = glm::vec3(1.0f, 0.2f, 1.0f);
+
+    // Set bounds for snow (matches CrystalBall radius)
+    auto* sys = GetOrCreateSystem(snow);
+    sys->SetSimulationBounds(glm::vec3(0.0f), 150.0f);
+    sys->AddEmitter(snow, 500.0f);
 }
 
 void Scene::AddDust() {
@@ -188,7 +199,10 @@ void Scene::AddDust() {
     dust.velocityVariation.z = 80.0f;
     dust.velocityVariation.y = 10.0f; // Height of dust cloud
 
-    GetOrCreateSystem(dust)->AddEmitter(dust, 200.0f);
+    // Set bounds for dust (matches CrystalBall radius)
+    auto* sys = GetOrCreateSystem(dust);
+    sys->SetSimulationBounds(glm::vec3(0.0f), 150.0f);
+    sys->AddEmitter(dust, 200.0f);
 }
 
 glm::vec3 Scene::InitializeOrbit(OrbitData& data, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad) {

@@ -56,16 +56,22 @@ namespace ParticleLibrary {
 
     inline ParticleProps GetSnowProps() {
         ParticleProps props;
-        props.velocity = glm::vec3(0.0f, -2.0f, 0.0f);
-        props.velocityVariation = glm::vec3(1.5f, 0.5f, 1.5f); // Drifting
+        // CHANGE: Much slower fall speed
+        props.velocity = glm::vec3(0.0f, -0.5f, 0.0f);
+        // Drifting (Velocity Variation) - reduced Y variation to keep them falling down
+        props.velocityVariation = glm::vec3(1.5f, 0.2f, 1.5f);
+
         props.colorBegin = glm::vec4(1.0f, 1.0f, 1.0f, 0.9f);
         props.colorEnd = glm::vec4(1.0f, 1.0f, 1.0f, 0.4f);
-        props.sizeBegin = 0.1f;
-        props.sizeEnd = 0.1f;
-        props.sizeVariation = 0.05f;
-        props.lifeTime = 8.0f; // Long life to fall from high up
 
-        props.texturePath = "textures/kenney_particle-pack/transparent/star_01.png"; // Snowflake-ish
+        // CHANGE: Much larger size
+        props.sizeBegin = 0.6f;
+        props.sizeEnd = 0.6f;
+        props.sizeVariation = 0.2f;
+
+        props.lifeTime = 12.0f; // Longer life for slower fall
+
+        props.texturePath = "textures/kenney_particle-pack/transparent/star_01.png";
         props.isAdditive = true;
         return props;
     }

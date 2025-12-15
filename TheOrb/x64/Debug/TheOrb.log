@@ -1,2 +1,8 @@
-﻿  Renderer.cpp
+﻿  Application.cpp
+  main.cpp
+  ParticleSystem.cpp
+  Renderer.cpp
+  Scene.cpp
+  SkyboxPass.cpp
+  Generating Code...
   TheOrb.vcxproj -> C:\Users\a\Desktop\TheOrb\x64\Debug\TheOrb.exe

@@ -9,6 +9,8 @@
 
 struct ParticleProps {
     glm::vec3 position = glm::vec3(0.0f);
+    // NEW: Allow spawning in an area (Box Emitter)
+    glm::vec3 positionVariation = glm::vec3(0.0f);
     glm::vec3 velocity = glm::vec3(0.0f);
     glm::vec3 velocityVariation = glm::vec3(0.0f);
     glm::vec4 colorBegin = glm::vec4(1.0f);
@@ -26,6 +28,10 @@ public:
     ~ParticleSystem();
 
     void Initialize(VkDescriptorSetLayout textureLayout, GraphicsPipeline* pipeline, const std::string& texturePath);
+
+    // Set constraints for particle movement
+    void SetSimulationBounds(const glm::vec3& center, float radius);
+
     void Update(float dt);
     void Draw(VkCommandBuffer cmd, VkDescriptorSet globalDescriptorSet, uint32_t currentFrame);
 
@@ -68,6 +74,11 @@ private:
     std::string texturePath;
 
     std::vector<ParticleEmitter> emitters;
+
+    // Simulation Bounds
+    bool useBounds = false;
+    glm::vec3 boundsCenter = glm::vec3(0.0f);
+    float boundsRadius = 0.0f;
 
     VkDevice device;
     VkPhysicalDevice physicalDevice;
