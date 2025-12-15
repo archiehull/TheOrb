@@ -61,6 +61,8 @@ void Application::InitVulkan() {
         vulkanDevice->GetPhysicalDevice()
     );
 
+    renderer->SetupSceneParticles(*scene);
+
     // Create camera controller
     cameraController = std::make_unique<CameraController>();
 }
@@ -71,7 +73,7 @@ void Application::SetupScene() {
     scene->AddGrid("GroundGrid", 10, 10, 18.0f, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), "textures/desert.jpg");
 
     float orbitRadius = 275.0f;
-    float startSpeed = 0.5f;
+    float startSpeed = 0.1f;
     dayNightSpeed = startSpeed;
 
     scene->AddSphere("Sun", 16, 32, 20.0f, glm::vec3(0.0f), "textures/sun.png");
@@ -102,31 +104,16 @@ void Application::SetupScene() {
     scene->SetObjectCastsShadow("CrystalBall", false);
 
 
-    scene->AddSphere("FogShell", 32, 64, 152.0f, glm::vec3(0.0f, 0.0f, 0.0f), "");
+    scene->AddSphere("FogShell", 32, 64, 151.0f, glm::vec3(0.0f, 0.0f, 0.0f), "");
     scene->SetObjectShadingMode("FogShell", 4);
     scene->SetObjectCastsShadow("FogShell", false);
 
 
-    ParticleProps fire = ParticleLibrary::GetFireProps();
-    fire.position = glm::vec3(0.0f, 0.5f, 0.0f);
-    renderer->GetFireSystem()->AddEmitter(fire, 300.0f);
+    scene->AddFire(glm::vec3(0.0f, 0.5f + deltaY, 0.0f), 1.0f, true);   // Fire + Smoke
+    scene->AddFire(glm::vec3(-25.0f, 0.5f + deltaY, 0.0f), 1.0f, true);
 
-    ParticleProps fire2 = ParticleLibrary::GetFireProps();
-    fire2.position = glm::vec3(-25.0f, 0.5f, 0.0f);
-    renderer->GetFireSystem()->AddEmitter(fire2, 300.0f);
-
-    // 2. Setup Smoke (e.g., slightly above the fire)
-    ParticleProps smoke = ParticleLibrary::GetSmokeProps();
-    smoke.position = glm::vec3(0.0f, 2.5f, 0.0f);
-    renderer->GetSmokeSystem()->AddEmitter(smoke, 100.0f);
-
-    ParticleProps smoke2 = ParticleLibrary::GetSmokeProps();
-    smoke2.position = glm::vec3(25.0f, 2.5f, 0.0f);
-    renderer->GetSmokeSystem()->AddEmitter(smoke2, 100.0f);
-
-    ParticleProps smoke3 = ParticleLibrary::GetSmokeProps();
-    smoke3.position = glm::vec3(0.0f, 2.5f, 25.0f);
-    renderer->GetSmokeSystem()->AddEmitter(smoke3, 100.0f);
+    // Add Snow
+    scene->AddSnow();
 }
 
 
@@ -172,7 +159,6 @@ void Application::MainLoop() {
 
         cameraController->Update(deltaTime);
         scene->Update(deltaTime);
-        renderer->Update(deltaTime);
 
         // Get camera matrices
         Camera* activeCamera = cameraController->GetActiveCamera();

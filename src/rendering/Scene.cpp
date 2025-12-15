@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "ParticleLibrary.h"
 #include "../geometry/OBJLoader.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/quaternion.hpp>
@@ -108,6 +109,88 @@ void Scene::AddLight(const std::string& name, const glm::vec3& position, const g
     m_SceneLights.push_back(newSceneLight);
 }
 
+void Scene::SetupParticleSystem(VkCommandPool commandPool, VkQueue graphicsQueue,
+    GraphicsPipeline* additivePipeline, GraphicsPipeline* alphaPipeline,
+    VkDescriptorSetLayout layout, uint32_t framesInFlight) {
+    this->commandPool = commandPool;
+    this->graphicsQueue = graphicsQueue;
+    this->particlePipelineAdditive = additivePipeline;
+    this->particlePipelineAlpha = alphaPipeline;
+    this->particleDescriptorLayout = layout;
+    this->framesInFlight = framesInFlight;
+}
+
+ParticleSystem* Scene::GetOrCreateSystem(const ParticleProps& props) {
+    // Check if a system with this texture already exists
+    for (auto& sys : particleSystems) {
+        if (sys->GetTexturePath() == props.texturePath) {
+            return sys.get();
+        }
+    }
+
+    // Create new system
+    auto newSys = std::make_unique<ParticleSystem>(device, physicalDevice, commandPool, graphicsQueue, 2000, framesInFlight);
+
+    GraphicsPipeline* pipeline = props.isAdditive ? particlePipelineAdditive : particlePipelineAlpha;
+    newSys->Initialize(particleDescriptorLayout, pipeline, props.texturePath);
+
+    ParticleSystem* ptr = newSys.get();
+    particleSystems.push_back(std::move(newSys));
+    return ptr;
+}
+
+void Scene::AddFire(const glm::vec3& position, float scale, bool createSmoke) {
+    ParticleProps fire = ParticleLibrary::GetFireProps();
+    fire.position = position;
+    // Apply scale to size
+    fire.sizeBegin *= scale;
+    fire.sizeEnd *= scale;
+
+    GetOrCreateSystem(fire)->AddEmitter(fire, 300.0f);
+
+    if (createSmoke) {
+        AddSmoke(position + glm::vec3(0.0f, 2.0f * scale, 0.0f), scale);
+    }
+}
+
+void Scene::AddSmoke(const glm::vec3& position, float scale) {
+    ParticleProps smoke = ParticleLibrary::GetSmokeProps();
+    smoke.position = position;
+    smoke.sizeBegin *= scale;
+    smoke.sizeEnd *= scale;
+    GetOrCreateSystem(smoke)->AddEmitter(smoke, 100.0f);
+}
+
+void Scene::AddRain() {
+    ParticleProps rain = ParticleLibrary::GetRainProps();
+    // Global effect: Emitter covers a large area high up
+    rain.position = glm::vec3(0.0f, 40.0f, 0.0f);
+    // Huge variance in X and Z to cover the map
+    rain.velocityVariation.x = 80.0f; // Width
+    rain.velocityVariation.z = 80.0f; // Depth
+
+    GetOrCreateSystem(rain)->AddEmitter(rain, 1000.0f); // Heavy rain
+}
+
+void Scene::AddSnow() {
+    ParticleProps snow = ParticleLibrary::GetSnowProps();
+    snow.position = glm::vec3(0.0f, 50.0f, 0.0f);
+    snow.velocityVariation.x = 100.0f;
+    snow.velocityVariation.z = 100.0f;
+
+    GetOrCreateSystem(snow)->AddEmitter(snow, 500.0f);
+}
+
+void Scene::AddDust() {
+    ParticleProps dust = ParticleLibrary::GetDustProps();
+    dust.position = glm::vec3(0.0f, 5.0f, 0.0f); // Near ground
+    dust.velocityVariation.x = 80.0f;
+    dust.velocityVariation.z = 80.0f;
+    dust.velocityVariation.y = 10.0f; // Height of dust cloud
+
+    GetOrCreateSystem(dust)->AddEmitter(dust, 200.0f);
+}
+
 glm::vec3 Scene::InitializeOrbit(OrbitData& data, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad) {
     data.isOrbiting = true;
     data.center = center;
@@ -194,6 +277,10 @@ void Scene::Update(float deltaTime) {
             obj->transform[3] = glm::vec4(newPos, 1.0f);
         }
     }
+
+    for (auto& sys : particleSystems) {
+        sys->Update(deltaTime);
+    }
 }
 
 const std::vector<Light> Scene::GetLights() const {
@@ -212,6 +299,7 @@ void Scene::Clear() {
         }
     }
     objects.clear();
+    particleSystems.clear();
 }
 
 void Scene::SetObjectTransform(size_t index, const glm::mat4& transform) {

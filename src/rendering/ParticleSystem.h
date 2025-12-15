@@ -13,8 +13,11 @@ struct ParticleProps {
     glm::vec3 velocityVariation = glm::vec3(0.0f);
     glm::vec4 colorBegin = glm::vec4(1.0f);
     glm::vec4 colorEnd = glm::vec4(1.0f);
-    float sizeBegin = 1.0f, sizeEnd = 1.0f, sizeVariation = 0.0f; // Default to 0 safety
+    float sizeBegin = 1.0f, sizeEnd = 1.0f, sizeVariation = 0.0f;
     float lifeTime = 1.0f;
+
+    std::string texturePath;
+    bool isAdditive = false;
 };
 
 class ParticleSystem {
@@ -22,15 +25,14 @@ public:
     ParticleSystem(VkDevice device, VkPhysicalDevice physicalDevice, VkCommandPool commandPool, VkQueue graphicsQueue, uint32_t maxParticles, uint32_t framesInFlight);
     ~ParticleSystem();
 
-    // Modified: Accepts shared pipeline resources
     void Initialize(VkDescriptorSetLayout textureLayout, GraphicsPipeline* pipeline, const std::string& texturePath);
-
     void Update(float dt);
     void Draw(VkCommandBuffer cmd, VkDescriptorSet globalDescriptorSet, uint32_t currentFrame);
 
     void Emit(const ParticleProps& props);
     void AddEmitter(const ParticleProps& props, float particlesPerSecond);
 
+    std::string GetTexturePath() const { return texture ? texturePath : ""; }
 
     // Data sent to GPU per instance (Modified for 16-byte alignment)
     struct InstanceData {
@@ -45,20 +47,25 @@ public:
 
 private:
     struct Particle {
-        glm::vec3 position;
-        glm::vec3 velocity;
-        glm::vec4 colorBegin, colorEnd;
-        float sizeBegin, sizeEnd;
-        float lifeTime, lifeRemaining;
+        glm::vec3 position = glm::vec3(0.0f);
+        glm::vec3 velocity = glm::vec3(0.0f);
+        glm::vec4 colorBegin = glm::vec4(1.0f);
+        glm::vec4 colorEnd = glm::vec4(1.0f);
+        float sizeBegin = 0.0f;
+        float sizeEnd = 0.0f;
+        float lifeTime = 0.0f;
+        float lifeRemaining = 0.0f;
         bool active = false;
-        float camDistance = -1.0f; // For sorting
+        float camDistance = -1.0f;
     };
 
     struct ParticleEmitter {
         ParticleProps props;
-        float particlesPerSecond;
-        float timeSinceLastEmit;
+        float particlesPerSecond = 0.0f;
+        float timeSinceLastEmit = 0.0f;
     };
+
+    std::string texturePath;
 
     std::vector<ParticleEmitter> emitters;
 
@@ -71,16 +78,15 @@ private:
     uint32_t poolIndex = 9999;
 
     // Rendering resources
-    GraphicsPipeline* pipeline = nullptr; // Weak pointer to shared pipeline
+    GraphicsPipeline* pipeline = nullptr;
 
     std::unique_ptr<Texture> texture;
     std::unique_ptr<VulkanBuffer> vertexBuffer;
     std::vector<std::unique_ptr<VulkanBuffer>> instanceBuffers;
 
-    VkDescriptorSet descriptorSet;
-    VkDescriptorPool descriptorPool;
+    VkDescriptorSet descriptorSet = VK_NULL_HANDLE;
+    VkDescriptorPool descriptorPool = VK_NULL_HANDLE;
 
-    // We do not own the layout anymore
     VkDescriptorSetLayout textureLayout = VK_NULL_HANDLE;
 
     void SetupBuffers();

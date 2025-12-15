@@ -19,7 +19,12 @@ ParticleSystem::ParticleSystem(VkDevice device, VkPhysicalDevice physicalDevice,
 }
 
 ParticleSystem::~ParticleSystem() {
-    vkDestroyDescriptorPool(device, descriptorPool, nullptr);
+    // Only destroy the descriptor pool if it was created.
+    if (descriptorPool != VK_NULL_HANDLE) {
+        vkDestroyDescriptorPool(device, descriptorPool, nullptr);
+        descriptorPool = VK_NULL_HANDLE;
+    }
+
     texture.reset();
     vertexBuffer.reset();
     // Clear vector
@@ -27,6 +32,7 @@ ParticleSystem::~ParticleSystem() {
 }
 
 void ParticleSystem::Initialize(VkDescriptorSetLayout textureLayout, GraphicsPipeline* pipeline, const std::string& texturePath) {
+    this->texturePath = texturePath;
     this->textureLayout = textureLayout;
     this->pipeline = pipeline;
 
@@ -39,13 +45,20 @@ void ParticleSystem::Initialize(VkDescriptorSetLayout textureLayout, GraphicsPip
     poolInfo.poolSizeCount = 1;
     poolInfo.pPoolSizes = &poolSize;
     poolInfo.maxSets = 1;
-    vkCreateDescriptorPool(device, &poolInfo, nullptr, &descriptorPool);
+    if (vkCreateDescriptorPool(device, &poolInfo, nullptr, &descriptorPool) != VK_SUCCESS) {
+        throw std::runtime_error("failed to create particle descriptor pool!");
+    }
 
     VkDescriptorSetAllocateInfo allocInfo{ VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO };
     allocInfo.descriptorPool = descriptorPool;
     allocInfo.descriptorSetCount = 1;
     allocInfo.pSetLayouts = &textureLayout;
-    vkAllocateDescriptorSets(device, &allocInfo, &descriptorSet);
+    if (vkAllocateDescriptorSets(device, &allocInfo, &descriptorSet) != VK_SUCCESS) {
+        // Clean up pool if allocation failed to avoid leaving a dangling pool
+        vkDestroyDescriptorPool(device, descriptorPool, nullptr);
+        descriptorPool = VK_NULL_HANDLE;
+        throw std::runtime_error("failed to allocate particle descriptor set!");
+    }
 
     VkDescriptorImageInfo imageInfo{};
     imageInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;

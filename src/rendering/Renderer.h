@@ -27,15 +27,14 @@ public:
     ~Renderer();
 
     void Initialize();
+
     void DrawFrame(Scene& scene, uint32_t currentFrame, const glm::mat4& viewMatrix, const glm::mat4& projMatrix);
+
     void UpdateUniformBuffer(uint32_t currentFrame, const UniformBufferObject& ubo);
     void WaitIdle();
     void Cleanup();
 
-    void Update(float deltaTime);
-
-    ParticleSystem* GetFireSystem() { return fireSystem.get(); }
-    ParticleSystem* GetSmokeSystem() { return smokeSystem.get(); }
+    void SetupSceneParticles(Scene& scene);
 
     VulkanRenderPass* GetRenderPass() { return renderPass.get(); }
     GraphicsPipeline* GetPipeline() { return graphicsPipeline.get(); }
@@ -55,11 +54,7 @@ private:
     std::unique_ptr<ShadowPass> shadowPass;
     std::unique_ptr<SkyboxPass> skyboxPass;
 
-    std::unique_ptr<ParticleSystem> fireSystem;
-    std::unique_ptr<ParticleSystem> smokeSystem;
-
     // --- Shared Particle Resources ---
-    VkDescriptorSetLayout particleTextureLayout = VK_NULL_HANDLE;
     std::unique_ptr<GraphicsPipeline> particlePipelineAdditive;
     std::unique_ptr<GraphicsPipeline> particlePipelineAlpha;
     void CreateParticlePipelines();
@@ -114,7 +109,8 @@ private:
 
     void DrawSceneObjects(VkCommandBuffer cmd, Scene& scene, VkPipelineLayout layout, bool bindTextures, bool skipIfNotCastingShadow = false);
     void RenderShadowMap(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene);
-    void RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene, const glm::mat4& viewMatrix, const glm::mat4& projMatrix);
+
+    void RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene);
 
     void CopyOffScreenToSwapChain(VkCommandBuffer cmd, uint32_t imageIndex);
     void CleanupOffScreenResources();

@@ -7,6 +7,7 @@
 #include <glm/glm.hpp>
 #include <string>
 #include "../vulkan/UniformBufferObject.h"
+#include "ParticleSystem.h"
 
 struct OrbitData {
     bool isOrbiting = false;
@@ -61,6 +62,21 @@ public:
 
     void SetObjectOrbit(const std::string& name, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad = 0.0f);
     void SetLightOrbit(const std::string& name, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad = 0.0f);
+
+    void SetupParticleSystem(VkCommandPool commandPool, VkQueue graphicsQueue,
+        GraphicsPipeline* additivePipeline, GraphicsPipeline* alphaPipeline,
+        VkDescriptorSetLayout layout, uint32_t framesInFlight);
+
+    // Particle Methods
+    void AddFire(const glm::vec3& position, float scale, bool createSmoke);
+    void AddSmoke(const glm::vec3& position, float scale);
+    void AddRain();
+    void AddSnow();
+    void AddDust();
+
+    // Accessors for Renderer
+    const std::vector<std::unique_ptr<ParticleSystem>>& GetParticleSystems() const { return particleSystems; }
+
     void Update(float deltaTime);
 
     const std::vector<Light> GetLights() const;
@@ -90,4 +106,16 @@ private:
     VkDevice device;
     VkPhysicalDevice physicalDevice;
     std::vector<std::unique_ptr<SceneObject>> objects;
+
+    ParticleSystem* GetOrCreateSystem(const ParticleProps& props);
+
+    // Particle Resources
+    VkCommandPool commandPool = VK_NULL_HANDLE;
+    VkQueue graphicsQueue = VK_NULL_HANDLE;
+    GraphicsPipeline* particlePipelineAdditive = nullptr;
+    GraphicsPipeline* particlePipelineAlpha = nullptr;
+    VkDescriptorSetLayout particleDescriptorLayout = VK_NULL_HANDLE;
+    uint32_t framesInFlight = 2;
+
+    std::vector<std::unique_ptr<ParticleSystem>> particleSystems;
 };

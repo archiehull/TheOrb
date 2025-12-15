@@ -77,23 +77,8 @@ void Renderer::Initialize() {
         refractionSampler
     );
 
-    // --- NEW: Create Shared Particle Pipelines ---
+    // --- Create Shared Particle Pipelines ---
     CreateParticlePipelines();
-
-    // Initialize Fire (Uses Additive Pipeline & Shared Layout)
-    fireSystem = std::make_unique<ParticleSystem>(
-        device->GetDevice(),
-        device->GetPhysicalDevice(),
-        commandBuffer->GetCommandPool(),
-        device->GetGraphicsQueue(),
-        1000,
-        MAX_FRAMES_IN_FLIGHT
-    );
-    fireSystem->Initialize(particleTextureLayout, particlePipelineAdditive.get(), "textures/kenney_particle-pack/transparent/fire_01.png");
-
-    // Initialize Smoke (Uses Alpha Pipeline & Shared Layout)
-    smokeSystem = std::make_unique<ParticleSystem>(device->GetDevice(), device->GetPhysicalDevice(), commandBuffer->GetCommandPool(), device->GetGraphicsQueue(), 1000, MAX_FRAMES_IN_FLIGHT);
-    smokeSystem->Initialize(particleTextureLayout, particlePipelineAlpha.get(), "textures/kenney_particle-pack/transparent/smoke_01.png");
 
     CreatePipeline(); // Main scene object pipeline
     CreateSyncObjects();
@@ -165,7 +150,6 @@ void Renderer::DrawFrame(Scene& scene, uint32_t currentFrame, const glm::mat4& v
 
     vkQueuePresentKHR(device->GetPresentQueue(), &presentInfo);
 }
-
 
 void Renderer::CreateShadowPass() {
     // Shadow resolution typically higher than screen, e.g., 2048 or 4096
@@ -384,6 +368,7 @@ void Renderer::CreateOffScreenResources() {
         extent.width, extent.height, 1, 1,
         imageFormat,
         VK_IMAGE_TILING_OPTIMAL,
+        // MUST include TRANSFER_SRC_BIT because the render pass finalLayout is TRANSFER_SRC_OPTIMAL
         VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT,
         VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
         offScreenImage,
@@ -394,10 +379,8 @@ void Renderer::CreateOffScreenResources() {
         device->GetDevice(), offScreenImage, imageFormat, VK_IMAGE_ASPECT_COLOR_BIT
     );
 
-    // --- 2. Refraction Color Attachment (CORRECTED) ---
-    // FIX: Added VK_IMAGE_USAGE_TRANSFER_SRC_BIT
-    // This is required because the RenderPass we reuse transitions the image to 
-    // VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL at the end.
+    // --- 2. Refraction Color Attachment ---
+    // Ensure transfer src bit is present (render pass may transition to TRANSFER_SRC_OPTIMAL)
     VulkanUtils::CreateImage(
         device->GetDevice(),
         device->GetPhysicalDevice(),
@@ -576,28 +559,11 @@ void Renderer::DrawSceneObjects(VkCommandBuffer cmd, Scene& scene, VkPipelineLay
 }
 
 void Renderer::CreateParticlePipelines() {
-    // 1. Create the Shared Descriptor Set Layout for Particle Textures
-    // Every particle system needs a texture, but they can all use this same layout definition.
-    VkDescriptorSetLayoutBinding binding{};
-    binding.binding = 0;
-    binding.descriptorCount = 1;
-    binding.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-    binding.stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
-
-    VkDescriptorSetLayoutCreateInfo layoutInfo{ VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO };
-    layoutInfo.bindingCount = 1;
-    layoutInfo.pBindings = &binding;
-
-    if (vkCreateDescriptorSetLayout(device->GetDevice(), &layoutInfo, nullptr, &particleTextureLayout) != VK_SUCCESS) {
-        throw std::runtime_error("failed to create particle texture layout!");
-    }
-
-    // 2. Get Vertex Input Info from ParticleSystem (Static Helpers)
-    // We assume ParticleSystem::GetBindingDescriptions() and GetAttributeDescriptions() are implemented.
+    // 1. Get Vertex Input Info from ParticleSystem (Static Helpers)
     auto bindings = ParticleSystem::GetBindingDescriptions();
     auto attribs = ParticleSystem::GetAttributeDescriptions();
 
-    // 3. Configure the Base Pipeline
+    // 2. Configure the Base Pipeline
     GraphicsPipelineConfig config{};
     config.vertShaderPath = "src/shaders/particle_vert.spv";
     config.fragShaderPath = "src/shaders/particle_frag.spv";
@@ -609,8 +575,8 @@ void Renderer::CreateParticlePipelines() {
     config.attributeDescriptions = attribs.data();
     config.attributeCount = static_cast<uint32_t>(attribs.size());
 
-    // Set 0: Global UBO (Camera), Set 1: Particle Texture
-    config.descriptorSetLayouts = { descriptorSet->GetLayout(), particleTextureLayout };
+    // Set 0: Global UBO (Camera), Set 1: Particle Texture (Using SHARED textureSetLayout)
+    config.descriptorSetLayouts = { descriptorSet->GetLayout(), textureSetLayout };
 
     // Particles don't write to depth buffer (transparent), but they do test against it.
     config.depthWriteEnable = false;
@@ -618,7 +584,6 @@ void Renderer::CreateParticlePipelines() {
     config.blendEnable = true;
 
     // --- Variant A: Additive Pipeline (e.g., Fire, Magic) ---
-    // Source + Destination (accumulates brightness)
     config.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
     config.dstColorBlendFactor = VK_BLEND_FACTOR_ONE;
 
@@ -626,12 +591,22 @@ void Renderer::CreateParticlePipelines() {
     particlePipelineAdditive->Create();
 
     // --- Variant B: Alpha Blended Pipeline (e.g., Smoke, Dust) ---
-    // Standard transparency
     config.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
     config.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
 
     particlePipelineAlpha = std::make_unique<GraphicsPipeline>(device->GetDevice(), config);
     particlePipelineAlpha->Create();
+}
+
+void Renderer::SetupSceneParticles(Scene& scene) {
+    scene.SetupParticleSystem(
+        commandBuffer->GetCommandPool(),
+        device->GetGraphicsQueue(),
+        particlePipelineAdditive.get(),
+        particlePipelineAlpha.get(),
+        textureSetLayout,
+        MAX_FRAMES_IN_FLIGHT
+    );
 }
 
 void Renderer::RenderShadowMap(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene) {
@@ -670,7 +645,6 @@ void Renderer::RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex,
     }
 
     // --- 0. Update UBO ---
-    // (Existing UBO update code here...)
     glm::vec3 lightPos = glm::vec3(0.0f, 200.0f, 0.0f);
     const auto& lights = scene.GetLights();
     if (!lights.empty()) lightPos = lights[0].position;
@@ -693,11 +667,11 @@ void Renderer::RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex,
     // --- 1. Render Shadow Pass ---
     RenderShadowMap(cmd, currentFrame, scene);
 
-    // --- 2. Render Refraction Pass (NEW) ---
+    // --- 2. Render Refraction Pass ---
     RenderRefractionPass(cmd, currentFrame, scene);
 
     // --- 3. Render Main Scene ---
-    RenderScene(cmd, currentFrame, scene, viewMatrix, projMatrix);
+    RenderScene(cmd, currentFrame, scene);
 
     // --- 4. Copy to SwapChain ---
     CopyOffScreenToSwapChain(cmd, imageIndex);
@@ -707,12 +681,12 @@ void Renderer::RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex,
     }
 }
 
-void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene, const glm::mat4& viewMatrix, const glm::mat4& projMatrix) {
+void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene) {
     // Begin Render Pass
     VkRenderPassBeginInfo renderPassInfo{};
     renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
     renderPassInfo.renderPass = renderPass->GetRenderPass();
-    renderPassInfo.framebuffer = renderPass->GetOffScreenFramebuffer(); 
+    renderPassInfo.framebuffer = renderPass->GetOffScreenFramebuffer();
     renderPassInfo.renderArea.offset = { 0, 0 };
     renderPassInfo.renderArea.extent = swapChain->GetExtent();
 
@@ -739,7 +713,6 @@ void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& sc
     vkCmdSetScissor(cmd, 0, 1, &scissor);
 
     // --- 1. Skybox Pipeline (Background & Interiors) ---
-    // Draw this FIRST so it appears behind the transparent glass.
     if (skyboxPass) {
         skyboxPass->Draw(cmd, scene, currentFrame, descriptorSet->GetDescriptorSets()[currentFrame]);
     }
@@ -767,23 +740,14 @@ void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& sc
         // Draw Geometry
         obj->geometry->Bind(cmd);
         obj->geometry->Draw(cmd);
-
     }
 
-    if (fireSystem) {
-        fireSystem->Draw(cmd, descriptorSet->GetDescriptorSets()[currentFrame], currentFrame);
-    }
-
-    if (smokeSystem) {
-        smokeSystem->Draw(cmd, descriptorSet->GetDescriptorSets()[currentFrame], currentFrame);
+    // --- 3. Dynamic Particle Systems ---
+    for (const auto& sys : scene.GetParticleSystems()) {
+        sys->Draw(cmd, descriptorSet->GetDescriptorSets()[currentFrame], currentFrame);
     }
 
     vkCmdEndRenderPass(cmd);
-}
-
-void Renderer::Update(float deltaTime) {
-    if (fireSystem) fireSystem->Update(deltaTime);
-    if (smokeSystem) smokeSystem->Update(deltaTime);
 }
 
 void Renderer::CopyOffScreenToSwapChain(VkCommandBuffer cmd, uint32_t imageIndex) {
@@ -894,12 +858,7 @@ void Renderer::Cleanup() {
         textureSetLayout = VK_NULL_HANDLE;
     }
 
-    // 3. Cleanup Particle Systems (They no longer own the pipeline/layout)
-    // Note: We reset them BEFORE destroying the pipelines they depend on.
-    if (fireSystem) fireSystem.reset();
-    if (smokeSystem) smokeSystem.reset();
-
-    // 4. Cleanup Shared Particle Resources (NEW)
+    // 3. Cleanup Shared Particle Resources
     if (particlePipelineAdditive) {
         particlePipelineAdditive->Cleanup();
         particlePipelineAdditive.reset();
@@ -908,12 +867,9 @@ void Renderer::Cleanup() {
         particlePipelineAlpha->Cleanup();
         particlePipelineAlpha.reset();
     }
-    if (particleTextureLayout != VK_NULL_HANDLE) {
-        vkDestroyDescriptorSetLayout(device->GetDevice(), particleTextureLayout, nullptr);
-        particleTextureLayout = VK_NULL_HANDLE;
-    }
+    // Note: We used textureSetLayout for particles, so no separate particleTextureLayout to destroy.
 
-    // 5. Cleanup Core Renderer Components
+    // 4. Cleanup Core Renderer Components
     if (syncObjects) {
         syncObjects->Cleanup();
         syncObjects.reset();
