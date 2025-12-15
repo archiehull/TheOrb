@@ -107,14 +107,26 @@ void Application::SetupScene() {
     scene->SetObjectCastsShadow("FogShell", false);
 
 
-    //ParticleProps fire = ParticleLibrary::GetFireProps();
-    //fire.position = glm::vec3(0.0f, 0.5f, 0.0f);
-    //renderer->GetFireSystem()->AddEmitter(fire, 300.0f);
+    ParticleProps fire = ParticleLibrary::GetFireProps();
+    fire.position = glm::vec3(0.0f, 0.5f, 0.0f);
+    renderer->GetFireSystem()->AddEmitter(fire, 300.0f);
+
+    ParticleProps fire2 = ParticleLibrary::GetFireProps();
+    fire2.position = glm::vec3(-25.0f, 0.5f, 0.0f);
+    renderer->GetFireSystem()->AddEmitter(fire2, 300.0f);
 
     // 2. Setup Smoke (e.g., slightly above the fire)
     ParticleProps smoke = ParticleLibrary::GetSmokeProps();
     smoke.position = glm::vec3(0.0f, 2.5f, 0.0f);
     renderer->GetSmokeSystem()->AddEmitter(smoke, 100.0f);
+
+    ParticleProps smoke2 = ParticleLibrary::GetSmokeProps();
+    smoke2.position = glm::vec3(25.0f, 2.5f, 0.0f);
+    renderer->GetSmokeSystem()->AddEmitter(smoke2, 100.0f);
+
+    ParticleProps smoke3 = ParticleLibrary::GetSmokeProps();
+    smoke3.position = glm::vec3(0.0f, 2.5f, 25.0f);
+    renderer->GetSmokeSystem()->AddEmitter(smoke3, 100.0f);
 }
 
 

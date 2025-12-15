@@ -1,6 +1,7 @@
 #include "ParticleSystem.h"
 #include <random>
 #include <algorithm> 
+#include <iostream>
 
 // Helper for random numbers
 static float RandomFloat(float min, float max) {
@@ -10,21 +11,19 @@ static float RandomFloat(float min, float max) {
     return dist(mt);
 }
 
-ParticleSystem::ParticleSystem(VkDevice device, VkPhysicalDevice physicalDevice, VkCommandPool commandPool, VkQueue graphicsQueue, uint32_t maxParticles)
-    : device(device), physicalDevice(physicalDevice), maxParticles(maxParticles) {
+ParticleSystem::ParticleSystem(VkDevice device, VkPhysicalDevice physicalDevice, VkCommandPool commandPool, VkQueue graphicsQueue, uint32_t maxParticles, uint32_t framesInFlight)
+    : device(device), physicalDevice(physicalDevice), maxParticles(maxParticles), framesInFlight(framesInFlight) {
     particles.resize(maxParticles);
     poolIndex = maxParticles - 1;
     texture = std::make_unique<Texture>(device, physicalDevice, commandPool, graphicsQueue);
 }
 
 ParticleSystem::~ParticleSystem() {
-    // Only destroy resources this class actually owns
     vkDestroyDescriptorPool(device, descriptorPool, nullptr);
-    // textureLayout and pipeline are owned by Renderer, do not destroy them here.
-
     texture.reset();
     vertexBuffer.reset();
-    instanceBuffer.reset();
+    // Clear vector
+    instanceBuffers.clear();
 }
 
 void ParticleSystem::Initialize(VkDescriptorSetLayout textureLayout, GraphicsPipeline* pipeline, const std::string& texturePath) {
@@ -62,7 +61,6 @@ void ParticleSystem::Initialize(VkDescriptorSetLayout textureLayout, GraphicsPip
     vkUpdateDescriptorSets(device, 1, &write, 0, nullptr);
 }
 
-// ... Emit, AddEmitter, Update, UpdateInstanceBuffer remain unchanged ...
 void ParticleSystem::Emit(const ParticleProps& props) {
     Particle& p = particles[poolIndex];
     p.active = true;
@@ -77,7 +75,13 @@ void ParticleSystem::Emit(const ParticleProps& props) {
     p.lifeRemaining = props.lifeTime;
     p.sizeBegin = props.sizeBegin + props.sizeVariation * RandomFloat(-1.0f, 1.0f);
     p.sizeEnd = props.sizeEnd;
-    poolIndex = (poolIndex - 1) % maxParticles;
+
+    if (poolIndex == 0) {
+        poolIndex = maxParticles - 1;
+    }
+    else {
+        poolIndex--;
+    }
 }
 
 void ParticleSystem::AddEmitter(const ParticleProps& props, float particlesPerSecond) {
@@ -108,42 +112,52 @@ void ParticleSystem::Update(float dt) {
         p.lifeRemaining -= dt;
         p.position += p.velocity * dt;
     }
-    UpdateInstanceBuffer();
 }
 
-void ParticleSystem::UpdateInstanceBuffer() {
+void ParticleSystem::UpdateInstanceBuffer(uint32_t currentFrame) {
     std::vector<InstanceData> instanceData;
     instanceData.reserve(maxParticles);
 
     for (const auto& p : particles) {
         if (!p.active) continue;
+
         float lifeT = 1.0f - (p.lifeRemaining / p.lifeTime);
-        InstanceData data;
-        data.position = p.position;
+
+        InstanceData data{}; // Zero initialize
+
+        // Explicitly convert vec3 -> vec4 (w=1.0)
+        data.position = glm::vec4(p.position, 1.0f);
+
+        // Color is already vec4
         data.color = glm::mix(p.colorBegin, p.colorEnd, lifeT);
-        data.size = glm::mix(p.sizeBegin, p.sizeEnd, lifeT);
+
+        // Explicitly convert float -> vec4 (put size in x)
+        float currentSize = glm::mix(p.sizeBegin, p.sizeEnd, lifeT);
+        data.size = glm::vec4(currentSize, 0.0f, 0.0f, 0.0f);
+
         instanceData.push_back(data);
     }
 
     if (!instanceData.empty()) {
         VkDeviceSize size = instanceData.size() * sizeof(InstanceData);
         void* data;
-        vkMapMemory(device, instanceBuffer->GetBufferMemory(), 0, size, 0, &data);
+        vkMapMemory(device, instanceBuffers[currentFrame]->GetBufferMemory(), 0, size, 0, &data);
         memcpy(data, instanceData.data(), (size_t)size);
-        vkUnmapMemory(device, instanceBuffer->GetBufferMemory());
+        vkUnmapMemory(device, instanceBuffers[currentFrame]->GetBufferMemory());
     }
 }
 
-void ParticleSystem::Draw(VkCommandBuffer cmd, VkDescriptorSet globalDescriptorSet) {
+void ParticleSystem::Draw(VkCommandBuffer cmd, VkDescriptorSet globalDescriptorSet, uint32_t currentFrame) {
+    // Update the GPU buffer for THIS frame right before drawing
+    UpdateInstanceBuffer(currentFrame);
+
     uint32_t activeCount = 0;
     for (const auto& p : particles) if (p.active) activeCount++;
 
     if (activeCount == 0 || !pipeline) return;
 
-    // Use the shared pipeline
     vkCmdBindPipeline(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline->GetPipeline());
 
-    // Set 0: Global UBO, Set 1: Particle Texture
     VkDescriptorSet sets[] = { globalDescriptorSet, descriptorSet };
     vkCmdBindDescriptorSets(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline->GetLayout(), 0, 2, sets, 0, nullptr);
 
@@ -151,8 +165,9 @@ void ParticleSystem::Draw(VkCommandBuffer cmd, VkDescriptorSet globalDescriptorS
     VkDeviceSize offsets[] = { 0 };
     vkCmdBindVertexBuffers(cmd, 0, 1, vertexBuffers, offsets);
 
-    VkBuffer instanceBuffers[] = { instanceBuffer->GetBuffer() };
-    vkCmdBindVertexBuffers(cmd, 1, 1, instanceBuffers, offsets);
+    // Bind the Instance Buffer for the CURRENT frame
+    VkBuffer instanceBufferRaw[] = { instanceBuffers[currentFrame]->GetBuffer() };
+    vkCmdBindVertexBuffers(cmd, 1, 1, instanceBufferRaw, offsets);
 
     vkCmdDraw(cmd, 6, activeCount, 0, 0);
 }
@@ -173,10 +188,13 @@ void ParticleSystem::SetupBuffers() {
         VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
     vertexBuffer->CopyData(vertices, sizeof(vertices));
 
-    instanceBuffer = std::make_unique<VulkanBuffer>(device, physicalDevice);
-    instanceBuffer->CreateBuffer(maxParticles * sizeof(InstanceData),
-        VK_BUFFER_USAGE_VERTEX_BUFFER_BIT,
-        VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+    instanceBuffers.resize(framesInFlight);
+    for (size_t i = 0; i < framesInFlight; i++) {
+        instanceBuffers[i] = std::make_unique<VulkanBuffer>(device, physicalDevice);
+        instanceBuffers[i]->CreateBuffer(maxParticles * sizeof(InstanceData),
+            VK_BUFFER_USAGE_VERTEX_BUFFER_BIT,
+            VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+    }
 }
 
 // Static definitions for Pipeline Creation
@@ -199,15 +217,22 @@ std::vector<VkVertexInputBindingDescription> ParticleSystem::GetBindingDescripti
 std::vector<VkVertexInputAttributeDescription> ParticleSystem::GetAttributeDescriptions() {
     std::vector<VkVertexInputAttributeDescription> attribs;
 
-    // Binding 0: Pos (Loc 0), UV (Loc 1)
+    // Binding 0: Mesh Data (Unchanged)
+    // Location 0: Position (vec3)
     attribs.push_back({ 0, 0, VK_FORMAT_R32G32B32_SFLOAT, 0 });
+    // Location 1: UV (vec2)
     attribs.push_back({ 1, 0, VK_FORMAT_R32G32_SFLOAT, 3 * sizeof(float) });
 
-    // Binding 1: Instance Data
-    // Pos (Loc 2), Color (Loc 3), Size (Loc 4)
-    attribs.push_back({ 2, 1, VK_FORMAT_R32G32B32_SFLOAT, offsetof(InstanceData, position) });
+    // Binding 1: Instance Data (Modified for vec4 alignment)
+
+    // Location 2: Position (Host sends vec4, Shader reads vec3. Uses xyz.)
+    attribs.push_back({ 2, 1, VK_FORMAT_R32G32B32A32_SFLOAT, offsetof(InstanceData, position) });
+
+    // Location 3: Color (Host sends vec4, Shader reads vec4)
     attribs.push_back({ 3, 1, VK_FORMAT_R32G32B32A32_SFLOAT, offsetof(InstanceData, color) });
-    attribs.push_back({ 4, 1, VK_FORMAT_R32_SFLOAT, offsetof(InstanceData, size) });
+
+    // Location 4: Size (Host sends vec4, Shader reads float. Uses x.)
+    attribs.push_back({ 4, 1, VK_FORMAT_R32G32B32A32_SFLOAT, offsetof(InstanceData, size) });
 
     return attribs;
 }

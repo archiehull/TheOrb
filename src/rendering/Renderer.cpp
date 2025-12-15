@@ -81,11 +81,18 @@ void Renderer::Initialize() {
     CreateParticlePipelines();
 
     // Initialize Fire (Uses Additive Pipeline & Shared Layout)
-    fireSystem = std::make_unique<ParticleSystem>(device->GetDevice(), device->GetPhysicalDevice(), commandBuffer->GetCommandPool(), device->GetGraphicsQueue(), 1000);
+    fireSystem = std::make_unique<ParticleSystem>(
+        device->GetDevice(),
+        device->GetPhysicalDevice(),
+        commandBuffer->GetCommandPool(),
+        device->GetGraphicsQueue(),
+        1000,
+        MAX_FRAMES_IN_FLIGHT
+    );
     fireSystem->Initialize(particleTextureLayout, particlePipelineAdditive.get(), "textures/kenney_particle-pack/transparent/fire_01.png");
 
     // Initialize Smoke (Uses Alpha Pipeline & Shared Layout)
-    smokeSystem = std::make_unique<ParticleSystem>(device->GetDevice(), device->GetPhysicalDevice(), commandBuffer->GetCommandPool(), device->GetGraphicsQueue(), 1000);
+    smokeSystem = std::make_unique<ParticleSystem>(device->GetDevice(), device->GetPhysicalDevice(), commandBuffer->GetCommandPool(), device->GetGraphicsQueue(), 1000, MAX_FRAMES_IN_FLIGHT);
     smokeSystem->Initialize(particleTextureLayout, particlePipelineAlpha.get(), "textures/kenney_particle-pack/transparent/smoke_01.png");
 
     CreatePipeline(); // Main scene object pipeline
@@ -365,8 +372,6 @@ void Renderer::CreatePipeline() {
     graphicsPipeline = std::make_unique<GraphicsPipeline>(device->GetDevice(), pipelineConfig);
     graphicsPipeline->Create();
 }
-
-// ... existing code ...
 
 void Renderer::CreateOffScreenResources() {
     VkExtent2D extent = swapChain->GetExtent();
@@ -765,14 +770,12 @@ void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& sc
 
     }
 
-    // Draw Fire
     if (fireSystem) {
-        fireSystem->Draw(cmd, descriptorSet->GetDescriptorSets()[currentFrame]);
+        fireSystem->Draw(cmd, descriptorSet->GetDescriptorSets()[currentFrame], currentFrame);
     }
 
-    // Draw Smoke
     if (smokeSystem) {
-        smokeSystem->Draw(cmd, descriptorSet->GetDescriptorSets()[currentFrame]);
+        smokeSystem->Draw(cmd, descriptorSet->GetDescriptorSets()[currentFrame], currentFrame);
     }
 
     vkCmdEndRenderPass(cmd);
