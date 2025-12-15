@@ -1,6 +1,8 @@
 #include "SkyboxPass.h"
 #include "../vulkan/Vertex.h"
 #include "../vulkan/PushConstantObject.h"
+#include <filesystem>
+#include <iostream>
 
 SkyboxPass::SkyboxPass(VkDevice device, VkPhysicalDevice physicalDevice, VkCommandPool commandPool, VkQueue graphicsQueue)
     : device(device), physicalDevice(physicalDevice), commandPool(commandPool), graphicsQueue(graphicsQueue) {
@@ -10,15 +12,50 @@ SkyboxPass::~SkyboxPass() {
     Cleanup();
 }
 
-void SkyboxPass::Initialize(VkRenderPass renderPass, VkExtent2D extent, VkDescriptorSetLayout globalSetLayout) {
-    // 1. Initialize Cubemap
-    cubemap = std::make_unique<Cubemap>(device, physicalDevice, commandPool, graphicsQueue);
+// Returns the six face file paths for a skybox named `name`.
+// Expected folder layout: textures/skybox/<name>/{px,nx,py,ny,pz,nz}.png
+std::vector<std::string> SkyboxPass::GetSkyboxFaces(const std::string& name) {
+    namespace fs = std::filesystem;
 
-    std::vector<std::string> faces = {
+    const std::string base = "textures/skybox/" + name + "/";
+    const std::vector<std::string> faces = {
+        base + "px.png", // +X
+        base + "nx.png", // -X
+        base + "py.png", // +Y
+        base + "ny.png", // -Y
+        base + "pz.png", // +Z
+        base + "nz.png"  // -Z
+    };
+
+    const std::vector<std::string> defaultFaces = {
         "textures/skybox/cubemap_0(+X).jpg", "textures/skybox/cubemap_1(-X).jpg",
         "textures/skybox/cubemap_2(+Y).jpg", "textures/skybox/cubemap_3(-Y).jpg",
         "textures/skybox/cubemap_4(+Z).jpg", "textures/skybox/cubemap_5(-Z).jpg"
     };
+
+    try {
+        for (const auto& f : faces) {
+            // fs::exists may throw on some platforms/permissions; catch and fall back below.
+            if (!fs::exists(f)) {
+                std::cerr << "SkyboxPass: missing skybox face '" << f << "'. Falling back to default skybox.\n";
+                return defaultFaces;
+            }
+        }
+    }
+    catch (const std::exception& e) {
+        std::cerr << "SkyboxPass: error checking skybox files for '" << name << "': " << e.what() << ". Falling back to default skybox.\n";
+        return defaultFaces;
+    }
+
+    return faces;
+}
+
+void SkyboxPass::Initialize(VkRenderPass renderPass, VkExtent2D extent, VkDescriptorSetLayout globalSetLayout) {
+    // 1. Initialize Cubemap
+    cubemap = std::make_unique<Cubemap>(device, physicalDevice, commandPool, graphicsQueue);
+
+    auto faces = GetSkyboxFaces("desert");
+
     cubemap->LoadFromFiles(faces);
 
     // 2. Create Pipeline

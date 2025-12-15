@@ -26,4 +26,6 @@ private:
 
     std::unique_ptr<Cubemap> cubemap;
     std::unique_ptr<GraphicsPipeline> pipeline;
+
+    std::vector<std::string> GetSkyboxFaces(const std::string& name);
 };
