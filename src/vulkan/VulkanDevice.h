@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 #include <vector>
 #include <optional>
+#include <vulkan/vulkan_core.h>
 
 struct QueueFamilyIndices {
     std::optional<uint32_t> graphicsFamily;

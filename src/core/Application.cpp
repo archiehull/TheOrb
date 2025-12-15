@@ -100,14 +100,9 @@ void Application::SetupScene() {
     scene->SetObjectShadingMode("CrystalBall", 3);
     scene->SetObjectCastsShadow("CrystalBall", false);
 
-    // --- NEW FOG SHELL ---
-    // Slightly larger radius (152.0f) so it sits on top
+
     scene->AddSphere("FogShell", 32, 64, 152.0f, glm::vec3(0.0f, 0.0f, 0.0f), "");
-
-    // Mode 4 = Fog/Cloud Layer
     scene->SetObjectShadingMode("FogShell", 4);
-
-    // Disable shadows so it doesn't darken the inner sphere
     scene->SetObjectCastsShadow("FogShell", false);
 
 }
