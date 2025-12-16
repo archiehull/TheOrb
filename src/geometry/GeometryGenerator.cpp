@@ -1,5 +1,7 @@
 #include "GeometryGenerator.h"
 #include <cmath>
+#include <glm/gtc/noise.hpp>
+#include <algorithm>
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -8,54 +10,124 @@
 // Helper to set normal
 void SetNormal(Vertex& v, glm::vec3 n) { v.normal = n; }
 
-std::unique_ptr<Geometry> GeometryGenerator::CreateTriangle(VkDevice device, VkPhysicalDevice physicalDevice) {
-    auto geometry = std::make_unique<Geometry>(device, physicalDevice);
-    geometry->GetVertices().resize(3);
-    // Flat triangle in XY plane, normal is +Z
-    geometry->GetVertices()[0] = { glm::vec3(0.0f, -0.5f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec2(0.5f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f) };
-    geometry->GetVertices()[1] = { glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec2(1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f) };
-    geometry->GetVertices()[2] = { glm::vec3(-0.5f, 0.5f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f) };
-    geometry->CreateBuffers();
-    return geometry;
+float SmoothStep(float edge0, float edge1, float x) {
+    float t = std::clamp((x - edge0) / (edge1 - edge0), 0.0f, 1.0f);
+    return t * t * (3.0f - 2.0f * t);
 }
 
-std::unique_ptr<Geometry> GeometryGenerator::CreateQuad(VkDevice device, VkPhysicalDevice physicalDevice) {
+std::unique_ptr<Geometry> GeometryGenerator::CreateTerrain(VkDevice device, VkPhysicalDevice physicalDevice,
+    float radius, int rings, int segments, float heightScale, float noiseFreq) {
+
     auto geometry = std::make_unique<Geometry>(device, physicalDevice);
-    geometry->GetVertices().resize(4);
-    // Flat quad in XY plane, normal is +Z
-    geometry->GetVertices()[0] = { glm::vec3(-0.5f, -0.5f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec2(0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f) };
-    geometry->GetVertices()[1] = { glm::vec3(0.5f, -0.5f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec2(1.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f) };
-    geometry->GetVertices()[2] = { glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f) };
-    geometry->GetVertices()[3] = { glm::vec3(-0.5f, 0.5f, 0.0f), glm::vec3(1.0f, 1.0f, 0.0f), glm::vec2(0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 1.0f) };
+    std::vector<Vertex>& vertices = geometry->GetVertices();
+    std::vector<uint32_t>& indices = geometry->GetIndices();
 
-    geometry->GetIndices() = { 0, 1, 2, 2, 3, 0 };
-    geometry->CreateBuffers();
-    return geometry;
-}
+    // 1. Generate Vertices (Polar Grid)
+    for (int i = 0; i <= rings; ++i) {
+        float r = (float)i / rings * radius; // Current radius
 
-std::unique_ptr<Geometry> GeometryGenerator::CreateCircle(VkDevice device, VkPhysicalDevice physicalDevice, int segments, float radius) {
-    auto geometry = std::make_unique<Geometry>(device, physicalDevice);
-    // Center
-    geometry->GetVertices().push_back({ glm::vec3(0.0f), glm::vec3(1.0f), glm::vec2(0.5f), glm::vec3(0.0f, 0.0f, 1.0f) });
+        for (int j = 0; j <= segments; ++j) {
+            float theta = (float)j / segments * 2.0f * M_PI; // Current angle
 
-    for (int i = 0; i <= segments; ++i) {
-        float angle = (2.0f * M_PI * i) / segments;
-        float x = radius * cos(angle);
-        float y = radius * sin(angle);
-        glm::vec3 color = GenerateColor(i, segments);
-        glm::vec2 uv = glm::vec2((x / radius + 1.0f) * 0.5f, (y / radius + 1.0f) * 0.5f);
-        geometry->GetVertices().push_back({ glm::vec3(x, y, 0.0f), color, uv, glm::vec3(0.0f, 0.0f, 1.0f) });
+            float x = r * cos(theta);
+            float z = r * sin(theta);
+
+            // --- Noise Generation ---
+            // Note: We use the raw (x,z) coordinates for noise continuity
+            float y = 0.0f;
+
+            // Base layer
+            y += glm::perlin(glm::vec2(x, z) * noiseFreq);
+            // Detail layer
+            y += glm::perlin(glm::vec2(x, z) * noiseFreq * 2.0f) * 0.25f;
+
+            y *= heightScale;
+
+            // Optional: Flatten the very center slightly to avoid noise artifacts at singularity
+            if (i == 0) y = 0.0f;
+
+            glm::vec3 pos(x, y, z);
+
+            // Coloring (Height based)
+            float hFactor = (y / heightScale) + 0.5f;
+            glm::vec3 lowColor = glm::vec3(0.35f, 0.30f, 0.25f);
+            glm::vec3 highColor = glm::vec3(0.45f, 0.40f, 0.30f);
+            glm::vec3 color = glm::mix(lowColor, highColor, hFactor);
+
+            // Edge Darkening (Vignette effect at outer rim)
+            float edgeFactor = (float)i / rings;
+            if (edgeFactor > 0.9f) {
+                color *= 1.0f - ((edgeFactor - 0.9f) * 10.0f); // Fade to black at very edge
+            }
+
+            // UV Mapping: Planar Projection (Top-down)
+            // Maps the disc range [-radius, radius] to [0, 1]
+            glm::vec2 uv;
+            uv.x = (x / radius) * 0.5f + 0.5f;
+            uv.y = (z / radius) * 0.5f + 0.5f;
+
+            glm::vec3 normal = glm::vec3(0.0f, 1.0f, 0.0f); // Placeholder
+
+            vertices.push_back({ pos, color, uv, normal });
+        }
     }
 
-    for (int i = 1; i <= segments; ++i) {
-        geometry->GetIndices().push_back(0);
-        geometry->GetIndices().push_back(i);
-        geometry->GetIndices().push_back(i + 1);
+    // 2. Generate Indices
+    // We treat the polar grid exactly like a rectangular grid where
+    // "rows" are rings and "cols" are segments.
+    for (int i = 0; i < rings; ++i) {
+        for (int j = 0; j < segments; ++j) {
+            uint32_t current = i * (segments + 1) + j;
+            uint32_t next = current + (segments + 1);
+
+            // Two triangles per quad
+            // Ensure winding is CCW (so faces point up). If your pipeline culls back faces,
+            // an incorrect ordering can make the terrain invisible.
+            // Triangle A: current, current+1, next
+            indices.push_back(current);
+            indices.push_back(current + 1);
+            indices.push_back(next);
+
+            // Triangle B: current+1, next+1, next
+            indices.push_back(current + 1);
+            indices.push_back(next + 1);
+            indices.push_back(next);
+        }
     }
+
+    // 3. Recalculate Smooth Normals
+    // Reset normals
+    for (auto& v : vertices) v.normal = glm::vec3(0.0f);
+
+    // Accumulate face normals
+    for (size_t i = 0; i < indices.size(); i += 3) {
+        uint32_t i0 = indices[i];
+        uint32_t i1 = indices[i + 1];
+        uint32_t i2 = indices[i + 2];
+
+        glm::vec3 v0 = vertices[i0].pos;
+        glm::vec3 v1 = vertices[i1].pos;
+        glm::vec3 v2 = vertices[i2].pos;
+
+        // Standard CCW cross product
+        glm::vec3 normal = glm::cross(v1 - v0, v2 - v0);
+
+        vertices[i0].normal += normal;
+        vertices[i1].normal += normal;
+        vertices[i2].normal += normal;
+    }
+
+    // Normalize
+    for (auto& v : vertices) {
+        if (glm::length(v.normal) > 0.0001f)
+            v.normal = glm::normalize(v.normal);
+        else
+            v.normal = glm::vec3(0.0f, 1.0f, 0.0f);
+    }
+
     geometry->CreateBuffers();
     return geometry;
 }
-
 std::unique_ptr<Geometry> GeometryGenerator::CreateCube(VkDevice device, VkPhysicalDevice physicalDevice) {
     auto geometry = std::make_unique<Geometry>(device, physicalDevice);
     std::vector<Vertex>& verts = geometry->GetVertices();
@@ -188,7 +260,6 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateSphere(VkDevice device, VkPhy
 }
 // GenerateColor remains the same
 glm::vec3 GeometryGenerator::GenerateColor(int index, int total) {
-    // ... (keep existing implementation)
     float hue = (float)index / (float)total;
     float r, g, b;
     if (hue < 0.33f) { r = 1.0f - (hue / 0.33f); g = hue / 0.33f; b = 0.0f; }

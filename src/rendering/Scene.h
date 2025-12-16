@@ -48,11 +48,7 @@ public:
     Scene(VkDevice device, VkPhysicalDevice physicalDevice);
     ~Scene();
 
-    void AddTriangle(const std::string& name, const glm::vec3& position = glm::vec3(0.0f), const std::string& texturePath = "");
-    void AddQuad(const std::string& name, const glm::vec3& position = glm::vec3(0.0f), const std::string& texturePath = "");
-    void AddCircle(const std::string& name, int segments = 32, float radius = 0.5f, const glm::vec3& position = glm::vec3(0.0f), const std::string& texturePath = "");
-    // AddCube now accepts optional scale
-    void AddCube(const std::string& name, const glm::vec3& position = glm::vec3(0.0f), const glm::vec3& scale = glm::vec3(1.0f), const std::string& texturePath = "");
+    void AddTerrain(const std::string& name, float radius, float deltaY, int rings, int segments, float heightScale, float noiseFreq, const glm::vec3& position, const std::string& texturePath);    void AddCube(const std::string& name, const glm::vec3& position = glm::vec3(0.0f), const glm::vec3& scale = glm::vec3(1.0f), const std::string& texturePath = "");
     void AddGrid(const std::string& name, int rows, int cols, float cellSize = 0.1f, const glm::vec3& position = glm::vec3(0.0f), const std::string& texturePath = "");
     void AddSphere(const std::string& name, int stacks = 16, int slices = 32, float radius = 0.5f, const glm::vec3& position = glm::vec3(0.0f), const std::string& texturePath = "");
     void AddModel(const std::string& name, const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale, const std::string& modelPath, const std::string& texturePath);

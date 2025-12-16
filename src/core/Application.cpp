@@ -69,8 +69,10 @@ void Application::InitVulkan() {
 
 void Application::SetupScene() {
     float deltaY = -75.0f;
+	float orbRadius = 150.0f;
 
-    scene->AddGrid("GroundGrid", 10, 10, 18.0f, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), "textures/desert.jpg");
+    scene->AddTerrain("GroundGrid", orbRadius, deltaY, 128, 128, 3.5f, 0.02f, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), "textures/desert.jpg");
+
 
     float orbitRadius = 275.0f;
     float startSpeed = 0.1f;
@@ -99,12 +101,12 @@ void Application::SetupScene() {
     scene->AddModel("Cactus", glm::vec3(0.0f, -4.0f + deltaY, 0.0f), glm::vec3(-90.0f, 0.0f, 0.0f), glm::vec3(0.14f), "models/cactus.obj", "textures/cactus.jpg");
 
 
-    scene->AddSphere("CrystalBall", 32, 64, 150.0f, glm::vec3(0.0f, 0.0f, 0.0f), "");
+    scene->AddSphere("CrystalBall", 32, 64, orbRadius, glm::vec3(0.0f, 0.0f, 0.0f), "");
     scene->SetObjectShadingMode("CrystalBall", 3);
     scene->SetObjectCastsShadow("CrystalBall", false);
 
 
-    scene->AddSphere("FogShell", 32, 64, 151.0f, glm::vec3(0.0f, 0.0f, 0.0f), "");
+    scene->AddSphere("FogShell", 32, 64, orbRadius + 1, glm::vec3(0.0f, 0.0f, 0.0f), "");
     scene->SetObjectShadingMode("FogShell", 4);
     scene->SetObjectCastsShadow("FogShell", false);
 

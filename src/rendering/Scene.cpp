@@ -35,18 +35,18 @@ Scene::Scene(VkDevice device, VkPhysicalDevice physicalDevice)
 Scene::~Scene() {
 }
 
-void Scene::AddTriangle(const std::string& name, const glm::vec3& position, const std::string& texturePath) {
-    AddObjectInternal(name, GeometryGenerator::CreateTriangle(device, physicalDevice), position, texturePath);
+void Scene::AddTerrain(const std::string& name, float radius, float deltaY, int rings, int segments, float heightScale, float noiseFreq, const glm::vec3& position, const std::string& texturePath) {
+    float planeY = deltaY; // height of terrain plane relative to sphere center
+    float terrainRadius = 0.0f;
+    float absDist = std::fabs(planeY);
+    if (absDist < radius) {
+        terrainRadius = std::sqrt(radius * radius - absDist * absDist);
+    }
+    else {
+        terrainRadius = 0.0f; // plane is outside sphere — no intersection
+    }
+    AddObjectInternal(name, GeometryGenerator::CreateTerrain(device, physicalDevice, terrainRadius -1, rings, segments, heightScale, noiseFreq), position, texturePath);
 }
-
-void Scene::AddQuad(const std::string& name, const glm::vec3& position, const std::string& texturePath) {
-    AddObjectInternal(name, GeometryGenerator::CreateQuad(device, physicalDevice), position, texturePath);
-}
-
-void Scene::AddCircle(const std::string& name, int segments, float radius, const glm::vec3& position, const std::string& texturePath) {
-    AddObjectInternal(name, GeometryGenerator::CreateCircle(device, physicalDevice, segments, radius), position, texturePath);
-}
-
 void Scene::AddCube(const std::string& name, const glm::vec3& position, const glm::vec3& scale, const std::string& texturePath) {
     AddObjectInternal(name, GeometryGenerator::CreateCube(device, physicalDevice), position, texturePath);
 
