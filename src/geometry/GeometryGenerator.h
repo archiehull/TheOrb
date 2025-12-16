@@ -14,6 +14,7 @@ public:
 
     static std::unique_ptr<Geometry> CreateTerrain(VkDevice device, VkPhysicalDevice physicalDevice,
         float radius, int rings, int segments, float heightScale, float noiseFreq);
+    static float GetTerrainHeight(float x, float z, float radius, float heightScale, float noiseFreq);
 
 private:
     static glm::vec3 GenerateColor(int index, int total);

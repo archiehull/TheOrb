@@ -43,6 +43,14 @@ struct SceneObject {
     }
 };
 
+struct ProceduralObjectConfig {
+    std::string modelPath;
+    std::string texturePath;
+    float frequency; // Likelihood (weight)
+    glm::vec3 minScale;
+    glm::vec3 maxScale;
+};
+
 class Scene {
 public:
     Scene(VkDevice device, VkPhysicalDevice physicalDevice);
@@ -62,6 +70,11 @@ public:
     void SetupParticleSystem(VkCommandPool commandPool, VkQueue graphicsQueue,
         GraphicsPipeline* additivePipeline, GraphicsPipeline* alphaPipeline,
         VkDescriptorSetLayout layout, uint32_t framesInFlight);
+
+    // Procedural Generation API
+    void RegisterProceduralObject(const std::string& modelPath, const std::string& texturePath, float frequency, const glm::vec3& minScale, const glm::vec3& maxScale);
+    void GenerateProceduralObjects(int count, float terrainRadius, float deltaY, float heightScale, float noiseFreq);
+
 
     // Particle Methods
     void AddFire(const glm::vec3& position, float scale, bool createSmoke);
@@ -102,6 +115,7 @@ private:
     VkDevice device;
     VkPhysicalDevice physicalDevice;
     std::vector<std::unique_ptr<SceneObject>> objects;
+    std::vector<ProceduralObjectConfig> proceduralRegistry;
 
     ParticleSystem* GetOrCreateSystem(const ParticleProps& props);
 

@@ -15,6 +15,37 @@ float SmoothStep(float edge0, float edge1, float x) {
     return t * t * (3.0f - 2.0f * t);
 }
 
+float GeometryGenerator::GetTerrainHeight(float x, float z, float radius, float heightScale, float noiseFreq) {
+    float dist = glm::length(glm::vec2(x, z));
+
+    // 1. Noise Generation
+    float y = 0.0f;
+    // Base layer
+    y += glm::perlin(glm::vec2(x, z) * noiseFreq);
+    // Detail layer
+    y += glm::perlin(glm::vec2(x, z) * noiseFreq * 2.0f) * 0.25f;
+
+    y *= heightScale;
+
+    // 2. Circular Clamping (Masking)
+    // Matches the visual mesh generation
+    float edgeFactor = dist / radius;
+    // We apply the mask slightly aggressively to ensure objects don't spawn floating off the very edge
+    if (edgeFactor > 0.95f) {
+        y *= 0.0f; // Force flat/down at edges
+    }
+    else {
+        // Same fade as CreateTerrain
+        // Note: CreateTerrain used the loop index for fading, here we use distance
+        // approximating the visual fade effect:
+        if (edgeFactor > 0.9f) {
+            y *= 1.0f - ((edgeFactor - 0.9f) * 10.0f);
+        }
+    }
+
+    return y;
+}
+
 std::unique_ptr<Geometry> GeometryGenerator::CreateTerrain(VkDevice device, VkPhysicalDevice physicalDevice,
     float radius, int rings, int segments, float heightScale, float noiseFreq) {
 
@@ -22,112 +53,84 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateTerrain(VkDevice device, VkPh
     std::vector<Vertex>& vertices = geometry->GetVertices();
     std::vector<uint32_t>& indices = geometry->GetIndices();
 
-    // 1. Generate Vertices (Polar Grid)
     for (int i = 0; i <= rings; ++i) {
-        float r = (float)i / rings * radius; // Current radius
+        float r = (float)i / rings * radius;
 
         for (int j = 0; j <= segments; ++j) {
-            float theta = (float)j / segments * 2.0f * M_PI; // Current angle
+            float theta = (float)j / segments * 2.0f * M_PI;
 
             float x = r * cos(theta);
             float z = r * sin(theta);
 
-            // --- Noise Generation ---
-            // Note: We use the raw (x,z) coordinates for noise continuity
-            float y = 0.0f;
+            // CALL THE SHARED FUNCTION
+            float y = GetTerrainHeight(x, z, radius, heightScale, noiseFreq);
 
-            // Base layer
-            y += glm::perlin(glm::vec2(x, z) * noiseFreq);
-            // Detail layer
-            y += glm::perlin(glm::vec2(x, z) * noiseFreq * 2.0f) * 0.25f;
-
-            y *= heightScale;
-
-            // Optional: Flatten the very center slightly to avoid noise artifacts at singularity
+            // Optional: Flatten center slightly
             if (i == 0) y = 0.0f;
 
             glm::vec3 pos(x, y, z);
 
-            // Coloring (Height based)
+            // Coloring
             float hFactor = (y / heightScale) + 0.5f;
             glm::vec3 lowColor = glm::vec3(0.35f, 0.30f, 0.25f);
             glm::vec3 highColor = glm::vec3(0.45f, 0.40f, 0.30f);
             glm::vec3 color = glm::mix(lowColor, highColor, hFactor);
 
-            // Edge Darkening (Vignette effect at outer rim)
+            // Edge Darkening
             float edgeFactor = (float)i / rings;
             if (edgeFactor > 0.9f) {
-                color *= 1.0f - ((edgeFactor - 0.9f) * 10.0f); // Fade to black at very edge
+                color *= 1.0f - ((edgeFactor - 0.9f) * 10.0f);
             }
 
-            // UV Mapping: Planar Projection (Top-down)
-            // Maps the disc range [-radius, radius] to [0, 1]
+            // UVs
             glm::vec2 uv;
             uv.x = (x / radius) * 0.5f + 0.5f;
             uv.y = (z / radius) * 0.5f + 0.5f;
 
-            glm::vec3 normal = glm::vec3(0.0f, 1.0f, 0.0f); // Placeholder
-
+            glm::vec3 normal = glm::vec3(0.0f, 1.0f, 0.0f);
             vertices.push_back({ pos, color, uv, normal });
         }
     }
 
-    // 2. Generate Indices
-    // We treat the polar grid exactly like a rectangular grid where
-    // "rows" are rings and "cols" are segments.
+    // Indices (Standard grid logic for polar coords)
     for (int i = 0; i < rings; ++i) {
         for (int j = 0; j < segments; ++j) {
             uint32_t current = i * (segments + 1) + j;
             uint32_t next = current + (segments + 1);
 
-            // Two triangles per quad
-            // Ensure winding is CCW (so faces point up). If your pipeline culls back faces,
-            // an incorrect ordering can make the terrain invisible.
-            // Triangle A: current, current+1, next
             indices.push_back(current);
             indices.push_back(current + 1);
             indices.push_back(next);
 
-            // Triangle B: current+1, next+1, next
             indices.push_back(current + 1);
             indices.push_back(next + 1);
             indices.push_back(next);
         }
     }
 
-    // 3. Recalculate Smooth Normals
-    // Reset normals
+    // Recalculate Normals
     for (auto& v : vertices) v.normal = glm::vec3(0.0f);
-
-    // Accumulate face normals
     for (size_t i = 0; i < indices.size(); i += 3) {
         uint32_t i0 = indices[i];
         uint32_t i1 = indices[i + 1];
         uint32_t i2 = indices[i + 2];
-
         glm::vec3 v0 = vertices[i0].pos;
         glm::vec3 v1 = vertices[i1].pos;
         glm::vec3 v2 = vertices[i2].pos;
-
-        // Standard CCW cross product
         glm::vec3 normal = glm::cross(v1 - v0, v2 - v0);
-
         vertices[i0].normal += normal;
         vertices[i1].normal += normal;
         vertices[i2].normal += normal;
     }
-
-    // Normalize
     for (auto& v : vertices) {
-        if (glm::length(v.normal) > 0.0001f)
-            v.normal = glm::normalize(v.normal);
-        else
-            v.normal = glm::vec3(0.0f, 1.0f, 0.0f);
+        if (glm::length(v.normal) > 0.0001f) v.normal = glm::normalize(v.normal);
+        else v.normal = glm::vec3(0.0f, 1.0f, 0.0f);
     }
 
     geometry->CreateBuffers();
     return geometry;
 }
+
 std::unique_ptr<Geometry> GeometryGenerator::CreateCube(VkDevice device, VkPhysicalDevice physicalDevice) {
     auto geometry = std::make_unique<Geometry>(device, physicalDevice);
     std::vector<Vertex>& verts = geometry->GetVertices();

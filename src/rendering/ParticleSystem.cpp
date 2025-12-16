@@ -84,7 +84,6 @@ void ParticleSystem::Emit(const ParticleProps& props) {
     Particle& p = particles[poolIndex];
     p.active = true;
 
-    // NEW: Position Jitter (Box Emitter)
     p.position.x = props.position.x + props.positionVariation.x * RandomFloat(-1.0f, 1.0f);
     p.position.y = props.position.y + props.positionVariation.y * RandomFloat(-1.0f, 1.0f);
     p.position.z = props.position.z + props.positionVariation.z * RandomFloat(-1.0f, 1.0f);
