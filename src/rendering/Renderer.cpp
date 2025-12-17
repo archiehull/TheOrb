@@ -733,6 +733,11 @@ void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& sc
         PushConstantObject pco{};
         pco.model = obj->transform;
         pco.shadingMode = obj->shadingMode;
+
+        // FIX: Ensure these values are actually sent to the shader
+        pco.receiveShadows = obj->receiveShadows ? 1 : 0;
+        pco.layerMask = obj->layerMask;
+
         vkCmdPushConstants(cmd, graphicsPipeline->GetLayout(), VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(PushConstantObject), &pco);
 
         // Bind Texture (Set 1)

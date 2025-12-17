@@ -64,6 +64,10 @@ void main() {
         vec3 viewDir = normalize(ubo.viewPos - fragPos);
 
         for(int i = 0; i < ubo.numLights; i++) {
+            if ((ubo.lights[i].layerMask & pco.layerMask) == 0) {
+                continue;
+            }
+
             // Ambient
             float ambientStrength = 0.1;
             vec3 ambient = ambientStrength * ubo.lights[i].color * ubo.lights[i].intensity;
