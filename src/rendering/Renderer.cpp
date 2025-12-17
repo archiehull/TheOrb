@@ -84,7 +84,7 @@ void Renderer::Initialize() {
     CreateSyncObjects();
 }
 
-void Renderer::DrawFrame(Scene& scene, uint32_t currentFrame, const glm::mat4& viewMatrix, const glm::mat4& projMatrix) {
+void Renderer::DrawFrame(Scene& scene, uint32_t currentFrame, const glm::mat4& viewMatrix, const glm::mat4& projMatrix, int layerMask) {
     // Wait for this frame's fence
     VkFence fence = syncObjects->GetInFlightFence(currentFrame);
     vkWaitForFences(device->GetDevice(), 1, &fence, VK_TRUE, UINT64_MAX);
@@ -117,7 +117,7 @@ void Renderer::DrawFrame(Scene& scene, uint32_t currentFrame, const glm::mat4& v
     vkResetFences(device->GetDevice(), 1, &fence);
 
     VkCommandBuffer cmd = commandBuffer->GetCommandBuffer(currentFrame);
-    RecordCommandBuffer(cmd, imageIndex, currentFrame, scene, viewMatrix, projMatrix);
+    RecordCommandBuffer(cmd, imageIndex, currentFrame, scene, viewMatrix, projMatrix, layerMask);
 
     VkSubmitInfo submitInfo{};
     submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
@@ -431,7 +431,7 @@ void Renderer::CreateOffScreenResources() {
     );
 }
 
-void Renderer::RenderRefractionPass(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene) {
+void Renderer::RenderRefractionPass(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene, int layerMask) {
     // 1. Begin Render Pass targeting the Refraction Framebuffer
     VkRenderPassBeginInfo renderPassInfo{};
     renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
@@ -469,7 +469,12 @@ void Renderer::RenderRefractionPass(VkCommandBuffer cmd, uint32_t currentFrame, 
     vkCmdBindDescriptorSets(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->GetLayout(), 0, 1, &descriptorSet->GetDescriptorSets()[currentFrame], 0, nullptr);
 
     for (const auto& obj : scene.GetObjects()) {
+        // Standard filter (skip refractive objects in refraction pass, etc.)
         if (!obj || !obj->visible || !obj->geometry || obj->shadingMode == 3 || obj->shadingMode == 2 || obj->shadingMode == 4) continue;
+
+        // --- LAYER MASK CHECK ---
+        if ((obj->layerMask & layerMask) == 0) continue;
+
         PushConstantObject pco{};
         pco.model = obj->transform;
         pco.shadingMode = obj->shadingMode;
@@ -483,7 +488,6 @@ void Renderer::RenderRefractionPass(VkCommandBuffer cmd, uint32_t currentFrame, 
         obj->geometry->Bind(cmd);
         obj->geometry->Draw(cmd);
     }
-
     vkCmdEndRenderPass(cmd);
 
     // 4. Barrier: Synchronize so Main Pass can read this texture
@@ -539,22 +543,31 @@ void Renderer::CreateSyncObjects() {
     syncObjects->CreateSyncObjects(imageCount);
 }
 
-void Renderer::DrawSceneObjects(VkCommandBuffer cmd, Scene& scene, VkPipelineLayout layout, bool bindTextures, bool skipIfNotCastingShadow) {
+void Renderer::DrawSceneObjects(VkCommandBuffer cmd, Scene& scene, VkPipelineLayout layout, uint32_t currentFrame, bool bindTextures, bool skipIfNotCastingShadow, int layerMask) {
     for (const auto& obj : scene.GetObjects()) {
         if (!obj || !obj->visible || !obj->geometry) continue;
+
+        // --- KEY LOGIC: Bitmask Check ---
+        // If the object's mask doesn't share any bits with the current pass, SKIP IT.
+        if ((obj->layerMask & layerMask) == 0) continue;
+
         if (skipIfNotCastingShadow && !obj->castsShadow) continue;
 
+        // Push Constants
         PushConstantObject pco{};
         pco.model = obj->transform;
         pco.shadingMode = obj->shadingMode;
-
+        pco.receiveShadows = obj->receiveShadows ? 1 : 0;
+        pco.layerMask = obj->layerMask;
         vkCmdPushConstants(cmd, layout, VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(PushConstantObject), &pco);
 
+        // Bind Textures
         if (bindTextures) {
             VkDescriptorSet textureSet = GetTextureDescriptorSet(obj->texturePath);
             vkCmdBindDescriptorSets(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, layout, 1, 1, &textureSet, 0, nullptr);
         }
 
+        // Draw
         obj->geometry->Bind(cmd);
         obj->geometry->Draw(cmd);
     }
@@ -611,7 +624,7 @@ void Renderer::SetupSceneParticles(Scene& scene) {
     );
 }
 
-void Renderer::RenderShadowMap(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene) {
+void Renderer::RenderShadowMap(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene, int layerMask) {
     shadowPass->Begin(cmd);
 
     // Bind Global UBO (Set 0) - Contains LightSpaceMatrix
@@ -627,15 +640,24 @@ void Renderer::RenderShadowMap(VkCommandBuffer cmd, uint32_t currentFrame, Scene
     );
 
     // Draw objects using shadow pipeline layout (No textures needed)
-    // Skip objects that should not cast shadows (e.g. the Sun/Moon spheres)
-    DrawSceneObjects(cmd, scene, shadowPass->GetPipeline()->GetLayout(), false, true);
+    // We pass the layerMask here so we can filter what casts shadows if needed.
+    // We also pass 'currentFrame' if your updated DrawSceneObjects requires it.
+    DrawSceneObjects(
+        cmd,
+        scene,
+        shadowPass->GetPipeline()->GetLayout(),
+        currentFrame,
+        false, // bindTextures = false (Shadow map doesn't need color textures)
+        true,  // skipIfNotCastingShadow = true
+        layerMask // <--- Pass the mask here
+    );
 
     shadowPass->End(cmd);
 }
 
 void Renderer::RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex,
     uint32_t currentFrame, Scene& scene,
-    const glm::mat4& viewMatrix, const glm::mat4& projMatrix) {
+    const glm::mat4& viewMatrix, const glm::mat4& projMatrix, int layerMask) {
 
     vkResetCommandBuffer(cmd, 0);
 
@@ -667,13 +689,13 @@ void Renderer::RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex,
     UpdateUniformBuffer(currentFrame, ubo);
 
     // --- 1. Render Shadow Pass ---
-    RenderShadowMap(cmd, currentFrame, scene);
+    RenderShadowMap(cmd, currentFrame, scene, SceneLayers::ALL);
 
     // --- 2. Render Refraction Pass ---
-    RenderRefractionPass(cmd, currentFrame, scene);
+    RenderRefractionPass(cmd, currentFrame, scene, SceneLayers::INSIDE | SceneLayers::OUTSIDE);
 
     // --- 3. Render Main Scene ---
-    RenderScene(cmd, currentFrame, scene);
+    RenderScene(cmd, currentFrame, scene, layerMask);
 
     // --- 4. Copy to SwapChain ---
     CopyOffScreenToSwapChain(cmd, imageIndex);
@@ -683,7 +705,7 @@ void Renderer::RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex,
     }
 }
 
-void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene) {
+void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene, int layerMask) {
     // Begin Render Pass
     VkRenderPassBeginInfo renderPassInfo{};
     renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
@@ -714,42 +736,19 @@ void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& sc
     scissor.extent = swapChain->GetExtent();
     vkCmdSetScissor(cmd, 0, 1, &scissor);
 
-    // --- 1. Skybox Pipeline (Background & Interiors) ---
+    // 1. Skybox
     if (skyboxPass) {
         skyboxPass->Draw(cmd, scene, currentFrame, descriptorSet->GetDescriptorSets()[currentFrame]);
     }
 
-    // --- 2. Main Pipeline (Standard Objects + Transparent Front Faces) ---
+    // 2. Draw Opaque Objects
     vkCmdBindPipeline(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->GetPipeline());
-
-    // Bind Global UBO (Set 0) 
     vkCmdBindDescriptorSets(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->GetLayout(), 0, 1, &descriptorSet->GetDescriptorSets()[currentFrame], 0, nullptr);
 
-    for (const auto& obj : scene.GetObjects()) {
-        // Skip invisible, empty, OR Skybox objects (Mode 2 is handled by SkyboxPass)
-        if (!obj || !obj->visible || !obj->geometry || obj->shadingMode == 2) continue;
+    // Pass the layerMask (SceneLayers::OUTSIDE) here
+    DrawSceneObjects(cmd, scene, graphicsPipeline->GetLayout(), currentFrame, true, false, layerMask);
 
-        // Push Constants
-        PushConstantObject pco{};
-        pco.model = obj->transform;
-        pco.shadingMode = obj->shadingMode;
-
-        // FIX: Ensure these values are actually sent to the shader
-        pco.receiveShadows = obj->receiveShadows ? 1 : 0;
-        pco.layerMask = obj->layerMask;
-
-        vkCmdPushConstants(cmd, graphicsPipeline->GetLayout(), VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(PushConstantObject), &pco);
-
-        // Bind Texture (Set 1)
-        VkDescriptorSet textureSet = GetTextureDescriptorSet(obj->texturePath);
-        vkCmdBindDescriptorSets(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->GetLayout(), 1, 1, &textureSet, 0, nullptr);
-
-        // Draw Geometry
-        obj->geometry->Bind(cmd);
-        obj->geometry->Draw(cmd);
-    }
-
-    // --- 3. Dynamic Particle Systems ---
+    // 3. Particles (Usually drawn in the main pass, or filtered similarly)
     for (const auto& sys : scene.GetParticleSystems()) {
         sys->Draw(cmd, descriptorSet->GetDescriptorSets()[currentFrame], currentFrame);
     }

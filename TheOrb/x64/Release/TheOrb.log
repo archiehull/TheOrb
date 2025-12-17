@@ -1,9 +1,11 @@
-﻿  Performing Custom Build Tools
-  Performing Custom Build Tools
+﻿  Application.cpp
+C:\Users\a\Desktop\TheOrb\src\core\Application.cpp(87,66): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  main.cpp
   Renderer.cpp
+  SkyboxPass.cpp
   Generating code
-  2 of 4103 functions (<0.1%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    10 functions had inline decision re-evaluated but remain unchanged
+  10 of 4103 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+    2 functions were new in current compilation
+    21 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   TheOrb.vcxproj -> C:\Users\a\Desktop\TheOrb\x64\Release\TheOrb.exe

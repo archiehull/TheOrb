@@ -83,7 +83,7 @@ void Application::SetupScene() {
     scene->AddPedestal("BasePedestal", adjustedRadius, orbRadius * 1.8 , 75.0f, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), "textures/mahogany.jpg");
 	scene->SetObjectCastsShadow("BasePedestal", false);
     scene->SetObjectLayerMask("BasePedestal", 0x2);
-
+    
 	scene->AddSphere("PedestalLightSphere", 16, 32, 5.0f, glm::vec3(200.0f, 0.0f, 200.0f));
     scene->AddLight("PedestalLight", glm::vec3(200.0f, 0.0f, 200.0f), glm::vec3(1.0f, 0.5f, 0.2f), 5.0f, 0);
     scene->SetLightLayerMask("PedestalLight", 0x2);

@@ -210,11 +210,13 @@ void Scene::AddLight(const std::string& name, const glm::vec3& position, const g
     newSceneLight.vulkanLight.color = color;
     newSceneLight.vulkanLight.intensity = intensity;
     newSceneLight.vulkanLight.type = type;
-    newSceneLight.vulkanLight.layerMask = 1;
-    newSceneLight.layerMask = 1;
+
+    newSceneLight.vulkanLight.layerMask = SceneLayers::INSIDE;
+    newSceneLight.layerMask = SceneLayers::INSIDE;
 
     m_SceneLights.push_back(newSceneLight);
 }
+
 void Scene::SetupParticleSystem(VkCommandPool commandPool, VkQueue graphicsQueue,
     GraphicsPipeline* additivePipeline, GraphicsPipeline* alphaPipeline,
     VkDescriptorSetLayout layout, uint32_t framesInFlight) {

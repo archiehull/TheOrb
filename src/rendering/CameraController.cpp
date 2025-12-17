@@ -53,6 +53,8 @@ void CameraController::Update(float deltaTime) {
 }
 
 void CameraController::UpdateFreeRoamCamera(float deltaTime) {
+	// TODO: Clamp movement when near terrain or objects
+
     if (!activeCamera) return;
 
     // Compute exclusive (swapped) input mapping so one key set can't trigger both move and rotate.

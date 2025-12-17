@@ -19,12 +19,26 @@ struct OrbitData {
     float currentAngle = 0.0f; // Internal state: current angle (in radians)
 };
 
+namespace SceneLayers {
+    // Bit 0: Objects inside the crystal ball (Terrain, Trees)
+    constexpr int INSIDE = 1 << 0;  // Value: 1
+
+    // Bit 1: Objects outside the ball (Pedestal, Room)
+    constexpr int OUTSIDE = 1 << 1; // Value: 2
+
+    // Helper for objects visible everywhere (Sun, Moon)
+    // Value: 3 (Binary 0011)
+    constexpr int ALL = INSIDE | OUTSIDE;
+}
+
 struct SceneLight {
     std::string name;
     Light vulkanLight;
     OrbitData orbitData;
-    int layerMask = 1; // Default to Layer 1 (General)
+    int layerMask = SceneLayers::INSIDE;
 };
+
+
 
 struct SceneObject {
     std::string name;
@@ -39,8 +53,7 @@ struct SceneObject {
 
     OrbitData orbitData;
 
-    int layerMask = 1; // Default to Layer 1 (General)
-
+    int layerMask = SceneLayers::INSIDE;
     SceneObject(std::unique_ptr<Geometry> geo, const std::string& texPath = "", const std::string& objName = "")
         : geometry(std::move(geo)), texturePath(texPath), name(objName) {
     }

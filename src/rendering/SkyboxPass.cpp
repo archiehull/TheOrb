@@ -18,19 +18,16 @@ std::vector<std::string> SkyboxPass::GetSkyboxFaces(const std::string& name) {
 
     const std::string base = "textures/skybox/" + name + "/";
 
-    // Rotated 90 degrees clockwise:
-    // +X (Right) <- +Z (Front)
-    // -X (Left)  <- -Z (Back)
-    // +Z (Front) <- -X (Left)
-    // -Z (Back)  <- +X (Right)
     const std::vector<std::string> faces = {
-        base + "pz.png", // +X (was +Z)
-        base + "nz.png", // -X (was -Z)
-        base + "py.png", // +Y (Unchanged)
-        base + "ny.png", // -Y (Unchanged)
-        base + "nx.png", // +Z (was -X)
-        base + "px.png"  // -Z (was +X)
+    base + "px.png", // +X
+    base + "nx.png", // -X
+    base + "py.png", // +Y
+    base + "ny.png", // -Y
+    base + "pz.png", // +Z
+    base + "nz.png"  // -Z
     };
+
+
 
     const std::vector<std::string> defaultFaces = {
         "textures/skybox/cubemap_0(+X).jpg", "textures/skybox/cubemap_1(-X).jpg",

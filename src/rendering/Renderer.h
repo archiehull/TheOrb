@@ -28,8 +28,7 @@ public:
 
     void Initialize();
 
-    void DrawFrame(Scene& scene, uint32_t currentFrame, const glm::mat4& viewMatrix, const glm::mat4& projMatrix);
-
+    void DrawFrame(Scene& scene, uint32_t currentFrame, const glm::mat4& viewMatrix, const glm::mat4& projMatrix, int layerMask = SceneLayers::ALL);
     void UpdateUniformBuffer(uint32_t currentFrame, const UniformBufferObject& ubo);
     void WaitIdle();
     void Cleanup();
@@ -65,8 +64,6 @@ private:
     VkImageView refractionImageView = VK_NULL_HANDLE;
     VkSampler refractionSampler = VK_NULL_HANDLE;
     VkFramebuffer refractionFramebuffer = VK_NULL_HANDLE;
-
-    void RenderRefractionPass(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene);
 
     VkImage offScreenImage = VK_NULL_HANDLE;
     VkDeviceMemory offScreenImageMemory = VK_NULL_HANDLE;
@@ -105,12 +102,11 @@ private:
     void CreateSyncObjects();
     void CreateUniformBuffers();
 
-    void RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex, uint32_t currentFrame, Scene& scene, const glm::mat4& viewMatrix, const glm::mat4& projMatrix);
-
-    void DrawSceneObjects(VkCommandBuffer cmd, Scene& scene, VkPipelineLayout layout, bool bindTextures, bool skipIfNotCastingShadow = false);
-    void RenderShadowMap(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene);
-
-    void RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene);
+    void RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex, uint32_t currentFrame, Scene& scene, const glm::mat4& viewMatrix, const glm::mat4& projMatrix, int layerMask);
+    void RenderShadowMap(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene, int layerMask = SceneLayers::ALL);
+    void DrawSceneObjects(VkCommandBuffer cmd, Scene& scene, VkPipelineLayout layout, uint32_t currentFrame, bool bindTextures, bool skipIfNotCastingShadow, int layerMask);
+    void RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene, int layerMask);
+    void RenderRefractionPass(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene, int layerMask);
 
     void CopyOffScreenToSwapChain(VkCommandBuffer cmd, uint32_t imageIndex);
     void CleanupOffScreenResources();
