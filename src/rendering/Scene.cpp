@@ -36,43 +36,43 @@ Scene::Scene(VkDevice device, VkPhysicalDevice physicalDevice)
 Scene::~Scene() {
 }
 
-void Scene::RegisterProceduralObject(const std::string& modelPath, const std::string& texturePath, float frequency, const glm::vec3& minScale, const glm::vec3& maxScale) {
+void Scene::RegisterProceduralObject(const std::string& modelPath, const std::string& texturePath, float frequency, const glm::vec3& minScale, const glm::vec3& maxScale, const glm::vec3& baseRotation) {
     ProceduralObjectConfig config;
     config.modelPath = modelPath;
     config.texturePath = texturePath;
     config.frequency = frequency;
     config.minScale = minScale;
     config.maxScale = maxScale;
+    config.baseRotation = baseRotation; // Store the correction
     proceduralRegistry.push_back(config);
 }
 
 void Scene::GenerateProceduralObjects(int count, float terrainRadius, float deltaY, float heightScale, float noiseFreq) {
     if (proceduralRegistry.empty()) return;
 
-    // Calculate total frequency weight
     float totalFreq = 0.0f;
     for (const auto& item : proceduralRegistry) totalFreq += item.frequency;
 
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_real_distribution<float> distRad(0.0f, terrainRadius * 0.9f); // Keep slightly away from absolute edge
+    std::uniform_real_distribution<float> distRad(0.0f, terrainRadius * 0.9f);
     std::uniform_real_distribution<float> distAngle(0.0f, glm::two_pi<float>());
     std::uniform_real_distribution<float> distFreq(0.0f, totalFreq);
     std::uniform_real_distribution<float> distScale(0.0f, 1.0f);
     std::uniform_real_distribution<float> distRot(0.0f, 360.0f);
 
     for (int i = 0; i < count; i++) {
-        // 1. Pick a random position on the disc
-        float r = std::sqrt(distScale(gen)) * (terrainRadius * 0.9f); // sqrt for uniform area distribution
+        // 1. Pick Position
+        float r = std::sqrt(distScale(gen)) * (terrainRadius * 0.9f);
         float theta = distAngle(gen);
         float x = r * cos(theta);
         float z = r * sin(theta);
 
-        // 2. Calculate correct height using the same math as the terrain generator
+        // 2. Calculate Height
         float yOffset = GeometryGenerator::GetTerrainHeight(x, z, terrainRadius, heightScale, noiseFreq);
-        float y = deltaY + yOffset; // Apply the terrain's base Y shift
+        float y = deltaY + yOffset;
 
-        // 3. Select object based on frequency
+        // 3. Select Object
         float pick = distFreq(gen);
         float current = 0.0f;
         int selectedIndex = 0;
@@ -91,12 +91,37 @@ void Scene::GenerateProceduralObjects(int count, float terrainRadius, float delt
         scale.y = glm::mix(config.minScale.y, config.maxScale.y, distScale(gen));
         scale.z = glm::mix(config.minScale.z, config.maxScale.z, distScale(gen));
 
-        // 5. Randomize Rotation (Yaw)
-        glm::vec3 rot = glm::vec3(0.0f, distRot(gen), 0.0f);
-
-        // 6. Spawn
+        // 5. Spawn Object (with dummy rotation initially)
         std::string name = "ProcObj_" + std::to_string(i);
-        AddModel(name, glm::vec3(x, y, z), rot, scale, config.modelPath, config.texturePath);
+        // We pass 0 rotation here because we will manually overwrite the matrix below
+        AddModel(name, glm::vec3(x, y, z), glm::vec3(0.0f), scale, config.modelPath, config.texturePath);
+
+        // 6. Overwrite Transform with Correct Rotation Order
+        if (!objects.empty()) {
+            auto& obj = objects.back();
+            glm::mat4 m = glm::mat4(1.0f);
+
+            // A. Translate to position
+            m = glm::translate(m, glm::vec3(x, y, z));
+
+            // B. Apply World Yaw (Random Rotation around Y)
+            // This spins the object "in place" relative to the world, keeping it upright
+            float randomYaw = distRot(gen);
+            m = glm::rotate(m, glm::radians(randomYaw), glm::vec3(0.0f, 1.0f, 0.0f));
+
+            // C. Apply Base Rotation Correction (e.g. Stand up the cactus)
+            // This applies to the model's local axes
+            if (glm::length(config.baseRotation) > 0.001f) {
+                m = glm::rotate(m, glm::radians(config.baseRotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+                m = glm::rotate(m, glm::radians(config.baseRotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+                m = glm::rotate(m, glm::radians(config.baseRotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+            }
+
+            // D. Scale
+            m = glm::scale(m, scale);
+
+            obj->transform = m;
+        }
     }
 }
 

@@ -74,19 +74,18 @@ void Application::SetupScene() {
     float terrainHeightScale = 3.5f;
     float terrainNoiseFreq = 0.02f;
 
-    scene->AddTerrain("GroundGrid", orbRadius, deltaY, 128, 128, 3.5f, 0.02f, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), "textures/desert.jpg");
+    scene->AddTerrain("GroundGrid", orbRadius, deltaY, 128, 128, 3.5f, 0.02f, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), "textures/desert2.jpg");
 
     // High frequency cacti (small)
-    scene->RegisterProceduralObject("models/cactus.obj", "textures/cactus.jpg", 10.0f, glm::vec3(0.1f), glm::vec3(0.2f));
-
+    scene->RegisterProceduralObject("models/cactus.obj", "textures/cactus.jpg", 10.0f, glm::vec3(0.01f), glm::vec3(0.02f), glm::vec3(-90.0f, 0.0f, 0.0f));
     // Medium frequency dead trees
-    scene->RegisterProceduralObject("models/DeadTree.obj", "textures/bark.jpg", 3.0f, glm::vec3(1.0f), glm::vec3(2.0f));
+    scene->RegisterProceduralObject("models/DeadTree.obj", "textures/bark.jpg", 3.0f, glm::vec3(0.1f), glm::vec3(0.2f));
 
     // Low frequency large trees
-    scene->RegisterProceduralObject("models/DeadTree.obj", "textures/bark.jpg", 1.0f, glm::vec3(2.5f), glm::vec3(3.5f));
+    scene->RegisterProceduralObject("models/DeadTree.obj", "textures/bark.jpg", 1.0f, glm::vec3(0.25f), glm::vec3(0.35f));
 
     // 3. Generate them! (Spawn 50 random objects)
-    scene->GenerateProceduralObjects(10, terrainRadius, deltaY, terrainHeightScale, terrainNoiseFreq);
+    scene->GenerateProceduralObjects(25, terrainRadius, deltaY, terrainHeightScale, terrainNoiseFreq);
 
     float orbitRadius = 275.0f;
     float startSpeed = 0.1f;
@@ -106,14 +105,6 @@ void Application::SetupScene() {
 
     scene->SetObjectOrbit("Moon", glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), glm::pi<float>());
     scene->SetLightOrbit("Moon", glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), glm::pi<float>());
-
-    //scene->AddModel("Tree1", glm::vec3(80.0f, 0.0f + deltaY, -40.0f), glm::vec3(0.0f, 45.0f, 0.0f), glm::vec3(1.8f), "models/DeadTree.obj", "textures/bark.jpg");
-    //scene->AddModel("Tree2", glm::vec3(-80.0f, 0.0f + deltaY, 40.0f), glm::vec3(0.0f, 20.0f, 0.0f), glm::vec3(1.0f), "models/DeadTree.obj", "textures/bark.jpg");
-    //scene->AddModel("Tree3", glm::vec3(-40.0f, 0.0f + deltaY, 80.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(2.2f), "models/DeadTree.obj", "textures/bark.jpg");
-    //scene->AddModel("Tree4", glm::vec3(40.0f, 0.0f + deltaY, -80.0f), glm::vec3(0.0f, 90.0f, 0.0f), glm::vec3(2.6f), "models/DeadTree.obj", "textures/bark.jpg");
-
-    //scene->AddModel("Cactus", glm::vec3(0.0f, -4.0f + deltaY, 0.0f), glm::vec3(-90.0f, 0.0f, 0.0f), glm::vec3(0.14f), "models/cactus.obj", "textures/cactus.jpg");
-
 
     scene->AddSphere("CrystalBall", 32, 64, orbRadius, glm::vec3(0.0f, 0.0f, 0.0f), "");
     scene->SetObjectShadingMode("CrystalBall", 3);

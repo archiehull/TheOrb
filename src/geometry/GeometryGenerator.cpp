@@ -62,10 +62,20 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateTerrain(VkDevice device, VkPh
             float x = r * cos(theta);
             float z = r * sin(theta);
 
-            // CALL THE SHARED FUNCTION
-            float y = GetTerrainHeight(x, z, radius, heightScale, noiseFreq);
+            // Re-use the centralized height logic if you implemented GetTerrainHeight, 
+            // otherwise keep the noise logic here.
+            // For this snippet, I'll assume the noise logic is inline or called via helper.
+            float y = 0.0f;
+            y += glm::perlin(glm::vec2(x, z) * noiseFreq);
+            y += glm::perlin(glm::vec2(x, z) * noiseFreq * 2.0f) * 0.25f;
+            y *= heightScale;
 
-            // Optional: Flatten center slightly
+            // Apply edge mask (inline logic for consistency with previous file)
+            float edgeFactor = (float)i / rings;
+            if (edgeFactor > 0.9f) {
+                float mask = 1.0f - ((edgeFactor - 0.9f) * 10.0f);
+                y *= mask;
+            }
             if (i == 0) y = 0.0f;
 
             glm::vec3 pos(x, y, z);
@@ -75,24 +85,24 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateTerrain(VkDevice device, VkPh
             glm::vec3 lowColor = glm::vec3(0.35f, 0.30f, 0.25f);
             glm::vec3 highColor = glm::vec3(0.45f, 0.40f, 0.30f);
             glm::vec3 color = glm::mix(lowColor, highColor, hFactor);
+            if (edgeFactor > 0.9f) color *= (1.0f - ((edgeFactor - 0.9f) * 10.0f));
 
-            // Edge Darkening
-            float edgeFactor = (float)i / rings;
-            if (edgeFactor > 0.9f) {
-                color *= 1.0f - ((edgeFactor - 0.9f) * 10.0f);
-            }
-
-            // UVs
+            // UV Mapping with Tiling
             glm::vec2 uv;
+            // Original 0..1 range
             uv.x = (x / radius) * 0.5f + 0.5f;
             uv.y = (z / radius) * 0.5f + 0.5f;
+
+
+            float textureTiling = 80.0f;
+            // Apply tiling
+            uv *= textureTiling;
 
             glm::vec3 normal = glm::vec3(0.0f, 1.0f, 0.0f);
             vertices.push_back({ pos, color, uv, normal });
         }
     }
 
-    // Indices (Standard grid logic for polar coords)
     for (int i = 0; i < rings; ++i) {
         for (int j = 0; j < segments; ++j) {
             uint32_t current = i * (segments + 1) + j;
@@ -108,7 +118,6 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateTerrain(VkDevice device, VkPh
         }
     }
 
-    // Recalculate Normals
     for (auto& v : vertices) v.normal = glm::vec3(0.0f);
     for (size_t i = 0; i < indices.size(); i += 3) {
         uint32_t i0 = indices[i];

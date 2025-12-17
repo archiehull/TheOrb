@@ -1,5 +1,36 @@
-﻿  Performing Custom Build Tools
-  Performing Custom Build Tools
-  .\src\shaders\shader.vert:6: error: '' :  syntax error, unexpected INTCONSTANT, expecting RIGHT_PAREN or COMMA
-  1 error generated.
-C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Microsoft\VC\v170\Microsoft.CppCommon.targets(254,5): error MSB8066: Custom build for 'src\shaders\shader.frag;src\shaders\shader.vert' exited with code 1.
+﻿  Application.cpp
+  Window.cpp
+  Geometry.cpp
+  GeometryGenerator.cpp
+C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.cpp(60,25): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.cpp(240,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.cpp(245,25): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  OBJLoader.cpp
+C:\Users\a\Desktop\TheOrb\src\geometry\OBJLoader.cpp(84,21): warning C4101: 'val': unreferenced local variable
+  main.cpp
+  Camera.cpp
+  CameraController.cpp
+  Cubemap.cpp
+  GraphicsPipeline.cpp
+  ParticleSystem.cpp
+  Renderer.cpp
+  Scene.cpp
+  ShadowPass.cpp
+  SkyboxPass.cpp
+  Texture.cpp
+  VulkanBuffer.cpp
+  VulkanCommandBuffer.cpp
+  VulkanContext.cpp
+  VulkanDescriptorSet.cpp
+  Compiling...
+  VulkanDevice.cpp
+  VulkanRenderPass.cpp
+  VulkanShader.cpp
+  VulkanSwapChain.cpp
+  VulkanSyncObjects.cpp
+  VulkanUtils.cpp
+  Generating code
+  Previous IPDB was built with incompatible compiler, fall back to full compilation.
+  All 4090 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  TheOrb.vcxproj -> C:\Users\a\Desktop\TheOrb\x64\Release\TheOrb.exe

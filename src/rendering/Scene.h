@@ -46,9 +46,10 @@ struct SceneObject {
 struct ProceduralObjectConfig {
     std::string modelPath;
     std::string texturePath;
-    float frequency; // Likelihood (weight)
+    float frequency;
     glm::vec3 minScale;
     glm::vec3 maxScale;
+    glm::vec3 baseRotation;
 };
 
 class Scene {
@@ -72,8 +73,7 @@ public:
         VkDescriptorSetLayout layout, uint32_t framesInFlight);
 
     // Procedural Generation API
-    void RegisterProceduralObject(const std::string& modelPath, const std::string& texturePath, float frequency, const glm::vec3& minScale, const glm::vec3& maxScale);
-    void GenerateProceduralObjects(int count, float terrainRadius, float deltaY, float heightScale, float noiseFreq);
+    void RegisterProceduralObject(const std::string& modelPath, const std::string& texturePath, float frequency, const glm::vec3& minScale, const glm::vec3& maxScale, const glm::vec3& baseRotation = glm::vec3(0.0f));    void GenerateProceduralObjects(int count, float terrainRadius, float deltaY, float heightScale, float noiseFreq);
 
 
     // Particle Methods
