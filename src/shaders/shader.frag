@@ -26,6 +26,7 @@ layout(set = 0, binding = 0) uniform UniformBufferObject {
     mat4 lightSpaceMatrix;
     Light lights[MAX_LIGHTS];
     int numLights;
+    float dayNightFactor; // Ensure this matches C++ UBO
 } ubo;
 
 layout(push_constant) uniform PushConstantObject {
@@ -39,7 +40,6 @@ layout(set = 0, binding = 1) uniform sampler2D shadowMap;
 layout(set = 0, binding = 2) uniform sampler2D refractionSampler; 
 
 layout(set = 1, binding = 0) uniform sampler2D texSampler;
-
 layout(location = 0) out vec4 outColor;
 
 float ShadowCalculation(vec4 fragPosLightSpace) {
@@ -52,7 +52,9 @@ float ShadowCalculation(vec4 fragPosLightSpace) {
     
     vec3 normal = normalize(fragNormal);
     vec3 lightDir = normalize(ubo.lights[0].position - fragPos);
-    float bias = max(0.0001 * (1.0 - dot(normal, lightDir)), 0.0005);
+    
+    // Bias: Prevent shadow acne
+    float bias = max(0.0005 * (1.0 - dot(normal, lightDir)), 0.0001); 
 
     float shadow = 0.0;
     vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
@@ -73,33 +75,26 @@ void main() {
         vec3 I = normalize(fragPos - ubo.viewPos);
         vec3 N = normalize(fragNormal);
         
-        // 1. Calculate Screen Coordinates
         vec2 viewportSize = vec2(textureSize(refractionSampler, 0));
         vec2 screenUV = gl_FragCoord.xy / viewportSize;
 
-        // 2. Distort UVs
-        vec2 distortion = N.xy * 0.40; 
+        vec2 distortion = N.xy * 0.40;
         vec2 refractedUV = screenUV + distortion;
 
-        // 3. Sample
         vec3 refractionColor = texture(refractionSampler, refractedUV).rgb;
-
-        // 4. Foggy Tint
         vec3 foggyTint = vec3(0.9, 0.95, 1.0) * 0.2;
         vec3 baseColor = mix(refractionColor, foggyTint, 0.6);
 
-        // 5. Specular
         vec3 lightDir = normalize(ubo.lights[0].position - fragPos);
         vec3 H = normalize(lightDir - I);
         float spec = pow(max(dot(N, H), 0.0), 64.0);
         vec3 specularColor = spec * ubo.lights[0].color * 1.5;
 
-        // 6. Alpha
         float fresnel = pow(1.0 - max(dot(-I, N), 0.0), 2.0);
         float alpha = clamp(0.2 + (fresnel * 0.7), 0.0, 1.0);
         
         outColor = vec4(baseColor + specularColor, alpha);
-        return; 
+        return;
     }
 
     // --- 2. DARK GLOSS SHELL (Mode 4: Outer Sphere) ---
@@ -107,20 +102,12 @@ void main() {
         vec3 I = normalize(fragPos - ubo.viewPos);
         vec3 N = normalize(fragNormal);
 
-        // A. Base Color (Smoked Glass / Dark Tint)
-        vec3 darkTint = vec3(0.02, 0.02, 0.05); 
-
-        // B. Specular Highlight (Diffused / Soft)
+        vec3 darkTint = vec3(0.02, 0.02, 0.05);
         vec3 lightDir = normalize(ubo.lights[0].position - fragPos);
         vec3 H = normalize(lightDir - I);
 
-        // CHANGE 1: Reduced exponent drastically (256.0 -> 8.0) to make the spot much wider/softer
         float spec = pow(max(dot(N, H), 0.0), 8.0);
-        
-        // CHANGE 2: Lowered intensity (3.0 -> 1.0) so the wide highlight doesn't blind the camera
         vec3 specularColor = spec * ubo.lights[0].color * 0.5;
-
-        // C. Alpha / Opacity
         float fresnel = pow(1.0 - max(dot(-I, N), 0.0), 3.0);
         float alpha = clamp(0.25 + (fresnel * 0.6), 0.0, 1.0);
 
@@ -133,6 +120,21 @@ void main() {
     vec3 lighting = vec3(0.0);
 
     float shadow = ShadowCalculation(fragPosLightSpace);
+
+    // --- NEW LOGIC: Fade shadows at low sun angles ---
+    // Start fading when Sun Y < 30.0, fully gone by Y = -10.0
+    if (ubo.numLights > 0) {
+        float sunHeight = ubo.lights[0].position.y;
+        float fadeStart = 100.0;
+        float fadeEnd = 15.0; // Stop shadows while sun is still somewhat up
+        
+        float shadowFade = clamp((sunHeight - fadeEnd) / (fadeStart - fadeEnd), 0.0, 1.0);
+        
+        // Smooth transition
+        shadowFade = shadowFade * shadowFade * (3.0 - 2.0 * shadowFade);
+        
+        shadow *= shadowFade;
+    }
 
     if (pco.receiveShadows == 0) {
         shadow = 0.0;
@@ -148,7 +150,7 @@ void main() {
 
         for(int i = 0; i < ubo.numLights; i++) {
             if ((ubo.lights[i].layerMask & pco.layerMask) == 0) {
-            continue;
+                continue;
             }   
 
             float ambientStrength = 0.1;
@@ -164,6 +166,7 @@ void main() {
             vec3 specular = specularStrength * spec * ubo.lights[i].color * ubo.lights[i].intensity;
             
             float lightShadow = 0.0;
+            // Only Light 0 (Sun) casts shadows in this setup
             if (i == 0) {
                 lightShadow = shadow;
             }

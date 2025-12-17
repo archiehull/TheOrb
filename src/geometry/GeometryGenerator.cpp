@@ -119,33 +119,29 @@ std::unique_ptr<Geometry> GeometryGenerator::CreatePedestal(VkDevice device, VkP
             float x_circle = topRadius * cos(theta);
             float z_circle = topRadius * sin(theta);
 
-            // 2. Calculate Square Bottom Position
-            // Map circle angle to square perimeter
-            float absCos = fabs(cos(theta));
-            float absSin = fabs(sin(theta));
-            float maxVal = std::max(absCos, absSin);
-
-            // Avoid division by zero
-            float r_square = (maxVal > 0.0f) ? (baseWidth * 0.5f) / maxVal : 0.0f;
-            float x_square = r_square * cos(theta);
-            float z_square = r_square * sin(theta);
+            // 2. Calculate Circular Bottom Position (CHANGED)
+            // Previously this calculated a square profile. 
+            // Now we treat baseWidth as the diameter of a circle.
+            float baseRadius = baseWidth * 0.5f;
+            float x_base = baseRadius * cos(theta);
+            float z_base = baseRadius * sin(theta);
 
             // 3. Interpolate (Linear Loft)
-            // You can use SmoothStep(0, 1, v) for a curved transition, but v is linear (cone-like)
             glm::vec3 pos;
-            pos.x = glm::mix(x_circle, x_square, v);
+            // Linearly interpolate between the top circle and bottom circle
+            pos.x = glm::mix(x_circle, x_base, v);
             pos.y = y;
-            pos.z = glm::mix(z_circle, z_square, v);
+            pos.z = glm::mix(z_circle, z_base, v);
 
             glm::vec2 uv(u, v);
             glm::vec3 color(0.8f, 0.8f, 0.8f);
-            glm::vec3 normal(0.0f, 1.0f, 0.0f); // Placeholder, will compute below
+            glm::vec3 normal(0.0f, 1.0f, 0.0f); // Placeholder, computed below
 
             vertices.push_back({ pos, color, uv, normal });
         }
     }
 
-    // Indices
+    // Indices (Standard Grid Logic)
     for (int i = 0; i < stacks; ++i) {
         for (int j = 0; j < slices; ++j) {
             uint32_t current = i * (slices + 1) + j;

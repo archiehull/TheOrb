@@ -21,4 +21,5 @@ struct UniformBufferObject {
     alignas(16) glm::mat4 lightSpaceMatrix;
     alignas(16) Light lights[MAX_LIGHTS];
     alignas(4) int numLights;
+    alignas(4) float dayNightFactor;
 };

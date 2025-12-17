@@ -686,6 +686,18 @@ void Renderer::RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex,
     size_t count = std::min(lights.size(), (size_t)MAX_LIGHTS);
     if (count > 0) std::memcpy(ubo.lights, lights.data(), count * sizeof(Light));
     ubo.numLights = static_cast<int>(count);
+
+    float factor = 1.0f;
+    if (!lights.empty()) {
+        float sunY = lights[0].position.y;
+        float lower = -50.0f;
+        float upper = 50.0f;
+
+        float t = (sunY - lower) / (upper - lower);
+        factor = std::max(0.0f, std::min(t, 1.0f));
+    }
+    ubo.dayNightFactor = factor;
+
     UpdateUniformBuffer(currentFrame, ubo);
 
     // --- 1. Render Shadow Pass ---

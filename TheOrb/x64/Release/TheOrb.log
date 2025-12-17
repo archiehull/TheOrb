@@ -1,8 +1,2 @@
-﻿  Application.cpp
-C:\Users\a\Desktop\TheOrb\src\core\Application.cpp(83,66): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  Generating code
-  2 of 4104 functions (<0.1%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    9 functions had inline decision re-evaluated but remain unchanged
-  Finished generating code
+﻿  Performing Custom Build Tools
   TheOrb.vcxproj -> C:\Users\a\Desktop\TheOrb\x64\Release\TheOrb.exe

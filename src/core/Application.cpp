@@ -80,9 +80,9 @@ void Application::SetupScene() {
     float adjustedRadius = scene->RadiusAdjustment(orbRadius, deltaY);
 
     scene->AddTerrain("GroundGrid", adjustedRadius, 512, 512, 3.5f, 0.02f, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), "textures/desert2.jpg");
-    scene->AddPedestal("BasePedestal", adjustedRadius, orbRadius * 1.8 , 75.0f, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), "textures/mahogany.jpg");
+    scene->AddPedestal("BasePedestal", adjustedRadius, orbRadius * 2.3 , 100.0f, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), "textures/mahogany.jpg");
 	scene->SetObjectCastsShadow("BasePedestal", false);
-    scene->SetObjectLayerMask("BasePedestal", 0x2);
+    scene->SetObjectLayerMask("BasePedestal", SceneLayers::OUTSIDE);
     
 	
 

@@ -18,6 +18,7 @@ layout(set = 0, binding = 0) uniform UniformBufferObject {
     mat4 lightSpaceMatrix;
     Light lights[MAX_LIGHTS];
     int numLights;
+    float dayNightFactor; // 0.0 = Night, 1.0 = Day
 } ubo;
 
 layout(push_constant) uniform PushConstantObject {
