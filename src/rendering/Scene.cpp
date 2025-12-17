@@ -29,6 +29,19 @@ void Scene::AddObjectInternal(const std::string& name, std::unique_ptr<Geometry>
     objects.push_back(std::move(obj));
 }
 
+float Scene::RadiusAdjustment(const float radius, const float deltaY) {
+    float planeY = deltaY; // height of terrain plane relative to sphere center
+    float terrainRadius = 0.0f;
+    float absDist = std::fabs(planeY);
+    if (absDist < radius) {
+        terrainRadius = std::sqrt(radius * radius - absDist * absDist);
+    }
+    else {
+        terrainRadius = 0.0f; // plane is outside sphere — no intersection
+    }
+	return terrainRadius;
+}
+
 Scene::Scene(VkDevice device, VkPhysicalDevice physicalDevice)
     : device(device), physicalDevice(physicalDevice) {
 }
@@ -125,18 +138,20 @@ void Scene::GenerateProceduralObjects(int count, float terrainRadius, float delt
     }
 }
 
-void Scene::AddTerrain(const std::string& name, float radius, float deltaY, int rings, int segments, float heightScale, float noiseFreq, const glm::vec3& position, const std::string& texturePath) {
-    float planeY = deltaY; // height of terrain plane relative to sphere center
-    float terrainRadius = 0.0f;
-    float absDist = std::fabs(planeY);
-    if (absDist < radius) {
-        terrainRadius = std::sqrt(radius * radius - absDist * absDist);
-    }
-    else {
-        terrainRadius = 0.0f; // plane is outside sphere — no intersection
-    }
-    AddObjectInternal(name, GeometryGenerator::CreateTerrain(device, physicalDevice, terrainRadius -1, rings, segments, heightScale, noiseFreq), position, texturePath);
+
+
+void Scene::AddTerrain(const std::string& name, float radius, int rings, int segments, float heightScale, float noiseFreq, const glm::vec3& position, const std::string& texturePath) {
+    AddObjectInternal(name, GeometryGenerator::CreateTerrain(device, physicalDevice, radius - 1, rings, segments, heightScale, noiseFreq), position, texturePath);
 }
+
+void Scene::AddBowl(const std::string& name, float radius, int slices, int stacks, const glm::vec3& position, const std::string& texturePath) {
+    AddObjectInternal(name, GeometryGenerator::CreateBowl(device, physicalDevice, radius, slices, stacks), position, texturePath);
+}
+
+void Scene::AddPedestal(const std::string& name, float topRadius, float baseWidth, float height, const glm::vec3& position, const std::string& texturePath) {
+    AddObjectInternal(name, GeometryGenerator::CreatePedestal(device, physicalDevice, topRadius, baseWidth, height, 512, 512), position, texturePath);
+}
+
 void Scene::AddCube(const std::string& name, const glm::vec3& position, const glm::vec3& scale, const std::string& texturePath) {
     AddObjectInternal(name, GeometryGenerator::CreateCube(device, physicalDevice), position, texturePath);
 
@@ -195,10 +210,11 @@ void Scene::AddLight(const std::string& name, const glm::vec3& position, const g
     newSceneLight.vulkanLight.color = color;
     newSceneLight.vulkanLight.intensity = intensity;
     newSceneLight.vulkanLight.type = type;
+    newSceneLight.vulkanLight.layerMask = 1;
+    newSceneLight.layerMask = 1;
 
     m_SceneLights.push_back(newSceneLight);
 }
-
 void Scene::SetupParticleSystem(VkCommandPool commandPool, VkQueue graphicsQueue,
     GraphicsPipeline* additivePipeline, GraphicsPipeline* alphaPipeline,
     VkDescriptorSetLayout layout, uint32_t framesInFlight) {
@@ -412,6 +428,29 @@ void Scene::SetObjectTransform(size_t index, const glm::mat4& transform) {
     }
 }
 
+void Scene::SetObjectLayerMask(const std::string& name, int mask) {
+    auto it = std::find_if(objects.begin(), objects.end(),
+        [&name](const std::unique_ptr<SceneObject>& obj) {
+            return obj->name == name;
+        });
+    if (it != objects.end()) {
+        (*it)->layerMask = mask;
+    }
+}
+
+void Scene::SetLightLayerMask(const std::string& name, int mask) {
+    auto it = std::find_if(m_SceneLights.begin(), m_SceneLights.end(),
+        [&name](const SceneLight& light) {
+            return light.name == name;
+        });
+
+    if (it != m_SceneLights.end()) {
+        // Update both the SceneLight wrapper and the internal Vulkan struct
+        const_cast<SceneLight&>(*it).layerMask = mask;
+        const_cast<SceneLight&>(*it).vulkanLight.layerMask = mask;
+    }
+}
+
 void Scene::SetObjectVisible(size_t index, bool visible) {
     if (index < objects.size()) {
         objects[index]->visible = visible;
@@ -429,6 +468,17 @@ void Scene::SetObjectCastsShadow(const std::string& name, bool casts) {
     }
     else {
         std::cerr << "Warning: Scene object with name '" << name << "' not found to set castsShadow=" << casts << std::endl;
+    }
+}
+
+void Scene::SetObjectReceivesShadows(const std::string& name, bool receives) {
+    auto it = std::find_if(objects.begin(), objects.end(),
+        [&name](const std::unique_ptr<SceneObject>& obj) {
+            return obj->name == name;
+        });
+
+    if (it != objects.end()) {
+        (*it)->receiveShadows = receives;
     }
 }
 

@@ -10,7 +10,8 @@ struct Light
     alignas(16) glm::vec3 color;
     float intensity;
     int type;
-    float padding[2];
+    int layerMask;
+    float padding;
 };
 
 struct UniformBufferObject {

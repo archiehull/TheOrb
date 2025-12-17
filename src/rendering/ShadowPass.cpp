@@ -48,8 +48,9 @@ void ShadowPass::Begin(VkCommandBuffer cmd) {
     scissor.extent = { width, height };
     vkCmdSetScissor(cmd, 0, 1, &scissor);
 
-    // Depth Bias (reduces shadow acne)
-    //vkCmdSetDepthBias(cmd, 1.25f, 0.0f, 1.75f);
+    // Enable Depth Bias to reduce shadow acne on the terrain
+    // constantFactor: adds constant offset. slopeFactor: adds offset based on polygon slope.
+    vkCmdSetDepthBias(cmd, 0.5f, 0.0f, 0.5f);
 }
 
 void ShadowPass::End(VkCommandBuffer cmd) {

@@ -7,6 +7,8 @@ struct Light {
     vec3 color;
     float intensity;
     int type;
+    int layerMask;  
+    float padding;
 };
 
 layout(set = 0, binding = 0) uniform UniformBufferObject {
@@ -21,6 +23,8 @@ layout(set = 0, binding = 0) uniform UniformBufferObject {
 layout(push_constant) uniform PushConstantObject {
     mat4 model;
     int shadingMode;
+    int receiveShadows; 
+    int layerMask;      
 } pco;
 
 layout(location = 0) in vec3 inPosition;
@@ -32,9 +36,9 @@ layout(location = 0) out vec3 fragColor;
 layout(location = 1) out vec2 fragUV;
 layout(location = 2) out vec3 fragNormal;
 layout(location = 3) out vec3 fragPos;
-layout(location = 4) out vec3 fragGouraudColor;    // Holds ONLY Sun light (Index 0)
+layout(location = 4) out vec3 fragGouraudColor;
 layout(location = 5) out vec4 fragPosLightSpace;
-layout(location = 6) out vec3 fragOtherLightColor; // Holds Moon/Other lights (Index 1+)
+layout(location = 6) out vec3 fragOtherLightColor;
 
 void main() {
     vec4 worldPos = pco.model * vec4(inPosition, 1.0);

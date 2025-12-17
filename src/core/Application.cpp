@@ -68,41 +68,45 @@ void Application::InitVulkan() {
 }
 
 void Application::SetupScene() {
+    float orbitRadius = 275.0f;
+    float startSpeed = 0.1f;
+    dayNightSpeed = startSpeed;
+
     float deltaY = -75.0f;
 	float orbRadius = 150.0f;
-    float terrainRadius = 130.0f;
     float terrainHeightScale = 3.5f;
     float terrainNoiseFreq = 0.02f;
 
-    scene->AddTerrain("GroundGrid", orbRadius, deltaY, 128, 128, 3.5f, 0.02f, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), "textures/desert2.jpg");
+    float adjustedRadius = scene->RadiusAdjustment(orbRadius, deltaY);
+
+    scene->AddTerrain("GroundGrid", adjustedRadius, 512, 512, 3.5f, 0.02f, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), "textures/desert2.jpg");
+    scene->AddPedestal("BasePedestal", adjustedRadius, orbRadius * 1.8 , 75.0f, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), "textures/mahogany.jpg");
+	scene->SetObjectCastsShadow("BasePedestal", false);
+    scene->SetObjectLayerMask("BasePedestal", 0x2);
+
+	scene->AddSphere("PedestalLightSphere", 16, 32, 5.0f, glm::vec3(200.0f, 0.0f, 200.0f));
+    scene->AddLight("PedestalLight", glm::vec3(200.0f, 0.0f, 200.0f), glm::vec3(1.0f, 0.5f, 0.2f), 5.0f, 0);
+    scene->SetLightLayerMask("PedestalLight", 0x2);
 
     // High frequency cacti (small)
     scene->RegisterProceduralObject("models/cactus.obj", "textures/cactus.jpg", 10.0f, glm::vec3(0.01f), glm::vec3(0.02f), glm::vec3(-90.0f, 0.0f, 0.0f));
     // Medium frequency dead trees
     scene->RegisterProceduralObject("models/DeadTree.obj", "textures/bark.jpg", 3.0f, glm::vec3(0.1f), glm::vec3(0.2f));
-
     // Low frequency large trees
     scene->RegisterProceduralObject("models/DeadTree.obj", "textures/bark.jpg", 1.0f, glm::vec3(0.25f), glm::vec3(0.35f));
+    scene->GenerateProceduralObjects(25, orbRadius-20, deltaY, terrainHeightScale, terrainNoiseFreq);
 
-    // 3. Generate them! (Spawn 50 random objects)
-    scene->GenerateProceduralObjects(25, terrainRadius, deltaY, terrainHeightScale, terrainNoiseFreq);
 
-    float orbitRadius = 275.0f;
-    float startSpeed = 0.1f;
-    dayNightSpeed = startSpeed;
 
     scene->AddSphere("Sun", 16, 32, 20.0f, glm::vec3(0.0f), "textures/sun.png");
     scene->AddLight("Sun", glm::vec3(0.0f), glm::vec3(1.0f, 0.9f, 0.8f), 1.0f, 0);
     scene->SetObjectCastsShadow("Sun", false);
-
     scene->SetObjectOrbit("Sun", glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), 0.0f);
     scene->SetLightOrbit("Sun", glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), 0.0f);
 
     scene->AddSphere("Moon", 16, 32, 12.0f, glm::vec3(0.0f), "textures/moon.jpg");
     scene->AddLight("Moon", glm::vec3(0.0f), glm::vec3(0.1f, 0.1f, 0.3f), 1.5f, 0);
     scene->SetObjectCastsShadow("Moon", false);
-
-
     scene->SetObjectOrbit("Moon", glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), glm::pi<float>());
     scene->SetLightOrbit("Moon", glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), glm::pi<float>());
 
@@ -110,11 +114,10 @@ void Application::SetupScene() {
     scene->SetObjectShadingMode("CrystalBall", 3);
     scene->SetObjectCastsShadow("CrystalBall", false);
 
-
     scene->AddSphere("FogShell", 32, 64, orbRadius + 1, glm::vec3(0.0f, 0.0f, 0.0f), "");
     scene->SetObjectShadingMode("FogShell", 4);
     scene->SetObjectCastsShadow("FogShell", false);
-
+    scene->SetObjectLayerMask("FogShell", 0x1 | 0x2);
 
     scene->AddFire(glm::vec3(0.0f, 0.5f + deltaY, 0.0f), 1.0f, true);   // Fire + Smoke
     scene->AddFire(glm::vec3(-25.0f, 0.5f + deltaY, 0.0f), 1.0f, true);

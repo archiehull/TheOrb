@@ -23,6 +23,7 @@ struct SceneLight {
     std::string name;
     Light vulkanLight;
     OrbitData orbitData;
+    int layerMask = 1; // Default to Layer 1 (General)
 };
 
 struct SceneObject {
@@ -33,10 +34,12 @@ struct SceneObject {
     std::string texturePath;
     int shadingMode = 1; // 0=Gouraud, 1=Phong (Default)
 
-    // New: whether this object contributes to shadow map generation
     bool castsShadow = true;
+    bool receiveShadows = true;
 
     OrbitData orbitData;
+
+    int layerMask = 1; // Default to Layer 1 (General)
 
     SceneObject(std::unique_ptr<Geometry> geo, const std::string& texPath = "", const std::string& objName = "")
         : geometry(std::move(geo)), texturePath(texPath), name(objName) {
@@ -57,7 +60,11 @@ public:
     Scene(VkDevice device, VkPhysicalDevice physicalDevice);
     ~Scene();
 
-    void AddTerrain(const std::string& name, float radius, float deltaY, int rings, int segments, float heightScale, float noiseFreq, const glm::vec3& position, const std::string& texturePath);    void AddCube(const std::string& name, const glm::vec3& position = glm::vec3(0.0f), const glm::vec3& scale = glm::vec3(1.0f), const std::string& texturePath = "");
+    float RadiusAdjustment(const float radius, const float deltaY);
+
+    void AddTerrain(const std::string& name, float radius, int rings, int segments, float heightScale, float noiseFreq, const glm::vec3& position, const std::string& texturePath);
+
+    void AddCube(const std::string& name, const glm::vec3& position = glm::vec3(0.0f), const glm::vec3& scale = glm::vec3(1.0f), const std::string& texturePath = "");
     void AddGrid(const std::string& name, int rows, int cols, float cellSize = 0.1f, const glm::vec3& position = glm::vec3(0.0f), const std::string& texturePath = "");
     void AddSphere(const std::string& name, int stacks = 16, int slices = 32, float radius = 0.5f, const glm::vec3& position = glm::vec3(0.0f), const std::string& texturePath = "");
     void AddModel(const std::string& name, const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale, const std::string& modelPath, const std::string& texturePath);
@@ -68,13 +75,16 @@ public:
     void SetObjectOrbit(const std::string& name, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad = 0.0f);
     void SetLightOrbit(const std::string& name, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad = 0.0f);
 
+    void AddBowl(const std::string& name, float radius, int slices, int stacks, const glm::vec3& position, const std::string& texturePath);
+    void AddPedestal(const std::string& name, float topRadius, float baseWidth, float height, const glm::vec3& position, const std::string& texturePath);
+
     void SetupParticleSystem(VkCommandPool commandPool, VkQueue graphicsQueue,
         GraphicsPipeline* additivePipeline, GraphicsPipeline* alphaPipeline,
         VkDescriptorSetLayout layout, uint32_t framesInFlight);
 
     // Procedural Generation API
-    void RegisterProceduralObject(const std::string& modelPath, const std::string& texturePath, float frequency, const glm::vec3& minScale, const glm::vec3& maxScale, const glm::vec3& baseRotation = glm::vec3(0.0f));    void GenerateProceduralObjects(int count, float terrainRadius, float deltaY, float heightScale, float noiseFreq);
-
+    void RegisterProceduralObject(const std::string& modelPath, const std::string& texturePath, float frequency, const glm::vec3& minScale, const glm::vec3& maxScale, const glm::vec3& baseRotation = glm::vec3(0.0f));
+    void GenerateProceduralObjects(int count, float terrainRadius, float deltaY, float heightScale, float noiseFreq);
 
     // Particle Methods
     void AddFire(const glm::vec3& position, float scale, bool createSmoke);
@@ -99,9 +109,11 @@ public:
     void SetObjectVisible(size_t index, bool visible);
     void SetOrbitSpeed(const std::string& name, float speedRadPerSec);
 
-    // New: enable/disable shadow casting for named object
-    void SetObjectCastsShadow(const std::string& name, bool casts);
+    void SetObjectLayerMask(const std::string& name, int mask);
+    void SetLightLayerMask(const std::string& name, int mask);
 
+    void SetObjectCastsShadow(const std::string& name, bool casts);
+    void SetObjectReceivesShadows(const std::string& name, bool receives);
     void SetObjectShadingMode(const std::string& name, int mode);
 
     void Cleanup();
@@ -109,7 +121,6 @@ public:
 private:
     void AddObjectInternal(const std::string& name, std::unique_ptr<Geometry> geometry, const glm::vec3& position, const std::string& texturePath);
     glm::vec3 InitializeOrbit(OrbitData& data, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad);
-
 
     std::vector<SceneLight> m_SceneLights;
     VkDevice device;

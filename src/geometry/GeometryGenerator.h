@@ -16,6 +16,11 @@ public:
         float radius, int rings, int segments, float heightScale, float noiseFreq);
     static float GetTerrainHeight(float x, float z, float radius, float heightScale, float noiseFreq);
 
+    static std::unique_ptr<Geometry> CreateBowl(VkDevice device, VkPhysicalDevice physicalDevice,
+        float radius, int slices, int stacks);
+
+    static std::unique_ptr<Geometry> CreatePedestal(VkDevice device, VkPhysicalDevice physicalDevice,
+        float topRadius, float baseWidth, float height, int slices, int stacks);
 private:
     static glm::vec3 GenerateColor(int index, int total);
 };

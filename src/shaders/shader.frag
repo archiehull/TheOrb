@@ -7,6 +7,8 @@ struct Light {
     vec3 color;
     float intensity;
     int type;
+    int layerMask;
+    float padding;
 };
 
 layout(location = 0) in vec3 fragColor;
@@ -29,6 +31,8 @@ layout(set = 0, binding = 0) uniform UniformBufferObject {
 layout(push_constant) uniform PushConstantObject {
     mat4 model;
     int shadingMode;
+    int receiveShadows;
+    int layerMask;
 } pco;
 
 layout(set = 0, binding = 1) uniform sampler2D shadowMap;
@@ -46,10 +50,12 @@ float ShadowCalculation(vec4 fragPosLightSpace) {
     if(projCoords.z > 1.0 || projCoords.z < 0.0) return 0.0;
     if(projCoords.x < 0.0 || projCoords.x > 1.0 || projCoords.y < 0.0 || projCoords.y > 1.0) return 0.0;
     
-    float bias = 0.005;
+    vec3 normal = normalize(fragNormal);
+    vec3 lightDir = normalize(ubo.lights[0].position - fragPos);
+    float bias = max(0.0001 * (1.0 - dot(normal, lightDir)), 0.0005);
+
     float shadow = 0.0;
     vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
-    
     for(int x = -1; x <= 1; ++x) {
         for(int y = -1; y <= 1; ++y) {
             float pcfDepth = texture(shadowMap, projCoords.xy + vec2(x, y) * texelSize).r;
@@ -128,6 +134,10 @@ void main() {
 
     float shadow = ShadowCalculation(fragPosLightSpace);
 
+    if (pco.receiveShadows == 0) {
+        shadow = 0.0;
+    }
+
     if (pco.shadingMode == 0) {
         // Gouraud
         lighting = fragGouraudColor * (1.0 - shadow) + fragOtherLightColor;
@@ -137,6 +147,10 @@ void main() {
         vec3 viewDir = normalize(ubo.viewPos - fragPos);
 
         for(int i = 0; i < ubo.numLights; i++) {
+            if ((ubo.lights[i].layerMask & pco.layerMask) == 0) {
+            continue;
+            }   
+
             float ambientStrength = 0.1;
             vec3 ambient = ambientStrength * ubo.lights[i].color * ubo.lights[i].intensity;
 

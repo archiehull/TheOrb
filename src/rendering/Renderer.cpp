@@ -153,7 +153,7 @@ void Renderer::DrawFrame(Scene& scene, uint32_t currentFrame, const glm::mat4& v
 
 void Renderer::CreateShadowPass() {
     // Shadow resolution typically higher than screen, e.g., 2048 or 4096
-    shadowPass = std::make_unique<ShadowPass>(device, 2048, 2048);
+    shadowPass = std::make_unique<ShadowPass>(device, 16384, 16384);
     // Initialize passing the Global UBO Layout (Set 0)
     shadowPass->Initialize(descriptorSet->GetLayout());
 }
@@ -473,6 +473,8 @@ void Renderer::RenderRefractionPass(VkCommandBuffer cmd, uint32_t currentFrame, 
         PushConstantObject pco{};
         pco.model = obj->transform;
         pco.shadingMode = obj->shadingMode;
+        pco.receiveShadows = obj->receiveShadows ? 1 : 0;
+        pco.layerMask = obj->layerMask;
         vkCmdPushConstants(cmd, graphicsPipeline->GetLayout(), VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(PushConstantObject), &pco);
 
         VkDescriptorSet textureSet = GetTextureDescriptorSet(obj->texturePath);

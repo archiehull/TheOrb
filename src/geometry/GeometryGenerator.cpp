@@ -46,6 +46,151 @@ float GeometryGenerator::GetTerrainHeight(float x, float z, float radius, float 
     return y;
 }
 
+std::unique_ptr<Geometry> GeometryGenerator::CreateBowl(VkDevice device, VkPhysicalDevice physicalDevice, float radius, int slices, int stacks) {
+    auto geometry = std::make_unique<Geometry>(device, physicalDevice);
+
+    // Generate Bottom Hemisphere (Phi: PI/2 -> PI)
+    for (int i = 0; i <= stacks; ++i) {
+        // Interpolate v from 0 to 1
+        float v = (float)i / stacks;
+
+        // phi goes from PI/2 (Equator) to PI (South Pole)
+        float phi = M_PI * 0.5f + (M_PI * 0.5f * v);
+
+        float y = radius * cos(phi);
+        float r_at_y = radius * sin(phi);
+
+        for (int j = 0; j <= slices; ++j) {
+            float u = (float)j / slices;
+            float theta = 2.0f * M_PI * u;
+
+            float x = r_at_y * cos(theta);
+            float z = r_at_y * sin(theta);
+
+            glm::vec3 pos(x, y, z);
+            glm::vec3 normal = glm::normalize(pos);
+
+            // Texture coordinates: u wraps around, v goes top-to-bottom of the bowl
+            glm::vec2 uv(u, v);
+
+            // Simple white/grey color base
+            glm::vec3 color(0.8f, 0.8f, 0.8f);
+
+            geometry->GetVertices().push_back({ pos, color, uv, normal });
+        }
+    }
+
+    // Indices (Standard Grid Logic)
+    for (int i = 0; i < stacks; ++i) {
+        for (int j = 0; j < slices; ++j) {
+            uint32_t first = i * (slices + 1) + j;
+            uint32_t second = first + (slices + 1);
+
+            geometry->GetIndices().push_back(first);
+            geometry->GetIndices().push_back(first + 1);
+            geometry->GetIndices().push_back(second);
+
+            geometry->GetIndices().push_back(first + 1);
+            geometry->GetIndices().push_back(second + 1);
+            geometry->GetIndices().push_back(second);
+        }
+    }
+
+    geometry->CreateBuffers();
+    return geometry;
+}
+
+std::unique_ptr<Geometry> GeometryGenerator::CreatePedestal(VkDevice device, VkPhysicalDevice physicalDevice,
+    float topRadius, float baseWidth, float height, int slices, int stacks) {
+
+    auto geometry = std::make_unique<Geometry>(device, physicalDevice);
+    std::vector<Vertex>& vertices = geometry->GetVertices();
+    std::vector<uint32_t>& indices = geometry->GetIndices();
+
+    for (int i = 0; i <= stacks; ++i) {
+        float v = (float)i / stacks;
+        float y = -v * height; // Goes down from 0 to -height
+
+        for (int j = 0; j <= slices; ++j) {
+            float u = (float)j / slices;
+            float theta = 2.0f * M_PI * u;
+
+            // 1. Calculate Circular Top Position
+            float x_circle = topRadius * cos(theta);
+            float z_circle = topRadius * sin(theta);
+
+            // 2. Calculate Square Bottom Position
+            // Map circle angle to square perimeter
+            float absCos = fabs(cos(theta));
+            float absSin = fabs(sin(theta));
+            float maxVal = std::max(absCos, absSin);
+
+            // Avoid division by zero
+            float r_square = (maxVal > 0.0f) ? (baseWidth * 0.5f) / maxVal : 0.0f;
+            float x_square = r_square * cos(theta);
+            float z_square = r_square * sin(theta);
+
+            // 3. Interpolate (Linear Loft)
+            // You can use SmoothStep(0, 1, v) for a curved transition, but v is linear (cone-like)
+            glm::vec3 pos;
+            pos.x = glm::mix(x_circle, x_square, v);
+            pos.y = y;
+            pos.z = glm::mix(z_circle, z_square, v);
+
+            glm::vec2 uv(u, v);
+            glm::vec3 color(0.8f, 0.8f, 0.8f);
+            glm::vec3 normal(0.0f, 1.0f, 0.0f); // Placeholder, will compute below
+
+            vertices.push_back({ pos, color, uv, normal });
+        }
+    }
+
+    // Indices
+    for (int i = 0; i < stacks; ++i) {
+        for (int j = 0; j < slices; ++j) {
+            uint32_t current = i * (slices + 1) + j;
+            uint32_t next = current + (slices + 1);
+
+            indices.push_back(current);
+            indices.push_back(current + 1);
+            indices.push_back(next);
+
+            indices.push_back(current + 1);
+            indices.push_back(next + 1);
+            indices.push_back(next);
+        }
+    }
+
+    // Compute Normals (Smooth)
+    for (auto& v : vertices) v.normal = glm::vec3(0.0f);
+    for (size_t i = 0; i < indices.size(); i += 3) {
+        uint32_t i0 = indices[i];
+        uint32_t i1 = indices[i + 1];
+        uint32_t i2 = indices[i + 2];
+
+        glm::vec3 v0 = vertices[i0].pos;
+        glm::vec3 v1 = vertices[i1].pos;
+        glm::vec3 v2 = vertices[i2].pos;
+
+        glm::vec3 edge1 = v1 - v0;
+        glm::vec3 edge2 = v2 - v0;
+        glm::vec3 normal = glm::cross(edge1, edge2);
+
+        vertices[i0].normal += normal;
+        vertices[i1].normal += normal;
+        vertices[i2].normal += normal;
+    }
+    for (auto& v : vertices) {
+        if (glm::length(v.normal) > 0.00001f)
+            v.normal = glm::normalize(v.normal);
+        else
+            v.normal = glm::vec3(0, 1, 0);
+    }
+
+    geometry->CreateBuffers();
+    return geometry;
+}
+
 std::unique_ptr<Geometry> GeometryGenerator::CreateTerrain(VkDevice device, VkPhysicalDevice physicalDevice,
     float radius, int rings, int segments, float heightScale, float noiseFreq) {
 
