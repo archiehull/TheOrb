@@ -85,7 +85,7 @@ void SkyboxPass::Initialize(VkRenderPass renderPass, VkExtent2D extent, VkDescri
     // Settings for "Crystal Ball" (viewable from inside)
     config.cullMode = VK_CULL_MODE_FRONT_BIT;
     config.depthTestEnable = true;
-    config.depthWriteEnable = true;
+    config.depthWriteEnable = false;
 
     pipeline = std::make_unique<GraphicsPipeline>(device, config);
     pipeline->Create();

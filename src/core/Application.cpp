@@ -84,31 +84,38 @@ void Application::SetupScene() {
 	scene->SetObjectCastsShadow("BasePedestal", false);
     scene->SetObjectLayerMask("BasePedestal", 0x2);
     
-	scene->AddSphere("PedestalLightSphere", 16, 32, 5.0f, glm::vec3(200.0f, 0.0f, 200.0f));
-    scene->AddLight("PedestalLight", glm::vec3(200.0f, 0.0f, 200.0f), glm::vec3(1.0f, 0.5f, 0.2f), 5.0f, 0);
-    scene->SetLightLayerMask("PedestalLight", 0x2);
+	
 
     // High frequency cacti (small)
-    scene->RegisterProceduralObject("models/cactus.obj", "textures/cactus.jpg", 10.0f, glm::vec3(0.01f), glm::vec3(0.02f), glm::vec3(-90.0f, 0.0f, 0.0f));
+    scene->RegisterProceduralObject("models/cactus.obj", "textures/cactus.jpg", 7.0f, glm::vec3(0.01f), glm::vec3(0.02f), glm::vec3(-90.0f, 0.0f, 0.0f));
     // Medium frequency dead trees
-    scene->RegisterProceduralObject("models/DeadTree.obj", "textures/bark.jpg", 3.0f, glm::vec3(0.1f), glm::vec3(0.2f));
+    scene->RegisterProceduralObject("models/DeadTree.obj", "textures/bark.jpg", 5.0f, glm::vec3(0.1f), glm::vec3(0.2f));
     // Low frequency large trees
-    scene->RegisterProceduralObject("models/DeadTree.obj", "textures/bark.jpg", 1.0f, glm::vec3(0.25f), glm::vec3(0.35f));
-    scene->GenerateProceduralObjects(25, orbRadius-20, deltaY, terrainHeightScale, terrainNoiseFreq);
+    scene->RegisterProceduralObject("models/DeadTree.obj", "textures/bark.jpg", 4.0f, glm::vec3(0.25f), glm::vec3(0.35f));
+    scene->GenerateProceduralObjects(50, orbRadius-20, deltaY, terrainHeightScale, terrainNoiseFreq);
 
 
-
-    scene->AddSphere("Sun", 16, 32, 20.0f, glm::vec3(0.0f), "textures/sun.png");
+    // sun must be called first
+    scene->AddSphere("Sun", 16, 32, 5.0f, glm::vec3(0.0f), "textures/sun.png");
     scene->AddLight("Sun", glm::vec3(0.0f), glm::vec3(1.0f, 0.9f, 0.8f), 1.0f, 0);
     scene->SetObjectCastsShadow("Sun", false);
     scene->SetObjectOrbit("Sun", glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), 0.0f);
     scene->SetLightOrbit("Sun", glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), 0.0f);
+    scene->SetObjectLayerMask("Sun", SceneLayers::ALL);
+    scene->SetLightLayerMask("Sun", SceneLayers::ALL);
 
-    scene->AddSphere("Moon", 16, 32, 12.0f, glm::vec3(0.0f), "textures/moon.jpg");
+    scene->AddSphere("Moon", 16, 32, 2.0f, glm::vec3(0.0f), "textures/moon.jpg");
     scene->AddLight("Moon", glm::vec3(0.0f), glm::vec3(0.1f, 0.1f, 0.3f), 1.5f, 0);
     scene->SetObjectCastsShadow("Moon", false);
     scene->SetObjectOrbit("Moon", glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), glm::pi<float>());
     scene->SetLightOrbit("Moon", glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), glm::pi<float>());
+    scene->SetObjectLayerMask("Moon", SceneLayers::ALL);
+    scene->SetLightLayerMask("Moon", SceneLayers::ALL);
+
+    scene->AddSphere("PedestalLightSphere", 16, 32, 5.0f, glm::vec3(200.0f, 0.0f, 200.0f));
+    scene->AddLight("PedestalLight", glm::vec3(200.0f, 0.0f, 200.0f), glm::vec3(1.0f, 0.5f, 0.2f), 5.0f, 0);
+    scene->SetLightLayerMask("PedestalLight", SceneLayers::OUTSIDE);
+    scene->SetObjectLayerMask("PedestalLightSphere", SceneLayers::OUTSIDE);
 
     scene->AddSphere("CrystalBall", 32, 64, orbRadius, glm::vec3(0.0f, 0.0f, 0.0f), "");
     scene->SetObjectShadingMode("CrystalBall", 3);
@@ -177,8 +184,23 @@ void Application::MainLoop() {
             vulkanSwapChain->GetExtent().width / (float)vulkanSwapChain->GetExtent().height
         );
 
-        // Pass matrices to renderer (UBO update now happens in RenderScene)
-        renderer->DrawFrame(*scene, currentFrame, viewMatrix, projMatrix);
+        int currentViewMask = SceneLayers::ALL; // Default
+
+        // Check distance to center (0,0,0)
+        float dist = glm::length(activeCamera->GetPosition());
+        float ballRadius = 150.0f; // Matches your setup
+
+        if (dist < ballRadius) {
+            // We are INSIDE: Draw Terrain + Sun/Moon
+            currentViewMask = SceneLayers::INSIDE;
+        }
+        else {
+            // We are OUTSIDE: Draw Room/Pedestal + Crystal Ball + Sun/Moon
+            currentViewMask = SceneLayers::ALL;
+        }
+
+        // Pass 'currentViewMask' to DrawFrame
+        renderer->DrawFrame(*scene, currentFrame, viewMatrix, projMatrix, currentViewMask);
 
         currentFrame = (currentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
     }
