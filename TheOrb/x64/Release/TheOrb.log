@@ -1,2 +1,7 @@
-﻿  Performing Custom Build Tools
+﻿  Application.cpp
+  Generating code
+  10 of 4096 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    10 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
   TheOrb.vcxproj -> C:\Users\a\Desktop\TheOrb\x64\Release\TheOrb.exe

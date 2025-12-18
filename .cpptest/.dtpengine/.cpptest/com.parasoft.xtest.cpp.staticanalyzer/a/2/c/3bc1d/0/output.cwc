@@ -1,0 +1,140 @@
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>CODSTA-CPP-11
+<b>Use a C++-style cast instead of a C-style cast to the 'uint32_t' type
+<l>22
+<k>29
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>CODSTA-CPP-11
+<b>Use a C++-style cast instead of a C-style cast to the 'uint32_t' type
+<l>22
+<k>44
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>CODSTA-CPP-11
+<b>Use a C++-style cast instead of a C-style cast to the 'uint32_t' type
+<l>22
+<k>44
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>CODSTA-CPP-11
+<b>Use a C++-style cast instead of a C-style cast to the 'uint32_t' type
+<l>22
+<k>44
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>CODSTA-CPP-105
+<b>The 'VulkanContext' function should be defined with =default
+<l>5
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>CODSTA-CPP-105
+<b>The '~VulkanContext' function should be defined with =default
+<l>8
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>OPT-01
+<b>Variable "debugCreateInfo" should be declared as locally as possible
+<l>32
+<k>40
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>CODSTA-MCPP-23
+<b>Class 'VulkanContext' should be final
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>MRM-49
+<b>Class 'VulkanContext' shall declare a copy assignment operator
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>MRM-49
+<b>Class 'VulkanContext' shall declare a copy constructor
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>CODSTA-CPP-105
+<b>The 'VulkanContext' function should be defined with =default
+<l>8
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>CODSTA-CPP-105
+<b>The '~VulkanContext' function should be defined with =default
+<l>9
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>OPT-01
+<b>Variable "debugCreateInfo" should be declared as locally as possible
+<l>32
+<k>40
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
+<c>OPT-33
+<b>Returned value from function 'GetRequiredExtensions' is passed by value
+<l>27
+<k>30
+<s>false
+<N>
+<f>
+<L>0

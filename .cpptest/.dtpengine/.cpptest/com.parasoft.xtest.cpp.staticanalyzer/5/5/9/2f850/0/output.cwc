@@ -1,0 +1,1520 @@
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\UniformBufferObject.h
+<c>STL-37-DOWNGRADED
+<b>The 'lights' array should not be used
+<l>22
+<k>23
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\main.cpp
+<c>OPT-01
+<b>Variable "app" should be declared as locally as possible
+<l>7
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.h
+<c>CODSTA-MCPP-23
+<b>Class 'Application' should be final
+<l>14
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.h
+<c>OPT-13
+<b>Members 'lastFrameTime' of class 'Application' are declared in suboptimal order for memory layout
+<l>14
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.h
+<c>CODSTA-MCPP-23
+<b>Class 'Window' should be final
+<l>7
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.h
+<c>MRM-49
+<b>Class 'Window' shall declare a copy assignment operator
+<l>7
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.h
+<c>MRM-49
+<b>Class 'Window' shall declare a copy constructor
+<l>7
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.h
+<c>OPT-13
+<b>Members 'window' of class 'Window' are declared in suboptimal order for memory layout
+<l>7
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.h
+<c>OPT-13
+<b>Members 'title' of class 'Window' are declared in suboptimal order for memory layout
+<l>7
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>CODSTA-MCPP-23
+<b>Class 'VulkanContext' should be final
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>MRM-49
+<b>Class 'VulkanContext' shall declare a copy assignment operator
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>MRM-49
+<b>Class 'VulkanContext' shall declare a copy constructor
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>CODSTA-CPP-54
+<b>Member function 'isComplete' should be declared as const
+<l>13
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>CODSTA-MCPP-23
+<b>Class 'VulkanDevice' should be final
+<l>18
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>MRM-49
+<b>Class 'VulkanDevice' shall declare a copy assignment operator
+<l>18
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>MRM-49
+<b>Class 'VulkanDevice' shall declare a copy constructor
+<l>18
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>OPT-33
+<b>Returned value from function 'GetQueueFamilies' is passed by value
+<l>31
+<k>24
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>OPT-33
+<b>Returned value from function 'findQueueFamilies' is passed by value
+<l>41
+<k>24
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>OPT-14
+<b>Returned value from function 'GetExtent' is passed by value
+<l>31
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>CODSTA-MCPP-23
+<b>Class 'VulkanSwapChain' should be final
+<l>16
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>MRM-49
+<b>Class 'VulkanSwapChain' shall declare a copy assignment operator
+<l>16
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>MRM-49
+<b>Class 'VulkanSwapChain' shall declare a copy constructor
+<l>16
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>OPT-13
+<b>Members 'swapChainExtent, swapChainImageViews, swapChainImages' of class 'VulkanSwapChain' are declared in suboptimal order for memory layout
+<l>16
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>OPT-33
+<b>Returned value from function 'QuerySwapChainSupport' is passed by value
+<l>25
+<k>36
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetImages' returns handles to member data: 'swapChainImages'
+<l>28
+<k>53
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetImageViews' returns handles to member data: 'swapChainImageViews'
+<l>29
+<k>61
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>OPT-33
+<b>Returned value from function 'GetExtent' is passed by value
+<l>31
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>OPT-33
+<b>Returned value from function 'chooseSwapSurfaceFormat' is passed by value
+<l>45
+<k>24
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>OPT-33
+<b>Returned value from function 'chooseSwapExtent' is passed by value
+<l>47
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>CODSTA-CPP-54
+<b>Member function 'GetRenderPass' should be declared as const
+<l>38
+<k>23
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>CODSTA-CPP-54
+<b>Member function 'GetPipeline' should be declared as const
+<l>39
+<k>23
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>CODSTA-MCPP-23
+<b>Class 'Renderer' should be final
+<l>24
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>MRM-49
+<b>Class 'Renderer' shall declare a copy assignment operator
+<l>24
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>MRM-49
+<b>Class 'Renderer' shall declare a copy constructor
+<l>24
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>OPT-13
+<b>Members 'commandBuffer, defaultTextureResource, descriptorSet, graphicsPipeline, m_uniformBuffersMapped, particlePipelineAdditive, particlePipelineAlpha, renderPass, shadowPass, skyboxPass, syncObjects, texture, textureCache, uniformBuffers, uniformBuffersMapped' of class 'Renderer' are declared in suboptimal order for memory layout
+<l>24
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>MRM-49
+<b>Class 'TextureResource' shall declare a copy assignment operator
+<l>85
+<k>12
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>MRM-49
+<b>Class 'TextureResource' shall declare a copy constructor
+<l>85
+<k>12
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\SkyboxPass.h
+<c>OPT-14
+<b>The parameter 'extent' of function 'Initialize' is passed by value
+<l>15
+<k>57
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\SkyboxPass.h
+<c>CODSTA-MCPP-23
+<b>Class 'SkyboxPass' should be final
+<l>10
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\SkyboxPass.h
+<c>MRM-49
+<b>Class 'SkyboxPass' shall declare a copy assignment operator
+<l>10
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\SkyboxPass.h
+<c>MRM-49
+<b>Class 'SkyboxPass' shall declare a copy constructor
+<l>10
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\SkyboxPass.h
+<c>OPT-13
+<b>Members 'cubemap, pipeline' of class 'SkyboxPass' are declared in suboptimal order for memory layout
+<l>10
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\SkyboxPass.h
+<c>OPT-33
+<b>Returned value from function 'GetSkyboxFaces' is passed by value
+<l>30
+<k>30
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Cubemap.h
+<c>CODSTA-MCPP-23
+<b>Class 'Cubemap' should be final
+<l>8
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Cubemap.h
+<c>MRM-49
+<b>Class 'Cubemap' shall declare a copy assignment operator
+<l>8
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Cubemap.h
+<c>MRM-49
+<b>Class 'Cubemap' shall declare a copy constructor
+<l>8
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
+<c>OPT-33
+<b>Returned value from function 'GetRequiredExtensions' is passed by value
+<l>27
+<k>30
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
+<c>MRM-49
+<b>Class 'GraphicsPipelineConfig' shall declare a copy assignment operator
+<l>10
+<k>8
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
+<c>MRM-49
+<b>Class 'GraphicsPipelineConfig' shall declare a copy constructor
+<l>10
+<k>8
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
+<c>OPT-13
+<b>Members 'descriptorSetLayouts, extent' of structure 'GraphicsPipelineConfig' are declared in suboptimal order for memory layout
+<l>10
+<k>8
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
+<c>CODSTA-MCPP-23
+<b>Class 'GraphicsPipeline' should be final
+<l>52
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
+<c>MRM-49
+<b>Class 'GraphicsPipeline' shall declare a copy assignment operator
+<l>52
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
+<c>MRM-49
+<b>Class 'GraphicsPipeline' shall declare a copy constructor
+<l>52
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
+<c>OPT-13
+<b>Members 'config, dynamicStates, shader' of class 'GraphicsPipeline' are declared in suboptimal order for memory layout
+<l>52
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\Vertex.h
+<c>OPT-33
+<b>Returned value from function 'getBindingDescription' is passed by value
+<l>13
+<k>44
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\Vertex.h
+<c>OPT-33
+<b>Returned value from function 'getAttributeDescriptions' is passed by value
+<l>21
+<k>61
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>CODSTA-MCPP-23
+<b>Class 'VulkanShader' should be final
+<l>8
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>MRM-49
+<b>Class 'VulkanShader' shall declare a copy assignment operator
+<l>8
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>MRM-49
+<b>Class 'VulkanShader' shall declare a copy constructor
+<l>8
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>CODSTA-CPP-04
+<b>Constructor 'VulkanShader' allowing conversion should be made explicit
+<l>10
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>OPT-33
+<b>Returned value from function 'readFile' is passed by value
+<l>25
+<k>30
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>OPT-13
+<b>Members 'axis, center' of structure 'OrbitData' are declared in suboptimal order for memory layout
+<l>12
+<k>8
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>OPT-13
+<b>Members 'orbitData, texturePath' of structure 'SceneObject' are declared in suboptimal order for memory layout
+<l>43
+<k>8
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>CODSTA-CPP-04
+<b>Constructor 'SceneObject' allowing conversion should be made explicit
+<l>57
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INIT-10
+<b>List members in an initialization list should be in the order in which they are declared ['name', 'geometry', 'texturePath']
+<l>57
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>OPT-13
+<b>Members 'baseRotation, maxScale, minScale' of structure 'ProceduralObjectConfig' are declared in suboptimal order for memory layout
+<l>62
+<k>8
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>CODSTA-MCPP-23
+<b>Class 'Scene' should be final
+<l>71
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>MRM-49
+<b>Class 'Scene' shall declare a copy assignment operator
+<l>71
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>MRM-49
+<b>Class 'Scene' shall declare a copy constructor
+<l>71
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>OPT-13
+<b>Members 'objects, particleSystems, proceduralRegistry' of class 'Scene' are declared in suboptimal order for memory layout
+<l>71
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetParticleSystems' returns handles to member data: 'particleSystems'
+<l>110
+<k>86
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>OPT-33
+<b>Returned value from function 'GetLights' is passed by value
+<l>114
+<k>30
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetObjects' returns handles to member data: 'objects'
+<l>118
+<k>75
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>CODSTA-MCPP-23
+<b>Class 'Geometry' should be final
+<l>8
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>MRM-49
+<b>Class 'Geometry' shall declare a copy assignment operator
+<l>8
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>MRM-49
+<b>Class 'Geometry' shall declare a copy constructor
+<l>8
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>OOP-19
+<b>Data members 'vertices' is declared as 'protected'
+<l>28
+<k>25
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>OOP-19
+<b>Data members 'indices' is declared as 'protected'
+<l>29
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>OOP-19
+<b>Data members 'device' is declared as 'protected'
+<l>31
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>OOP-19
+<b>Data members 'physicalDevice' is declared as 'protected'
+<l>32
+<k>22
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>OOP-19
+<b>Data members 'vertexBuffer' is declared as 'protected'
+<l>34
+<k>35
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>OOP-19
+<b>Data members 'indexBuffer' is declared as 'protected'
+<l>35
+<k>35
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>OPT-13
+<b>Members 'indexBuffer, vertexBuffer' of class 'Geometry' are declared in suboptimal order for memory layout
+<l>8
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetVertices' returns handles to member data: 'vertices'
+<l>19
+<k>42
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>OOP-36
+<b>Public member function 'GetVertices' returns non-const handles to member data: 'vertices'
+<l>19
+<k>42
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetIndices' returns handles to member data: 'indices'
+<l>20
+<k>43
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>OOP-36
+<b>Public member function 'GetIndices' returns non-const handles to member data: 'indices'
+<l>20
+<k>43
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetVertices' returns handles to member data: 'vertices'
+<l>22
+<k>54
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetIndices' returns handles to member data: 'indices'
+<l>23
+<k>55
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
+<c>CODSTA-MCPP-23
+<b>Class 'VulkanBuffer' should be final
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
+<c>MRM-49
+<b>Class 'VulkanBuffer' shall declare a copy assignment operator
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
+<c>MRM-49
+<b>Class 'VulkanBuffer' shall declare a copy constructor
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>CODSTA-MCPP-23
+<b>Class 'GeometryGenerator' should be final
+<l>7
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>OPT-33
+<b>Returned value from function 'CreateCube' is passed by value
+<l>9
+<k>38
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>OPT-33
+<b>Returned value from function 'CreateGrid' is passed by value
+<l>10
+<k>38
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>OPT-33
+<b>Returned value from function 'CreateSphere' is passed by value
+<l>12
+<k>38
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>OPT-33
+<b>Returned value from function 'CreateTerrain' is passed by value
+<l>15
+<k>38
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>OPT-33
+<b>Returned value from function 'CreateBowl' is passed by value
+<l>19
+<k>38
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>OPT-33
+<b>Returned value from function 'CreatePedestal' is passed by value
+<l>22
+<k>38
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>OPT-13
+<b>Members 'texturePath' of structure 'ParticleProps' are declared in suboptimal order for memory layout
+<l>10
+<k>8
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>CODSTA-MCPP-23
+<b>Class 'ParticleSystem' should be final
+<l>25
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>MRM-49
+<b>Class 'ParticleSystem' shall declare a copy assignment operator
+<l>25
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>MRM-49
+<b>Class 'ParticleSystem' shall declare a copy constructor
+<l>25
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>OPT-13
+<b>Members 'descriptorPool, descriptorSet, pipeline, textureLayout' of class 'ParticleSystem' are declared in suboptimal order for memory layout
+<l>25
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>OPT-13
+<b>Members 'boundsCenter, instanceBuffers, particles, texture, vertexBuffer' of class 'ParticleSystem' are declared in suboptimal order for memory layout
+<l>25
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>OPT-33
+<b>Returned value from function 'GetBindingDescriptions' is passed by value
+<l>51
+<k>57
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>OPT-33
+<b>Returned value from function 'GetAttributeDescriptions' is passed by value
+<l>52
+<k>59
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Texture.h
+<c>CODSTA-MCPP-23
+<b>Class 'Texture' should be final
+<l>7
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Texture.h
+<c>MRM-49
+<b>Class 'Texture' shall declare a copy assignment operator
+<l>7
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Texture.h
+<c>MRM-49
+<b>Class 'Texture' shall declare a copy constructor
+<l>7
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>OPT-14
+<b>The parameter 'extent' of function 'CreateFramebuffers' is passed by value
+<l>12
+<k>84
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>OPT-14
+<b>The parameter 'extent' of function 'CreateOffScreenFramebuffer' is passed by value
+<l>13
+<k>104
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>CODSTA-MCPP-23
+<b>Class 'VulkanRenderPass' should be final
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>MRM-49
+<b>Class 'VulkanRenderPass' shall declare a copy assignment operator
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>MRM-49
+<b>Class 'VulkanRenderPass' shall declare a copy constructor
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>OPT-13
+<b>Members 'framebuffers' of class 'VulkanRenderPass' are declared in suboptimal order for memory layout
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetFramebuffers' returns handles to member data: 'framebuffers'
+<l>17
+<k>65
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>OPT-14
+<b>The parameter 'extent' of function 'RecordCommandBuffer' is passed by value
+<l>15
+<k>45
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>OPT-14
+<b>The parameter 'extent' of function 'RecordOffScreenCommandBuffer' is passed by value
+<l>18
+<k>45
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>CODSTA-MCPP-23
+<b>Class 'VulkanCommandBuffer' should be final
+<l>7
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>MRM-49
+<b>Class 'VulkanCommandBuffer' shall declare a copy assignment operator
+<l>7
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>MRM-49
+<b>Class 'VulkanCommandBuffer' shall declare a copy constructor
+<l>7
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>OPT-13
+<b>Members 'commandBuffers' of class 'VulkanCommandBuffer' are declared in suboptimal order for memory layout
+<l>7
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetCommandBuffers' returns handles to member data: 'commandBuffers'
+<l>23
+<k>69
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
+<c>CODSTA-MCPP-23
+<b>Class 'VulkanSyncObjects' should be final
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
+<c>MRM-49
+<b>Class 'VulkanSyncObjects' shall declare a copy assignment operator
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
+<c>MRM-49
+<b>Class 'VulkanSyncObjects' shall declare a copy constructor
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
+<c>OPT-13
+<b>Members 'imageAvailableSemaphores, imagesInFlight, inFlightFences, renderFinishedSemaphores' of class 'VulkanSyncObjects' are declared in suboptimal order for memory layout
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>CODSTA-MCPP-23
+<b>Class 'VulkanDescriptorSet' should be final
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>MRM-49
+<b>Class 'VulkanDescriptorSet' shall declare a copy assignment operator
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>MRM-49
+<b>Class 'VulkanDescriptorSet' shall declare a copy constructor
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>OPT-13
+<b>Members 'descriptorSets' of class 'VulkanDescriptorSet' are declared in suboptimal order for memory layout
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>CODSTA-CPP-04
+<b>Constructor 'VulkanDescriptorSet' allowing conversion should be made explicit
+<l>8
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetDescriptorSets' returns handles to member data: 'descriptorSets'
+<l>21
+<k>69
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>CODSTA-MCPP-23
+<b>Class 'ShadowPass' should be final
+<l>10
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>MRM-49
+<b>Class 'ShadowPass' shall declare a copy assignment operator
+<l>10
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>MRM-49
+<b>Class 'ShadowPass' shall declare a copy constructor
+<l>10
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>OPT-13
+<b>Members 'framebuffer, renderPass, shadowImage, shadowImageMemory, shadowImageView, shadowSampler' of class 'ShadowPass' are declared in suboptimal order for memory layout
+<l>10
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>OPT-13
+<b>Members 'pipeline' of class 'ShadowPass' are declared in suboptimal order for memory layout
+<l>10
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>OPT-33
+<b>Returned value from function 'GetExtent' is passed by value
+<l>27
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>OPT-14
+<b>Returned value from function 'GetPosition' is passed by value
+<l>40
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>OPT-14
+<b>Returned value from function 'GetFront' is passed by value
+<l>41
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>OPT-14
+<b>Returned value from function 'GetUp' is passed by value
+<l>42
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>CODSTA-MCPP-23
+<b>Class 'Camera' should be final
+<l>13
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>CODSTA-45
+<b>The parameter 'fov' hides a member variable declared in class 'Camera'
+<l>45
+<k>23
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>CODSTA-45
+<b>The parameter 'nearPlane' hides a member variable declared in class 'Camera'
+<l>46
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>CODSTA-45
+<b>The parameter 'farPlane' hides a member variable declared in class 'Camera'
+<l>46
+<k>44
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.h
+<c>CODSTA-CPP-54
+<b>Member function 'GetActiveCamera' should be declared as const
+<l>14
+<k>13
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.h
+<c>CODSTA-MCPP-23
+<b>Class 'CameraController' should be final
+<l>7
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.h
+<c>MRM-49
+<b>Class 'CameraController' shall declare a copy assignment operator
+<l>7
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.h
+<c>MRM-49
+<b>Class 'CameraController' shall declare a copy constructor
+<l>7
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\UniformBufferObject.h
+<c>CODSTA-03
+<b>Define constant 'MAX_LIGHTS' using 'const' or 'enum' instead of '#define'
+<l>5
+<k>-1
+<s>false
+<N>
+<f>
+<L>0

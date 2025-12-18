@@ -1,0 +1,110 @@
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.cpp
+<c>CODSTA-CPP-105
+<b>The '~Camera' function should be defined with =default
+<l>19
+<k>9
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.cpp
+<c>OPT-23
+<b>Getter/setter method 'SetPosition' is not inlined
+<l>32
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>OPT-14
+<b>Returned value from function 'GetPosition' is passed by value
+<l>40
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>OPT-14
+<b>Returned value from function 'GetFront' is passed by value
+<l>41
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>OPT-14
+<b>Returned value from function 'GetUp' is passed by value
+<l>42
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>CODSTA-MCPP-23
+<b>Class 'Camera' should be final
+<l>13
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>CODSTA-45
+<b>The parameter 'fov' hides a member variable declared in class 'Camera'
+<l>45
+<k>23
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>CODSTA-45
+<b>The parameter 'nearPlane' hides a member variable declared in class 'Camera'
+<l>46
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>CODSTA-45
+<b>The parameter 'farPlane' hides a member variable declared in class 'Camera'
+<l>46
+<k>44
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>CODSTA-CPP-105
+<b>The '~Camera' function should be defined with =default
+<l>16
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.cpp
+<c>OPT-23
+<b>Getter/setter method 'SetPosition' is not inlined
+<l>32
+<k>14
+<s>false
+<N>
+<f>
+<L>0

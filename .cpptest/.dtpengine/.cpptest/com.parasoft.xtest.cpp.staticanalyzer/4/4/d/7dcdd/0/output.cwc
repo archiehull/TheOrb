@@ -1,0 +1,110 @@
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>CODSTA-CPP-105
+<b>The '~VulkanSyncObjects' function should be defined with =default
+<l>8
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>CODSTA-CPP-53
+<b>Declare local variable 'semaphore' as const
+<l>53
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>CODSTA-CPP-53
+<b>Declare local variable 'semaphore' as const
+<l>60
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>CODSTA-CPP-53
+<b>Declare local variable 'fence' as const
+<l>67
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
+<c>CODSTA-MCPP-23
+<b>Class 'VulkanSyncObjects' should be final
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>CODSTA-45
+<b>The parameter 'device' hides a member variable declared in class 'VulkanSyncObjects'
+<l>4
+<k>47
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>CODSTA-45
+<b>The parameter 'maxFramesInFlight' hides a member variable declared in class 'VulkanSyncObjects'
+<l>4
+<k>64
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
+<c>MRM-49
+<b>Class 'VulkanSyncObjects' shall declare a copy assignment operator
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
+<c>MRM-49
+<b>Class 'VulkanSyncObjects' shall declare a copy constructor
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
+<c>OPT-13
+<b>Members 'imageAvailableSemaphores, imagesInFlight, inFlightFences, renderFinishedSemaphores' of class 'VulkanSyncObjects' are declared in suboptimal order for memory layout
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
+<c>CODSTA-CPP-105
+<b>The '~VulkanSyncObjects' function should be defined with =default
+<l>9
+<k>5
+<s>false
+<N>
+<f>
+<L>0

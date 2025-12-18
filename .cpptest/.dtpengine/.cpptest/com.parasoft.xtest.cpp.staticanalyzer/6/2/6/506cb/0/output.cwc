@@ -1,0 +1,140 @@
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>CODSTA-CPP-11
+<b>Use a C++-style cast instead of a C-style cast to the 'size_t' type
+<l>44
+<k>23
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>CODSTA-CPP-105
+<b>The '~VulkanShader' function should be defined with =default
+<l>8
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>CODSTA-CPP-53
+<b>Declare local variable 'code' as const
+<l>12
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>CODSTA-CPP-53
+<b>Declare local variable 'shaderModule' as const
+<l>13
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>OPT-33
+<b>Returned value from function 'readFile' is passed by value
+<l>37
+<k>33
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>CODSTA-CPP-54
+<b>Member function 'Cleanup' should be declared as const
+<l>54
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>CODSTA-CPP-54
+<b>Member function 'createShaderModule' should be declared as const
+<l>23
+<k>30
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>CODSTA-MCPP-23
+<b>Class 'VulkanShader' should be final
+<l>8
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>CODSTA-45
+<b>The parameter 'device' hides a member variable declared in class 'VulkanShader'
+<l>5
+<k>37
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>MRM-49
+<b>Class 'VulkanShader' shall declare a copy assignment operator
+<l>8
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>MRM-49
+<b>Class 'VulkanShader' shall declare a copy constructor
+<l>8
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>CODSTA-CPP-04
+<b>Constructor 'VulkanShader' allowing conversion should be made explicit
+<l>10
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>CODSTA-CPP-105
+<b>The '~VulkanShader' function should be defined with =default
+<l>11
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>OPT-33
+<b>Returned value from function 'readFile' is passed by value
+<l>25
+<k>30
+<s>false
+<N>
+<f>
+<L>0

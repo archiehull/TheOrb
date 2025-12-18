@@ -1,0 +1,170 @@
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.cpp
+<c>OPT-24
+<b>Function 'ShouldClose' is not inlined
+<l>29
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.cpp
+<c>OPT-24
+<b>Function 'PollEvents' is not inlined
+<l>33
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.cpp
+<c>OPT-24
+<b>Function 'SetFramebufferResizeCallback' is not inlined
+<l>37
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.cpp
+<c>CODSTA-CPP-54
+<b>Member function 'SetFramebufferResizeCallback' should be declared as const
+<l>37
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.h
+<c>CODSTA-MCPP-23
+<b>Class 'Window' should be final
+<l>7
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.cpp
+<c>CODSTA-45
+<b>The parameter 'width' hides a member variable declared in class 'Window'
+<l>4
+<k>25
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.cpp
+<c>CODSTA-45
+<b>The parameter 'height' hides a member variable declared in class 'Window'
+<l>4
+<k>41
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.cpp
+<c>CODSTA-45
+<b>The parameter 'title' hides a member variable declared in class 'Window'
+<l>4
+<k>68
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.cpp
+<c>EXCEPT-01
+<b>Destructor '~Window' should not call function 'Cleanup' that is not in try context
+<l>10
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.h
+<c>MRM-40_d
+<b>Class Window has a non-trivial destructor, but no copy constructor nor copy assignment operator
+<l>7
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.h
+<c>MRM-49
+<b>Class 'Window' shall declare a copy assignment operator
+<l>7
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.h
+<c>MRM-49
+<b>Class 'Window' shall declare a copy constructor
+<l>7
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.h
+<c>OPT-13
+<b>Members 'window' of class 'Window' are declared in suboptimal order for memory layout
+<l>7
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.h
+<c>OPT-13
+<b>Members 'title' of class 'Window' are declared in suboptimal order for memory layout
+<l>7
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.cpp
+<c>OPT-24
+<b>Function 'ShouldClose' is not inlined
+<l>29
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.cpp
+<c>OPT-24
+<b>Function 'PollEvents' is not inlined
+<l>33
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.cpp
+<c>OPT-24
+<b>Function 'SetFramebufferResizeCallback' is not inlined
+<l>37
+<k>14
+<s>false
+<N>
+<f>
+<L>0

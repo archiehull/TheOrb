@@ -1,0 +1,90 @@
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.cpp
+<c>CODSTA-CPP-11
+<b>Use a C++-style cast instead of a C-style cast to the 'PFN_vkCreateDebugUtilsMessengerEXT' type
+<l>18
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.cpp
+<c>CODSTA-CPP-11
+<b>Use a C++-style cast instead of a C-style cast to the 'PFN_vkDestroyDebugUtilsMessengerEXT' type
+<l>24
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.cpp
+<c>OPT-03
+<b>Parameter 'format' is not used
+<l>181
+<k>33
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.cpp
+<c>CODSTA-CPP-53
+<b>Declare local variable 'layerName' as const
+<l>34
+<k>26
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.cpp
+<c>OPT-33
+<b>Returned value from function 'GetRequiredExtensions' is passed by value
+<l>47
+<k>30
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.cpp
+<c>MISRA2004-16_7
+<b>Pass parameter "pUserData" with const specifier
+<l>56
+<k>205
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.cpp
+<c>CODSTA-CPP-53
+<b>Declare local variable 'commandBuffer' as const
+<l>182
+<k>25
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.cpp
+<c>CODSTA-CPP-53
+<b>Declare local variable 'commandBuffer' as const
+<l>224
+<k>25
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
+<c>OPT-33
+<b>Returned value from function 'GetRequiredExtensions' is passed by value
+<l>27
+<k>30
+<s>false
+<N>
+<f>
+<L>0

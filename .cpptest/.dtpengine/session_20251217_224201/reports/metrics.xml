@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Metrics writerVersion="0.1.1" toolVer="2025.1.0" execEnv="win32_x86_64" hasViols="false" project="" buildId="Default Project-2025-12-17" climode="true" toolDispName="C/C++test" prjModule="TheOrb" toolId="c++test" machine="DESKTOP-GBA7TGV" tag="Recommended Rules" time="2025-12-17T22:42:20+00:00" id="1764599966657" lang="en_GB" user="a" toolName="DTP Engine for C/C++">
+  <TestParameters cmdLn="cpptestcli -settings C:\Users\a\Desktop\TheOrb\.cpptest\.dtpengine\session_20251217_224201\engine.properties -config builtin://Recommended Rules -input C:\Users\a\Desktop\TheOrb\.cpptest\.dtpengine\session_20251217_224201\bdf.lst"/>
+  <TestConfig machine="DESKTOP-GBA7TGV" pseudoUrl="builtin://Recommended Rules" name="Recommended Rules" user="a"/>
+  <Analyzers>
+    <Analyzer id="com.parasoft.xtest.scope.analyzer" name="Scope Analyzer" ver="10.7.2.20250508"/>
+    <Analyzer id="com.parasoft.xtest.cpp.analyzer.static.code" name="Parasoft C/C++ Code Analyzer" ver="10.7.2.20250522B2677"/>
+    <Analyzer id="com.parasoft.xtest.cpp.analyzer.desktop.files.in.scope" name="Helper Scope Analyzer for C/C++test Professional" ver="10.7.2.20250522B2677"/>
+    <Analyzer id="com.parasoft.xtest.dupcode.parser" name="Code Duplication Parser" ver="10.7.2.20250508"/>
+    <Analyzer id="com.parasoft.xtest.cpp.analyzer.static.pattern" name="Parasoft C/C++ Static Analyzer" ver="10.7.2.20250522B2677"/>
+    <Analyzer id="com.parasoft.xtest.cpp.analyzer.static.flow" name="Parasoft C/C++ Flow Analyzer" ver="10.7.2.20250507B5670"/>
+    <Analyzer id="com.parasoft.xtest.cpp.analyzer.static.metrics" name="Parasoft C/C++ Metrics Analyzer" ver="10.7.2.20250522B2677"/>
+    <Analyzer id="com.parasoft.xtest.cpp.analyzer.static.dupcode" name="Code Duplication Detector" ver="10.7.2.20250508"/>
+    <Analyzer id="com.parasoft.xtest.cpp.analyzer.static.global" name="Parasoft C/C++ Global Static Analyzer" ver="10.7.2.20250522B2677"/>
+  </Analyzers>
+  <Repositories/>
+  <Locations>
+    <Loc locRef="1" projId="TheOrb" auth="a" project="TheOrb" uri="file:/C:/Users/a/Desktop/TheOrb/src/core/Application.cpp" projPath="/TheOrb" resProjPath="Source Files/src/core/Application.cpp" totLns="295" hash="-1465281007"/>
+  </Locations>
+  <Values>
+  <Metric id="METRIC.NOPLIF" itemId="Source Files/src/core/Application.cpp" item="Application.cpp" val="295.0" module="TheOrb" ln="1" locRef="1"/>
+  <Metric id="METRIC.NOSLIM" itemId="Source Files/src/core/Application.cpp#Application::KeyCallback(GLFWwindow *, int, int, int, int)" item="Application::KeyCallback(GLFWwindow *, int, int, int, int)" val="21.0" module="TheOrb" type="Application" ln="238" locRef="1"/>
+  <Metric id="METRIC.NOSLIM" itemId="Source Files/src/core/Application.cpp#Application::~Application()" item="Application::~Application()" val="2.0" module="TheOrb" type="Application" ln="14" locRef="1"/>
+  <Metric id="METRIC.NOSLIM" itemId="Source Files/src/core/Application.cpp#Application::FramebufferResizeCallback(GLFWwindow *, int, int)" item="Application::FramebufferResizeCallback(GLFWwindow *, int, int)" val="4.0" module="TheOrb" type="Application" ln="264" locRef="1"/>
+  <Metric id="METRIC.NOSLIM" itemId="Source Files/src/core/Application.cpp#Application::Run()" item="Application::Run()" val="7.0" module="TheOrb" type="Application" ln="17" locRef="1"/>
+  <Metric id="METRIC.NOSLIM" itemId="Source Files/src/core/Application.cpp#Application::ProcessInput()" item="Application::ProcessInput()" val="19.0" module="TheOrb" type="Application" ln="211" locRef="1"/>
+  <Metric id="METRIC.NOSLIM" itemId="Source Files/src/core/Application.cpp#Application::Application()" item="Application::Application()" val="6.0" module="TheOrb" type="Application" ln="6" locRef="1"/>
+  <Metric id="METRIC.NOSLIM" itemId="Source Files/src/core/Application.cpp#Application::RecreateSwapChain()" item="Application::RecreateSwapChain()" val="15.0" module="TheOrb" type="Application" ln="137" locRef="1"/>
+  <Metric id="METRIC.NOSLIM" itemId="Source Files/src/core/Application.cpp#Application::SetupScene()" item="Application::SetupScene()" val="46.0" module="TheOrb" type="Application" ln="70" locRef="1"/>
+  <Metric id="METRIC.NOSLIM" itemId="Source Files/src/core/Application.cpp#Application::Cleanup()" item="Application::Cleanup()" val="22.0" module="TheOrb" type="Application" ln="269" locRef="1"/>
+  <Metric id="METRIC.NOSLIM" itemId="Source Files/src/core/Application.cpp#Application::InitVulkan()" item="Application::InitVulkan()" val="31.0" module="TheOrb" type="Application" ln="28" locRef="1"/>
+  <Metric id="METRIC.NOSLIM" itemId="Source Files/src/core/Application.cpp#Application::MainLoop()" item="Application::MainLoop()" val="31.0" module="TheOrb" type="Application" ln="163" locRef="1"/>
+  <Metric id="METRIC.CC" itemId="Source Files/src/core/Application.cpp#Application::Application()" item="Application::Application()" val="1.0" module="TheOrb" type="Application" ln="6" locRef="1"/>
+  <Metric id="METRIC.CC" itemId="Source Files/src/core/Application.cpp#Application::~Application()" item="Application::~Application()" val="1.0" module="TheOrb" type="Application" ln="14" locRef="1"/>
+  <Metric id="METRIC.CC" itemId="Source Files/src/core/Application.cpp#Application::Run()" item="Application::Run()" val="1.0" module="TheOrb" type="Application" ln="17" locRef="1"/>
+  <Metric id="METRIC.CC" itemId="Source Files/src/core/Application.cpp#Application::InitVulkan()" item="Application::InitVulkan()" val="1.0" module="TheOrb" type="Application" ln="28" locRef="1"/>
+  <Metric id="METRIC.CC" itemId="Source Files/src/core/Application.cpp#Application::SetupScene()" item="Application::SetupScene()" val="1.0" module="TheOrb" type="Application" ln="70" locRef="1"/>
+  <Metric id="METRIC.CC" itemId="Source Files/src/core/Application.cpp#Application::RecreateSwapChain()" item="Application::RecreateSwapChain()" val="2.0" module="TheOrb" type="Application" ln="137" locRef="1"/>
+  <Metric id="METRIC.CC" itemId="Source Files/src/core/Application.cpp#Application::MainLoop()" item="Application::MainLoop()" val="4.0" module="TheOrb" type="Application" ln="163" locRef="1"/>
+  <Metric id="METRIC.CC" itemId="Source Files/src/core/Application.cpp#Application::ProcessInput()" item="Application::ProcessInput()" val="5.0" module="TheOrb" type="Application" ln="211" locRef="1"/>
+  <Metric id="METRIC.CC" itemId="Source Files/src/core/Application.cpp#Application::KeyCallback(GLFWwindow *, int, int, int, int)" item="Application::KeyCallback(GLFWwindow *, int, int, int, int)" val="6.0" module="TheOrb" type="Application" ln="238" locRef="1"/>
+  <Metric id="METRIC.CC" itemId="Source Files/src/core/Application.cpp#Application::FramebufferResizeCallback(GLFWwindow *, int, int)" item="Application::FramebufferResizeCallback(GLFWwindow *, int, int)" val="1.0" module="TheOrb" type="Application" ln="264" locRef="1"/>
+  <Metric id="METRIC.CC" itemId="Source Files/src/core/Application.cpp#Application::Cleanup()" item="Application::Cleanup()" val="6.0" module="TheOrb" type="Application" ln="269" locRef="1"/>
+  <Metric id="METRIC.NBD" itemId="Source Files/src/core/Application.cpp#Application::Application()" item="Application::Application()" val="0.0" module="TheOrb" type="Application" ln="6" locRef="1"/>
+  <Metric id="METRIC.NBD" itemId="Source Files/src/core/Application.cpp#Application::~Application()" item="Application::~Application()" val="0.0" module="TheOrb" type="Application" ln="14" locRef="1"/>
+  <Metric id="METRIC.NBD" itemId="Source Files/src/core/Application.cpp#Application::Run()" item="Application::Run()" val="0.0" module="TheOrb" type="Application" ln="17" locRef="1"/>
+  <Metric id="METRIC.NBD" itemId="Source Files/src/core/Application.cpp#Application::InitVulkan()" item="Application::InitVulkan()" val="0.0" module="TheOrb" type="Application" ln="28" locRef="1"/>
+  <Metric id="METRIC.NBD" itemId="Source Files/src/core/Application.cpp#Application::SetupScene()" item="Application::SetupScene()" val="0.0" module="TheOrb" type="Application" ln="70" locRef="1"/>
+  <Metric id="METRIC.NBD" itemId="Source Files/src/core/Application.cpp#Application::RecreateSwapChain()" item="Application::RecreateSwapChain()" val="1.0" module="TheOrb" type="Application" ln="137" locRef="1"/>
+  <Metric id="METRIC.NBD" itemId="Source Files/src/core/Application.cpp#Application::MainLoop()" item="Application::MainLoop()" val="2.0" module="TheOrb" type="Application" ln="163" locRef="1"/>
+  <Metric id="METRIC.NBD" itemId="Source Files/src/core/Application.cpp#Application::ProcessInput()" item="Application::ProcessInput()" val="1.0" module="TheOrb" type="Application" ln="211" locRef="1"/>
+  <Metric id="METRIC.NBD" itemId="Source Files/src/core/Application.cpp#Application::KeyCallback(GLFWwindow *, int, int, int, int)" item="Application::KeyCallback(GLFWwindow *, int, int, int, int)" val="2.0" module="TheOrb" type="Application" ln="238" locRef="1"/>
+  <Metric id="METRIC.NBD" itemId="Source Files/src/core/Application.cpp#Application::FramebufferResizeCallback(GLFWwindow *, int, int)" item="Application::FramebufferResizeCallback(GLFWwindow *, int, int)" val="0.0" module="TheOrb" type="Application" ln="264" locRef="1"/>
+  <Metric id="METRIC.NBD" itemId="Source Files/src/core/Application.cpp#Application::Cleanup()" item="Application::Cleanup()" val="1.0" module="TheOrb" type="Application" ln="269" locRef="1"/>
+</Values>
+</Metrics>

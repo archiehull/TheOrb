@@ -1,0 +1,90 @@
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.cpp
+<c>CODSTA-CPP-105
+<b>The '~VulkanDescriptorSet' function should be defined with =default
+<l>9
+<k>22
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>CODSTA-MCPP-23
+<b>Class 'VulkanDescriptorSet' should be final
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.cpp
+<c>CODSTA-45
+<b>The parameter 'device' hides a member variable declared in class 'VulkanDescriptorSet'
+<l>5
+<k>51
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>MRM-49
+<b>Class 'VulkanDescriptorSet' shall declare a copy assignment operator
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>MRM-49
+<b>Class 'VulkanDescriptorSet' shall declare a copy constructor
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>OPT-13
+<b>Members 'descriptorSets' of class 'VulkanDescriptorSet' are declared in suboptimal order for memory layout
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>CODSTA-CPP-04
+<b>Constructor 'VulkanDescriptorSet' allowing conversion should be made explicit
+<l>8
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>CODSTA-CPP-105
+<b>The '~VulkanDescriptorSet' function should be defined with =default
+<l>9
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetDescriptorSets' returns handles to member data: 'descriptorSets'
+<l>21
+<k>69
+<s>false
+<N>
+<f>
+<L>0

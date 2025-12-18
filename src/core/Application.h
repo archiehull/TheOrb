@@ -11,10 +11,10 @@
 #include <memory>
 #include <chrono>
 
-class Application {
+class Application final {
 public:
     Application();
-    ~Application();
+    ~Application() = default;
 
     void Run();
 
@@ -27,8 +27,8 @@ private:
 
     // Input handling
     void ProcessInput();
-    static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
-    static void FramebufferResizeCallback(GLFWwindow* window, int width, int height);
+    static void KeyCallback(GLFWwindow* glfwWindow, int key, int scancode, int action, int mods);
+    static void FramebufferResizeCallback(GLFWwindow* glfwWindow, int width, int height);
 
     std::unique_ptr<Window> window;
     std::unique_ptr<VulkanContext> vulkanContext;
@@ -38,14 +38,13 @@ private:
     std::unique_ptr<Scene> scene;
     std::unique_ptr<CameraController> cameraController;
 
+    std::chrono::time_point<std::chrono::high_resolution_clock> lastFrameTime;
+
+    float deltaTime = 0.0f;
+    float dayNightSpeed = 1.0f;
     uint32_t currentFrame = 0;
+
     bool framebufferResized = false;
 
     static constexpr int MAX_FRAMES_IN_FLIGHT = 2;
-
-    // Timing
-    std::chrono::time_point<std::chrono::high_resolution_clock> lastFrameTime;
-    float deltaTime = 0.0f;
-
-    float dayNightSpeed = 1.0f;
 };

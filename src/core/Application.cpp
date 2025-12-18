@@ -3,15 +3,12 @@
 #include <iostream>
 
 
-Application::Application() {
-    window = std::make_unique<Window>(800, 600, "TheOrb");
-
+Application::Application()
+    : window(std::make_unique<Window>(800, 600, "TheOrb"))
+{
     glfwSetWindowUserPointer(window->GetGLFWWindow(), this);
     glfwSetKeyCallback(window->GetGLFWWindow(), KeyCallback);
     glfwSetFramebufferSizeCallback(window->GetGLFWWindow(), FramebufferResizeCallback);
-}
-
-Application::~Application() {
 }
 
 void Application::Run() {
@@ -19,7 +16,6 @@ void Application::Run() {
     SetupScene();
 
     lastFrameTime = std::chrono::high_resolution_clock::now();
-
 
     MainLoop();
     Cleanup();
@@ -67,24 +63,25 @@ void Application::InitVulkan() {
     cameraController = std::make_unique<CameraController>();
 }
 
+static const char* SUN_NAME = "Sun";
+static const char* MOON_NAME = "Moon";
+
 void Application::SetupScene() {
-    float orbitRadius = 275.0f;
-    float startSpeed = 0.1f;
+    const float orbitRadius = 275.0f;
+    const float startSpeed = 0.1f;
     dayNightSpeed = startSpeed;
 
-    float deltaY = -75.0f;
-	float orbRadius = 150.0f;
-    float terrainHeightScale = 3.5f;
-    float terrainNoiseFreq = 0.02f;
+    const float deltaY = -75.0f;
+    const float orbRadius = 150.0f;
+    const float terrainHeightScale = 3.5f;
+    const float terrainNoiseFreq = 0.02f;
 
-    float adjustedRadius = scene->RadiusAdjustment(orbRadius, deltaY);
+    const float adjustedRadius = scene->RadiusAdjustment(orbRadius, deltaY);
 
     scene->AddTerrain("GroundGrid", adjustedRadius, 512, 512, 3.5f, 0.02f, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), "textures/desert2.jpg");
-    scene->AddPedestal("BasePedestal", adjustedRadius, orbRadius * 2.3 , 100.0f, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), "textures/mahogany.jpg");
-	scene->SetObjectCastsShadow("BasePedestal", false);
+    scene->AddPedestal("BasePedestal", adjustedRadius, orbRadius * 2.3, 100.0f, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), "textures/mahogany.jpg");
+    scene->SetObjectCastsShadow("BasePedestal", false);
     scene->SetObjectLayerMask("BasePedestal", SceneLayers::OUTSIDE);
-    
-	
 
     // High frequency cacti (small)
     scene->RegisterProceduralObject("models/cactus.obj", "textures/cactus.jpg", 7.0f, glm::vec3(0.01f), glm::vec3(0.02f), glm::vec3(-90.0f, 0.0f, 0.0f));
@@ -92,25 +89,24 @@ void Application::SetupScene() {
     scene->RegisterProceduralObject("models/DeadTree.obj", "textures/bark.jpg", 5.0f, glm::vec3(0.1f), glm::vec3(0.2f));
     // Low frequency large trees
     scene->RegisterProceduralObject("models/DeadTree.obj", "textures/bark.jpg", 4.0f, glm::vec3(0.25f), glm::vec3(0.35f));
-    scene->GenerateProceduralObjects(50, orbRadius-20, deltaY, terrainHeightScale, terrainNoiseFreq);
-
+    scene->GenerateProceduralObjects(50, orbRadius - 20, deltaY, terrainHeightScale, terrainNoiseFreq);
 
     // sun must be called first
-    scene->AddSphere("Sun", 16, 32, 5.0f, glm::vec3(0.0f), "textures/sun.png");
-    scene->AddLight("Sun", glm::vec3(0.0f), glm::vec3(1.0f, 0.9f, 0.8f), 1.0f, 0);
-    scene->SetObjectCastsShadow("Sun", false);
-    scene->SetObjectOrbit("Sun", glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), 0.0f);
-    scene->SetLightOrbit("Sun", glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), 0.0f);
-    scene->SetObjectLayerMask("Sun", SceneLayers::ALL);
-    scene->SetLightLayerMask("Sun", SceneLayers::ALL);
+    scene->AddSphere(SUN_NAME, 16, 32, 5.0f, glm::vec3(0.0f), "textures/sun.png");
+    scene->AddLight(SUN_NAME, glm::vec3(0.0f), glm::vec3(1.0f, 0.9f, 0.8f), 1.0f, 0);
+    scene->SetObjectCastsShadow(SUN_NAME, false);
+    scene->SetObjectOrbit(SUN_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), 0.0f);
+    scene->SetLightOrbit(SUN_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), 0.0f);
+    scene->SetObjectLayerMask(SUN_NAME, SceneLayers::ALL);
+    scene->SetLightLayerMask(SUN_NAME, SceneLayers::ALL);
 
-    scene->AddSphere("Moon", 16, 32, 2.0f, glm::vec3(0.0f), "textures/moon.jpg");
-    scene->AddLight("Moon", glm::vec3(0.0f), glm::vec3(0.1f, 0.1f, 0.3f), 1.5f, 0);
-    scene->SetObjectCastsShadow("Moon", false);
-    scene->SetObjectOrbit("Moon", glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), glm::pi<float>());
-    scene->SetLightOrbit("Moon", glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), glm::pi<float>());
-    scene->SetObjectLayerMask("Moon", SceneLayers::ALL);
-    scene->SetLightLayerMask("Moon", SceneLayers::ALL);
+    scene->AddSphere(MOON_NAME, 16, 32, 2.0f, glm::vec3(0.0f), "textures/moon.jpg");
+    scene->AddLight(MOON_NAME, glm::vec3(0.0f), glm::vec3(0.1f, 0.1f, 0.3f), 1.5f, 0);
+    scene->SetObjectCastsShadow(MOON_NAME, false);
+    scene->SetObjectOrbit(MOON_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), glm::pi<float>());
+    scene->SetLightOrbit(MOON_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), glm::pi<float>());
+    scene->SetObjectLayerMask(MOON_NAME, SceneLayers::ALL);
+    scene->SetLightLayerMask(MOON_NAME, SceneLayers::ALL);
 
     scene->AddSphere("PedestalLightSphere", 16, 32, 5.0f, glm::vec3(200.0f, 0.0f, 200.0f));
     scene->AddLight("PedestalLight", glm::vec3(200.0f, 0.0f, 200.0f), glm::vec3(1.0f, 0.5f, 0.2f), 5.0f, 0);
@@ -163,7 +159,7 @@ void Application::RecreateSwapChain() {
 void Application::MainLoop() {
     while (!window->ShouldClose()) {
         // Calculate delta time
-        auto currentTime = std::chrono::high_resolution_clock::now();
+        const auto currentTime = std::chrono::high_resolution_clock::now();
         deltaTime = std::chrono::duration<float>(currentTime - lastFrameTime).count();
         lastFrameTime = currentTime;
 
@@ -178,17 +174,18 @@ void Application::MainLoop() {
         scene->Update(deltaTime);
 
         // Get camera matrices
-        Camera* activeCamera = cameraController->GetActiveCamera();
-        glm::mat4 viewMatrix = activeCamera->GetViewMatrix();
-        glm::mat4 projMatrix = activeCamera->GetProjectionMatrix(
-            vulkanSwapChain->GetExtent().width / (float)vulkanSwapChain->GetExtent().height
+        Camera* const activeCamera = cameraController->GetActiveCamera();
+        const glm::mat4 viewMatrix = activeCamera->GetViewMatrix();
+        // Rule ID: CODSTA-CPP.11 - C++ style cast
+        const glm::mat4 projMatrix = activeCamera->GetProjectionMatrix(
+            vulkanSwapChain->GetExtent().width / static_cast<float>(vulkanSwapChain->GetExtent().height)
         );
 
         int currentViewMask = SceneLayers::ALL; // Default
 
         // Check distance to center (0,0,0)
-        float dist = glm::length(activeCamera->GetPosition());
-        float ballRadius = 150.0f; // Matches your setup
+        const float dist = glm::length(activeCamera->GetPosition());
+        const float ballRadius = 150.0f; // Matches your setup
 
         if (dist < ballRadius) {
             // We are INSIDE: Draw Terrain + Sun/Moon
@@ -215,7 +212,7 @@ void Application::ProcessInput() {
     }
 
     bool speedChanged = false;
-    float speedChangeRate = 1.2f; // How fast the speed adjusts
+    const float speedChangeRate = 1.2f; // How fast the speed adjusts
 
     if (glfwGetKey(window->GetGLFWWindow(), GLFW_KEY_RIGHT_BRACKET) == GLFW_PRESS) {
         dayNightSpeed += speedChangeRate * deltaTime;
@@ -228,15 +225,16 @@ void Application::ProcessInput() {
 
     if (speedChanged) {
         // Apply new speed to both Sun and Moon (Mesh + Light)
-        scene->SetOrbitSpeed("Sun", dayNightSpeed);
-        scene->SetOrbitSpeed("Moon", dayNightSpeed);
+        scene->SetOrbitSpeed(SUN_NAME, dayNightSpeed);
+        scene->SetOrbitSpeed(MOON_NAME, dayNightSpeed);
 
         //std::cout << "Orbit Speed: " << dayNightSpeed << std::endl; // Optional debug
     }
 }
 
-void Application::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-    auto app = reinterpret_cast<Application*>(glfwGetWindowUserPointer(window));
+// Rule ID: CODSTA.45 - Renamed parameter 'window' to 'glfwWindow'
+void Application::KeyCallback(GLFWwindow* glfwWindow, int key, int scancode, int action, int mods) {
+    auto* const app = reinterpret_cast<Application*>(glfwGetWindowUserPointer(glfwWindow));
 
     if (action == GLFW_PRESS) {
         // Camera switching
@@ -261,8 +259,9 @@ void Application::KeyCallback(GLFWwindow* window, int key, int scancode, int act
     }
 }
 
-void Application::FramebufferResizeCallback(GLFWwindow* window, int width, int height) {
-    auto app = reinterpret_cast<Application*>(glfwGetWindowUserPointer(window));
+void Application::FramebufferResizeCallback(GLFWwindow* glfwWindow, int width, int height) {
+    // Rule ID: CODSTA-CPP.53
+    auto* const app = reinterpret_cast<Application*>(glfwGetWindowUserPointer(glfwWindow));
     app->framebufferResized = true;
 }
 

@@ -1,0 +1,340 @@
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Application::Application(); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>6
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Application; SIGNATURE=Application::Application(); PARAMNO=0; DEF=true; DIT=false; START_LINE=6; END_LINE=12; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>6
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Application::Application(); NBD=0; TEMPLATE_FUNC=
+<l>6
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Application::~Application(); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>14
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Application; SIGNATURE=Application::~Application(); PARAMNO=0; DEF=true; DIT=false; START_LINE=14; END_LINE=15; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>14
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Application::~Application(); NBD=0; TEMPLATE_FUNC=
+<l>14
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Application::Run(); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>17
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Application; SIGNATURE=Application::Run(); PARAMNO=0; DEF=true; DIT=false; START_LINE=17; END_LINE=26; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>17
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Application::Run(); NBD=0; TEMPLATE_FUNC=
+<l>17
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Application::InitVulkan(); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>28
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Application; SIGNATURE=Application::InitVulkan(); PARAMNO=0; DEF=true; DIT=false; START_LINE=28; END_LINE=68; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>28
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Application::InitVulkan(); NBD=0; TEMPLATE_FUNC=
+<l>28
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Application::SetupScene(); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>70
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Application; SIGNATURE=Application::SetupScene(); PARAMNO=0; DEF=true; DIT=false; START_LINE=70; END_LINE=134; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>70
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Application::SetupScene(); NBD=0; TEMPLATE_FUNC=
+<l>70
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Application::RecreateSwapChain(); CC=2; SCC=3; MCC=2; TEMPLATE_FUNC=
+<l>137
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Application; SIGNATURE=Application::RecreateSwapChain(); PARAMNO=0; DEF=true; DIT=false; START_LINE=137; END_LINE=161; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>137
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Application::RecreateSwapChain(); NBD=1; TEMPLATE_FUNC=
+<l>137
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Application::MainLoop(); CC=4; SCC=4; MCC=4; TEMPLATE_FUNC=
+<l>163
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Application; SIGNATURE=Application::MainLoop(); PARAMNO=0; DEF=true; DIT=false; START_LINE=163; END_LINE=209; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>163
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Application::MainLoop(); NBD=2; TEMPLATE_FUNC=
+<l>163
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Application::ProcessInput(); CC=5; SCC=5; MCC=5; TEMPLATE_FUNC=
+<l>211
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Application; SIGNATURE=Application::ProcessInput(); PARAMNO=0; DEF=true; DIT=false; START_LINE=211; END_LINE=236; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>211
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Application::ProcessInput(); NBD=1; TEMPLATE_FUNC=
+<l>211
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Application::KeyCallback(GLFWwindow *, int, int, int, int); CC=6; SCC=6; MCC=6; TEMPLATE_FUNC=
+<l>238
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Application; SIGNATURE=Application::KeyCallback(GLFWwindow *, int, int, int, int); PARAMNO=5; DEF=true; DIT=false; START_LINE=238; END_LINE=262; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>238
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Application::KeyCallback(GLFWwindow *, int, int, int, int); NBD=2; TEMPLATE_FUNC=
+<l>238
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Application::FramebufferResizeCallback(GLFWwindow *, int, int); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>264
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Application; SIGNATURE=Application::FramebufferResizeCallback(GLFWwindow *, int, int); PARAMNO=3; DEF=true; DIT=false; START_LINE=264; END_LINE=267; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>264
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Application::FramebufferResizeCallback(GLFWwindow *, int, int); NBD=0; TEMPLATE_FUNC=
+<l>264
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Application::Cleanup(); CC=6; SCC=6; MCC=6; TEMPLATE_FUNC=
+<l>269
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Application; SIGNATURE=Application::Cleanup(); PARAMNO=0; DEF=true; DIT=false; START_LINE=269; END_LINE=295; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>269
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Application::Cleanup(); NBD=1; TEMPLATE_FUNC=
+<l>269
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-LINES_TYPES
+<b>DATA=SSSBBSSBSSSSBSSBSSSBSBBSSSBSCSSSSBSSSSSSBSSSSSSSSBCSSSSSBCSSSSBSBCSSBSSSSBSSSSBSBSSSSBBBCSCSCSSBBCSSSSSSSBSSSSSSSBSSSSBSSSBSSSSBMSBCSSBBSSSBCSSSSBSBCSSBCSSBCSBSSBSSCSSSBSSBSSSBSSBCSSSSSBMBCSMBSCSSSCSSBCSBSSBSSBSCSSSBSMBSSSSSSSSBSCSSBCSSBSSBSCSSSSSSSSSSSSBCSSSSSSBSSSSBSSSSSBSSSSBSSSSBSSSSBSSSSBS
+<l>1
+<k>-1
+<s>false
+<N>
+<f>
+<L>0

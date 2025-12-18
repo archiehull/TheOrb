@@ -1,0 +1,6 @@
+fileName=C:\Users\a\Desktop\TheOrb\src\rendering\Camera.cpp
+isCpp=
+compilerOpts=-I"C:\Program Files\Parasoft\C++test for Visual Studio (x86_64)\10.7\engine\runtime\include" /Zi /W3 /O2 /EHsc /MD /fp:precise /Gd /GS /sdl /Oi /I"C:\Users\a\Desktop\TheOrb\Additional Libraries\glfw-3.4.bin.WIN64\include" /I"C:\Users\a\Desktop\TheOrb\Additional Libraries\\" /I"C:\VulkanSDK\1.4.313.2\Include" /I"C:\Users\663073\Workspace\TheOrb\Additional Libraries\glfw-3.4.bin.WIN64\include" /I"C:\Users\a\Desktop\TheOrb\src" /I"C:\Users\663073\Workspace\TheOrb\Additional Libraries\glm-master" /I"C:\Users\a\Desktop\TheOrb\Additional Libraries\glfw-3.4.bin.WIN64\lib-vc2022" /I"C:\Users\a\Desktop\TheOrb\Additional Libraries\glm-master" /Gm- /Gy /D"NDEBUG" /D"_CONSOLE" /D"_UNICODE" /D"UNICODE" /Zc:wchar_t /Zc:forScope /Zc:inline /WX- /nologo /FC /permissive- /diagnostics:column /std:c++17 -DPARASOFT_CPPTEST -I.
+compilerId=vc_14_3-64
+workingDir=C:\Users\a\Desktop\TheOrb\
+advancedOptionsHash=0

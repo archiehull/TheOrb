@@ -1,0 +1,100 @@
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.cpp
+<c>CODSTA-CPP-11
+<b>Use a C++-style cast instead of a C-style cast to the 'size_t' type
+<l>50
+<k>30
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.cpp
+<c>CODSTA-CPP-54
+<b>Member function 'CopyData' should be declared as const
+<l>47
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
+<c>CODSTA-MCPP-23
+<b>Class 'VulkanBuffer' should be final
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.cpp
+<c>CODSTA-45
+<b>The parameter 'device' hides a member variable declared in class 'VulkanBuffer'
+<l>6
+<k>37
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.cpp
+<c>CODSTA-45
+<b>The parameter 'physicalDevice' hides a member variable declared in class 'VulkanBuffer'
+<l>6
+<k>62
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.cpp
+<c>EXCEPT-01
+<b>Destructor '~VulkanBuffer' should not call function 'Cleanup' that is not in try context
+<l>11
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
+<c>MRM-40_d
+<b>Class VulkanBuffer has a non-trivial destructor, but no copy constructor nor copy assignment operator
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
+<c>MRM-49
+<b>Class 'VulkanBuffer' shall declare a copy assignment operator
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
+<c>MRM-49
+<b>Class 'VulkanBuffer' shall declare a copy constructor
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
+<c>OPT-33
+<b>Returned value from function 'GetRequiredExtensions' is passed by value
+<l>27
+<k>30
+<s>false
+<N>
+<f>
+<L>0

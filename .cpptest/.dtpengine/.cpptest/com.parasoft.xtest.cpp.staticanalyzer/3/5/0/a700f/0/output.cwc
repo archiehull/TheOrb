@@ -1,0 +1,140 @@
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>STL-37-DOWNGRADED
+<b>The 'attachments' array should not be used
+<l>68
+<k>33
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>STL-37-DOWNGRADED
+<b>The 'attachments' array should not be used
+<l>103
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>STL-37-DOWNGRADED
+<b>The 'attachments' array should not be used
+<l>121
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>OPT-14
+<b>The parameter 'extent' of function 'CreateFramebuffers' is passed by value
+<l>99
+<k>98
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>OPT-14
+<b>The parameter 'extent' of function 'CreateOffScreenFramebuffer' is passed by value
+<l>120
+<k>118
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>CODSTA-CPP-105
+<b>The '~VulkanRenderPass' function should be defined with =default
+<l>9
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>CODSTA-CPP-53
+<b>Declare local variable 'framebuffer' as const
+<l>139
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>CODSTA-MCPP-23
+<b>Class 'VulkanRenderPass' should be final
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>CODSTA-45
+<b>The parameter 'device' hides a member variable declared in class 'VulkanRenderPass'
+<l>5
+<k>45
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>MRM-49
+<b>Class 'VulkanRenderPass' shall declare a copy assignment operator
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>MRM-49
+<b>Class 'VulkanRenderPass' shall declare a copy constructor
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>OPT-13
+<b>Members 'framebuffers' of class 'VulkanRenderPass' are declared in suboptimal order for memory layout
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>CODSTA-CPP-105
+<b>The '~VulkanRenderPass' function should be defined with =default
+<l>9
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetFramebuffers' returns handles to member data: 'framebuffers'
+<l>17
+<k>65
+<s>false
+<N>
+<f>
+<L>0
