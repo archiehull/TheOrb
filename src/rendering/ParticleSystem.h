@@ -27,7 +27,8 @@ public:
     ParticleSystem(VkDevice device, VkPhysicalDevice physicalDevice, VkCommandPool commandPool, VkQueue graphicsQueue, uint32_t maxParticles, uint32_t framesInFlight);
     ~ParticleSystem();
 
-    void Initialize(VkDescriptorSetLayout textureLayout, GraphicsPipeline* pipeline, const std::string& texturePath);
+    // Change: Added isAdditive parameter
+    void Initialize(VkDescriptorSetLayout textureLayout, GraphicsPipeline* pipeline, const std::string& texturePath, bool isAdditive);
 
     // Set constraints for particle movement
     void SetSimulationBounds(const glm::vec3& center, float radius);
@@ -39,6 +40,9 @@ public:
     void AddEmitter(const ParticleProps& props, float particlesPerSecond);
 
     std::string GetTexturePath() const { return texture ? texturePath : ""; }
+
+    void SetPipeline(GraphicsPipeline* newPipeline) { pipeline = newPipeline; }
+    bool IsAdditive() const { return isAdditive; }
 
     // Data sent to GPU per instance (Modified for 16-byte alignment)
     struct InstanceData {
@@ -72,6 +76,7 @@ private:
     };
 
     std::string texturePath;
+    bool isAdditive = false;
 
     std::vector<ParticleEmitter> emitters;
 

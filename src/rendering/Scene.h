@@ -70,10 +70,10 @@ struct ProceduralObjectConfig {
 
 class Scene {
 public:
-    Scene(VkDevice device, VkPhysicalDevice physicalDevice);
-    ~Scene();
+    Scene(VkDevice vkDevice, VkPhysicalDevice physDevice);
+    ~Scene() = default;
 
-    float RadiusAdjustment(const float radius, const float deltaY);
+    float RadiusAdjustment(const float radius, const float deltaY) const;
 
     void AddTerrain(const std::string& name, float radius, int rings, int segments, float heightScale, float noiseFreq, const glm::vec3& position, const std::string& texturePath);
 
@@ -129,11 +129,12 @@ public:
     void SetObjectReceivesShadows(const std::string& name, bool receives);
     void SetObjectShadingMode(const std::string& name, int mode);
 
-    void Cleanup();
+    void Cleanup() { Clear(); }
 
 private:
     void AddObjectInternal(const std::string& name, std::unique_ptr<Geometry> geometry, const glm::vec3& position, const std::string& texturePath);
-    glm::vec3 InitializeOrbit(OrbitData& data, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad);
+
+    glm::vec3 InitializeOrbit(OrbitData& data, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad) const;
 
     std::vector<SceneLight> m_SceneLights;
     VkDevice device;

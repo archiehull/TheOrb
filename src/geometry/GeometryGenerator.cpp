@@ -3,20 +3,37 @@
 #include <glm/gtc/noise.hpp>
 #include <algorithm>
 
-#ifndef M_PI
-#define M_PI 3.14159265358979323846
-#endif
+constexpr double PI = 3.14159265358979323846;
 
 // Helper to set normal
-void SetNormal(Vertex& v, glm::vec3 n) { v.normal = n; }
+static void SetNormal(Vertex& v, const glm::vec3& n) { v.normal = n; }
 
 float SmoothStep(float edge0, float edge1, float x) {
-    float t = std::clamp((x - edge0) / (edge1 - edge0), 0.0f, 1.0f);
+    // Rule ID: CODSTA-CPP.53 - Declare 't' as const
+    const float t = std::clamp((x - edge0) / (edge1 - edge0), 0.0f, 1.0f);
     return t * t * (3.0f - 2.0f * t);
 }
 
+void GeometryGenerator::GenerateGridIndices(Geometry* geometry, int slices, int stacks) {
+    auto& indices = geometry->GetIndices();
+    for (int i = 0; i < stacks; ++i) {
+        for (int j = 0; j < slices; ++j) {
+            const uint32_t first = i * (slices + 1) + j;
+            const uint32_t second = first + (slices + 1);
+
+            indices.push_back(first);
+            indices.push_back(first + 1);
+            indices.push_back(second);
+
+            indices.push_back(first + 1);
+            indices.push_back(second + 1);
+            indices.push_back(second);
+        }
+    }
+}
+
 float GeometryGenerator::GetTerrainHeight(float x, float z, float radius, float heightScale, float noiseFreq) {
-    float dist = glm::length(glm::vec2(x, z));
+    const float dist = glm::length(glm::vec2(x, z));
 
     // 1. Noise Generation
     float y = 0.0f;
@@ -29,7 +46,7 @@ float GeometryGenerator::GetTerrainHeight(float x, float z, float radius, float 
 
     // 2. Circular Clamping (Masking)
     // Matches the visual mesh generation
-    float edgeFactor = dist / radius;
+    const float edgeFactor = dist / radius;
     // We apply the mask slightly aggressively to ensure objects don't spawn floating off the very edge
     if (edgeFactor > 0.95f) {
         y *= 0.0f; // Force flat/down at edges
@@ -51,21 +68,21 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateBowl(VkDevice device, VkPhysi
 
     // Generate Bottom Hemisphere (Phi: PI/2 -> PI)
     for (int i = 0; i <= stacks; ++i) {
-        // Interpolate v from 0 to 1
-        float v = (float)i / stacks;
+
+        const float v = static_cast<float>(i) / stacks;
 
         // phi goes from PI/2 (Equator) to PI (South Pole)
-        float phi = M_PI * 0.5f + (M_PI * 0.5f * v);
+        const float phi = static_cast<float>(PI) * 0.5f + (static_cast<float>(PI) * 0.5f * v);
 
-        float y = radius * cos(phi);
-        float r_at_y = radius * sin(phi);
+        const float y = radius * cos(phi);
+        const float r_at_y = radius * sin(phi);
 
         for (int j = 0; j <= slices; ++j) {
-            float u = (float)j / slices;
-            float theta = 2.0f * M_PI * u;
+            const float u = static_cast<float>(j) / slices;
+            const float theta = 2.0f * static_cast<float>(PI) * u;
 
-            float x = r_at_y * cos(theta);
-            float z = r_at_y * sin(theta);
+            const float x = r_at_y * cos(theta);
+            const float z = r_at_y * sin(theta);
 
             glm::vec3 pos(x, y, z);
             glm::vec3 normal = glm::normalize(pos);
@@ -80,21 +97,7 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateBowl(VkDevice device, VkPhysi
         }
     }
 
-    // Indices (Standard Grid Logic)
-    for (int i = 0; i < stacks; ++i) {
-        for (int j = 0; j < slices; ++j) {
-            uint32_t first = i * (slices + 1) + j;
-            uint32_t second = first + (slices + 1);
-
-            geometry->GetIndices().push_back(first);
-            geometry->GetIndices().push_back(first + 1);
-            geometry->GetIndices().push_back(second);
-
-            geometry->GetIndices().push_back(first + 1);
-            geometry->GetIndices().push_back(second + 1);
-            geometry->GetIndices().push_back(second);
-        }
-    }
+    GenerateGridIndices(geometry.get(), slices, stacks);
 
     geometry->CreateBuffers();
     return geometry;
@@ -108,27 +111,24 @@ std::unique_ptr<Geometry> GeometryGenerator::CreatePedestal(VkDevice device, VkP
     std::vector<uint32_t>& indices = geometry->GetIndices();
 
     for (int i = 0; i <= stacks; ++i) {
-        float v = (float)i / stacks;
-        float y = -v * height; // Goes down from 0 to -height
+        const float v = static_cast<float>(i) / stacks;
+        const float y = -v * height; // Goes down from 0 to -height
 
         for (int j = 0; j <= slices; ++j) {
-            float u = (float)j / slices;
-            float theta = 2.0f * M_PI * u;
+            const float u = static_cast<float>(j) / slices;
+            const float theta = 2.0f * static_cast<float>(PI) * u;
 
             // 1. Calculate Circular Top Position
-            float x_circle = topRadius * cos(theta);
-            float z_circle = topRadius * sin(theta);
+            const float x_circle = topRadius * cos(theta);
+            const float z_circle = topRadius * sin(theta);
 
-            // 2. Calculate Circular Bottom Position (CHANGED)
-            // Previously this calculated a square profile. 
-            // Now we treat baseWidth as the diameter of a circle.
-            float baseRadius = baseWidth * 0.5f;
-            float x_base = baseRadius * cos(theta);
-            float z_base = baseRadius * sin(theta);
+            // 2. Calculate Circular Bottom Position
+            const float baseRadius = baseWidth * 0.5f;
+            const float x_base = baseRadius * cos(theta);
+            const float z_base = baseRadius * sin(theta);
 
             // 3. Interpolate (Linear Loft)
             glm::vec3 pos;
-            // Linearly interpolate between the top circle and bottom circle
             pos.x = glm::mix(x_circle, x_base, v);
             pos.y = y;
             pos.z = glm::mix(z_circle, z_base, v);
@@ -160,17 +160,17 @@ std::unique_ptr<Geometry> GeometryGenerator::CreatePedestal(VkDevice device, VkP
     // Compute Normals (Smooth)
     for (auto& v : vertices) v.normal = glm::vec3(0.0f);
     for (size_t i = 0; i < indices.size(); i += 3) {
-        uint32_t i0 = indices[i];
-        uint32_t i1 = indices[i + 1];
-        uint32_t i2 = indices[i + 2];
+        const uint32_t i0 = indices[i];
+        const uint32_t i1 = indices[i + 1];
+        const uint32_t i2 = indices[i + 2];
 
-        glm::vec3 v0 = vertices[i0].pos;
-        glm::vec3 v1 = vertices[i1].pos;
-        glm::vec3 v2 = vertices[i2].pos;
+        const glm::vec3 v0 = vertices[i0].pos;
+        const glm::vec3 v1 = vertices[i1].pos;
+        const glm::vec3 v2 = vertices[i2].pos;
 
-        glm::vec3 edge1 = v1 - v0;
-        glm::vec3 edge2 = v2 - v0;
-        glm::vec3 normal = glm::cross(edge1, edge2);
+        const glm::vec3 edge1 = v1 - v0;
+        const glm::vec3 edge2 = v2 - v0;
+        const glm::vec3 normal = glm::cross(edge1, edge2);
 
         vertices[i0].normal += normal;
         vertices[i1].normal += normal;
@@ -195,26 +195,23 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateTerrain(VkDevice device, VkPh
     std::vector<uint32_t>& indices = geometry->GetIndices();
 
     for (int i = 0; i <= rings; ++i) {
-        float r = (float)i / rings * radius;
+        const float r = static_cast<float>(i) / rings * radius;
 
         for (int j = 0; j <= segments; ++j) {
-            float theta = (float)j / segments * 2.0f * M_PI;
+            const float theta = static_cast<float>(j) / segments * 2.0f * static_cast<float>(PI);
 
-            float x = r * cos(theta);
-            float z = r * sin(theta);
+            const float x = r * cos(theta);
+            const float z = r * sin(theta);
 
-            // Re-use the centralized height logic if you implemented GetTerrainHeight, 
-            // otherwise keep the noise logic here.
-            // For this snippet, I'll assume the noise logic is inline or called via helper.
             float y = 0.0f;
             y += glm::perlin(glm::vec2(x, z) * noiseFreq);
             y += glm::perlin(glm::vec2(x, z) * noiseFreq * 2.0f) * 0.25f;
             y *= heightScale;
 
-            // Apply edge mask (inline logic for consistency with previous file)
-            float edgeFactor = (float)i / rings;
+            // Apply edge mask
+            const float edgeFactor = static_cast<float>(i) / rings;
             if (edgeFactor > 0.9f) {
-                float mask = 1.0f - ((edgeFactor - 0.9f) * 10.0f);
+                const float mask = 1.0f - ((edgeFactor - 0.9f) * 10.0f);
                 y *= mask;
             }
             if (i == 0) y = 0.0f;
@@ -222,9 +219,9 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateTerrain(VkDevice device, VkPh
             glm::vec3 pos(x, y, z);
 
             // Coloring
-            float hFactor = (y / heightScale) + 0.5f;
-            glm::vec3 lowColor = glm::vec3(0.35f, 0.30f, 0.25f);
-            glm::vec3 highColor = glm::vec3(0.45f, 0.40f, 0.30f);
+            const float hFactor = (y / heightScale) + 0.5f;
+            const glm::vec3 lowColor = glm::vec3(0.35f, 0.30f, 0.25f);
+            const glm::vec3 highColor = glm::vec3(0.45f, 0.40f, 0.30f);
             glm::vec3 color = glm::mix(lowColor, highColor, hFactor);
             if (edgeFactor > 0.9f) color *= (1.0f - ((edgeFactor - 0.9f) * 10.0f));
 
@@ -235,11 +232,11 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateTerrain(VkDevice device, VkPh
             uv.y = (z / radius) * 0.5f + 0.5f;
 
 
-            float textureTiling = 80.0f;
+            const float textureTiling = 80.0f;
             // Apply tiling
             uv *= textureTiling;
 
-            glm::vec3 normal = glm::vec3(0.0f, 1.0f, 0.0f);
+            const glm::vec3 normal = glm::vec3(0.0f, 1.0f, 0.0f);
             vertices.push_back({ pos, color, uv, normal });
         }
     }
@@ -261,13 +258,13 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateTerrain(VkDevice device, VkPh
 
     for (auto& v : vertices) v.normal = glm::vec3(0.0f);
     for (size_t i = 0; i < indices.size(); i += 3) {
-        uint32_t i0 = indices[i];
-        uint32_t i1 = indices[i + 1];
-        uint32_t i2 = indices[i + 2];
-        glm::vec3 v0 = vertices[i0].pos;
-        glm::vec3 v1 = vertices[i1].pos;
-        glm::vec3 v2 = vertices[i2].pos;
-        glm::vec3 normal = glm::cross(v1 - v0, v2 - v0);
+        const uint32_t i0 = indices[i];
+        const uint32_t i1 = indices[i + 1];
+        const uint32_t i2 = indices[i + 2];
+        const glm::vec3 v0 = vertices[i0].pos;
+        const glm::vec3 v1 = vertices[i1].pos;
+        const glm::vec3 v2 = vertices[i2].pos;
+        const glm::vec3 normal = glm::cross(v1 - v0, v2 - v0);
         vertices[i0].normal += normal;
         vertices[i1].normal += normal;
         vertices[i2].normal += normal;
@@ -338,28 +335,27 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateCube(VkDevice device, VkPhysi
 
 std::unique_ptr<Geometry> GeometryGenerator::CreateGrid(VkDevice device, VkPhysicalDevice physicalDevice, int rows, int cols, float cellSize) {
     auto geometry = std::make_unique<Geometry>(device, physicalDevice);
-    float width = cols * cellSize;
-    float height = rows * cellSize;
-    float startX = -width / 2.0f;
-    float startY = -height / 2.0f;
+    const float width = cols * cellSize;
+    const float height = rows * cellSize;
+    const float startX = -width / 2.0f;
+    const float startY = -height / 2.0f;
 
     for (int row = 0; row <= rows; ++row) {
         for (int col = 0; col <= cols; ++col) {
-            float x = startX + col * cellSize;
-            float y = startY + row * cellSize;
+            const float x = startX + col * cellSize;
+            const float y = startY + row * cellSize;
             glm::vec3 color = GenerateColor(row * (cols + 1) + col, (rows + 1) * (cols + 1));
-            glm::vec2 uv = glm::vec2((float)col / cols, (float)row / rows);
+            glm::vec2 uv = glm::vec2(static_cast<float>(col) / cols, static_cast<float>(row) / rows);
             // Grid in XZ plane, Normal is +Y
             geometry->GetVertices().push_back({ glm::vec3(x, 0.0f, y), color, uv, glm::vec3(0.0f, 1.0f, 0.0f) });
         }
     }
-    // Indices generation remains the same as your original file...
     for (int row = 0; row < rows; ++row) {
         for (int col = 0; col < cols; ++col) {
-            uint32_t topLeft = row * (cols + 1) + col;
-            uint32_t topRight = topLeft + 1;
-            uint32_t bottomLeft = (row + 1) * (cols + 1) + col;
-            uint32_t bottomRight = bottomLeft + 1;
+            const uint32_t topLeft = row * (cols + 1) + col;
+            const uint32_t topRight = topLeft + 1;
+            const uint32_t bottomLeft = (row + 1) * (cols + 1) + col;
+            const uint32_t bottomRight = bottomLeft + 1;
             geometry->GetIndices().push_back(topLeft);
             geometry->GetIndices().push_back(bottomLeft);
             geometry->GetIndices().push_back(topRight);
@@ -378,42 +374,32 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateSphere(VkDevice device, VkPhy
     auto geometry = std::make_unique<Geometry>(device, physicalDevice);
 
     for (int i = 0; i <= stacks; ++i) {
-        float phi = M_PI * i / stacks;
-        float y = radius * cos(phi);
-        float sinPhi = sin(phi);
+        const float phi = static_cast<float>(PI) * i / stacks;
+        const float y = radius * cos(phi);
+        const float sinPhi = sin(phi);
 
         for (int j = 0; j <= slices; ++j) {
-            float theta = 2.0f * M_PI * j / slices;
-            float x = radius * sinPhi * cos(theta);
-            float z = radius * sinPhi * sin(theta);
+            const float theta = 2.0f * static_cast<float>(PI) * j / slices;
+            const float x = radius * sinPhi * cos(theta);
+            const float z = radius * sinPhi * sin(theta);
 
             glm::vec3 pos = glm::vec3(x, y, z);
-            glm::vec3 normal = glm::normalize(pos); // Sphere normal is just normalized position
+            const glm::vec3 normal = glm::normalize(pos); // Sphere normal is just normalized position
             glm::vec3 color = GenerateColor(i * (slices + 1) + j, (stacks + 1) * (slices + 1));
-            glm::vec2 uv = glm::vec2((float)j / slices, 1.0f - (float)i / stacks);
+            glm::vec2 uv = glm::vec2(static_cast<float>(j) / slices, 1.0f - static_cast<float>(i) / stacks);
 
             geometry->GetVertices().push_back({ pos, color, uv, normal });
         }
     }
-    // Indices generation remains same as your original file...
-    for (int i = 0; i < stacks; ++i) {
-        for (int j = 0; j < slices; ++j) {
-            uint32_t first = i * (slices + 1) + j;
-            uint32_t second = first + (slices + 1);
-            geometry->GetIndices().push_back(first);
-            geometry->GetIndices().push_back(first + 1);
-            geometry->GetIndices().push_back(second);
-            geometry->GetIndices().push_back(first + 1);
-            geometry->GetIndices().push_back(second + 1);
-            geometry->GetIndices().push_back(second);
-        }
-    }
+
+    GenerateGridIndices(geometry.get(), slices, stacks);
+
     geometry->CreateBuffers();
     return geometry;
 }
 // GenerateColor remains the same
 glm::vec3 GeometryGenerator::GenerateColor(int index, int total) {
-    float hue = (float)index / (float)total;
+    const float hue = static_cast<float>(index) / static_cast<float>(total);
     float r, g, b;
     if (hue < 0.33f) { r = 1.0f - (hue / 0.33f); g = hue / 0.33f; b = 0.0f; }
     else if (hue < 0.66f) { r = 0.0f; g = 1.0f - ((hue - 0.33f) / 0.33f); b = (hue - 0.33f) / 0.33f; }

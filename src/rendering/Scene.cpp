@@ -12,7 +12,7 @@ static void UpdateShadingMode(SceneObject* obj) {
     if (!obj || !obj->geometry) return;
 
     const size_t HIGH_POLY_THRESHOLD = 500;
-    size_t vertexCount = obj->geometry->GetVertices().size();
+    const size_t vertexCount = obj->geometry->GetVertices().size();
 
     if (vertexCount > HIGH_POLY_THRESHOLD) {
         obj->shadingMode = 0; // Gouraud
@@ -29,25 +29,24 @@ void Scene::AddObjectInternal(const std::string& name, std::unique_ptr<Geometry>
     objects.push_back(std::move(obj));
 }
 
-float Scene::RadiusAdjustment(const float radius, const float deltaY) {
-    float planeY = deltaY; // height of terrain plane relative to sphere center
+float Scene::RadiusAdjustment(const float radius, const float deltaY) const {
+    const float planeY = deltaY;
     float terrainRadius = 0.0f;
-    float absDist = std::fabs(planeY);
+    const float absDist = std::fabs(planeY);
     if (absDist < radius) {
         terrainRadius = std::sqrt(radius * radius - absDist * absDist);
     }
     else {
         terrainRadius = 0.0f; // plane is outside sphere — no intersection
     }
-	return terrainRadius;
+    return terrainRadius;
 }
 
-Scene::Scene(VkDevice device, VkPhysicalDevice physicalDevice)
-    : device(device), physicalDevice(physicalDevice) {
+Scene::Scene(VkDevice vkDevice, VkPhysicalDevice physDevice)
+    : device(vkDevice), physicalDevice(physDevice) {
 }
 
-Scene::~Scene() {
-}
+// Destructor implementation removed (now = default in header)
 
 void Scene::RegisterProceduralObject(const std::string& modelPath, const std::string& texturePath, float frequency, const glm::vec3& minScale, const glm::vec3& maxScale, const glm::vec3& baseRotation) {
     ProceduralObjectConfig config;
@@ -68,6 +67,8 @@ void Scene::GenerateProceduralObjects(int count, float terrainRadius, float delt
 
     std::random_device rd;
     std::mt19937 gen(rd());
+
+    // CHANGE: Removed 'const' because operator() is non-const
     std::uniform_real_distribution<float> distRad(0.0f, terrainRadius * 0.9f);
     std::uniform_real_distribution<float> distAngle(0.0f, glm::two_pi<float>());
     std::uniform_real_distribution<float> distFreq(0.0f, totalFreq);
@@ -76,17 +77,17 @@ void Scene::GenerateProceduralObjects(int count, float terrainRadius, float delt
 
     for (int i = 0; i < count; i++) {
         // 1. Pick Position
-        float r = std::sqrt(distScale(gen)) * (terrainRadius * 0.9f);
-        float theta = distAngle(gen);
-        float x = r * cos(theta);
-        float z = r * sin(theta);
+        const float r = std::sqrt(distScale(gen)) * (terrainRadius * 0.9f);
+        const float theta = distAngle(gen);
+        const float x = r * cos(theta);
+        const float z = r * sin(theta);
 
         // 2. Calculate Height
-        float yOffset = GeometryGenerator::GetTerrainHeight(x, z, terrainRadius, heightScale, noiseFreq);
-        float y = deltaY + yOffset;
+        const float yOffset = GeometryGenerator::GetTerrainHeight(x, z, terrainRadius, heightScale, noiseFreq);
+        const float y = deltaY + yOffset;
 
         // 3. Select Object
-        float pick = distFreq(gen);
+        const float pick = distFreq(gen);
         float current = 0.0f;
         int selectedIndex = 0;
         for (int k = 0; k < proceduralRegistry.size(); k++) {
@@ -105,13 +106,13 @@ void Scene::GenerateProceduralObjects(int count, float terrainRadius, float delt
         scale.z = glm::mix(config.minScale.z, config.maxScale.z, distScale(gen));
 
         // 5. Spawn Object (with dummy rotation initially)
-        std::string name = "ProcObj_" + std::to_string(i);
+        const std::string name = "ProcObj_" + std::to_string(i);
         // We pass 0 rotation here because we will manually overwrite the matrix below
         AddModel(name, glm::vec3(x, y, z), glm::vec3(0.0f), scale, config.modelPath, config.texturePath);
 
         // 6. Overwrite Transform with Correct Rotation Order
         if (!objects.empty()) {
-            auto& obj = objects.back();
+            const auto& obj = objects.back();
             glm::mat4 m = glm::mat4(1.0f);
 
             // A. Translate to position
@@ -119,7 +120,7 @@ void Scene::GenerateProceduralObjects(int count, float terrainRadius, float delt
 
             // B. Apply World Yaw (Random Rotation around Y)
             // This spins the object "in place" relative to the world, keeping it upright
-            float randomYaw = distRot(gen);
+            const float randomYaw = distRot(gen);
             m = glm::rotate(m, glm::radians(randomYaw), glm::vec3(0.0f, 1.0f, 0.0f));
 
             // C. Apply Base Rotation Correction (e.g. Stand up the cactus)
@@ -226,10 +227,20 @@ void Scene::SetupParticleSystem(VkCommandPool commandPool, VkQueue graphicsQueue
     this->particlePipelineAlpha = alphaPipeline;
     this->particleDescriptorLayout = layout;
     this->framesInFlight = framesInFlight;
+
+    for (auto& sys : particleSystems) {
+        if (sys->IsAdditive()) {
+            sys->SetPipeline(particlePipelineAdditive);
+        }
+        else {
+            sys->SetPipeline(particlePipelineAlpha);
+        }
+    }
 }
 
 ParticleSystem* Scene::GetOrCreateSystem(const ParticleProps& props) {
     // Check if a system with this texture already exists
+    // Rule ID: CODSTA-CPP.53
     for (auto& sys : particleSystems) {
         if (sys->GetTexturePath() == props.texturePath) {
             return sys.get();
@@ -239,10 +250,10 @@ ParticleSystem* Scene::GetOrCreateSystem(const ParticleProps& props) {
     // Create new system
     auto newSys = std::make_unique<ParticleSystem>(device, physicalDevice, commandPool, graphicsQueue, 2000, framesInFlight);
 
-    GraphicsPipeline* pipeline = props.isAdditive ? particlePipelineAdditive : particlePipelineAlpha;
-    newSys->Initialize(particleDescriptorLayout, pipeline, props.texturePath);
+    GraphicsPipeline* const pipeline = props.isAdditive ? particlePipelineAdditive : particlePipelineAlpha;
+    newSys->Initialize(particleDescriptorLayout, pipeline, props.texturePath, props.isAdditive);
 
-    ParticleSystem* ptr = newSys.get();
+    ParticleSystem* const ptr = newSys.get();
     particleSystems.push_back(std::move(newSys));
     return ptr;
 }
@@ -278,7 +289,7 @@ void Scene::AddRain() {
     rain.velocityVariation.z = 80.0f; // Depth
 
     // Set bounds for rain (matches CrystalBall radius)
-    auto* sys = GetOrCreateSystem(rain);
+    auto* const sys = GetOrCreateSystem(rain);
     sys->SetSimulationBounds(glm::vec3(0.0f), 150.0f);
     sys->AddEmitter(rain, 1000.0f); // Heavy rain
 }
@@ -295,7 +306,7 @@ void Scene::AddSnow() {
     snow.velocityVariation = glm::vec3(1.0f, 0.2f, 1.0f);
 
     // Set bounds for snow (matches CrystalBall radius)
-    auto* sys = GetOrCreateSystem(snow);
+    auto* const sys = GetOrCreateSystem(snow);
     sys->SetSimulationBounds(glm::vec3(0.0f), 150.0f);
     sys->AddEmitter(snow, 500.0f);
 }
@@ -308,36 +319,36 @@ void Scene::AddDust() {
     dust.velocityVariation.y = 10.0f; // Height of dust cloud
 
     // Set bounds for dust (matches CrystalBall radius)
-    auto* sys = GetOrCreateSystem(dust);
+    auto* const sys = GetOrCreateSystem(dust);
     sys->SetSimulationBounds(glm::vec3(0.0f), 150.0f);
     sys->AddEmitter(dust, 200.0f);
 }
 
-glm::vec3 Scene::InitializeOrbit(OrbitData& data, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad) {
+glm::vec3 Scene::InitializeOrbit(OrbitData& data, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad) const {
     data.isOrbiting = true;
     data.center = center;
     data.radius = radius;
     data.speed = speedRadPerSec;
-    float axisLen = glm::length(axis);
+    const float axisLen = glm::length(axis);
     data.axis = (axisLen > 1e-6f) ? glm::normalize(axis) : glm::vec3(0.0f, 1.0f, 0.0f);
     data.initialAngle = initialAngleRad;
     data.currentAngle = initialAngleRad;
 
-    glm::quat rot = glm::angleAxis(data.initialAngle, data.axis);
-    glm::vec3 offset = rot * glm::vec3(data.radius, 0.0f, 0.0f);
+    const glm::quat rot = glm::angleAxis(data.initialAngle, data.axis);
+    const glm::vec3 offset = rot * glm::vec3(data.radius, 0.0f, 0.0f);
     return data.center + offset;
 }
 
 void Scene::SetObjectOrbit(const std::string& name, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad) {
 
-    auto it = std::find_if(objects.begin(), objects.end(),
+    const auto it = std::find_if(objects.begin(), objects.end(),
         [&name](const std::unique_ptr<SceneObject>& obj) {
             return obj->name == name;
         });
 
     if (it != objects.end()) {
-        SceneObject* objectPtr = it->get();
-        glm::vec3 initialPosition = InitializeOrbit(objectPtr->orbitData, center, radius, speedRadPerSec, axis, initialAngleRad);
+        SceneObject* const objectPtr = it->get();
+        const glm::vec3 initialPosition = InitializeOrbit(objectPtr->orbitData, center, radius, speedRadPerSec, axis, initialAngleRad);
 
         objectPtr->transform[3] = glm::vec4(initialPosition, 1.0f);
     }
@@ -347,14 +358,14 @@ void Scene::SetObjectOrbit(const std::string& name, const glm::vec3& center, flo
 }
 
 void Scene::SetLightOrbit(const std::string& name, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad) {
-    auto it = std::find_if(m_SceneLights.begin(), m_SceneLights.end(),
+    const auto it = std::find_if(m_SceneLights.begin(), m_SceneLights.end(),
         [&name](const SceneLight& light) {
             return light.name == name;
         });
 
     if (it != m_SceneLights.end()) {
-        SceneLight& sceneLight = *it;
-        glm::vec3 initialPosition = InitializeOrbit(sceneLight.orbitData, center, radius, speedRadPerSec, axis, initialAngleRad);
+        SceneLight& sceneLight = const_cast<SceneLight&>(*it);
+        const glm::vec3 initialPosition = InitializeOrbit(sceneLight.orbitData, center, radius, speedRadPerSec, axis, initialAngleRad);
         sceneLight.vulkanLight.position = initialPosition;
     }
     else {
@@ -363,18 +374,18 @@ void Scene::SetLightOrbit(const std::string& name, const glm::vec3& center, floa
 }
 
 void Scene::SetOrbitSpeed(const std::string& name, float speedRadPerSec) {
-    auto itObj = std::find_if(objects.begin(), objects.end(),
+    const auto itObj = std::find_if(objects.begin(), objects.end(),
         [&](const std::unique_ptr<SceneObject>& obj) { return obj->name == name; });
 
     if (itObj != objects.end()) {
         (*itObj)->orbitData.speed = speedRadPerSec;
     }
 
-    auto itLight = std::find_if(m_SceneLights.begin(), m_SceneLights.end(),
+    const auto itLight = std::find_if(m_SceneLights.begin(), m_SceneLights.end(),
         [&](const SceneLight& light) { return light.name == name; });
 
     if (itLight != m_SceneLights.end()) {
-        itLight->orbitData.speed = speedRadPerSec;
+        const_cast<SceneLight&>(*itLight).orbitData.speed = speedRadPerSec;
     }
 }
 
@@ -393,9 +404,9 @@ void Scene::Update(float deltaTime) {
         }
     }
 
-    for (auto& obj : objects) {
+    for (const auto& obj : objects) {
         if (obj->orbitData.isOrbiting) {
-            glm::vec3 newPos = CalculateNewPos(obj->orbitData);
+            const glm::vec3 newPos = CalculateNewPos(obj->orbitData);
             obj->transform[3] = glm::vec4(newPos, 1.0f);
         }
     }
@@ -431,7 +442,7 @@ void Scene::SetObjectTransform(size_t index, const glm::mat4& transform) {
 }
 
 void Scene::SetObjectLayerMask(const std::string& name, int mask) {
-    auto it = std::find_if(objects.begin(), objects.end(),
+    const auto it = std::find_if(objects.begin(), objects.end(),
         [&name](const std::unique_ptr<SceneObject>& obj) {
             return obj->name == name;
         });
@@ -441,7 +452,7 @@ void Scene::SetObjectLayerMask(const std::string& name, int mask) {
 }
 
 void Scene::SetLightLayerMask(const std::string& name, int mask) {
-    auto it = std::find_if(m_SceneLights.begin(), m_SceneLights.end(),
+    const auto it = std::find_if(m_SceneLights.begin(), m_SceneLights.end(),
         [&name](const SceneLight& light) {
             return light.name == name;
         });
@@ -460,7 +471,7 @@ void Scene::SetObjectVisible(size_t index, bool visible) {
 }
 
 void Scene::SetObjectCastsShadow(const std::string& name, bool casts) {
-    auto it = std::find_if(objects.begin(), objects.end(),
+    const auto it = std::find_if(objects.begin(), objects.end(),
         [&name](const std::unique_ptr<SceneObject>& obj) {
             return obj->name == name;
         });
@@ -474,7 +485,7 @@ void Scene::SetObjectCastsShadow(const std::string& name, bool casts) {
 }
 
 void Scene::SetObjectReceivesShadows(const std::string& name, bool receives) {
-    auto it = std::find_if(objects.begin(), objects.end(),
+    const auto it = std::find_if(objects.begin(), objects.end(),
         [&name](const std::unique_ptr<SceneObject>& obj) {
             return obj->name == name;
         });
@@ -485,7 +496,7 @@ void Scene::SetObjectReceivesShadows(const std::string& name, bool receives) {
 }
 
 void Scene::SetObjectShadingMode(const std::string& name, int mode) {
-    auto it = std::find_if(objects.begin(), objects.end(),
+    const auto it = std::find_if(objects.begin(), objects.end(),
         [&name](const std::unique_ptr<SceneObject>& obj) {
             return obj->name == name;
         });
@@ -493,8 +504,4 @@ void Scene::SetObjectShadingMode(const std::string& name, int mode) {
     if (it != objects.end()) {
         (*it)->shadingMode = mode;
     }
-}
-
-void Scene::Cleanup() {
-    Clear();
 }

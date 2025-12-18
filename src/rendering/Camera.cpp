@@ -16,9 +16,6 @@ Camera::Camera()
     UpdateCameraVectors();
 }
 
-Camera::~Camera() {
-}
-
 glm::mat4 Camera::GetViewMatrix() const {
     return glm::lookAt(position, position + front, up);
 }
@@ -27,10 +24,6 @@ glm::mat4 Camera::GetProjectionMatrix(float aspectRatio) const {
     glm::mat4 proj = glm::perspective(glm::radians(fov), aspectRatio, nearPlane, farPlane);
     proj[1][1] *= -1;  // Flip Y for Vulkan
     return proj;
-}
-
-void Camera::SetPosition(const glm::vec3& pos) {
-    position = pos;
 }
 
 void Camera::SetTarget(const glm::vec3& target) {

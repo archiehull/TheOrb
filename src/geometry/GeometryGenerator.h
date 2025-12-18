@@ -1,8 +1,8 @@
-//
 #pragma once
 
 #include "Geometry.h"
 #include <glm/glm.hpp>
+#include <memory>
 
 class GeometryGenerator {
 public:
@@ -21,6 +21,8 @@ public:
 
     static std::unique_ptr<Geometry> CreatePedestal(VkDevice device, VkPhysicalDevice physicalDevice,
         float topRadius, float baseWidth, float height, int slices, int stacks);
+
 private:
     static glm::vec3 GenerateColor(int index, int total);
+    static void GenerateGridIndices(Geometry* geometry, int slices, int stacks);
 };

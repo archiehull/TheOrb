@@ -10,17 +10,17 @@ enum class CameraType {
     ORBIT
 };
 
-class Camera {
+class Camera final {
 public:
     Camera();
-    ~Camera();
+    ~Camera() = default;
 
     // Get view and projection matrices
     glm::mat4 GetViewMatrix() const;
     glm::mat4 GetProjectionMatrix(float aspectRatio) const;
 
     // Camera controls
-    void SetPosition(const glm::vec3& pos);
+    inline void SetPosition(const glm::vec3& pos) { position = pos; }
     void SetTarget(const glm::vec3& target);
     void SetUp(const glm::vec3& up);
 

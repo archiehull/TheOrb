@@ -153,6 +153,8 @@ void Application::RecreateSwapChain() {
     // Recreate renderer resources
     renderer->Initialize();
 
+    renderer->SetupSceneParticles(*scene);
+
     framebufferResized = false;
 }
 

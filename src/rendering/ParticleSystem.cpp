@@ -31,10 +31,11 @@ ParticleSystem::~ParticleSystem() {
     instanceBuffers.clear();
 }
 
-void ParticleSystem::Initialize(VkDescriptorSetLayout textureLayout, GraphicsPipeline* pipeline, const std::string& texturePath) {
+void ParticleSystem::Initialize(VkDescriptorSetLayout textureLayout, GraphicsPipeline* pipeline, const std::string& texturePath, bool isAdditive) {
     this->texturePath = texturePath;
     this->textureLayout = textureLayout;
     this->pipeline = pipeline;
+    this->isAdditive = isAdditive;
 
     texture->LoadFromFile(texturePath);
     SetupBuffers();
