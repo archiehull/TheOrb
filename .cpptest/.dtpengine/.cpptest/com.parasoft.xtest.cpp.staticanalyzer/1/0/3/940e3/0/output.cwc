@@ -70,40 +70,10 @@
 <L>0
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
-<c>MRM-49
-<b>Class 'GraphicsPipelineConfig' shall declare a copy assignment operator
-<l>10
-<k>8
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
-<c>MRM-49
-<b>Class 'GraphicsPipelineConfig' shall declare a copy constructor
-<l>10
-<k>8
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
 <c>OPT-13
-<b>Members 'descriptorSetLayouts, extent' of structure 'GraphicsPipelineConfig' are declared in suboptimal order for memory layout
+<b>Members 'extent' of structure 'GraphicsPipelineConfig' are declared in suboptimal order for memory layout
 <l>10
 <k>8
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
-<c>OPT-13
-<b>Members 'config, dynamicStates, shader' of class 'GraphicsPipeline' are declared in suboptimal order for memory layout
-<l>52
-<k>7
 <s>false
 <N>
 <f>
@@ -164,36 +134,6 @@
 <b>Returned value from function 'GetRequiredExtensions' is passed by value
 <l>27
 <k>30
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
-<c>CODSTA-MCPP-23
-<b>Class 'VulkanBuffer' should be final
-<l>6
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
-<c>MRM-49
-<b>Class 'VulkanBuffer' shall declare a copy assignment operator
-<l>6
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
-<c>MRM-49
-<b>Class 'VulkanBuffer' shall declare a copy constructor
-<l>6
-<k>7
 <s>false
 <N>
 <f>

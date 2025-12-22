@@ -1,0 +1,11 @@
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary=gRbKZ0uRtQoKcI95bYWz25odyeykak2WYs2Aa
+StorageVersion: v1
+
+--gRbKZ0uRtQoKcI95bYWz25odyeykak2WYs2Aa
+
+<?xml version='1.0' encoding='UTF-8'?><ResultsList path="TheOrb/TheOrb/Source Files/src/vulkan/VulkanUtils.h"><VersionInfos><StorageInfo ownerId="com.parasoft.xtest.checkers.api.execution" resultId="IExecutionViolation" ver="2"/><StorageInfo ownerId="com.parasoft.xtest.checkers.api.execution" resultId="InsureViolation" ver="3"/><StorageInfo ownerId="com.parasoft.xtest.checkers.api.scope" resultId="IScopeProjectInfo" ver="3"/><StorageInfo ownerId="com.parasoft.xtest.checkers.api.standards" resultId="IMetricsViolation" ver="2"/><StorageInfo ownerId="com.parasoft.xtest.checkers.api.standards" resultId="IDupCodeViolation" ver="2"/><StorageInfo ownerId="com.parasoft.xtest.checkers.api.standards" resultId="IFlowAnalysisViolation" ver="2"/><StorageInfo ownerId="com.parasoft.xtest.checkers.api.standards" resultId="ICodingStandardsViolation" ver="2"/><StorageInfo ownerId="com.parasoft.xtest.checkers.api.generation" resultId="IGenerationInfo" ver="2"/><StorageInfo ownerId="com.parasoft.xtest.checkers.api.generation" resultId="IGenerationProjectInfo" ver="2"/></VersionInfos></ResultsList>
+--gRbKZ0uRtQoKcI95bYWz25odyeykak2WYs2Aa
+
+<?xml version='1.0' encoding='UTF-8'?><ResultInfo resultId="ICodingStandardsViolation" ownerId="com.parasoft.xtest.checkers.api.standards" violKeys="null"><StdViol msg="Returned value from function 'GetRequiredExtensions' is passed by value" ln="27" sev="5" auth="a" rule="OPT-33" tool="c++test" cat="OPT" lang="cpp" locType="sr" config="3" hash="1681224808" locStartln="27" locStartPos="29" locEndLn="27" locEndPos="30" locFile="TheOrb/TheOrb/Source Files/src/vulkan/VulkanUtils.h"/></ResultInfo>
+--gRbKZ0uRtQoKcI95bYWz25odyeykak2WYs2Aa

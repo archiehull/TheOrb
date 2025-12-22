@@ -1,10 +1,14 @@
 ﻿  Application.cpp
+  Geometry.cpp
+  GeometryGenerator.cpp
   OBJLoader.cpp
   main.cpp
-  CameraController.cpp
+  Renderer.cpp
+  Scene.cpp
+  SkyboxPass.cpp
   Generating code
-  988 of 4011 functions (24.6%) were compiled, the rest were copied from previous compilation.
-    21 functions were new in current compilation
-    142 functions had inline decision re-evaluated but remain unchanged
+  0 of 4044 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   TheOrb.vcxproj -> C:\Users\a\Desktop\TheOrb\x64\Release\TheOrb.exe

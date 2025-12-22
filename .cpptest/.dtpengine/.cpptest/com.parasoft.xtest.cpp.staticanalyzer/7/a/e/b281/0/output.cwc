@@ -19,16 +19,6 @@
 <f>
 <L>0
 <->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
-<c>CODSTA-MCPP-23
-<b>Class 'VulkanBuffer' should be final
-<l>6
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
 <F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.cpp
 <c>CODSTA-45
 <b>The parameter 'device' hides a member variable declared in class 'VulkanBuffer'
@@ -54,36 +44,6 @@
 <b>Destructor '~VulkanBuffer' should not call function 'Cleanup' that is not in try context
 <l>11
 <k>5
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
-<c>MRM-40_d
-<b>Class VulkanBuffer has a non-trivial destructor, but no copy constructor nor copy assignment operator
-<l>6
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
-<c>MRM-49
-<b>Class 'VulkanBuffer' shall declare a copy assignment operator
-<l>6
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
-<c>MRM-49
-<b>Class 'VulkanBuffer' shall declare a copy constructor
-<l>6
-<k>7
 <s>false
 <N>
 <f>

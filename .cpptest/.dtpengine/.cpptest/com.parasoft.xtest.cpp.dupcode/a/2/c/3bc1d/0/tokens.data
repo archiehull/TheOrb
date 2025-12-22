@@ -405,7 +405,31 @@ I|c=143|43
 I|c=152|54
 T|c=158|)
 T|c=159:e_B=1|;
-SL||60
+SL||62
+T|c=5:s_B=1|void
+I|c=10|CleanupImageResources
+T|c=31|(
+I|c=32|51
+I|c=41|52
+T|c=47|,
+I|c=49|63
+T|c=56|&
+I|c=58|64
+T|c=63|,
+I|c=65|65
+T|c=79|&
+I|c=81|66
+T|c=92|,
+I|c=94|69
+T|c=105|&
+I|c=107|imageView
+T|c=116|,
+I|c=118|VkSampler
+T|c=127|&
+I|c=129|sampler
+T|c=136|)
+T|c=137:e_B=1|;
+SL||63
 T|c=1:e_B=1|}
 F|id=3|C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
 SF||3
@@ -469,21 +493,21 @@ T|c=30|{
 T|c=31|}
 T|c=32:e_B=1:e_V=1|;
 SL||17
-I|c=5:s_Z=1:s_W=1:e_Z=1|94
+I|c=5:s_Z=1:s_W=1:e_Z=1|98
 T|c=12|.
 I|c=13|sType
 T|c=19|=
 I|c=21|VK_STRUCTURE_TYPE_APPLICATION_INFO
 T|c=55:e_W=1|;
 SL||18
-I|c=5:s_Z=1:s_W=1:e_Z=1|94
+I|c=5:s_Z=1:s_W=1:e_Z=1|98
 T|c=12|.
 I|c=13|pApplicationName
 T|c=30|=
 T|c=32:sl=1|"The Orb"
 T|c=41:e_W=1|;
 SL||19
-I|c=5:s_Z=1:s_W=1:e_Z=1|94
+I|c=5:s_Z=1:s_W=1:e_Z=1|98
 T|c=12|.
 I|c=13|applicationVersion
 T|c=32|=
@@ -525,14 +549,14 @@ T|c=103|)
 T|c=104|)
 T|c=105:e_W=1|;
 SL||20
-I|c=5:s_Z=1:s_W=1:e_Z=1|94
+I|c=5:s_Z=1:s_W=1:e_Z=1|98
 T|c=12|.
 I|c=13|pEngineName
 T|c=25|=
 T|c=27:sl=1|"No Engine"
 T|c=38:e_W=1|;
 SL||21
-I|c=5:s_Z=1:s_W=1:e_Z=1|94
+I|c=5:s_Z=1:s_W=1:e_Z=1|98
 T|c=12|.
 I|c=13|engineVersion
 T|c=27|=
@@ -574,7 +598,7 @@ T|c=98|)
 T|c=99|)
 T|c=100:e_W=1|;
 SL||22
-I|c=5:s_Z=1:s_W=1:e_Z=1|94
+I|c=5:s_Z=1:s_W=1:e_Z=1|98
 T|c=12|.
 I|c=13|apiVersion
 T|c=24|=
@@ -637,7 +661,7 @@ T|c=38:e_B=1:e_V=1|;
 SL||25
 I|c=5:s_Z=1:s_W=1:e_Z=1|42
 T|c=15|.
-I|c=16|95
+I|c=16|99
 T|c=22|=
 I|c=24|VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO
 T|c=62:e_W=1|;
@@ -647,7 +671,7 @@ T|c=15|.
 I|c=16|pApplicationInfo
 T|c=33|=
 T|c=35|&
-I|c=36:s_Z=1:e_Z=1|94
+I|c=36:s_Z=1:e_Z=1|98
 T|c=43:e_W=1|;
 SL||28
 T|c=5:s_B=1:s_V=1|auto
@@ -669,7 +693,7 @@ T|c=51|<
 I|c=52|43
 T|c=60|>
 T|c=61|(
-I|c=62:s_Z=1:e_Z=1|105
+I|c=62:s_Z=1:e_Z=1|109
 T|c=72|.
 I|c=73|size
 T|c=77|(
@@ -681,7 +705,7 @@ I|c=5:s_Z=1:s_W=1:e_Z=1|42
 T|c=15|.
 I|c=16|ppEnabledExtensionNames
 T|c=40|=
-I|c=42:s_Z=1:e_Z=1|105
+I|c=42:s_Z=1:e_Z=1|109
 T|c=52|.
 I|c=53|data
 T|c=57|(
@@ -715,7 +739,7 @@ I|c=62:s_a=1|16
 T|c=73|::
 I|c=75:e_a=1|19
 T|c=91|.
-I|c=92|107
+I|c=92|111
 T|c=96|(
 T|c=97|)
 T|c=98|)
@@ -729,7 +753,7 @@ I|c=42:s_a=1|16
 T|c=53|::
 I|c=55:e_a=1|19
 T|c=71|.
-I|c=72|109
+I|c=72|113
 T|c=76|(
 T|c=77|)
 T|c=78:e_W=1|;
@@ -738,7 +762,7 @@ I|c=9:s_W=1|16
 T|c=20|::
 I|c=22|41
 T|c=54|(
-I|c=55:s_Z=1:e_Z=1|110
+I|c=55:s_Z=1:e_Z=1|114
 T|c=70|)
 T|c=71:e_W=1|;
 SL||38
@@ -747,7 +771,7 @@ T|c=19|.
 I|c=20|pNext
 T|c=26|=
 T|c=28|&
-I|c=29:s_Z=1:e_Z=1|110
+I|c=29:s_Z=1:e_Z=1|114
 T|c=44:e_W=1|;
 SL||39
 T|c=5:e_E=1:e_?=1|}
@@ -757,14 +781,14 @@ T|c=10:s_E=1:s_?=1|{
 SL||41
 I|c=9:s_Z=1:s_W=1:e_Z=1|42
 T|c=19|.
-I|c=20|111
+I|c=20|115
 T|c=38|=
 T|c=40:ic=1|0
 T|c=41:e_W=1|;
 SL||42
 I|c=9:s_Z=1:s_W=1:e_Z=1|42
 T|c=19|.
-I|c=20|113
+I|c=20|117
 T|c=26|=
 T|c=28|nullptr
 T|c=35:e_W=1|;
@@ -791,7 +815,7 @@ SL||46
 T|c=9:s_W=1|throw
 I|c=15|17
 T|c=18|::
-I|c=20|92
+I|c=20|96
 T|c=33|(
 T|c=34:sl=1|"failed to create instance!"
 T|c=62|)
@@ -848,14 +872,14 @@ T|c=83|&
 I|c=84|15
 T|c=98|)
 T|c=100|!=
-I|c=103:e_?=1|115
+I|c=103:e_?=1|119
 T|c=113|)
 T|c=115:s_E=1:s_?=1|{
 SL||57
 T|c=9:s_W=1|throw
 I|c=15|17
 T|c=18|::
-I|c=20|92
+I|c=20|96
 T|c=33|(
 T|c=34:sl=1|"failed to set up debug messenger!"
 T|c=69|)
@@ -890,14 +914,14 @@ T|c=60|&
 I|c=61|13
 T|c=68|)
 T|c=70|!=
-I|c=73:e_?=1|115
+I|c=73:e_?=1|119
 T|c=83|)
 T|c=85:s_E=1:s_?=1|{
 SL||63
 T|c=9:s_W=1|throw
 I|c=15|17
 T|c=18|::
-I|c=20|92
+I|c=20|96
 T|c=33|(
 T|c=34:sl=1|"failed to create window surface!"
 T|c=68|)

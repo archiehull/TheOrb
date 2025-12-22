@@ -8,33 +8,3 @@
 <N>
 <f>
 <L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
-<c>CODSTA-MCPP-23
-<b>Class 'VulkanBuffer' should be final
-<l>6
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
-<c>MRM-49
-<b>Class 'VulkanBuffer' shall declare a copy assignment operator
-<l>6
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
-<c>MRM-49
-<b>Class 'VulkanBuffer' shall declare a copy constructor
-<l>6
-<k>7
-<s>false
-<N>
-<f>
-<L>0

@@ -5,11 +5,51 @@
 
 constexpr double PI = 3.14159265358979323846;
 
-// Helper to set normal
-static void SetNormal(Vertex& v, const glm::vec3& n) { v.normal = n; }
+namespace {
+    // Helper to set normal (unused in this specific refactor but kept if needed)
+    void SetNormal(Vertex& v, const glm::vec3& n) { v.normal = n; }
+
+    // [NEW] Helper to compute smooth normals by averaging face normals
+    // This replaces the duplicated logic in CreatePedestal and CreateTerrain
+    void ComputeSmoothNormals(Geometry* geometry) {
+        // 1. Reset normals
+        for (size_t i = 0; i < geometry->VertexCount(); ++i) {
+            geometry->GetVertex(i).normal = glm::vec3(0.0f);
+        }
+
+        // 2. Accumulate face normals
+        for (size_t i = 0; i < geometry->IndexCount(); i += 3) {
+            const uint32_t i0 = geometry->GetIndex(i);
+            const uint32_t i1 = geometry->GetIndex(i + 1);
+            const uint32_t i2 = geometry->GetIndex(i + 2);
+
+            const glm::vec3 v0 = geometry->GetVertex(i0).pos;
+            const glm::vec3 v1 = geometry->GetVertex(i1).pos;
+            const glm::vec3 v2 = geometry->GetVertex(i2).pos;
+
+            const glm::vec3 edge1 = v1 - v0;
+            const glm::vec3 edge2 = v2 - v0;
+            const glm::vec3 normal = glm::cross(edge1, edge2);
+
+            geometry->GetVertex(i0).normal += normal;
+            geometry->GetVertex(i1).normal += normal;
+            geometry->GetVertex(i2).normal += normal;
+        }
+
+        // 3. Normalize
+        for (size_t i = 0; i < geometry->VertexCount(); ++i) {
+            auto& n = geometry->GetVertex(i).normal;
+            if (glm::length(n) > 0.00001f) {
+                n = glm::normalize(n);
+            }
+            else {
+                n = glm::vec3(0.0f, 1.0f, 0.0f);
+            }
+        }
+    }
+}
 
 float SmoothStep(float edge0, float edge1, float x) {
-    // Rule ID: CODSTA-CPP.53 - Declare 't' as const
     const float t = std::clamp((x - edge0) / (edge1 - edge0), 0.0f, 1.0f);
     return t * t * (3.0f - 2.0f * t);
 }
@@ -44,16 +84,11 @@ float GeometryGenerator::GetTerrainHeight(float x, float z, float radius, float 
     y *= heightScale;
 
     // 2. Circular Clamping (Masking)
-    // Matches the visual mesh generation
     const float edgeFactor = dist / radius;
-    // We apply the mask slightly aggressively to ensure objects don't spawn floating off the very edge
     if (edgeFactor > 0.95f) {
         y *= 0.0f; // Force flat/down at edges
     }
     else {
-        // Same fade as CreateTerrain
-        // Note: CreateTerrain used the loop index for fading, here we use distance
-        // approximating the visual fade effect:
         if (edgeFactor > 0.9f) {
             y *= 1.0f - ((edgeFactor - 0.9f) * 10.0f);
         }
@@ -65,16 +100,11 @@ float GeometryGenerator::GetTerrainHeight(float x, float z, float radius, float 
 std::unique_ptr<Geometry> GeometryGenerator::CreateBowl(VkDevice device, VkPhysicalDevice physicalDevice, float radius, int slices, int stacks) {
     auto geometry = std::make_unique<Geometry>(device, physicalDevice);
 
-    // Reserve reasonable sizes
     geometry->ReserveVertices((slices + 1) * (stacks + 1));
     geometry->ReserveIndices(slices * stacks * 6);
 
-    // Generate Bottom Hemisphere (Phi: PI/2 -> PI)
     for (int i = 0; i <= stacks; ++i) {
-
         const float v = static_cast<float>(i) / stacks;
-
-        // phi goes from PI/2 (Equator) to PI (South Pole)
         const float phi = static_cast<float>(PI) * 0.5f + (static_cast<float>(PI) * 0.5f * v);
 
         const float y = radius * cos(phi);
@@ -89,11 +119,7 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateBowl(VkDevice device, VkPhysi
 
             glm::vec3 pos(x, y, z);
             glm::vec3 normal = glm::normalize(pos);
-
-            // Texture coordinates: u wraps around, v goes top-to-bottom of the bowl
             glm::vec2 uv(u, v);
-
-            // Simple white/grey color base
             glm::vec3 color(0.8f, 0.8f, 0.8f);
 
             geometry->AddVertex({ pos, color, uv, normal });
@@ -101,7 +127,6 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateBowl(VkDevice device, VkPhysi
     }
 
     GenerateGridIndices(geometry.get(), slices, stacks);
-
     geometry->CreateBuffers();
     return geometry;
 }
@@ -115,22 +140,19 @@ std::unique_ptr<Geometry> GeometryGenerator::CreatePedestal(VkDevice device, VkP
 
     for (int i = 0; i <= stacks; ++i) {
         const float v = static_cast<float>(i) / stacks;
-        const float y = -v * height; // Goes down from 0 to -height
+        const float y = -v * height;
 
         for (int j = 0; j <= slices; ++j) {
             const float u = static_cast<float>(j) / slices;
             const float theta = 2.0f * static_cast<float>(PI) * u;
 
-            // 1. Calculate Circular Top Position
             const float x_circle = topRadius * cos(theta);
             const float z_circle = topRadius * sin(theta);
 
-            // 2. Calculate Circular Bottom Position
             const float baseRadius = baseWidth * 0.5f;
             const float x_base = baseRadius * cos(theta);
             const float z_base = baseRadius * sin(theta);
 
-            // 3. Interpolate (Linear Loft)
             glm::vec3 pos;
             pos.x = glm::mix(x_circle, x_base, v);
             pos.y = y;
@@ -138,13 +160,13 @@ std::unique_ptr<Geometry> GeometryGenerator::CreatePedestal(VkDevice device, VkP
 
             glm::vec2 uv(u, v);
             glm::vec3 color(0.8f, 0.8f, 0.8f);
-            glm::vec3 normal(0.0f, 1.0f, 0.0f); // Placeholder, computed below
+            glm::vec3 normal(0.0f, 1.0f, 0.0f); // Placeholder
 
             geometry->AddVertex({ pos, color, uv, normal });
         }
     }
 
-    // Indices (Standard Grid Logic)
+    // Indices
     for (int i = 0; i < stacks; ++i) {
         for (int j = 0; j < slices; ++j) {
             const uint32_t current = i * (slices + 1) + j;
@@ -160,35 +182,8 @@ std::unique_ptr<Geometry> GeometryGenerator::CreatePedestal(VkDevice device, VkP
         }
     }
 
-    // Compute Normals (Smooth)
-    for (size_t i = 0; i < geometry->VertexCount(); ++i) {
-        geometry->GetVertex(i).normal = glm::vec3(0.0f);
-    }
-
-    for (size_t i = 0; i < geometry->IndexCount(); i += 3) {
-        const uint32_t i0 = geometry->GetIndex(i);
-        const uint32_t i1 = geometry->GetIndex(i + 1);
-        const uint32_t i2 = geometry->GetIndex(i + 2);
-
-        const glm::vec3 v0 = geometry->GetVertex(i0).pos;
-        const glm::vec3 v1 = geometry->GetVertex(i1).pos;
-        const glm::vec3 v2 = geometry->GetVertex(i2).pos;
-
-        const glm::vec3 edge1 = v1 - v0;
-        const glm::vec3 edge2 = v2 - v0;
-        const glm::vec3 normal = glm::cross(edge1, edge2);
-
-        geometry->GetVertex(i0).normal += normal;
-        geometry->GetVertex(i1).normal += normal;
-        geometry->GetVertex(i2).normal += normal;
-    }
-    for (size_t i = 0; i < geometry->VertexCount(); ++i) {
-        auto& v = geometry->GetVertex(i).normal;
-        if (glm::length(v) > 0.00001f)
-            v = glm::normalize(v);
-        else
-            v = glm::vec3(0, 1, 0);
-    }
+    // Replaced duplicated normal calculation with helper
+    ComputeSmoothNormals(geometry.get());
 
     geometry->CreateBuffers();
     return geometry;
@@ -215,7 +210,6 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateTerrain(VkDevice device, VkPh
             y += glm::perlin(glm::vec2(x, z) * noiseFreq * 2.0f) * 0.25f;
             y *= heightScale;
 
-            // Apply edge mask
             const float edgeFactor = static_cast<float>(i) / rings;
             if (edgeFactor > 0.9f) {
                 const float mask = 1.0f - ((edgeFactor - 0.9f) * 10.0f);
@@ -225,23 +219,16 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateTerrain(VkDevice device, VkPh
 
             glm::vec3 pos(x, y, z);
 
-            // Coloring
             const float hFactor = (y / heightScale) + 0.5f;
             const glm::vec3 lowColor = glm::vec3(0.35f, 0.30f, 0.25f);
             const glm::vec3 highColor = glm::vec3(0.45f, 0.40f, 0.30f);
             glm::vec3 color = glm::mix(lowColor, highColor, hFactor);
             if (edgeFactor > 0.9f) color *= (1.0f - ((edgeFactor - 0.9f) * 10.0f));
 
-            // UV Mapping with Tiling
             glm::vec2 uv;
-            // Original 0..1 range
             uv.x = (x / radius) * 0.5f + 0.5f;
             uv.y = (z / radius) * 0.5f + 0.5f;
-
-
-            const float textureTiling = 80.0f;
-            // Apply tiling
-            uv *= textureTiling;
+            uv *= 80.0f;
 
             const glm::vec3 normal = glm::vec3(0.0f, 1.0f, 0.0f);
             geometry->AddVertex({ pos, color, uv, normal });
@@ -263,24 +250,8 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateTerrain(VkDevice device, VkPh
         }
     }
 
-    for (size_t i = 0; i < geometry->VertexCount(); ++i) geometry->GetVertex(i).normal = glm::vec3(0.0f);
-    for (size_t i = 0; i < geometry->IndexCount(); i += 3) {
-        const uint32_t i0 = geometry->GetIndex(i);
-        const uint32_t i1 = geometry->GetIndex(i + 1);
-        const uint32_t i2 = geometry->GetIndex(i + 2);
-        const glm::vec3 v0 = geometry->GetVertex(i0).pos;
-        const glm::vec3 v1 = geometry->GetVertex(i1).pos;
-        const glm::vec3 v2 = geometry->GetVertex(i2).pos;
-        const glm::vec3 normal = glm::cross(v1 - v0, v2 - v0);
-        geometry->GetVertex(i0).normal += normal;
-        geometry->GetVertex(i1).normal += normal;
-        geometry->GetVertex(i2).normal += normal;
-    }
-    for (size_t i = 0; i < geometry->VertexCount(); ++i) {
-        auto& n = geometry->GetVertex(i).normal;
-        if (glm::length(n) > 0.0001f) n = glm::normalize(n);
-        else n = glm::vec3(0.0f, 1.0f, 0.0f);
-    }
+    // Replaced duplicated normal calculation with helper
+    ComputeSmoothNormals(geometry.get());
 
     geometry->CreateBuffers();
     return geometry;
@@ -291,7 +262,6 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateCube(VkDevice device, VkPhysi
     geometry->ReserveVertices(24);
     geometry->ReserveIndices(36);
 
-    // Helper to add face with specific normal
     auto AddFace = [&](glm::vec3 n, glm::vec3 p1, glm::vec3 p2, glm::vec3 p3, glm::vec3 p4, glm::vec2 uv1, glm::vec2 uv2, glm::vec2 uv3, glm::vec2 uv4) {
         geometry->AddVertex({ p1, glm::vec3(1.0f), uv1, n });
         geometry->AddVertex({ p2, glm::vec3(1.0f), uv2, n });
@@ -299,32 +269,26 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateCube(VkDevice device, VkPhysi
         geometry->AddVertex({ p4, glm::vec3(1.0f), uv4, n });
         };
 
-    // Front Face (+Z)
     AddFace(glm::vec3(0, 0, 1),
         glm::vec3(-0.5f, -0.5f, 0.5f), glm::vec3(0.5f, -0.5f, 0.5f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(-0.5f, 0.5f, 0.5f),
         { 0, 1 }, { 1, 1 }, { 1, 0 }, { 0, 0 });
 
-    // Back Face (-Z)
     AddFace(glm::vec3(0, 0, -1),
         glm::vec3(0.5f, -0.5f, -0.5f), glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(-0.5f, 0.5f, -0.5f), glm::vec3(0.5f, 0.5f, -0.5f),
         { 0, 1 }, { 1, 1 }, { 1, 0 }, { 0, 0 });
 
-    // Top Face (+Y)
     AddFace(glm::vec3(0, 1, 0),
         glm::vec3(-0.5f, 0.5f, 0.5f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.5f, 0.5f, -0.5f), glm::vec3(-0.5f, 0.5f, -0.5f),
         { 0, 1 }, { 1, 1 }, { 1, 0 }, { 0, 0 });
 
-    // Bottom Face (-Y)
     AddFace(glm::vec3(0, -1, 0),
         glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(0.5f, -0.5f, -0.5f), glm::vec3(0.5f, -0.5f, 0.5f), glm::vec3(-0.5f, -0.5f, 0.5f),
         { 0, 1 }, { 1, 1 }, { 1, 0 }, { 0, 0 });
 
-    // Right Face (+X)
     AddFace(glm::vec3(1, 0, 0),
         glm::vec3(0.5f, -0.5f, 0.5f), glm::vec3(0.5f, -0.5f, -0.5f), glm::vec3(0.5f, 0.5f, -0.5f), glm::vec3(0.5f, 0.5f, 0.5f),
         { 0, 1 }, { 1, 1 }, { 1, 0 }, { 0, 0 });
 
-    // Left Face (-X)
     AddFace(glm::vec3(-1, 0, 0),
         glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(-0.5f, -0.5f, 0.5f), glm::vec3(-0.5f, 0.5f, 0.5f), glm::vec3(-0.5f, 0.5f, -0.5f),
         { 0, 1 }, { 1, 1 }, { 1, 0 }, { 0, 0 });
@@ -358,7 +322,6 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateGrid(VkDevice device, VkPhysi
             const float y = startY + row * cellSize;
             glm::vec3 color = GenerateColor(row * (cols + 1) + col, (rows + 1) * (cols + 1));
             glm::vec2 uv = glm::vec2(static_cast<float>(col) / cols, static_cast<float>(row) / rows);
-            // Grid in XZ plane, Normal is +Y
             geometry->AddVertex({ glm::vec3(x, 0.0f, y), color, uv, glm::vec3(0.0f, 1.0f, 0.0f) });
         }
     }
@@ -399,7 +362,7 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateSphere(VkDevice device, VkPhy
             const float z = radius * sinPhi * sin(theta);
 
             glm::vec3 pos = glm::vec3(x, y, z);
-            const glm::vec3 normal = glm::normalize(pos); // Sphere normal is just normalized position
+            const glm::vec3 normal = glm::normalize(pos);
             glm::vec3 color = GenerateColor(i * (slices + 1) + j, (stacks + 1) * (slices + 1));
             glm::vec2 uv = glm::vec2(static_cast<float>(j) / slices, 1.0f - static_cast<float>(i) / stacks);
 
@@ -408,11 +371,10 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateSphere(VkDevice device, VkPhy
     }
 
     GenerateGridIndices(geometry.get(), slices, stacks);
-
     geometry->CreateBuffers();
     return geometry;
 }
-// GenerateColor remains the same
+
 glm::vec3 GeometryGenerator::GenerateColor(int index, int total) {
     const float hue = static_cast<float>(index) / static_cast<float>(total);
     float r, g, b;

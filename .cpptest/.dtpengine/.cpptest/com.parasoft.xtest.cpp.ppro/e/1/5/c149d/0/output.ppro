@@ -139062,6 +139062,78 @@ f 4
 l 131
 EOR
 
+K o
+I VK_NULL_HANDLE
+F 86
+L 243
+S 243
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 86
+L 245
+S 245
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 86
+L 247
+S 247
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 86
+L 249
+S 249
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 86
+L 251
+S 251
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 86
+L 253
+S 253
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 86
+L 255
+S 255
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 86
+L 257
+S 257
+f 4
+l 43
+EOR
+
 H 87 C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\cmath
 
 K o

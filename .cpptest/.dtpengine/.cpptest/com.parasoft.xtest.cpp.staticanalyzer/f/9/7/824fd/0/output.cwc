@@ -330,49 +330,9 @@
 <L>0
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
-<c>CODSTA-CPP-54
-<b>Member function 'isComplete' should be declared as const
-<l>13
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
-<c>CODSTA-MCPP-23
-<b>Class 'VulkanDevice' should be final
-<l>18
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
-<c>MRM-49
-<b>Class 'VulkanDevice' shall declare a copy assignment operator
-<l>18
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
-<c>MRM-49
-<b>Class 'VulkanDevice' shall declare a copy constructor
-<l>18
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
 <c>OPT-33
 <b>Returned value from function 'GetQueueFamilies' is passed by value
-<l>31
+<l>37
 <k>24
 <s>false
 <N>
@@ -382,7 +342,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
 <c>OPT-33
 <b>Returned value from function 'findQueueFamilies' is passed by value
-<l>41
+<l>47
 <k>24
 <s>false
 <N>

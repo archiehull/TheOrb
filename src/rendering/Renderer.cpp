@@ -6,12 +6,11 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <stdexcept>
 #include <iostream>
+#include <array>
 
-Renderer::Renderer(VulkanDevice* device, VulkanSwapChain* swapChain)
-    : device(device), swapChain(swapChain) {
+Renderer::Renderer(VulkanDevice* deviceArg, VulkanSwapChain* swapChainArg)
+    : device(deviceArg), swapChain(swapChainArg) {
 }
-
-// Destructor now defaulted in header; removed implementation here.
 
 void Renderer::Initialize() {
     CreateRenderPass();
@@ -22,7 +21,7 @@ void Renderer::Initialize() {
 
     // 2. Refraction Framebuffer
     {
-        std::array<VkImageView, 2> attachments = {
+        const std::array<VkImageView, 2> attachments = {
             refractionImageView,
             depthImageView // Reuse depth buffer
         };
@@ -85,7 +84,7 @@ void Renderer::Initialize() {
 
 void Renderer::DrawFrame(Scene& scene, uint32_t currentFrame, const glm::mat4& viewMatrix, const glm::mat4& projMatrix, int layerMask) {
     // Wait for this frame's fence
-    VkFence fence = syncObjects->GetInFlightFence(currentFrame);
+    const VkFence fence = syncObjects->GetInFlightFence(currentFrame);
     vkWaitForFences(device->GetDevice(), 1, &fence, VK_TRUE, UINT64_MAX);
 
     // Acquire next image
@@ -121,17 +120,17 @@ void Renderer::DrawFrame(Scene& scene, uint32_t currentFrame, const glm::mat4& v
     VkSubmitInfo submitInfo{};
     submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
 
-    VkSemaphore waitSemaphores[] = { syncObjects->GetImageAvailableSemaphore(currentFrame) };
-    VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT };
+    const VkSemaphore waitSemaphore = syncObjects->GetImageAvailableSemaphore(currentFrame);
+    const VkPipelineStageFlags waitStage = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
     submitInfo.waitSemaphoreCount = 1;
-    submitInfo.pWaitSemaphores = waitSemaphores;
-    submitInfo.pWaitDstStageMask = waitStages;
+    submitInfo.pWaitSemaphores = &waitSemaphore;
+    submitInfo.pWaitDstStageMask = &waitStage;
     submitInfo.commandBufferCount = 1;
     submitInfo.pCommandBuffers = &cmd;
 
-    VkSemaphore signalSemaphores[] = { syncObjects->GetRenderFinishedSemaphore(imageIndex) };
+    const VkSemaphore signalSemaphore = syncObjects->GetRenderFinishedSemaphore(imageIndex);
     submitInfo.signalSemaphoreCount = 1;
-    submitInfo.pSignalSemaphores = signalSemaphores;
+    submitInfo.pSignalSemaphores = &signalSemaphore;
 
     if (vkQueueSubmit(device->GetGraphicsQueue(), 1, &submitInfo, fence) != VK_SUCCESS) {
         throw std::runtime_error("failed to submit draw command buffer!");
@@ -140,20 +139,18 @@ void Renderer::DrawFrame(Scene& scene, uint32_t currentFrame, const glm::mat4& v
     VkPresentInfoKHR presentInfo{};
     presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
     presentInfo.waitSemaphoreCount = 1;
-    presentInfo.pWaitSemaphores = signalSemaphores;
+    presentInfo.pWaitSemaphores = &signalSemaphore;
 
-    VkSwapchainKHR swapChains[] = { swapChain->GetSwapChain() };
+    const VkSwapchainKHR swapChainHandle = swapChain->GetSwapChain();
     presentInfo.swapchainCount = 1;
-    presentInfo.pSwapchains = swapChains;
+    presentInfo.pSwapchains = &swapChainHandle;
     presentInfo.pImageIndices = &imageIndex;
 
     vkQueuePresentKHR(device->GetPresentQueue(), &presentInfo);
 }
 
 void Renderer::CreateShadowPass() {
-    // Shadow resolution typically higher than screen, e.g., 2048 or 4096
     shadowPass = std::make_unique<ShadowPass>(device, 16384, 16384);
-    // Initialize passing the Global UBO Layout (Set 0)
     shadowPass->Initialize(descriptorSet->GetLayout());
 }
 
@@ -188,7 +185,6 @@ void Renderer::CreateTextureDescriptorSetLayout() {
 }
 
 void Renderer::CreateTextureDescriptorPool() {
-    // Allow for a reasonable number of textures
     VkDescriptorPoolSize poolSize{};
     poolSize.type = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
     poolSize.descriptorCount = 100;
@@ -209,10 +205,8 @@ void Renderer::CreateDefaultTexture() {
         device->GetDevice(), device->GetPhysicalDevice(),
         commandBuffer->GetCommandPool(), device->GetGraphicsQueue());
 
-    // load default.png
     defaultTextureResource.texture->LoadFromFile("textures/default.png");
 
-    // Create Descriptor Set
     VkDescriptorSetAllocateInfo allocInfo{};
     allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
     allocInfo.descriptorPool = textureDescriptorPool;
@@ -221,7 +215,6 @@ void Renderer::CreateDefaultTexture() {
 
     vkAllocateDescriptorSets(device->GetDevice(), &allocInfo, &defaultTextureResource.descriptorSet);
 
-    // Update Descriptor Set
     VkDescriptorImageInfo imageInfo{};
     imageInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
     imageInfo.imageView = defaultTextureResource.texture->GetImageView();
@@ -241,13 +234,11 @@ void Renderer::CreateDefaultTexture() {
 VkDescriptorSet Renderer::GetTextureDescriptorSet(const std::string& path) {
     if (path.empty()) return defaultTextureResource.descriptorSet;
 
-    // Check cache
     const auto it = textureCache.find(path);
     if (it != textureCache.end()) {
         return it->second.descriptorSet;
     }
 
-    // Load new texture
     auto tex = std::make_unique<Texture>(
         device->GetDevice(), device->GetPhysicalDevice(),
         commandBuffer->GetCommandPool(), device->GetGraphicsQueue());
@@ -257,7 +248,6 @@ VkDescriptorSet Renderer::GetTextureDescriptorSet(const std::string& path) {
         return defaultTextureResource.descriptorSet;
     }
 
-    // Allocate Set
     VkDescriptorSet descSet;
     VkDescriptorSetAllocateInfo allocInfo{};
     allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
@@ -267,7 +257,6 @@ VkDescriptorSet Renderer::GetTextureDescriptorSet(const std::string& path) {
 
     vkAllocateDescriptorSets(device->GetDevice(), &allocInfo, &descSet);
 
-    // Update Set
     VkDescriptorImageInfo imageInfo{};
     imageInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
     imageInfo.imageView = tex->GetImageView();
@@ -283,7 +272,6 @@ VkDescriptorSet Renderer::GetTextureDescriptorSet(const std::string& path) {
 
     vkUpdateDescriptorSets(device->GetDevice(), 1, &descriptorWrite, 0, nullptr);
 
-    // Store in cache
     textureCache[path] = { std::move(tex), descSet };
     return descSet;
 }
@@ -298,7 +286,7 @@ static bool HasStencilComponent(VkFormat format) {
 
 VkFormat findSupportedFormat(VkPhysicalDevice physicalDevice, const std::vector<VkFormat>& candidates,
     VkImageTiling tiling, VkFormatFeatureFlags features) {
-    for (VkFormat format : candidates) {
+    for (const VkFormat format : candidates) {
         VkFormatProperties props;
         vkGetPhysicalDeviceFormatProperties(physicalDevice, format, &props);
 
@@ -325,7 +313,7 @@ void Renderer::CreateRenderPass() {
         device->GetDevice(),
         swapChain->GetImageFormat()
     );
-    renderPass->Create(true); // off-screen rendering
+    renderPass->Create(true);
 }
 
 void Renderer::CreatePipeline() {
@@ -345,11 +333,9 @@ void Renderer::CreatePipeline() {
         textureSetLayout
     };
 
-    // Main pipeline standard settings
     pipelineConfig.cullMode = VK_CULL_MODE_BACK_BIT;
     pipelineConfig.depthTestEnable = true;
     pipelineConfig.depthWriteEnable = true;
-
     pipelineConfig.blendEnable = true;
 
     graphicsPipeline = std::make_unique<GraphicsPipeline>(device->GetDevice(), pipelineConfig);
@@ -360,14 +346,13 @@ void Renderer::CreateOffScreenResources() {
     const VkExtent2D extent = swapChain->GetExtent();
     const VkFormat imageFormat = swapChain->GetImageFormat();
 
-    // --- 1. Main OffScreen Color Attachment ---
+    // 1. Main OffScreen Color Attachment
     VulkanUtils::CreateImage(
         device->GetDevice(),
         device->GetPhysicalDevice(),
         extent.width, extent.height, 1, 1,
         imageFormat,
         VK_IMAGE_TILING_OPTIMAL,
-        // MUST include TRANSFER_SRC_BIT because the render pass finalLayout is TRANSFER_SRC_OPTIMAL
         VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT,
         VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
         offScreenImage,
@@ -378,8 +363,7 @@ void Renderer::CreateOffScreenResources() {
         device->GetDevice(), offScreenImage, imageFormat, VK_IMAGE_ASPECT_COLOR_BIT
     );
 
-    // --- 2. Refraction Color Attachment ---
-    // Ensure transfer src bit is present (render pass may transition to TRANSFER_SRC_OPTIMAL)
+    // 2. Refraction Color Attachment
     VulkanUtils::CreateImage(
         device->GetDevice(),
         device->GetPhysicalDevice(),
@@ -396,7 +380,6 @@ void Renderer::CreateOffScreenResources() {
         device->GetDevice(), refractionImage, imageFormat, VK_IMAGE_ASPECT_COLOR_BIT
     );
 
-    // Create Sampler for Refraction
     VkSamplerCreateInfo samplerInfo{};
     samplerInfo.sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;
     samplerInfo.magFilter = VK_FILTER_LINEAR;
@@ -410,7 +393,7 @@ void Renderer::CreateOffScreenResources() {
         throw std::runtime_error("failed to create refraction sampler!");
     }
 
-    // --- 3. Shared Depth Attachment ---
+    // 3. Shared Depth Attachment
     const VkFormat depthFormat = findDepthFormat(device->GetPhysicalDevice());
 
     VulkanUtils::CreateImage(
@@ -430,18 +413,13 @@ void Renderer::CreateOffScreenResources() {
     );
 }
 
-void Renderer::RenderRefractionPass(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene, int layerMask) {
-    // 1. Begin Render Pass targeting the Refraction Framebuffer
+void Renderer::BeginRenderPass(VkCommandBuffer cmd, VkRenderPass pass, VkFramebuffer fb, const std::vector<VkClearValue>& clearValues) const {
     VkRenderPassBeginInfo renderPassInfo{};
     renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-    renderPassInfo.renderPass = renderPass->GetRenderPass();
-    renderPassInfo.framebuffer = refractionFramebuffer;
+    renderPassInfo.renderPass = pass;
+    renderPassInfo.framebuffer = fb;
     renderPassInfo.renderArea.offset = { 0, 0 };
     renderPassInfo.renderArea.extent = swapChain->GetExtent();
-
-    std::array<VkClearValue, 2> clearValues{};
-    clearValues[0].color = { {0.1f, 0.1f, 0.1f, 1.0f} };
-    clearValues[1].depthStencil = { 1.0f, 0 };
     renderPassInfo.clearValueCount = static_cast<uint32_t>(clearValues.size());
     renderPassInfo.pClearValues = clearValues.data();
 
@@ -457,21 +435,24 @@ void Renderer::RenderRefractionPass(VkCommandBuffer cmd, uint32_t currentFrame, 
     VkRect2D scissor{};
     scissor.extent = swapChain->GetExtent();
     vkCmdSetScissor(cmd, 0, 1, &scissor);
+}
 
-    // 2. Draw Skybox
+void Renderer::RenderRefractionPass(VkCommandBuffer cmd, uint32_t currentFrame, const Scene& scene, int layerMask) {
+    std::vector<VkClearValue> clearValues(2);
+    clearValues[0].color = { {0.1f, 0.1f, 0.1f, 1.0f} };
+    clearValues[1].depthStencil = { 1.0f, 0 };
+
+    BeginRenderPass(cmd, renderPass->GetRenderPass(), refractionFramebuffer, clearValues);
+
     if (skyboxPass) {
         skyboxPass->Draw(cmd, scene, currentFrame, descriptorSet->GetDescriptorSets()[currentFrame]);
     }
 
-    // 3. Draw Scene Objects (Excluding Refractive objects)
     vkCmdBindPipeline(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->GetPipeline());
     vkCmdBindDescriptorSets(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->GetLayout(), 0, 1, &descriptorSet->GetDescriptorSets()[currentFrame], 0, nullptr);
 
     for (const auto& obj : scene.GetObjects()) {
-        // Standard filter (skip refractive objects in refraction pass, etc.)
         if (!obj || !obj->visible || !obj->geometry || obj->shadingMode == 3 || obj->shadingMode == 2 || obj->shadingMode == 4) continue;
-
-        // --- LAYER MASK CHECK ---
         if ((obj->layerMask & layerMask) == 0) continue;
 
         PushConstantObject pco{};
@@ -489,10 +470,7 @@ void Renderer::RenderRefractionPass(VkCommandBuffer cmd, uint32_t currentFrame, 
     }
     vkCmdEndRenderPass(cmd);
 
-    // 4. Barrier: Synchronize so Main Pass can read this texture
-    // FIX: Changed oldLayout to VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL
-    // The RenderPass automatically transitions the attachment to its 'finalLayout' when it ends.
-    // Since we reused the offscreen render pass, that final layout is TRANSFER_SRC_OPTIMAL.
+    // Barrier for refraction texture read
     VkImageMemoryBarrier barrier{};
     barrier.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
     barrier.oldLayout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
@@ -505,10 +483,7 @@ void Renderer::RenderRefractionPass(VkCommandBuffer cmd, uint32_t currentFrame, 
     barrier.subresourceRange.levelCount = 1;
     barrier.subresourceRange.baseArrayLayer = 0;
     barrier.subresourceRange.layerCount = 1;
-
-    // We are waiting for Color Attachment Writes to finish (from the render pass)
     barrier.srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
-    // We want to read it in the Fragment Shader in the next pass
     barrier.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
 
     vkCmdPipelineBarrier(cmd,
@@ -532,27 +507,20 @@ void Renderer::CreateSyncObjects() {
         MAX_FRAMES_IN_FLIGHT
     );
 
-    // Explicitly cast size_t -> uint32_t and guard against empty swapchain
     const uint32_t imageCount = static_cast<uint32_t>(swapChain->GetImages().size());
     if (imageCount == 0) {
         throw std::runtime_error("swap chain contains no images");
     }
 
-    // Initialize sync objects (create semaphores/fences) using swapchain image count
     syncObjects->CreateSyncObjects(imageCount);
 }
 
-void Renderer::DrawSceneObjects(VkCommandBuffer cmd, Scene& scene, VkPipelineLayout layout, uint32_t currentFrame, bool bindTextures, bool skipIfNotCastingShadow, int layerMask) {
+void Renderer::DrawSceneObjects(VkCommandBuffer cmd, const Scene& scene, VkPipelineLayout layout, bool bindTextures, bool skipIfNotCastingShadow, int layerMask) {
     for (const auto& obj : scene.GetObjects()) {
         if (!obj || !obj->visible || !obj->geometry) continue;
-
-        // --- KEY LOGIC: Bitmask Check ---
-        // If the object's mask doesn't share any bits with the current pass, SKIP IT.
         if ((obj->layerMask & layerMask) == 0) continue;
-
         if (skipIfNotCastingShadow && !obj->castsShadow) continue;
 
-        // Push Constants
         PushConstantObject pco{};
         pco.model = obj->transform;
         pco.shadingMode = obj->shadingMode;
@@ -560,24 +528,20 @@ void Renderer::DrawSceneObjects(VkCommandBuffer cmd, Scene& scene, VkPipelineLay
         pco.layerMask = obj->layerMask;
         vkCmdPushConstants(cmd, layout, VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(PushConstantObject), &pco);
 
-        // Bind Textures
         if (bindTextures) {
             const VkDescriptorSet textureSet = GetTextureDescriptorSet(obj->texturePath);
             vkCmdBindDescriptorSets(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, layout, 1, 1, &textureSet, 0, nullptr);
         }
 
-        // Draw
         obj->geometry->Bind(cmd);
         obj->geometry->Draw(cmd);
     }
 }
 
 void Renderer::CreateParticlePipelines() {
-    // 1. Get Vertex Input Info from ParticleSystem (Static Helpers)
     auto bindings = ParticleSystem::GetBindingDescriptions();
     auto attribs = ParticleSystem::GetAttributeDescriptions();
 
-    // 2. Configure the Base Pipeline
     GraphicsPipelineConfig config{};
     config.vertShaderPath = "src/shaders/particle_vert.spv";
     config.fragShaderPath = "src/shaders/particle_frag.spv";
@@ -589,22 +553,20 @@ void Renderer::CreateParticlePipelines() {
     config.attributeDescriptions = attribs.data();
     config.attributeCount = static_cast<uint32_t>(attribs.size());
 
-    // Set 0: Global UBO (Camera), Set 1: Particle Texture (Using SHARED textureSetLayout)
     config.descriptorSetLayouts = { descriptorSet->GetLayout(), textureSetLayout };
 
-    // Particles don't write to depth buffer (transparent), but they do test against it.
     config.depthWriteEnable = false;
     config.depthTestEnable = true;
     config.blendEnable = true;
 
-    // --- Variant A: Additive Pipeline (e.g., Fire, Magic) ---
+    // Additive Pipeline
     config.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
     config.dstColorBlendFactor = VK_BLEND_FACTOR_ONE;
 
     particlePipelineAdditive = std::make_unique<GraphicsPipeline>(device->GetDevice(), config);
     particlePipelineAdditive->Create();
 
-    // --- Variant B: Alpha Blended Pipeline (e.g., Smoke, Dust) ---
+    // Alpha Blended Pipeline
     config.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;
     config.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
 
@@ -623,10 +585,9 @@ void Renderer::SetupSceneParticles(Scene& scene) const {
     );
 }
 
-void Renderer::RenderShadowMap(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene, int layerMask) {
+void Renderer::RenderShadowMap(VkCommandBuffer cmd, uint32_t currentFrame, const Scene& scene, int layerMask) {
     shadowPass->Begin(cmd);
 
-    // Bind Global UBO (Set 0) - Contains LightSpaceMatrix
     vkCmdBindDescriptorSets(
         cmd,
         VK_PIPELINE_BIND_POINT_GRAPHICS,
@@ -638,24 +599,20 @@ void Renderer::RenderShadowMap(VkCommandBuffer cmd, uint32_t currentFrame, Scene
         nullptr
     );
 
-    // Draw objects using shadow pipeline layout (No textures needed)
-    // We pass the layerMask here so we can filter what casts shadows if needed.
-    // We also pass 'currentFrame' if your updated DrawSceneObjects requires it.
     DrawSceneObjects(
         cmd,
         scene,
         shadowPass->GetPipeline()->GetLayout(),
-        currentFrame,
-        false, // bindTextures = false (Shadow map doesn't need color textures)
-        true,  // skipIfNotCastingShadow = true
-        layerMask // <--- Pass the mask here
+        false, // bindTextures
+        true,  // skipIfNotCastingShadow
+        layerMask
     );
 
     shadowPass->End(cmd);
 }
 
 void Renderer::RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex,
-    uint32_t currentFrame, Scene& scene,
+    uint32_t currentFrame, const Scene& scene,
     const glm::mat4& viewMatrix, const glm::mat4& projMatrix, int layerMask) {
 
     vkResetCommandBuffer(cmd, 0);
@@ -682,7 +639,7 @@ void Renderer::RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex,
     ubo.proj = projMatrix;
     ubo.viewPos = glm::vec3(glm::inverse(viewMatrix)[3]);
     ubo.lightSpaceMatrix = lightSpaceMatrix;
-    const size_t count = std::min(lights.size(), (size_t)MAX_LIGHTS);
+    const size_t count = std::min(lights.size(), static_cast<size_t>(MAX_LIGHTS));
     if (count > 0) std::memcpy(ubo.lights, lights.data(), count * sizeof(Light));
     ubo.numLights = static_cast<int>(count);
 
@@ -691,7 +648,6 @@ void Renderer::RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex,
         const float sunY = lights[0].position.y;
         const float lower = -50.0f;
         const float upper = 50.0f;
-
         const float t = (sunY - lower) / (upper - lower);
         factor = std::max(0.0f, std::min(t, 1.0f));
     }
@@ -716,50 +672,22 @@ void Renderer::RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex,
     }
 }
 
-void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& scene, int layerMask) {
-    // Begin Render Pass
-    VkRenderPassBeginInfo renderPassInfo{};
-    renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-    renderPassInfo.renderPass = renderPass->GetRenderPass();
-    renderPassInfo.framebuffer = renderPass->GetOffScreenFramebuffer();
-    renderPassInfo.renderArea.offset = { 0, 0 };
-    renderPassInfo.renderArea.extent = swapChain->GetExtent();
-
-    std::array<VkClearValue, 2> clearValues{};
+void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, const Scene& scene, int layerMask) {
+    std::vector<VkClearValue> clearValues(2);
     clearValues[0].color = { {0.0f, 0.0f, 0.0f, 1.0f} };
     clearValues[1].depthStencil = { 1.0f, 0 };
-    renderPassInfo.clearValueCount = static_cast<uint32_t>(clearValues.size());
-    renderPassInfo.pClearValues = clearValues.data();
 
-    vkCmdBeginRenderPass(cmd, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+    BeginRenderPass(cmd, renderPass->GetRenderPass(), renderPass->GetOffScreenFramebuffer(), clearValues);
 
-    VkViewport viewport{};
-    viewport.x = 0.0f;
-    viewport.y = 0.0f;
-    viewport.width = static_cast<float>(swapChain->GetExtent().width);
-    viewport.height = static_cast<float>(swapChain->GetExtent().height);
-    viewport.minDepth = 0.0f;
-    viewport.maxDepth = 1.0f;
-    vkCmdSetViewport(cmd, 0, 1, &viewport);
-
-    VkRect2D scissor{};
-    scissor.offset = { 0, 0 };
-    scissor.extent = swapChain->GetExtent();
-    vkCmdSetScissor(cmd, 0, 1, &scissor);
-
-    // 1. Skybox
     if (skyboxPass) {
         skyboxPass->Draw(cmd, scene, currentFrame, descriptorSet->GetDescriptorSets()[currentFrame]);
     }
 
-    // 2. Draw Opaque Objects
     vkCmdBindPipeline(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->GetPipeline());
     vkCmdBindDescriptorSets(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->GetLayout(), 0, 1, &descriptorSet->GetDescriptorSets()[currentFrame], 0, nullptr);
 
-    // Pass the layerMask (SceneLayers::OUTSIDE) here
-    DrawSceneObjects(cmd, scene, graphicsPipeline->GetLayout(), currentFrame, true, false, layerMask);
+    DrawSceneObjects(cmd, scene, graphicsPipeline->GetLayout(), true, false, layerMask);
 
-    // 3. Particles (Usually drawn in the main pass, or filtered similarly)
     for (const auto& sys : scene.GetParticleSystems()) {
         sys->Draw(cmd, descriptorSet->GetDescriptorSets()[currentFrame], currentFrame);
     }
@@ -767,8 +695,7 @@ void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& sc
     vkCmdEndRenderPass(cmd);
 }
 
-void Renderer::CopyOffScreenToSwapChain(VkCommandBuffer cmd, uint32_t imageIndex) {
-    // Transition off-screen image to transfer source
+void Renderer::CopyOffScreenToSwapChain(VkCommandBuffer cmd, uint32_t imageIndex) const {
     VkImageMemoryBarrier barrier{};
     barrier.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
     barrier.oldLayout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
@@ -784,7 +711,6 @@ void Renderer::CopyOffScreenToSwapChain(VkCommandBuffer cmd, uint32_t imageIndex
     barrier.srcAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
     barrier.dstAccessMask = VK_ACCESS_TRANSFER_READ_BIT;
 
-    // Transition swap chain image to transfer destination
     VkImageMemoryBarrier swapChainBarrier{};
     swapChainBarrier.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
     swapChainBarrier.oldLayout = VK_IMAGE_LAYOUT_UNDEFINED;
@@ -801,7 +727,6 @@ void Renderer::CopyOffScreenToSwapChain(VkCommandBuffer cmd, uint32_t imageIndex
         VK_PIPELINE_STAGE_TRANSFER_BIT,
         0, 0, nullptr, 0, nullptr, 1, &swapChainBarrier);
 
-    // Copy
     VkImageCopy copyRegion{};
     copyRegion.srcSubresource = { VK_IMAGE_ASPECT_COLOR_BIT, 0, 0, 1 };
     copyRegion.dstSubresource = { VK_IMAGE_ASPECT_COLOR_BIT, 0, 0, 1 };
@@ -812,7 +737,6 @@ void Renderer::CopyOffScreenToSwapChain(VkCommandBuffer cmd, uint32_t imageIndex
         swapChain->GetImages()[imageIndex], VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
         1, &copyRegion);
 
-    // Transition swap chain to present
     swapChainBarrier.oldLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
     swapChainBarrier.newLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
     swapChainBarrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
@@ -829,7 +753,6 @@ void Renderer::WaitIdle() const {
 }
 
 void Renderer::Cleanup() {
-    // 1. Cleanup Scene Uniform Buffers
     for (size_t i = 0; i < uniformBuffers.size(); i++) {
         if (uniformBuffersMapped[i]) {
             vkUnmapMemory(device->GetDevice(), uniformBuffers[i]->GetBufferMemory());
@@ -849,7 +772,6 @@ void Renderer::Cleanup() {
         descriptorSet.reset();
     }
 
-    // 2. Cleanup Texture Cache
     for (auto& entry : textureCache) {
         if (entry.second.texture) {
             entry.second.texture->Cleanup();
@@ -875,7 +797,6 @@ void Renderer::Cleanup() {
         textureSetLayout = VK_NULL_HANDLE;
     }
 
-    // 3. Cleanup Shared Particle Resources
     if (particlePipelineAdditive) {
         particlePipelineAdditive->Cleanup();
         particlePipelineAdditive.reset();
@@ -884,9 +805,7 @@ void Renderer::Cleanup() {
         particlePipelineAlpha->Cleanup();
         particlePipelineAlpha.reset();
     }
-    // Note: We used textureSetLayout for particles, so no separate particleTextureLayout to destroy.
 
-    // 4. Cleanup Core Renderer Components
     if (syncObjects) {
         syncObjects->Cleanup();
         syncObjects.reset();
@@ -921,17 +840,50 @@ void Renderer::Cleanup() {
 }
 
 void Renderer::CleanupOffScreenResources() {
-    if (depthImageView != VK_NULL_HANDLE) vkDestroyImageView(device->GetDevice(), depthImageView, nullptr);
-    if (depthImage != VK_NULL_HANDLE) vkDestroyImage(device->GetDevice(), depthImage, nullptr);
-    if (depthImageMemory != VK_NULL_HANDLE) vkFreeMemory(device->GetDevice(), depthImageMemory, nullptr);
+    if (depthImageView != VK_NULL_HANDLE) {
+        vkDestroyImageView(device->GetDevice(), depthImageView, nullptr);
+        depthImageView = VK_NULL_HANDLE;
+    }
+    if (depthImage != VK_NULL_HANDLE) {
+        vkDestroyImage(device->GetDevice(), depthImage, nullptr);
+        depthImage = VK_NULL_HANDLE;
+    }
+    if (depthImageMemory != VK_NULL_HANDLE) {
+        vkFreeMemory(device->GetDevice(), depthImageMemory, nullptr);
+        depthImageMemory = VK_NULL_HANDLE;
+    }
 
-    if (offScreenImageView != VK_NULL_HANDLE) vkDestroyImageView(device->GetDevice(), offScreenImageView, nullptr);
-    if (offScreenImage != VK_NULL_HANDLE) vkDestroyImage(device->GetDevice(), offScreenImage, nullptr);
-    if (offScreenImageMemory != VK_NULL_HANDLE) vkFreeMemory(device->GetDevice(), offScreenImageMemory, nullptr);
+    if (offScreenImageView != VK_NULL_HANDLE) {
+        vkDestroyImageView(device->GetDevice(), offScreenImageView, nullptr);
+        offScreenImageView = VK_NULL_HANDLE;
+    }
+    if (offScreenImage != VK_NULL_HANDLE) {
+        vkDestroyImage(device->GetDevice(), offScreenImage, nullptr);
+        offScreenImage = VK_NULL_HANDLE;
+    }
+    if (offScreenImageMemory != VK_NULL_HANDLE) {
+        vkFreeMemory(device->GetDevice(), offScreenImageMemory, nullptr);
+        offScreenImageMemory = VK_NULL_HANDLE;
+    }
 
-    if (refractionFramebuffer != VK_NULL_HANDLE) vkDestroyFramebuffer(device->GetDevice(), refractionFramebuffer, nullptr);
-    if (refractionSampler != VK_NULL_HANDLE) vkDestroySampler(device->GetDevice(), refractionSampler, nullptr);
-    if (refractionImageView != VK_NULL_HANDLE) vkDestroyImageView(device->GetDevice(), refractionImageView, nullptr);
-    if (refractionImage != VK_NULL_HANDLE) vkDestroyImage(device->GetDevice(), refractionImage, nullptr);
-    if (refractionImageMemory != VK_NULL_HANDLE) vkFreeMemory(device->GetDevice(), refractionImageMemory, nullptr);
+    if (refractionFramebuffer != VK_NULL_HANDLE) {
+        vkDestroyFramebuffer(device->GetDevice(), refractionFramebuffer, nullptr);
+        refractionFramebuffer = VK_NULL_HANDLE;
+    }
+    if (refractionSampler != VK_NULL_HANDLE) {
+        vkDestroySampler(device->GetDevice(), refractionSampler, nullptr);
+        refractionSampler = VK_NULL_HANDLE;
+    }
+    if (refractionImageView != VK_NULL_HANDLE) {
+        vkDestroyImageView(device->GetDevice(), refractionImageView, nullptr);
+        refractionImageView = VK_NULL_HANDLE;
+    }
+    if (refractionImage != VK_NULL_HANDLE) {
+        vkDestroyImage(device->GetDevice(), refractionImage, nullptr);
+        refractionImage = VK_NULL_HANDLE;
+    }
+    if (refractionImageMemory != VK_NULL_HANDLE) {
+        vkFreeMemory(device->GetDevice(), refractionImageMemory, nullptr);
+        refractionImageMemory = VK_NULL_HANDLE;
+    }
 }

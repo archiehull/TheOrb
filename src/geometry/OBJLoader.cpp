@@ -106,7 +106,7 @@ std::unique_ptr<Geometry> OBJLoader::Load(VkDevice device, VkPhysicalDevice phys
                 std::array<VertexKey, 3> keys = { faceVertices[0], faceVertices[i], faceVertices[i + 1] };
 
                 for (const auto& vk : keys) {
-                    auto it = uniqueVertices.find(vk);
+                    const auto it = uniqueVertices.find(vk);
                     if (it == uniqueVertices.end()) {
                         const uint32_t newIndex = static_cast<uint32_t>(geometry->VertexCount());
                         uniqueVertices.emplace(vk, newIndex);

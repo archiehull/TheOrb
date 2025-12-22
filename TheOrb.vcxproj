@@ -29,6 +29,7 @@
     <ClCompile Include="src\rendering\CameraController.cpp" />
     <ClCompile Include="src\rendering\Cubemap.cpp" />
     <ClCompile Include="src\rendering\GraphicsPipeline.cpp" />
+    <ClCompile Include="src\rendering\ParticleLibrary.cpp" />
     <ClCompile Include="src\rendering\ParticleSystem.cpp" />
     <ClCompile Include="src\rendering\Renderer.cpp" />
     <ClCompile Include="src\rendering\Scene.cpp" />

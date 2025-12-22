@@ -178538,8 +178538,8 @@ H 135 C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
 K o
 I VK_NULL_HANDLE
 F 135
-L 24
-S 24
+L 30
+S 30
 f 4
 l 43
 EOR
@@ -178547,8 +178547,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 135
-L 25
-S 25
+L 31
+S 31
 f 4
 l 43
 EOR
@@ -192674,6 +192674,15 @@ H 147 C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
 K o
 I VK_NULL_HANDLE
 F 147
+L 152
+S 152
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 147
 L 153
 S 153
 f 4
@@ -192683,17 +192692,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 147
-L 154
-S 154
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 147
-L 157
-S 157
+L 156
+S 156
 f 4
 l 43
 EOR
@@ -192723,8 +192723,8 @@ H 149 C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
 K o
 I VK_NULL_HANDLE
 F 149
-L 78
-S 78
+L 19
+S 19
 f 4
 l 43
 EOR
@@ -192732,8 +192732,17 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 149
-L 79
-S 79
+L 86
+S 86
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 149
+L 87
+S 87
 f 4
 l 43
 EOR
@@ -228926,8 +228935,8 @@ H 210 C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
 K o
 I MAX_LIGHTS
 F 210
-L 203
-S 203
+L 201
+S 201
 f 146
 l 5
 EOR
@@ -228935,8 +228944,8 @@ EOR
 K o
 I MAX_LIGHTS
 F 210
-L 204
-S 204
+L 202
+S 202
 f 146
 l 5
 EOR

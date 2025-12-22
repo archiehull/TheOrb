@@ -68,8 +68,6 @@ void Scene::GenerateProceduralObjects(int count, float terrainRadius, float delt
     std::random_device rd;
     std::mt19937 gen(rd());
 
-    // 'distRad' must remain non-const because distribution::operator() is non-const.
-    std::uniform_real_distribution<float> distRad(0.0f, terrainRadius * 0.9f);
     std::uniform_real_distribution<float> distAngle(0.0f, glm::two_pi<float>());
     std::uniform_real_distribution<float> distFreq(0.0f, totalFreq);
     std::uniform_real_distribution<float> distScale(0.0f, 1.0f);
@@ -218,15 +216,15 @@ void Scene::AddLight(const std::string& name, const glm::vec3& position, const g
     m_SceneLights.push_back(newSceneLight);
 }
 
-void Scene::SetupParticleSystem(VkCommandPool commandPool, VkQueue graphicsQueue,
+void Scene::SetupParticleSystem(VkCommandPool commandPoolArg, VkQueue graphicsQueueArg,
     GraphicsPipeline* additivePipeline, GraphicsPipeline* alphaPipeline,
-    VkDescriptorSetLayout layout, uint32_t framesInFlight) {
-    this->commandPool = commandPool;
-    this->graphicsQueue = graphicsQueue;
+    VkDescriptorSetLayout layout, uint32_t framesInFlightArg) {
+    this->commandPool = commandPoolArg;
+    this->graphicsQueue = graphicsQueueArg;
     this->particlePipelineAdditive = additivePipeline;
     this->particlePipelineAlpha = alphaPipeline;
     this->particleDescriptorLayout = layout;
-    this->framesInFlight = framesInFlight;
+    this->framesInFlight = framesInFlightArg;
 
     for (const auto& sys : particleSystems) {
         if (sys->IsAdditive()) {
@@ -415,7 +413,7 @@ void Scene::Update(float deltaTime) {
     }
 }
 
-const std::vector<Light> Scene::GetLights() const {
+std::vector<Light> Scene::GetLights() const {
     std::vector<Light> lights;
     lights.reserve(m_SceneLights.size());
     for (const auto& sceneLight : m_SceneLights) {

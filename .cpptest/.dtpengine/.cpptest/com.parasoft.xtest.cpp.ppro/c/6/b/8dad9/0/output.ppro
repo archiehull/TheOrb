@@ -142115,8 +142115,8 @@ H 90 C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
 K o
 I VK_NULL_HANDLE
 F 90
-L 24
-S 24
+L 30
+S 30
 f 4
 l 43
 EOR
@@ -142124,8 +142124,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 90
-L 25
-S 25
+L 31
+S 31
 f 4
 l 43
 EOR
@@ -185212,15 +185212,6 @@ H 124 C:\Users\a\Desktop\TheOrb\src\rendering\Texture.cpp
 K o
 I VK_NULL_HANDLE
 F 124
-L 30
-S 30
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 124
 L 31
 S 31
 f 4
@@ -185248,8 +185239,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 124
-L 47
-S 47
+L 34
+S 34
 f 4
 l 43
 EOR
@@ -185282,21 +185273,12 @@ l 43
 EOR
 
 K o
-I VK_TRUE
+I VK_NULL_HANDLE
 F 124
-L 145
-S 145
+L 51
+S 51
 f 4
-l 135
-EOR
-
-K o
-I VK_FALSE
-F 124
-L 145
-S 145
-f 4
-l 129
+l 43
 EOR
 
 K o
@@ -185311,10 +185293,19 @@ EOR
 K o
 I VK_FALSE
 F 124
-L 155
-S 155
+L 146
+S 146
 f 4
 l 129
+EOR
+
+K o
+I VK_TRUE
+F 124
+L 147
+S 147
+f 4
+l 135
 EOR
 
 K o
@@ -185327,75 +185318,12 @@ l 129
 EOR
 
 K o
-I VK_NULL_HANDLE
+I VK_FALSE
 F 124
-L 171
-S 171
+L 157
+S 157
 f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 124
-L 173
-S 173
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 124
-L 175
-S 175
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 124
-L 177
-S 177
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 124
-L 179
-S 179
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 124
-L 181
-S 181
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 124
-L 183
-S 183
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 124
-L 185
-S 185
-f 4
-l 43
+l 129
 EOR
 
 H 125 C:\Users\a\Desktop\TheOrb\Additional Libraries\stb_image.h

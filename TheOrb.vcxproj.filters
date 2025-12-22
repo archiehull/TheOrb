@@ -111,6 +111,9 @@
     <ClCompile Include="src\rendering\ParticleSystem.cpp">
       <Filter>Source Files\src\rendering</Filter>
     </ClCompile>
+    <ClCompile Include="src\rendering\ParticleLibrary.cpp">
+      <Filter>Source Files\src\rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\Window.h">

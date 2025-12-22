@@ -60,40 +60,10 @@
 <L>0
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
-<c>MRM-49
-<b>Class 'GraphicsPipelineConfig' shall declare a copy assignment operator
-<l>10
-<k>8
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
-<c>MRM-49
-<b>Class 'GraphicsPipelineConfig' shall declare a copy constructor
-<l>10
-<k>8
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
 <c>OPT-13
-<b>Members 'descriptorSetLayouts, extent' of structure 'GraphicsPipelineConfig' are declared in suboptimal order for memory layout
+<b>Members 'extent' of structure 'GraphicsPipelineConfig' are declared in suboptimal order for memory layout
 <l>10
 <k>8
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
-<c>OPT-13
-<b>Members 'config, dynamicStates, shader' of class 'GraphicsPipeline' are declared in suboptimal order for memory layout
-<l>52
-<k>7
 <s>false
 <N>
 <f>
@@ -162,7 +132,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
 <c>OPT-13
 <b>Members 'orbitData, texturePath' of structure 'SceneObject' are declared in suboptimal order for memory layout
-<l>43
+<l>41
 <k>8
 <s>false
 <N>
@@ -172,7 +142,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
 <c>OPT-13
 <b>Members 'baseRotation, maxScale, minScale' of structure 'ProceduralObjectConfig' are declared in suboptimal order for memory layout
-<l>63
+<l>61
 <k>8
 <s>false
 <N>
@@ -182,7 +152,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
 <c>OPT-13
 <b>Members 'objects, particleSystems, proceduralRegistry' of class 'Scene' are declared in suboptimal order for memory layout
-<l>72
+<l>70
 <k>7
 <s>false
 <N>
@@ -192,7 +162,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
 <c>CODSTA-CPP-06
 <b>Member function 'GetParticleSystems' returns handles to member data: 'particleSystems'
-<l>115
+<l>113
 <k>86
 <s>false
 <N>
@@ -202,8 +172,8 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
 <c>OPT-33
 <b>Returned value from function 'GetLights' is passed by value
-<l>119
-<k>30
+<l>118
+<k>24
 <s>false
 <N>
 <f>
@@ -212,7 +182,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
 <c>CODSTA-CPP-06
 <b>Member function 'GetObjects' returns handles to member data: 'objects'
-<l>123
+<l>122
 <k>75
 <s>false
 <N>
@@ -220,90 +190,10 @@
 <L>0
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
-<c>CODSTA-MCPP-23
-<b>Class 'Geometry' should be final
-<l>8
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
-<c>MRM-49
-<b>Class 'Geometry' shall declare a copy assignment operator
-<l>8
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
-<c>MRM-49
-<b>Class 'Geometry' shall declare a copy constructor
-<l>8
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
-<c>OOP-19
-<b>Data members 'vertices' is declared as 'protected'
-<l>28
-<k>25
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
-<c>OOP-19
-<b>Data members 'indices' is declared as 'protected'
-<l>29
-<k>27
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
-<c>OOP-19
-<b>Data members 'device' is declared as 'protected'
-<l>31
-<k>14
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
-<c>OOP-19
-<b>Data members 'physicalDevice' is declared as 'protected'
-<l>32
-<k>22
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
-<c>OOP-19
-<b>Data members 'vertexBuffer' is declared as 'protected'
-<l>34
-<k>35
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
-<c>OOP-19
-<b>Data members 'indexBuffer' is declared as 'protected'
-<l>35
-<k>35
+<c>OPT-14
+<b>The parameter 'newIndices' of function 'SetIndices' is passed by value
+<l>42
+<k>43
 <s>false
 <N>
 <f>
@@ -312,7 +202,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
 <c>OPT-13
 <b>Members 'indexBuffer, vertexBuffer' of class 'Geometry' are declared in suboptimal order for memory layout
-<l>8
+<l>10
 <k>7
 <s>false
 <N>
@@ -322,47 +212,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
 <c>CODSTA-CPP-06
 <b>Member function 'GetVertices' returns handles to member data: 'vertices'
-<l>19
-<k>42
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
-<c>OOP-36
-<b>Public member function 'GetVertices' returns non-const handles to member data: 'vertices'
-<l>19
-<k>42
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
-<c>CODSTA-CPP-06
-<b>Member function 'GetIndices' returns handles to member data: 'indices'
-<l>20
-<k>43
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
-<c>OOP-36
-<b>Public member function 'GetIndices' returns non-const handles to member data: 'indices'
-<l>20
-<k>43
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
-<c>CODSTA-CPP-06
-<b>Member function 'GetVertices' returns handles to member data: 'vertices'
-<l>22
+<l>29
 <k>54
 <s>false
 <N>
@@ -372,38 +222,8 @@
 <F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
 <c>CODSTA-CPP-06
 <b>Member function 'GetIndices' returns handles to member data: 'indices'
-<l>23
+<l>30
 <k>55
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
-<c>CODSTA-MCPP-23
-<b>Class 'VulkanBuffer' should be final
-<l>6
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
-<c>MRM-49
-<b>Class 'VulkanBuffer' shall declare a copy assignment operator
-<l>6
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
-<c>MRM-49
-<b>Class 'VulkanBuffer' shall declare a copy constructor
-<l>6
-<k>7
 <s>false
 <N>
 <f>

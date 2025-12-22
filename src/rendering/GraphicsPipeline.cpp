@@ -4,16 +4,16 @@
 #include <array>
 
 GraphicsPipeline::GraphicsPipeline(VkDevice deviceArg, const GraphicsPipelineConfig& configArg)
-    : device(deviceArg),
-    shader(std::make_unique<VulkanShader>(deviceArg)),
-    pipelineLayout(VK_NULL_HANDLE),
-    pipeline(VK_NULL_HANDLE),
+    : config(configArg),
     dynamicStates{
         VK_DYNAMIC_STATE_VIEWPORT,
         VK_DYNAMIC_STATE_SCISSOR,
         VK_DYNAMIC_STATE_LINE_WIDTH
     },
-    config(configArg) {
+    shader(std::make_unique<VulkanShader>(deviceArg)),
+    device(deviceArg),
+    pipelineLayout(VK_NULL_HANDLE),
+    pipeline(VK_NULL_HANDLE) {
     // Constructor uses initializer list for all members; nothing else required here.
 }
 

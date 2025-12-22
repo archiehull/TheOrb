@@ -38,8 +38,6 @@ struct SceneLight {
     int layerMask = SceneLayers::INSIDE;
 };
 
-
-
 struct SceneObject {
     std::string name;
     std::unique_ptr<Geometry> geometry;
@@ -96,9 +94,9 @@ public:
     void AddBowl(const std::string& name, float radius, int slices, int stacks, const glm::vec3& position, const std::string& texturePath);
     void AddPedestal(const std::string& name, float topRadius, float baseWidth, float height, const glm::vec3& position, const std::string& texturePath);
 
-    void SetupParticleSystem(VkCommandPool commandPool, VkQueue graphicsQueue,
+    void SetupParticleSystem(VkCommandPool commandPoolArg, VkQueue graphicsQueueArg,
         GraphicsPipeline* additivePipeline, GraphicsPipeline* alphaPipeline,
-        VkDescriptorSetLayout layout, uint32_t framesInFlight);
+        VkDescriptorSetLayout layout, uint32_t framesInFlightArg);
 
     // Procedural Generation API
     void RegisterProceduralObject(const std::string& modelPath, const std::string& texturePath, float frequency, const glm::vec3& minScale, const glm::vec3& maxScale, const glm::vec3& baseRotation = glm::vec3(0.0f));
@@ -116,7 +114,8 @@ public:
 
     void Update(float deltaTime);
 
-    const std::vector<Light> GetLights() const;
+    // Changed return type to non-const to allow Move Semantics (Fix OPT.33)
+    std::vector<Light> GetLights() const;
 
     // Scene management
     void Clear();

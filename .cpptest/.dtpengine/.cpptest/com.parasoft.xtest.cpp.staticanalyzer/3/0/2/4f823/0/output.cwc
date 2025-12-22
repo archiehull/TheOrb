@@ -1,49 +1,9 @@
 <->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.cpp
-<c>OPT-20
-<b>Postpone definition of 'shaderStages'
-<l>52
-<k>52
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
-<c>MRM-49
-<b>Class 'GraphicsPipelineConfig' shall declare a copy assignment operator
-<l>10
-<k>8
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
-<c>MRM-49
-<b>Class 'GraphicsPipelineConfig' shall declare a copy constructor
-<l>10
-<k>8
-<s>false
-<N>
-<f>
-<L>0
-<->
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
 <c>OPT-13
-<b>Members 'descriptorSetLayouts, extent' of structure 'GraphicsPipelineConfig' are declared in suboptimal order for memory layout
+<b>Members 'extent' of structure 'GraphicsPipelineConfig' are declared in suboptimal order for memory layout
 <l>10
 <k>8
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
-<c>OPT-13
-<b>Members 'config, dynamicStates, shader' of class 'GraphicsPipeline' are declared in suboptimal order for memory layout
-<l>52
-<k>7
 <s>false
 <N>
 <f>
