@@ -1,0 +1,410 @@
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanDescriptorSet::VulkanDescriptorSet(VkDevice_T *); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>5
+<k>22
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDescriptorSet; SIGNATURE=VulkanDescriptorSet::VulkanDescriptorSet(VkDevice_T *); PARAMNO=1; DEF=true; DIT=false; START_LINE=5; END_LINE=7; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>5
+<k>22
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanDescriptorSet::VulkanDescriptorSet(VkDevice_T *); NBD=0; TEMPLATE_FUNC=
+<l>5
+<k>22
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanDescriptorSet::~VulkanDescriptorSet(); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>9
+<k>22
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDescriptorSet; SIGNATURE=VulkanDescriptorSet::~VulkanDescriptorSet(); PARAMNO=0; DEF=true; DIT=false; START_LINE=9; END_LINE=10; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>9
+<k>22
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanDescriptorSet::~VulkanDescriptorSet(); NBD=0; TEMPLATE_FUNC=
+<l>9
+<k>22
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanDescriptorSet::CreateDescriptorSetLayout(); CC=2; SCC=2; MCC=2; TEMPLATE_FUNC=
+<l>12
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDescriptorSet; SIGNATURE=VulkanDescriptorSet::CreateDescriptorSetLayout(); PARAMNO=0; DEF=true; DIT=false; START_LINE=12; END_LINE=48; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>12
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanDescriptorSet::CreateDescriptorSetLayout(); NBD=1; TEMPLATE_FUNC=
+<l>12
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanDescriptorSet::CreateDescriptorPool(unsigned int); CC=2; SCC=2; MCC=2; TEMPLATE_FUNC=
+<l>49
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDescriptorSet; SIGNATURE=VulkanDescriptorSet::CreateDescriptorPool(unsigned int); PARAMNO=1; DEF=true; DIT=false; START_LINE=49; END_LINE=66; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>49
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanDescriptorSet::CreateDescriptorPool(unsigned int); NBD=1; TEMPLATE_FUNC=
+<l>49
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanDescriptorSet::CreateDescriptorSets(const std::vector<VkBuffer_T *, std::allocator<VkBuffer_T *>> &, unsigned long long, VkImageView_T *, VkSampler_T *, VkImageView_T *, VkSampler_T *); CC=3; SCC=3; MCC=3; TEMPLATE_FUNC=
+<l>68
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDescriptorSet; SIGNATURE=VulkanDescriptorSet::CreateDescriptorSets(const std::vector<VkBuffer_T *, std::allocator<VkBuffer_T *>> &, unsigned long long, VkImageView_T *, VkSampler_T *, VkImageView_T *, VkSampler_T *); PARAMNO=6; DEF=true; DIT=false; START_LINE=68; END_LINE=134; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>68
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanDescriptorSet::CreateDescriptorSets(const std::vector<VkBuffer_T *, std::allocator<VkBuffer_T *>> &, unsigned long long, VkImageView_T *, VkSampler_T *, VkImageView_T *, VkSampler_T *); NBD=1; TEMPLATE_FUNC=
+<l>68
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanDescriptorSet::Cleanup(); CC=3; SCC=3; MCC=3; TEMPLATE_FUNC=
+<l>136
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDescriptorSet; SIGNATURE=VulkanDescriptorSet::Cleanup(); PARAMNO=0; DEF=true; DIT=false; START_LINE=136; END_LINE=146; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>136
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanDescriptorSet::Cleanup(); NBD=1; TEMPLATE_FUNC=
+<l>136
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=VulkanDescriptorSet; NAMESPACE=; TEMPLATE_TYPE=; TAG=class
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDescriptorSet; SIGNATURE=VulkanDescriptorSet::VulkanDescriptorSet(VkDevice_T *); PARAMNO=1; DEF=false; DIT=true; START_LINE=8; END_LINE=8; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>8
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanDescriptorSet::VulkanDescriptorSet(VkDevice_T *); NBD=0; TEMPLATE_FUNC=
+<l>5
+<k>22
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDescriptorSet; SIGNATURE=VulkanDescriptorSet::~VulkanDescriptorSet(); PARAMNO=0; DEF=false; DIT=true; START_LINE=9; END_LINE=9; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>9
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanDescriptorSet::~VulkanDescriptorSet(); NBD=0; TEMPLATE_FUNC=
+<l>9
+<k>22
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDescriptorSet; SIGNATURE=VulkanDescriptorSet::CreateDescriptorSetLayout(); PARAMNO=0; DEF=false; DIT=true; START_LINE=11; END_LINE=11; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>11
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanDescriptorSet::CreateDescriptorSetLayout(); NBD=1; TEMPLATE_FUNC=
+<l>12
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDescriptorSet; SIGNATURE=VulkanDescriptorSet::CreateDescriptorPool(unsigned int); PARAMNO=1; DEF=false; DIT=true; START_LINE=12; END_LINE=12; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>12
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanDescriptorSet::CreateDescriptorPool(unsigned int); NBD=1; TEMPLATE_FUNC=
+<l>49
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDescriptorSet; SIGNATURE=VulkanDescriptorSet::CreateDescriptorSets(const std::vector<VkBuffer_T *, std::allocator<VkBuffer_T *>> &, unsigned long long, VkImageView_T *, VkSampler_T *, VkImageView_T *, VkSampler_T *); PARAMNO=6; DEF=false; DIT=true; START_LINE=14; END_LINE=16; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>14
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanDescriptorSet::CreateDescriptorSets(const std::vector<VkBuffer_T *, std::allocator<VkBuffer_T *>> &, unsigned long long, VkImageView_T *, VkSampler_T *, VkImageView_T *, VkSampler_T *); NBD=1; TEMPLATE_FUNC=
+<l>68
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDescriptorSet; SIGNATURE=VulkanDescriptorSet::Cleanup(); PARAMNO=0; DEF=false; DIT=true; START_LINE=17; END_LINE=17; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>17
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanDescriptorSet::Cleanup(); NBD=1; TEMPLATE_FUNC=
+<l>136
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanDescriptorSet::GetLayout() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>19
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDescriptorSet; SIGNATURE=VulkanDescriptorSet::GetLayout() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=19; END_LINE=19; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>19
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanDescriptorSet::GetLayout() const; NBD=0; TEMPLATE_FUNC=
+<l>19
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanDescriptorSet::GetDescriptorSet(unsigned int) const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>20
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDescriptorSet; SIGNATURE=VulkanDescriptorSet::GetDescriptorSet(unsigned int) const; PARAMNO=1; DEF=true; DIT=true; START_LINE=20; END_LINE=20; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>20
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanDescriptorSet::GetDescriptorSet(unsigned int) const; NBD=0; TEMPLATE_FUNC=
+<l>20
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanDescriptorSet::GetDescriptorSets() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>21
+<k>41
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDescriptorSet; SIGNATURE=VulkanDescriptorSet::GetDescriptorSets() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=21; END_LINE=21; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>21
+<k>41
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanDescriptorSet::GetDescriptorSets() const; NBD=0; TEMPLATE_FUNC=
+<l>21
+<k>41
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.cpp
+<c>INTERNAL-METRICS-LINES_TYPES
+<b>DATA=SSSBSSSBSSBSCSSSSSBCSSSSSSBSSSSSSBCSSSBSSSSBSSSSSSSSSCSBSSSSSBSSSSBSSSBSSSSSSBSSSSBSCSSSSBCSSSSBCSSSSBSBCSSSSSSSBCSSSSSSSBCSSSSSSSBSSSBSSSSSSSSSSS
+<l>1
+<k>-1
+<s>false
+<N>
+<f>
+<L>0

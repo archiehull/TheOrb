@@ -31,38 +31,8 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>INTERNAL-METRICS-CC
-<b>FUNC=Application::~Application(); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
-<l>14
-<k>14
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
-<c>INTERNAL-METRICS-METHODS2
-<b>CLASS=Application; SIGNATURE=Application::~Application(); PARAMNO=0; DEF=true; DIT=false; START_LINE=14; END_LINE=15; TEMPLATE_CLASS=; TEMPLATE_FUNC=
-<l>14
-<k>14
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
-<c>INTERNAL-METRICS-NBD
-<b>FUNC=Application::~Application(); NBD=0; TEMPLATE_FUNC=
-<l>14
-<k>14
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
-<c>INTERNAL-METRICS-CC
 <b>FUNC=Application::Run(); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
-<l>17
+<l>14
 <k>19
 <s>false
 <N>
@@ -71,8 +41,8 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>INTERNAL-METRICS-METHODS2
-<b>CLASS=Application; SIGNATURE=Application::Run(); PARAMNO=0; DEF=true; DIT=false; START_LINE=17; END_LINE=26; TEMPLATE_CLASS=; TEMPLATE_FUNC=
-<l>17
+<b>CLASS=Application; SIGNATURE=Application::Run(); PARAMNO=0; DEF=true; DIT=false; START_LINE=14; END_LINE=22; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>14
 <k>19
 <s>false
 <N>
@@ -82,7 +52,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>INTERNAL-METRICS-NBD
 <b>FUNC=Application::Run(); NBD=0; TEMPLATE_FUNC=
-<l>17
+<l>14
 <k>19
 <s>false
 <N>
@@ -92,7 +62,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>INTERNAL-METRICS-CC
 <b>FUNC=Application::InitVulkan(); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
-<l>28
+<l>24
 <k>19
 <s>false
 <N>
@@ -101,8 +71,8 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>INTERNAL-METRICS-METHODS2
-<b>CLASS=Application; SIGNATURE=Application::InitVulkan(); PARAMNO=0; DEF=true; DIT=false; START_LINE=28; END_LINE=68; TEMPLATE_CLASS=; TEMPLATE_FUNC=
-<l>28
+<b>CLASS=Application; SIGNATURE=Application::InitVulkan(); PARAMNO=0; DEF=true; DIT=false; START_LINE=24; END_LINE=64; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>24
 <k>19
 <s>false
 <N>
@@ -112,7 +82,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>INTERNAL-METRICS-NBD
 <b>FUNC=Application::InitVulkan(); NBD=0; TEMPLATE_FUNC=
-<l>28
+<l>24
 <k>19
 <s>false
 <N>
@@ -122,7 +92,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>INTERNAL-METRICS-CC
 <b>FUNC=Application::SetupScene(); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
-<l>70
+<l>69
 <k>19
 <s>false
 <N>
@@ -131,8 +101,8 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>INTERNAL-METRICS-METHODS2
-<b>CLASS=Application; SIGNATURE=Application::SetupScene(); PARAMNO=0; DEF=true; DIT=false; START_LINE=70; END_LINE=134; TEMPLATE_CLASS=; TEMPLATE_FUNC=
-<l>70
+<b>CLASS=Application; SIGNATURE=Application::SetupScene(); PARAMNO=0; DEF=true; DIT=false; START_LINE=69; END_LINE=130; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>69
 <k>19
 <s>false
 <N>
@@ -142,7 +112,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>INTERNAL-METRICS-NBD
 <b>FUNC=Application::SetupScene(); NBD=0; TEMPLATE_FUNC=
-<l>70
+<l>69
 <k>19
 <s>false
 <N>
@@ -152,7 +122,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>INTERNAL-METRICS-CC
 <b>FUNC=Application::RecreateSwapChain(); CC=2; SCC=3; MCC=2; TEMPLATE_FUNC=
-<l>137
+<l>133
 <k>19
 <s>false
 <N>
@@ -161,8 +131,8 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>INTERNAL-METRICS-METHODS2
-<b>CLASS=Application; SIGNATURE=Application::RecreateSwapChain(); PARAMNO=0; DEF=true; DIT=false; START_LINE=137; END_LINE=161; TEMPLATE_CLASS=; TEMPLATE_FUNC=
-<l>137
+<b>CLASS=Application; SIGNATURE=Application::RecreateSwapChain(); PARAMNO=0; DEF=true; DIT=false; START_LINE=133; END_LINE=159; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>133
 <k>19
 <s>false
 <N>
@@ -172,7 +142,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>INTERNAL-METRICS-NBD
 <b>FUNC=Application::RecreateSwapChain(); NBD=1; TEMPLATE_FUNC=
-<l>137
+<l>133
 <k>19
 <s>false
 <N>
@@ -182,7 +152,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>INTERNAL-METRICS-CC
 <b>FUNC=Application::MainLoop(); CC=4; SCC=4; MCC=4; TEMPLATE_FUNC=
-<l>163
+<l>161
 <k>19
 <s>false
 <N>
@@ -191,8 +161,8 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>INTERNAL-METRICS-METHODS2
-<b>CLASS=Application; SIGNATURE=Application::MainLoop(); PARAMNO=0; DEF=true; DIT=false; START_LINE=163; END_LINE=209; TEMPLATE_CLASS=; TEMPLATE_FUNC=
-<l>163
+<b>CLASS=Application; SIGNATURE=Application::MainLoop(); PARAMNO=0; DEF=true; DIT=false; START_LINE=161; END_LINE=208; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>161
 <k>19
 <s>false
 <N>
@@ -202,7 +172,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>INTERNAL-METRICS-NBD
 <b>FUNC=Application::MainLoop(); NBD=2; TEMPLATE_FUNC=
-<l>163
+<l>161
 <k>19
 <s>false
 <N>
@@ -212,7 +182,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>INTERNAL-METRICS-CC
 <b>FUNC=Application::ProcessInput(); CC=5; SCC=5; MCC=5; TEMPLATE_FUNC=
-<l>211
+<l>210
 <k>19
 <s>false
 <N>
@@ -221,8 +191,8 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>INTERNAL-METRICS-METHODS2
-<b>CLASS=Application; SIGNATURE=Application::ProcessInput(); PARAMNO=0; DEF=true; DIT=false; START_LINE=211; END_LINE=236; TEMPLATE_CLASS=; TEMPLATE_FUNC=
-<l>211
+<b>CLASS=Application; SIGNATURE=Application::ProcessInput(); PARAMNO=0; DEF=true; DIT=false; START_LINE=210; END_LINE=235; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>210
 <k>19
 <s>false
 <N>
@@ -232,7 +202,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>INTERNAL-METRICS-NBD
 <b>FUNC=Application::ProcessInput(); NBD=1; TEMPLATE_FUNC=
-<l>211
+<l>210
 <k>19
 <s>false
 <N>
@@ -281,7 +251,7 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>INTERNAL-METRICS-METHODS2
-<b>CLASS=Application; SIGNATURE=Application::FramebufferResizeCallback(GLFWwindow *, int, int); PARAMNO=3; DEF=true; DIT=false; START_LINE=264; END_LINE=267; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<b>CLASS=Application; SIGNATURE=Application::FramebufferResizeCallback(GLFWwindow *, int, int); PARAMNO=3; DEF=true; DIT=false; START_LINE=264; END_LINE=268; TEMPLATE_CLASS=; TEMPLATE_FUNC=
 <l>264
 <k>19
 <s>false
@@ -302,7 +272,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>INTERNAL-METRICS-CC
 <b>FUNC=Application::Cleanup(); CC=6; SCC=6; MCC=6; TEMPLATE_FUNC=
-<l>269
+<l>270
 <k>19
 <s>false
 <N>
@@ -311,8 +281,8 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>INTERNAL-METRICS-METHODS2
-<b>CLASS=Application; SIGNATURE=Application::Cleanup(); PARAMNO=0; DEF=true; DIT=false; START_LINE=269; END_LINE=295; TEMPLATE_CLASS=; TEMPLATE_FUNC=
-<l>269
+<b>CLASS=Application; SIGNATURE=Application::Cleanup(); PARAMNO=0; DEF=true; DIT=false; START_LINE=270; END_LINE=296; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>270
 <k>19
 <s>false
 <N>
@@ -322,8 +292,5068 @@
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>INTERNAL-METRICS-NBD
 <b>FUNC=Application::Cleanup(); NBD=1; TEMPLATE_FUNC=
-<l>269
+<l>270
 <k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=Application; NAMESPACE=; TEMPLATE_TYPE=; TAG=class
+<l>14
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Application; SIGNATURE=Application::Application(); PARAMNO=0; DEF=false; DIT=true; START_LINE=16; END_LINE=16; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>16
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Application::Application(); NBD=0; TEMPLATE_FUNC=
+<l>6
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Application; SIGNATURE=Application::~Application(); PARAMNO=0; DEF=false; DIT=true; START_LINE=17; END_LINE=17; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>17
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Application; SIGNATURE=Application::Run(); PARAMNO=0; DEF=false; DIT=true; START_LINE=19; END_LINE=19; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>19
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Application::Run(); NBD=0; TEMPLATE_FUNC=
+<l>14
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Application; SIGNATURE=Application::InitVulkan(); PARAMNO=0; DEF=false; DIT=true; START_LINE=22; END_LINE=22; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>22
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Application::InitVulkan(); NBD=0; TEMPLATE_FUNC=
+<l>24
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Application; SIGNATURE=Application::SetupScene(); PARAMNO=0; DEF=false; DIT=true; START_LINE=23; END_LINE=23; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>23
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Application::SetupScene(); NBD=0; TEMPLATE_FUNC=
+<l>69
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Application; SIGNATURE=Application::MainLoop(); PARAMNO=0; DEF=false; DIT=true; START_LINE=24; END_LINE=24; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>24
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Application::MainLoop(); NBD=2; TEMPLATE_FUNC=
+<l>161
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Application; SIGNATURE=Application::Cleanup(); PARAMNO=0; DEF=false; DIT=true; START_LINE=25; END_LINE=25; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>25
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Application::Cleanup(); NBD=1; TEMPLATE_FUNC=
+<l>270
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Application; SIGNATURE=Application::RecreateSwapChain(); PARAMNO=0; DEF=false; DIT=true; START_LINE=26; END_LINE=26; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>26
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Application::RecreateSwapChain(); NBD=1; TEMPLATE_FUNC=
+<l>133
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Application; SIGNATURE=Application::ProcessInput(); PARAMNO=0; DEF=false; DIT=true; START_LINE=29; END_LINE=29; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>29
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Application::ProcessInput(); NBD=1; TEMPLATE_FUNC=
+<l>210
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Application; SIGNATURE=Application::KeyCallback(GLFWwindow *, int, int, int, int); PARAMNO=5; DEF=false; DIT=true; START_LINE=30; END_LINE=30; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>30
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Application::KeyCallback(GLFWwindow *, int, int, int, int); NBD=2; TEMPLATE_FUNC=
+<l>238
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Application; SIGNATURE=Application::FramebufferResizeCallback(GLFWwindow *, int, int); PARAMNO=3; DEF=false; DIT=true; START_LINE=31; END_LINE=31; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>31
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Application::FramebufferResizeCallback(GLFWwindow *, int, int); NBD=0; TEMPLATE_FUNC=
+<l>264
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=Window; NAMESPACE=; TEMPLATE_TYPE=; TAG=class
+<l>7
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Window; SIGNATURE=Window::Window(unsigned int, unsigned int, const std::string&); PARAMNO=3; DEF=false; DIT=true; START_LINE=9; END_LINE=9; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>9
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Window; SIGNATURE=Window::~Window(); PARAMNO=0; DEF=false; DIT=true; START_LINE=10; END_LINE=10; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>10
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Window; SIGNATURE=Window::ShouldClose() const; PARAMNO=0; DEF=false; DIT=true; START_LINE=12; END_LINE=12; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>12
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Window; SIGNATURE=Window::PollEvents() const; PARAMNO=0; DEF=false; DIT=true; START_LINE=13; END_LINE=13; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>13
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Window::GetGLFWWindow() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>14
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Window; SIGNATURE=Window::GetGLFWWindow() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=14; END_LINE=14; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>14
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Window::GetGLFWWindow() const; NBD=0; TEMPLATE_FUNC=
+<l>14
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Window; SIGNATURE=Window::SetFramebufferResizeCallback(void (*)(GLFWwindow *, int, int)); PARAMNO=1; DEF=false; DIT=true; START_LINE=17; END_LINE=17; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>17
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Window; SIGNATURE=Window::initWindow(); PARAMNO=0; DEF=false; DIT=true; START_LINE=20; END_LINE=20; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>20
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Window.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Window; SIGNATURE=Window::Cleanup(); PARAMNO=0; DEF=false; DIT=true; START_LINE=21; END_LINE=21; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>21
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=VulkanContext; NAMESPACE=; TEMPLATE_TYPE=; TAG=class
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanContext; SIGNATURE=VulkanContext::VulkanContext(); PARAMNO=0; DEF=false; DIT=true; START_LINE=8; END_LINE=8; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>8
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanContext; SIGNATURE=VulkanContext::~VulkanContext(); PARAMNO=0; DEF=false; DIT=true; START_LINE=9; END_LINE=9; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>9
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanContext; SIGNATURE=VulkanContext::CreateInstance(); PARAMNO=0; DEF=false; DIT=true; START_LINE=11; END_LINE=11; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>11
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanContext; SIGNATURE=VulkanContext::SetupDebugMessenger(); PARAMNO=0; DEF=false; DIT=true; START_LINE=12; END_LINE=12; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>12
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanContext; SIGNATURE=VulkanContext::CreateSurface(GLFWwindow *); PARAMNO=1; DEF=false; DIT=true; START_LINE=13; END_LINE=13; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>13
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanContext; SIGNATURE=VulkanContext::Cleanup(); PARAMNO=0; DEF=false; DIT=true; START_LINE=14; END_LINE=14; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>14
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanContext::GetInstance() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>16
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanContext; SIGNATURE=VulkanContext::GetInstance() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=16; END_LINE=16; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>16
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanContext::GetInstance() const; NBD=0; TEMPLATE_FUNC=
+<l>16
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanContext::GetSurface() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>17
+<k>18
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanContext; SIGNATURE=VulkanContext::GetSurface() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=17; END_LINE=17; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>17
+<k>18
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanContext::GetSurface() const; NBD=0; TEMPLATE_FUNC=
+<l>17
+<k>18
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=QueueFamilyIndices; NAMESPACE=; TEMPLATE_TYPE=; TAG=struct
+<l>9
+<k>8
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=QueueFamilyIndices::isComplete(); CC=1; SCC=2; MCC=1; TEMPLATE_FUNC=
+<l>13
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=QueueFamilyIndices; SIGNATURE=QueueFamilyIndices::isComplete(); PARAMNO=0; DEF=true; DIT=true; START_LINE=13; END_LINE=15; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>13
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=QueueFamilyIndices::isComplete(); NBD=0; TEMPLATE_FUNC=
+<l>13
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=VulkanDevice; NAMESPACE=; TEMPLATE_TYPE=; TAG=class
+<l>18
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDevice; SIGNATURE=VulkanDevice::VulkanDevice(VkInstance_T *, VkSurfaceKHR_T *); PARAMNO=2; DEF=false; DIT=true; START_LINE=20; END_LINE=20; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>20
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDevice; SIGNATURE=VulkanDevice::~VulkanDevice(); PARAMNO=0; DEF=false; DIT=true; START_LINE=21; END_LINE=21; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>21
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDevice; SIGNATURE=VulkanDevice::PickPhysicalDevice(); PARAMNO=0; DEF=false; DIT=true; START_LINE=23; END_LINE=23; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>23
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDevice; SIGNATURE=VulkanDevice::CreateLogicalDevice(); PARAMNO=0; DEF=false; DIT=true; START_LINE=24; END_LINE=24; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>24
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDevice; SIGNATURE=VulkanDevice::Cleanup(); PARAMNO=0; DEF=false; DIT=true; START_LINE=25; END_LINE=25; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>25
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanDevice::GetPhysicalDevice() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>27
+<k>22
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDevice; SIGNATURE=VulkanDevice::GetPhysicalDevice() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=27; END_LINE=27; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>27
+<k>22
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanDevice::GetPhysicalDevice() const; NBD=0; TEMPLATE_FUNC=
+<l>27
+<k>22
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanDevice::GetDevice() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>28
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDevice; SIGNATURE=VulkanDevice::GetDevice() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=28; END_LINE=28; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>28
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanDevice::GetDevice() const; NBD=0; TEMPLATE_FUNC=
+<l>28
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanDevice::GetGraphicsQueue() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>29
+<k>13
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDevice; SIGNATURE=VulkanDevice::GetGraphicsQueue() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=29; END_LINE=29; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>29
+<k>13
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanDevice::GetGraphicsQueue() const; NBD=0; TEMPLATE_FUNC=
+<l>29
+<k>13
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanDevice::GetPresentQueue() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>30
+<k>13
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDevice; SIGNATURE=VulkanDevice::GetPresentQueue() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=30; END_LINE=30; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>30
+<k>13
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanDevice::GetPresentQueue() const; NBD=0; TEMPLATE_FUNC=
+<l>30
+<k>13
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanDevice::GetQueueFamilies() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>31
+<k>24
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDevice; SIGNATURE=VulkanDevice::GetQueueFamilies() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=31; END_LINE=31; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>31
+<k>24
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanDevice::GetQueueFamilies() const; NBD=0; TEMPLATE_FUNC=
+<l>31
+<k>24
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDevice; SIGNATURE=VulkanDevice::findQueueFamilies(VkPhysicalDevice_T *) const; PARAMNO=1; DEF=false; DIT=true; START_LINE=41; END_LINE=41; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>41
+<k>24
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDevice; SIGNATURE=VulkanDevice::isDeviceSuitable(VkPhysicalDevice_T *) const; PARAMNO=1; DEF=false; DIT=true; START_LINE=42; END_LINE=42; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>42
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDevice; SIGNATURE=VulkanDevice::checkDeviceExtensionSupport(VkPhysicalDevice_T *) const; PARAMNO=1; DEF=false; DIT=true; START_LINE=43; END_LINE=43; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>43
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=SwapChainSupportDetails; NAMESPACE=; TEMPLATE_TYPE=; TAG=struct
+<l>8
+<k>8
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=VulkanSwapChain; NAMESPACE=; TEMPLATE_TYPE=; TAG=class
+<l>16
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSwapChain; SIGNATURE=VulkanSwapChain::VulkanSwapChain(VkDevice_T *, VkPhysicalDevice_T *, VkSurfaceKHR_T *, GLFWwindow *); PARAMNO=4; DEF=false; DIT=true; START_LINE=18; END_LINE=18; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>18
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSwapChain; SIGNATURE=VulkanSwapChain::~VulkanSwapChain(); PARAMNO=0; DEF=false; DIT=true; START_LINE=19; END_LINE=19; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>19
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSwapChain; SIGNATURE=VulkanSwapChain::Create(const QueueFamilyIndices &); PARAMNO=1; DEF=false; DIT=true; START_LINE=21; END_LINE=21; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>21
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSwapChain; SIGNATURE=VulkanSwapChain::CreateImageViews(); PARAMNO=0; DEF=false; DIT=true; START_LINE=22; END_LINE=22; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>22
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSwapChain; SIGNATURE=VulkanSwapChain::Cleanup(); PARAMNO=0; DEF=false; DIT=true; START_LINE=23; END_LINE=23; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>23
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSwapChain; SIGNATURE=VulkanSwapChain::QuerySwapChainSupport(VkPhysicalDevice_T *, VkSurfaceKHR_T *); PARAMNO=2; DEF=false; DIT=true; START_LINE=25; END_LINE=25; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>25
+<k>36
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanSwapChain::GetSwapChain() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>27
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSwapChain; SIGNATURE=VulkanSwapChain::GetSwapChain() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=27; END_LINE=27; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>27
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanSwapChain::GetSwapChain() const; NBD=0; TEMPLATE_FUNC=
+<l>27
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanSwapChain::GetImages() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>28
+<k>33
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSwapChain; SIGNATURE=VulkanSwapChain::GetImages() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=28; END_LINE=28; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>28
+<k>33
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanSwapChain::GetImages() const; NBD=0; TEMPLATE_FUNC=
+<l>28
+<k>33
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanSwapChain::GetImageViews() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>29
+<k>37
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSwapChain; SIGNATURE=VulkanSwapChain::GetImageViews() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=29; END_LINE=29; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>29
+<k>37
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanSwapChain::GetImageViews() const; NBD=0; TEMPLATE_FUNC=
+<l>29
+<k>37
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanSwapChain::GetImageFormat() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>30
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSwapChain; SIGNATURE=VulkanSwapChain::GetImageFormat() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=30; END_LINE=30; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>30
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanSwapChain::GetImageFormat() const; NBD=0; TEMPLATE_FUNC=
+<l>30
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanSwapChain::GetExtent() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>31
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSwapChain; SIGNATURE=VulkanSwapChain::GetExtent() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=31; END_LINE=31; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>31
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanSwapChain::GetExtent() const; NBD=0; TEMPLATE_FUNC=
+<l>31
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSwapChain; SIGNATURE=VulkanSwapChain::chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR, std::allocator<VkSurfaceFormatKHR>> &); PARAMNO=1; DEF=false; DIT=true; START_LINE=45; END_LINE=45; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>45
+<k>24
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSwapChain; SIGNATURE=VulkanSwapChain::chooseSwapPresentMode(const std::vector<VkPresentModeKHR, std::allocator<VkPresentModeKHR>> &); PARAMNO=1; DEF=false; DIT=true; START_LINE=46; END_LINE=46; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>46
+<k>22
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSwapChain; SIGNATURE=VulkanSwapChain::chooseSwapExtent(const VkSurfaceCapabilitiesKHR &); PARAMNO=1; DEF=false; DIT=true; START_LINE=47; END_LINE=47; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>47
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=Renderer; NAMESPACE=; TEMPLATE_TYPE=; TAG=class
+<l>24
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Renderer; SIGNATURE=Renderer::Renderer(VulkanDevice *, VulkanSwapChain *); PARAMNO=2; DEF=false; DIT=true; START_LINE=26; END_LINE=26; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>26
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Renderer; SIGNATURE=Renderer::~Renderer(); PARAMNO=0; DEF=false; DIT=true; START_LINE=27; END_LINE=27; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>27
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Renderer; SIGNATURE=Renderer::Initialize(); PARAMNO=0; DEF=false; DIT=true; START_LINE=29; END_LINE=29; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>29
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Renderer; SIGNATURE=Renderer::DrawFrame(Scene &, unsigned int, const glm::mat<(int)4, (int)4, float, (glm::qualifier)0> &, const glm::mat<(int)4, (int)4, float, (glm::qualifier)0> &, int); PARAMNO=5; DEF=false; DIT=true; START_LINE=31; END_LINE=31; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>31
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Renderer; SIGNATURE=Renderer::UpdateUniformBuffer(unsigned int, const UniformBufferObject &); PARAMNO=2; DEF=false; DIT=true; START_LINE=32; END_LINE=32; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>32
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Renderer; SIGNATURE=Renderer::WaitIdle(); PARAMNO=0; DEF=false; DIT=true; START_LINE=33; END_LINE=33; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>33
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Renderer; SIGNATURE=Renderer::Cleanup(); PARAMNO=0; DEF=false; DIT=true; START_LINE=34; END_LINE=34; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>34
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Renderer; SIGNATURE=Renderer::SetupSceneParticles(Scene &); PARAMNO=1; DEF=false; DIT=true; START_LINE=36; END_LINE=36; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>36
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Renderer::GetRenderPass(); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>38
+<k>23
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Renderer; SIGNATURE=Renderer::GetRenderPass(); PARAMNO=0; DEF=true; DIT=true; START_LINE=38; END_LINE=38; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>38
+<k>23
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Renderer::GetRenderPass(); NBD=0; TEMPLATE_FUNC=
+<l>38
+<k>23
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Renderer::GetPipeline(); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>39
+<k>23
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Renderer; SIGNATURE=Renderer::GetPipeline(); PARAMNO=0; DEF=true; DIT=true; START_LINE=39; END_LINE=39; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>39
+<k>23
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Renderer::GetPipeline(); NBD=0; TEMPLATE_FUNC=
+<l>39
+<k>23
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Renderer; SIGNATURE=Renderer::CreateParticlePipelines(); PARAMNO=0; DEF=false; DIT=true; START_LINE=59; END_LINE=59; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>59
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=Renderer::TextureResource; NAMESPACE=; TEMPLATE_TYPE=; TAG=struct
+<l>85
+<k>12
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Renderer; SIGNATURE=Renderer::CreateTextureDescriptorSetLayout(); PARAMNO=0; DEF=false; DIT=true; START_LINE=92; END_LINE=92; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>92
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Renderer; SIGNATURE=Renderer::CreateTextureDescriptorPool(); PARAMNO=0; DEF=false; DIT=true; START_LINE=93; END_LINE=93; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>93
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Renderer; SIGNATURE=Renderer::CreateDefaultTexture(); PARAMNO=0; DEF=false; DIT=true; START_LINE=94; END_LINE=94; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>94
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Renderer; SIGNATURE=Renderer::GetTextureDescriptorSet(const std::string&); PARAMNO=1; DEF=false; DIT=true; START_LINE=95; END_LINE=95; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>95
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Renderer; SIGNATURE=Renderer::CreateRenderPass(); PARAMNO=0; DEF=false; DIT=true; START_LINE=97; END_LINE=97; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>97
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Renderer; SIGNATURE=Renderer::CreateShadowPass(); PARAMNO=0; DEF=false; DIT=true; START_LINE=98; END_LINE=98; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>98
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Renderer; SIGNATURE=Renderer::CreatePipeline(); PARAMNO=0; DEF=false; DIT=true; START_LINE=99; END_LINE=99; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>99
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Renderer; SIGNATURE=Renderer::CreateOffScreenResources(); PARAMNO=0; DEF=false; DIT=true; START_LINE=100; END_LINE=100; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>100
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Renderer; SIGNATURE=Renderer::CreateCommandBuffer(); PARAMNO=0; DEF=false; DIT=true; START_LINE=101; END_LINE=101; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>101
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Renderer; SIGNATURE=Renderer::CreateSyncObjects(); PARAMNO=0; DEF=false; DIT=true; START_LINE=102; END_LINE=102; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>102
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Renderer; SIGNATURE=Renderer::CreateUniformBuffers(); PARAMNO=0; DEF=false; DIT=true; START_LINE=103; END_LINE=103; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>103
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Renderer; SIGNATURE=Renderer::RecordCommandBuffer(VkCommandBuffer_T *, unsigned int, unsigned int, Scene &, const glm::mat<(int)4, (int)4, float, (glm::qualifier)0> &, const glm::mat<(int)4, (int)4, float, (glm::qualifier)0> &, int); PARAMNO=7; DEF=false; DIT=true; START_LINE=105; END_LINE=105; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>105
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Renderer; SIGNATURE=Renderer::RenderShadowMap(VkCommandBuffer_T *, unsigned int, Scene &, int); PARAMNO=4; DEF=false; DIT=true; START_LINE=106; END_LINE=106; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>106
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Renderer; SIGNATURE=Renderer::DrawSceneObjects(VkCommandBuffer_T *, Scene &, VkPipelineLayout_T *, unsigned int, bool, bool, int); PARAMNO=7; DEF=false; DIT=true; START_LINE=107; END_LINE=107; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>107
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Renderer; SIGNATURE=Renderer::RenderScene(VkCommandBuffer_T *, unsigned int, Scene &, int); PARAMNO=4; DEF=false; DIT=true; START_LINE=108; END_LINE=108; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>108
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Renderer; SIGNATURE=Renderer::RenderRefractionPass(VkCommandBuffer_T *, unsigned int, Scene &, int); PARAMNO=4; DEF=false; DIT=true; START_LINE=109; END_LINE=109; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>109
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Renderer; SIGNATURE=Renderer::CopyOffScreenToSwapChain(VkCommandBuffer_T *, unsigned int); PARAMNO=2; DEF=false; DIT=true; START_LINE=111; END_LINE=111; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>111
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Renderer; SIGNATURE=Renderer::CleanupOffScreenResources(); PARAMNO=0; DEF=false; DIT=true; START_LINE=112; END_LINE=112; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>112
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\SkyboxPass.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=SkyboxPass; NAMESPACE=; TEMPLATE_TYPE=; TAG=class
+<l>10
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\SkyboxPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=SkyboxPass; SIGNATURE=SkyboxPass::SkyboxPass(VkDevice_T *, VkPhysicalDevice_T *, VkCommandPool_T *, VkQueue_T *); PARAMNO=4; DEF=false; DIT=true; START_LINE=12; END_LINE=12; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>12
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\SkyboxPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=SkyboxPass; SIGNATURE=SkyboxPass::~SkyboxPass(); PARAMNO=0; DEF=false; DIT=true; START_LINE=13; END_LINE=13; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>13
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\SkyboxPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=SkyboxPass; SIGNATURE=SkyboxPass::Initialize(VkRenderPass_T *, VkExtent2D, VkDescriptorSetLayout_T *); PARAMNO=3; DEF=false; DIT=true; START_LINE=15; END_LINE=15; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>15
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\SkyboxPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=SkyboxPass; SIGNATURE=SkyboxPass::Draw(VkCommandBuffer_T *, Scene &, unsigned int, VkDescriptorSet_T *); PARAMNO=4; DEF=false; DIT=true; START_LINE=16; END_LINE=16; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>16
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\SkyboxPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=SkyboxPass; SIGNATURE=SkyboxPass::Cleanup(); PARAMNO=0; DEF=false; DIT=true; START_LINE=17; END_LINE=17; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>17
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\SkyboxPass.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=SkyboxPass::GetCubemap() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>19
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\SkyboxPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=SkyboxPass; SIGNATURE=SkyboxPass::GetCubemap() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=19; END_LINE=19; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>19
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\SkyboxPass.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=SkyboxPass::GetCubemap() const; NBD=0; TEMPLATE_FUNC=
+<l>19
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\SkyboxPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=SkyboxPass; SIGNATURE=SkyboxPass::GetSkyboxFaces(const std::string&); PARAMNO=1; DEF=false; DIT=true; START_LINE=30; END_LINE=30; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>30
+<k>30
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Cubemap.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=Cubemap; NAMESPACE=; TEMPLATE_TYPE=; TAG=class
+<l>8
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Cubemap.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Cubemap; SIGNATURE=Cubemap::Cubemap(VkDevice_T *, VkPhysicalDevice_T *, VkCommandPool_T *, VkQueue_T *); PARAMNO=4; DEF=false; DIT=true; START_LINE=10; END_LINE=10; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>10
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Cubemap.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Cubemap; SIGNATURE=Cubemap::~Cubemap(); PARAMNO=0; DEF=false; DIT=true; START_LINE=11; END_LINE=11; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>11
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Cubemap.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Cubemap; SIGNATURE=Cubemap::LoadFromFiles(const std::vector<std::string, std::allocator<std::string>> &); PARAMNO=1; DEF=false; DIT=true; START_LINE=13; END_LINE=13; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>13
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Cubemap.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Cubemap::GetDescriptorSetLayout() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>15
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Cubemap.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Cubemap; SIGNATURE=Cubemap::GetDescriptorSetLayout() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=15; END_LINE=15; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>15
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Cubemap.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Cubemap::GetDescriptorSetLayout() const; NBD=0; TEMPLATE_FUNC=
+<l>15
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Cubemap.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Cubemap::GetDescriptorSet() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>16
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Cubemap.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Cubemap; SIGNATURE=Cubemap::GetDescriptorSet() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=16; END_LINE=16; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>16
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Cubemap.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Cubemap::GetDescriptorSet() const; NBD=0; TEMPLATE_FUNC=
+<l>16
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Cubemap.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Cubemap::GetImageView() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>18
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Cubemap.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Cubemap; SIGNATURE=Cubemap::GetImageView() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=18; END_LINE=18; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>18
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Cubemap.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Cubemap::GetImageView() const; NBD=0; TEMPLATE_FUNC=
+<l>18
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Cubemap.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Cubemap::GetSampler() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>19
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Cubemap.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Cubemap; SIGNATURE=Cubemap::GetSampler() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=19; END_LINE=19; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>19
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Cubemap.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Cubemap::GetSampler() const; NBD=0; TEMPLATE_FUNC=
+<l>19
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Cubemap.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Cubemap; SIGNATURE=Cubemap::Cleanup(); PARAMNO=0; DEF=false; DIT=true; START_LINE=21; END_LINE=21; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>21
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Cubemap.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Cubemap; SIGNATURE=Cubemap::CreateDescriptorSetLayout(); PARAMNO=0; DEF=false; DIT=true; START_LINE=38; END_LINE=38; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>38
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Cubemap.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Cubemap; SIGNATURE=Cubemap::CreateDescriptorPool(); PARAMNO=0; DEF=false; DIT=true; START_LINE=39; END_LINE=39; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>39
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Cubemap.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Cubemap; SIGNATURE=Cubemap::CreateDescriptorSet(); PARAMNO=0; DEF=false; DIT=true; START_LINE=40; END_LINE=40; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>40
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=CreateDebugUtilsMessengerEXT; SIGNATURE=VulkanUtils::CreateDebugUtilsMessengerEXT(VkInstance_T *, const VkDebugUtilsMessengerCreateInfoEXT *, const VkAllocationCallbacks *, VkDebugUtilsMessengerEXT_T **); NAMESPACE=VulkanUtils; PARAMNO=4; DEF=false; START_LINE=15; END_LINE=19; TEMPLATE_FUNC=
+<l>15
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=DestroyDebugUtilsMessengerEXT; SIGNATURE=VulkanUtils::DestroyDebugUtilsMessengerEXT(VkInstance_T *, VkDebugUtilsMessengerEXT_T *, const VkAllocationCallbacks *); NAMESPACE=VulkanUtils; PARAMNO=3; DEF=false; START_LINE=21; END_LINE=24; TEMPLATE_FUNC=
+<l>21
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=CheckValidationLayerSupport; SIGNATURE=VulkanUtils::CheckValidationLayerSupport(); NAMESPACE=VulkanUtils; PARAMNO=0; DEF=false; START_LINE=26; END_LINE=26; TEMPLATE_FUNC=
+<l>26
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=GetRequiredExtensions; SIGNATURE=VulkanUtils::GetRequiredExtensions(); NAMESPACE=VulkanUtils; PARAMNO=0; DEF=false; START_LINE=27; END_LINE=27; TEMPLATE_FUNC=
+<l>27
+<k>30
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=DebugCallback; SIGNATURE=VulkanUtils::DebugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT, unsigned int, const VkDebugUtilsMessengerCallbackDataEXT *, void *); NAMESPACE=VulkanUtils; PARAMNO=4; DEF=false; START_LINE=29; END_LINE=33; TEMPLATE_FUNC=
+<l>29
+<k>25
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=PopulateDebugMessengerCreateInfo; SIGNATURE=VulkanUtils::PopulateDebugMessengerCreateInfo(VkDebugUtilsMessengerCreateInfoEXT &); NAMESPACE=VulkanUtils; PARAMNO=1; DEF=false; START_LINE=35; END_LINE=35; TEMPLATE_FUNC=
+<l>35
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=FindMemoryType; SIGNATURE=VulkanUtils::FindMemoryType(VkPhysicalDevice_T *, unsigned int, unsigned int); NAMESPACE=VulkanUtils; PARAMNO=3; DEF=false; START_LINE=40; END_LINE=40; TEMPLATE_FUNC=
+<l>40
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=CreateImage; SIGNATURE=VulkanUtils::CreateImage(VkDevice_T *, VkPhysicalDevice_T *, unsigned int, unsigned int, unsigned int, unsigned int, VkFormat, VkImageTiling, unsigned int, unsigned int, VkImage_T *&, VkDeviceMemory_T *&, unsigned int); NAMESPACE=VulkanUtils; PARAMNO=13; DEF=false; START_LINE=43; END_LINE=45; TEMPLATE_FUNC=
+<l>43
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=CreateImageView; SIGNATURE=VulkanUtils::CreateImageView(VkDevice_T *, VkImage_T *, VkFormat, unsigned int, VkImageViewType, unsigned int); NAMESPACE=VulkanUtils; PARAMNO=6; DEF=false; START_LINE=48; END_LINE=48; TEMPLATE_FUNC=
+<l>48
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=BeginSingleTimeCommands; SIGNATURE=VulkanUtils::BeginSingleTimeCommands(VkDevice_T *, VkCommandPool_T *); NAMESPACE=VulkanUtils; PARAMNO=2; DEF=false; START_LINE=51; END_LINE=51; TEMPLATE_FUNC=
+<l>51
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=EndSingleTimeCommands; SIGNATURE=VulkanUtils::EndSingleTimeCommands(VkDevice_T *, VkCommandPool_T *, VkQueue_T *, VkCommandBuffer_T *); NAMESPACE=VulkanUtils; PARAMNO=4; DEF=false; START_LINE=52; END_LINE=52; TEMPLATE_FUNC=
+<l>52
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=TransitionImageLayout; SIGNATURE=VulkanUtils::TransitionImageLayout(VkDevice_T *, VkCommandPool_T *, VkQueue_T *, VkImage_T *, VkFormat, VkImageLayout, VkImageLayout, unsigned int); NAMESPACE=VulkanUtils; PARAMNO=8; DEF=false; START_LINE=55; END_LINE=56; TEMPLATE_FUNC=
+<l>55
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=CopyBufferToImage; SIGNATURE=VulkanUtils::CopyBufferToImage(VkDevice_T *, VkCommandPool_T *, VkQueue_T *, VkBuffer_T *, VkImage_T *, unsigned int, unsigned int); NAMESPACE=VulkanUtils; PARAMNO=7; DEF=false; START_LINE=59; END_LINE=59; TEMPLATE_FUNC=
+<l>59
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=GraphicsPipelineConfig; NAMESPACE=; TEMPLATE_TYPE=; TAG=struct
+<l>10
+<k>8
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=GraphicsPipeline; NAMESPACE=; TEMPLATE_TYPE=; TAG=class
+<l>52
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=GraphicsPipeline; SIGNATURE=GraphicsPipeline::GraphicsPipeline(VkDevice_T *, const GraphicsPipelineConfig &); PARAMNO=2; DEF=false; DIT=true; START_LINE=54; END_LINE=54; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>54
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=GraphicsPipeline; SIGNATURE=GraphicsPipeline::~GraphicsPipeline(); PARAMNO=0; DEF=false; DIT=true; START_LINE=55; END_LINE=55; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>55
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=GraphicsPipeline; SIGNATURE=GraphicsPipeline::Create(); PARAMNO=0; DEF=false; DIT=true; START_LINE=57; END_LINE=57; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>57
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=GraphicsPipeline; SIGNATURE=GraphicsPipeline::Cleanup(); PARAMNO=0; DEF=false; DIT=true; START_LINE=58; END_LINE=58; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>58
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=GraphicsPipeline::GetPipeline() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>61
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=GraphicsPipeline; SIGNATURE=GraphicsPipeline::GetPipeline() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=61; END_LINE=61; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>61
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=GraphicsPipeline::GetPipeline() const; NBD=0; TEMPLATE_FUNC=
+<l>61
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=GraphicsPipeline::GetLayout() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>62
+<k>22
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=GraphicsPipeline; SIGNATURE=GraphicsPipeline::GetLayout() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=62; END_LINE=62; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>62
+<k>22
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=GraphicsPipeline::GetLayout() const; NBD=0; TEMPLATE_FUNC=
+<l>62
+<k>22
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\Vertex.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=Vertex; NAMESPACE=; TEMPLATE_TYPE=; TAG=struct
+<l>7
+<k>8
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\Vertex.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Vertex::getBindingDescription(); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>13
+<k>44
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\Vertex.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Vertex; SIGNATURE=Vertex::getBindingDescription(); PARAMNO=0; DEF=true; DIT=true; START_LINE=13; END_LINE=19; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>13
+<k>44
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\Vertex.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Vertex::getBindingDescription(); NBD=0; TEMPLATE_FUNC=
+<l>13
+<k>44
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\Vertex.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Vertex::getAttributeDescriptions(); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>21
+<k>61
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\Vertex.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Vertex; SIGNATURE=Vertex::getAttributeDescriptions(); PARAMNO=0; DEF=true; DIT=true; START_LINE=21; END_LINE=28; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>21
+<k>61
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\Vertex.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Vertex::getAttributeDescriptions(); NBD=0; TEMPLATE_FUNC=
+<l>21
+<k>61
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=VulkanShader; NAMESPACE=; TEMPLATE_TYPE=; TAG=class
+<l>8
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanShader; SIGNATURE=VulkanShader::VulkanShader(VkDevice_T *); PARAMNO=1; DEF=false; DIT=true; START_LINE=10; END_LINE=10; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>10
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanShader; SIGNATURE=VulkanShader::~VulkanShader(); PARAMNO=0; DEF=false; DIT=true; START_LINE=11; END_LINE=11; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>11
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanShader; SIGNATURE=VulkanShader::LoadShader(const std::string&, VkShaderStageFlagBits); PARAMNO=2; DEF=false; DIT=true; START_LINE=13; END_LINE=13; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>13
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanShader; SIGNATURE=VulkanShader::Cleanup(); PARAMNO=0; DEF=false; DIT=true; START_LINE=14; END_LINE=14; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>14
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanShader::GetVertexShader() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>16
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanShader; SIGNATURE=VulkanShader::GetVertexShader() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=16; END_LINE=16; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>16
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanShader::GetVertexShader() const; NBD=0; TEMPLATE_FUNC=
+<l>16
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanShader::GetFragmentShader() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>17
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanShader; SIGNATURE=VulkanShader::GetFragmentShader() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=17; END_LINE=17; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>17
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanShader::GetFragmentShader() const; NBD=0; TEMPLATE_FUNC=
+<l>17
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanShader; SIGNATURE=VulkanShader::createShaderModule(const std::vector<char, std::allocator<char>> &); PARAMNO=1; DEF=false; DIT=true; START_LINE=24; END_LINE=24; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>24
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanShader; SIGNATURE=VulkanShader::readFile(const std::string&); PARAMNO=1; DEF=false; DIT=true; START_LINE=25; END_LINE=25; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>25
+<k>30
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=OrbitData; NAMESPACE=; TEMPLATE_TYPE=; TAG=struct
+<l>12
+<k>8
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=SceneLight; NAMESPACE=; TEMPLATE_TYPE=; TAG=struct
+<l>34
+<k>8
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=SceneObject; NAMESPACE=; TEMPLATE_TYPE=; TAG=struct
+<l>43
+<k>8
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=SceneObject::SceneObject(std::unique_ptr<Geometry, std::default_delete<Geometry>>, const std::string&, const std::string&); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>57
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=SceneObject; SIGNATURE=SceneObject::SceneObject(std::unique_ptr<Geometry, std::default_delete<Geometry>>, const std::string&, const std::string&); PARAMNO=3; DEF=true; DIT=true; START_LINE=57; END_LINE=59; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>57
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=SceneObject::SceneObject(std::unique_ptr<Geometry, std::default_delete<Geometry>>, const std::string&, const std::string&); NBD=0; TEMPLATE_FUNC=
+<l>57
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=ProceduralObjectConfig; NAMESPACE=; TEMPLATE_TYPE=; TAG=struct
+<l>62
+<k>8
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=Scene; NAMESPACE=; TEMPLATE_TYPE=; TAG=class
+<l>71
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::Scene(VkDevice_T *, VkPhysicalDevice_T *); PARAMNO=2; DEF=false; DIT=true; START_LINE=73; END_LINE=73; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>73
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::~Scene(); PARAMNO=0; DEF=false; DIT=true; START_LINE=74; END_LINE=74; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>74
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::RadiusAdjustment(float, float) const; PARAMNO=2; DEF=false; DIT=true; START_LINE=76; END_LINE=76; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>76
+<k>11
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::AddTerrain(const std::string&, float, int, int, float, float, const glm::vec<(int)3, float, (glm::qualifier)0> &, const std::string&); PARAMNO=8; DEF=false; DIT=true; START_LINE=78; END_LINE=78; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>78
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::AddCube(const std::string&, const glm::vec<(int)3, float, (glm::qualifier)0> &, const glm::vec<(int)3, float, (glm::qualifier)0> &, const std::string&); PARAMNO=4; DEF=false; DIT=true; START_LINE=80; END_LINE=80; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>80
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::AddGrid(const std::string&, int, int, float, const glm::vec<(int)3, float, (glm::qualifier)0> &, const std::string&); PARAMNO=6; DEF=false; DIT=true; START_LINE=81; END_LINE=81; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>81
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::AddSphere(const std::string&, int, int, float, const glm::vec<(int)3, float, (glm::qualifier)0> &, const std::string&); PARAMNO=6; DEF=false; DIT=true; START_LINE=82; END_LINE=82; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>82
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::AddModel(const std::string&, const glm::vec<(int)3, float, (glm::qualifier)0> &, const glm::vec<(int)3, float, (glm::qualifier)0> &, const glm::vec<(int)3, float, (glm::qualifier)0> &, const std::string&, const std::string&); PARAMNO=6; DEF=false; DIT=true; START_LINE=83; END_LINE=83; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>83
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::AddGeometry(const std::string&, std::unique_ptr<Geometry, std::default_delete<Geometry>>, const glm::vec<(int)3, float, (glm::qualifier)0> &); PARAMNO=3; DEF=false; DIT=true; START_LINE=84; END_LINE=84; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>84
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::AddLight(const std::string&, const glm::vec<(int)3, float, (glm::qualifier)0> &, const glm::vec<(int)3, float, (glm::qualifier)0> &, float, int); PARAMNO=5; DEF=false; DIT=true; START_LINE=86; END_LINE=86; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>86
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::SetObjectOrbit(const std::string&, const glm::vec<(int)3, float, (glm::qualifier)0> &, float, float, const glm::vec<(int)3, float, (glm::qualifier)0> &, float); PARAMNO=6; DEF=false; DIT=true; START_LINE=88; END_LINE=88; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>88
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::SetLightOrbit(const std::string&, const glm::vec<(int)3, float, (glm::qualifier)0> &, float, float, const glm::vec<(int)3, float, (glm::qualifier)0> &, float); PARAMNO=6; DEF=false; DIT=true; START_LINE=89; END_LINE=89; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>89
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::AddBowl(const std::string&, float, int, int, const glm::vec<(int)3, float, (glm::qualifier)0> &, const std::string&); PARAMNO=6; DEF=false; DIT=true; START_LINE=91; END_LINE=91; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>91
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::AddPedestal(const std::string&, float, float, float, const glm::vec<(int)3, float, (glm::qualifier)0> &, const std::string&); PARAMNO=6; DEF=false; DIT=true; START_LINE=92; END_LINE=92; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>92
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::SetupParticleSystem(VkCommandPool_T *, VkQueue_T *, GraphicsPipeline *, GraphicsPipeline *, VkDescriptorSetLayout_T *, unsigned int); PARAMNO=6; DEF=false; DIT=true; START_LINE=94; END_LINE=96; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>94
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::RegisterProceduralObject(const std::string&, const std::string&, float, const glm::vec<(int)3, float, (glm::qualifier)0> &, const glm::vec<(int)3, float, (glm::qualifier)0> &, const glm::vec<(int)3, float, (glm::qualifier)0> &); PARAMNO=6; DEF=false; DIT=true; START_LINE=99; END_LINE=99; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>99
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::GenerateProceduralObjects(int, float, float, float, float); PARAMNO=5; DEF=false; DIT=true; START_LINE=100; END_LINE=100; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>100
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::AddFire(const glm::vec<(int)3, float, (glm::qualifier)0> &, float, bool); PARAMNO=3; DEF=false; DIT=true; START_LINE=103; END_LINE=103; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>103
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::AddSmoke(const glm::vec<(int)3, float, (glm::qualifier)0> &, float); PARAMNO=2; DEF=false; DIT=true; START_LINE=104; END_LINE=104; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>104
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::AddRain(); PARAMNO=0; DEF=false; DIT=true; START_LINE=105; END_LINE=105; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>105
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::AddSnow(); PARAMNO=0; DEF=false; DIT=true; START_LINE=106; END_LINE=106; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>106
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::AddDust(); PARAMNO=0; DEF=false; DIT=true; START_LINE=107; END_LINE=107; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>107
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Scene::GetParticleSystems() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>110
+<k>57
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::GetParticleSystems() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=110; END_LINE=110; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>110
+<k>57
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Scene::GetParticleSystems() const; NBD=0; TEMPLATE_FUNC=
+<l>110
+<k>57
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::Update(float); PARAMNO=1; DEF=false; DIT=true; START_LINE=112; END_LINE=112; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>112
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::GetLights() const; PARAMNO=0; DEF=false; DIT=true; START_LINE=114; END_LINE=114; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>114
+<k>30
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::Clear(); PARAMNO=0; DEF=false; DIT=true; START_LINE=117; END_LINE=117; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>117
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Scene::GetObjects() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>118
+<k>54
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::GetObjects() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=118; END_LINE=118; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>118
+<k>54
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Scene::GetObjects() const; NBD=0; TEMPLATE_FUNC=
+<l>118
+<k>54
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::SetObjectTransform(unsigned long long, const glm::mat<(int)4, (int)4, float, (glm::qualifier)0> &); PARAMNO=2; DEF=false; DIT=true; START_LINE=121; END_LINE=121; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>121
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::SetObjectVisible(unsigned long long, bool); PARAMNO=2; DEF=false; DIT=true; START_LINE=122; END_LINE=122; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>122
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::SetOrbitSpeed(const std::string&, float); PARAMNO=2; DEF=false; DIT=true; START_LINE=123; END_LINE=123; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>123
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::SetObjectLayerMask(const std::string&, int); PARAMNO=2; DEF=false; DIT=true; START_LINE=125; END_LINE=125; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>125
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::SetLightLayerMask(const std::string&, int); PARAMNO=2; DEF=false; DIT=true; START_LINE=126; END_LINE=126; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>126
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::SetObjectCastsShadow(const std::string&, bool); PARAMNO=2; DEF=false; DIT=true; START_LINE=128; END_LINE=128; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>128
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::SetObjectReceivesShadows(const std::string&, bool); PARAMNO=2; DEF=false; DIT=true; START_LINE=129; END_LINE=129; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>129
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::SetObjectShadingMode(const std::string&, int); PARAMNO=2; DEF=false; DIT=true; START_LINE=130; END_LINE=130; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>130
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Scene::Cleanup(); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>132
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::Cleanup(); PARAMNO=0; DEF=true; DIT=true; START_LINE=132; END_LINE=132; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>132
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Scene::Cleanup(); NBD=0; TEMPLATE_FUNC=
+<l>132
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::AddObjectInternal(const std::string&, std::unique_ptr<Geometry, std::default_delete<Geometry>>, const glm::vec<(int)3, float, (glm::qualifier)0> &, const std::string&); PARAMNO=4; DEF=false; DIT=true; START_LINE=135; END_LINE=135; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>135
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::InitializeOrbit(OrbitData &, const glm::vec<(int)3, float, (glm::qualifier)0> &, float, float, const glm::vec<(int)3, float, (glm::qualifier)0> &, float) const; PARAMNO=6; DEF=false; DIT=true; START_LINE=137; END_LINE=137; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>137
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Scene; SIGNATURE=Scene::GetOrCreateSystem(const ParticleProps &); PARAMNO=1; DEF=false; DIT=true; START_LINE=145; END_LINE=145; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>145
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=Geometry; NAMESPACE=; TEMPLATE_TYPE=; TAG=class
+<l>8
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Geometry; SIGNATURE=Geometry::Geometry(VkDevice_T *, VkPhysicalDevice_T *); PARAMNO=2; DEF=false; DIT=true; START_LINE=10; END_LINE=10; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>10
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Geometry; SIGNATURE=Geometry::~Geometry(); PARAMNO=0; DEF=false; DIT=true; START_LINE=11; END_LINE=11; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>11
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Geometry; SIGNATURE=Geometry::CreateBuffers(); PARAMNO=0; DEF=false; DIT=true; START_LINE=13; END_LINE=13; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>13
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Geometry; SIGNATURE=Geometry::Bind(VkCommandBuffer_T *); PARAMNO=1; DEF=false; DIT=true; START_LINE=14; END_LINE=14; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>14
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Geometry; SIGNATURE=Geometry::Draw(VkCommandBuffer_T *); PARAMNO=1; DEF=false; DIT=true; START_LINE=15; END_LINE=15; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>15
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Geometry; SIGNATURE=Geometry::Cleanup(); PARAMNO=0; DEF=false; DIT=true; START_LINE=16; END_LINE=16; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>16
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Geometry::GetVertices(); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>19
+<k>26
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Geometry; SIGNATURE=Geometry::GetVertices(); PARAMNO=0; DEF=true; DIT=true; START_LINE=19; END_LINE=19; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>19
+<k>26
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Geometry::GetVertices(); NBD=0; TEMPLATE_FUNC=
+<l>19
+<k>26
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Geometry::GetIndices(); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>20
+<k>28
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Geometry; SIGNATURE=Geometry::GetIndices(); PARAMNO=0; DEF=true; DIT=true; START_LINE=20; END_LINE=20; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>20
+<k>28
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Geometry::GetIndices(); NBD=0; TEMPLATE_FUNC=
+<l>20
+<k>28
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Geometry::GetVertices() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>22
+<k>32
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Geometry; SIGNATURE=Geometry::GetVertices() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=22; END_LINE=22; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>22
+<k>32
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Geometry::GetVertices() const; NBD=0; TEMPLATE_FUNC=
+<l>22
+<k>32
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Geometry::GetIndices() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>23
+<k>34
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Geometry; SIGNATURE=Geometry::GetIndices() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=23; END_LINE=23; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>23
+<k>34
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Geometry::GetIndices() const; NBD=0; TEMPLATE_FUNC=
+<l>23
+<k>34
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Geometry::HasIndices() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>25
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Geometry; SIGNATURE=Geometry::HasIndices() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=25; END_LINE=25; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>25
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Geometry::HasIndices() const; NBD=0; TEMPLATE_FUNC=
+<l>25
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=VulkanBuffer; NAMESPACE=; TEMPLATE_TYPE=; TAG=class
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanBuffer; SIGNATURE=VulkanBuffer::VulkanBuffer(VkDevice_T *, VkPhysicalDevice_T *); PARAMNO=2; DEF=false; DIT=true; START_LINE=8; END_LINE=8; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>8
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanBuffer; SIGNATURE=VulkanBuffer::~VulkanBuffer(); PARAMNO=0; DEF=false; DIT=true; START_LINE=9; END_LINE=9; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>9
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanBuffer; SIGNATURE=VulkanBuffer::CreateBuffer(unsigned long long, unsigned int, unsigned int); PARAMNO=3; DEF=false; DIT=true; START_LINE=11; END_LINE=12; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>11
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanBuffer; SIGNATURE=VulkanBuffer::CopyData(const void *, unsigned long long); PARAMNO=2; DEF=false; DIT=true; START_LINE=14; END_LINE=14; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>14
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanBuffer::GetBuffer() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>16
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanBuffer; SIGNATURE=VulkanBuffer::GetBuffer() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=16; END_LINE=16; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>16
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanBuffer::GetBuffer() const; NBD=0; TEMPLATE_FUNC=
+<l>16
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanBuffer::GetBufferMemory() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>17
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanBuffer; SIGNATURE=VulkanBuffer::GetBufferMemory() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=17; END_LINE=17; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>17
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanBuffer::GetBufferMemory() const; NBD=0; TEMPLATE_FUNC=
+<l>17
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanBuffer; SIGNATURE=VulkanBuffer::Cleanup(); PARAMNO=0; DEF=false; DIT=true; START_LINE=19; END_LINE=19; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>19
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=GeometryGenerator; NAMESPACE=; TEMPLATE_TYPE=; TAG=class
+<l>7
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=GeometryGenerator; SIGNATURE=GeometryGenerator::CreateCube(VkDevice_T *, VkPhysicalDevice_T *); PARAMNO=2; DEF=false; DIT=true; START_LINE=9; END_LINE=9; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>9
+<k>38
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=GeometryGenerator; SIGNATURE=GeometryGenerator::CreateGrid(VkDevice_T *, VkPhysicalDevice_T *, int, int, float); PARAMNO=5; DEF=false; DIT=true; START_LINE=10; END_LINE=11; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>10
+<k>38
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=GeometryGenerator; SIGNATURE=GeometryGenerator::CreateSphere(VkDevice_T *, VkPhysicalDevice_T *, int, int, float); PARAMNO=5; DEF=false; DIT=true; START_LINE=12; END_LINE=13; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>12
+<k>38
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=GeometryGenerator; SIGNATURE=GeometryGenerator::CreateTerrain(VkDevice_T *, VkPhysicalDevice_T *, float, int, int, float, float); PARAMNO=7; DEF=false; DIT=true; START_LINE=15; END_LINE=16; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>15
+<k>38
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=GeometryGenerator; SIGNATURE=GeometryGenerator::GetTerrainHeight(float, float, float, float, float); PARAMNO=5; DEF=false; DIT=true; START_LINE=17; END_LINE=17; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>17
+<k>18
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=GeometryGenerator; SIGNATURE=GeometryGenerator::CreateBowl(VkDevice_T *, VkPhysicalDevice_T *, float, int, int); PARAMNO=5; DEF=false; DIT=true; START_LINE=19; END_LINE=20; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>19
+<k>38
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=GeometryGenerator; SIGNATURE=GeometryGenerator::CreatePedestal(VkDevice_T *, VkPhysicalDevice_T *, float, float, float, int, int); PARAMNO=7; DEF=false; DIT=true; START_LINE=22; END_LINE=23; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>22
+<k>38
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=GeometryGenerator; SIGNATURE=GeometryGenerator::GenerateColor(int, int); PARAMNO=2; DEF=false; DIT=true; START_LINE=26; END_LINE=26; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>26
+<k>22
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=GeometryGenerator; SIGNATURE=GeometryGenerator::GenerateGridIndices(Geometry *, int, int); PARAMNO=3; DEF=false; DIT=true; START_LINE=27; END_LINE=27; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>27
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\UniformBufferObject.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=Light; NAMESPACE=; TEMPLATE_TYPE=; TAG=struct
+<l>7
+<k>8
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\UniformBufferObject.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=UniformBufferObject; NAMESPACE=; TEMPLATE_TYPE=; TAG=struct
+<l>17
+<k>8
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=ParticleProps; NAMESPACE=; TEMPLATE_TYPE=; TAG=struct
+<l>10
+<k>8
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=ParticleSystem; NAMESPACE=; TEMPLATE_TYPE=; TAG=class
+<l>25
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=ParticleSystem; SIGNATURE=ParticleSystem::ParticleSystem(VkDevice_T *, VkPhysicalDevice_T *, VkCommandPool_T *, VkQueue_T *, unsigned int, unsigned int); PARAMNO=6; DEF=false; DIT=true; START_LINE=27; END_LINE=27; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>27
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=ParticleSystem; SIGNATURE=ParticleSystem::~ParticleSystem(); PARAMNO=0; DEF=false; DIT=true; START_LINE=28; END_LINE=28; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>28
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=ParticleSystem; SIGNATURE=ParticleSystem::Initialize(VkDescriptorSetLayout_T *, GraphicsPipeline *, const std::string&, bool); PARAMNO=4; DEF=false; DIT=true; START_LINE=31; END_LINE=31; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>31
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=ParticleSystem; SIGNATURE=ParticleSystem::SetSimulationBounds(const glm::vec<(int)3, float, (glm::qualifier)0> &, float); PARAMNO=2; DEF=false; DIT=true; START_LINE=34; END_LINE=34; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>34
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=ParticleSystem; SIGNATURE=ParticleSystem::Update(float); PARAMNO=1; DEF=false; DIT=true; START_LINE=36; END_LINE=36; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>36
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=ParticleSystem; SIGNATURE=ParticleSystem::Draw(VkCommandBuffer_T *, VkDescriptorSet_T *, unsigned int); PARAMNO=3; DEF=false; DIT=true; START_LINE=37; END_LINE=37; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>37
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=ParticleSystem; SIGNATURE=ParticleSystem::Emit(const ParticleProps &); PARAMNO=1; DEF=false; DIT=true; START_LINE=39; END_LINE=39; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>39
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=ParticleSystem; SIGNATURE=ParticleSystem::AddEmitter(const ParticleProps &, float); PARAMNO=2; DEF=false; DIT=true; START_LINE=40; END_LINE=40; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>40
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=ParticleSystem::GetTexturePath() const; CC=2; SCC=2; MCC=2; TEMPLATE_FUNC=
+<l>42
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=ParticleSystem; SIGNATURE=ParticleSystem::GetTexturePath() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=42; END_LINE=42; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>42
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=ParticleSystem::GetTexturePath() const; NBD=0; TEMPLATE_FUNC=
+<l>42
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=ParticleSystem::SetPipeline(GraphicsPipeline *); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>44
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=ParticleSystem; SIGNATURE=ParticleSystem::SetPipeline(GraphicsPipeline *); PARAMNO=1; DEF=true; DIT=true; START_LINE=44; END_LINE=44; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>44
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=ParticleSystem::SetPipeline(GraphicsPipeline *); NBD=0; TEMPLATE_FUNC=
+<l>44
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=ParticleSystem::IsAdditive() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>45
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=ParticleSystem; SIGNATURE=ParticleSystem::IsAdditive() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=45; END_LINE=45; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>45
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=ParticleSystem::IsAdditive() const; NBD=0; TEMPLATE_FUNC=
+<l>45
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=ParticleSystem::InstanceData; NAMESPACE=; TEMPLATE_TYPE=; TAG=struct
+<l>48
+<k>12
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=ParticleSystem; SIGNATURE=ParticleSystem::GetBindingDescriptions(); PARAMNO=0; DEF=false; DIT=true; START_LINE=55; END_LINE=55; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>55
+<k>57
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=ParticleSystem; SIGNATURE=ParticleSystem::GetAttributeDescriptions(); PARAMNO=0; DEF=false; DIT=true; START_LINE=56; END_LINE=56; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>56
+<k>59
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=ParticleSystem::Particle; NAMESPACE=; TEMPLATE_TYPE=; TAG=struct
+<l>59
+<k>12
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=ParticleSystem::ParticleEmitter; NAMESPACE=; TEMPLATE_TYPE=; TAG=struct
+<l>72
+<k>12
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=ParticleSystem; SIGNATURE=ParticleSystem::SetupBuffers(); PARAMNO=0; DEF=false; DIT=true; START_LINE=108; END_LINE=108; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>108
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=ParticleSystem; SIGNATURE=ParticleSystem::UpdateInstanceBuffer(unsigned int); PARAMNO=1; DEF=false; DIT=true; START_LINE=109; END_LINE=109; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>109
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Texture.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=Texture; NAMESPACE=; TEMPLATE_TYPE=; TAG=class
+<l>7
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Texture.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Texture; SIGNATURE=Texture::Texture(VkDevice_T *, VkPhysicalDevice_T *, VkCommandPool_T *, VkQueue_T *); PARAMNO=4; DEF=false; DIT=true; START_LINE=9; END_LINE=9; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>9
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Texture.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Texture; SIGNATURE=Texture::~Texture(); PARAMNO=0; DEF=false; DIT=true; START_LINE=10; END_LINE=10; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>10
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Texture.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Texture; SIGNATURE=Texture::LoadFromFile(const std::string&); PARAMNO=1; DEF=false; DIT=true; START_LINE=13; END_LINE=13; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>13
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Texture.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Texture::GetImageView() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>15
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Texture.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Texture; SIGNATURE=Texture::GetImageView() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=15; END_LINE=15; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>15
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Texture.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Texture::GetImageView() const; NBD=0; TEMPLATE_FUNC=
+<l>15
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Texture.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Texture::GetSampler() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>16
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Texture.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Texture; SIGNATURE=Texture::GetSampler() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=16; END_LINE=16; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>16
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Texture.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Texture::GetSampler() const; NBD=0; TEMPLATE_FUNC=
+<l>16
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Texture.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Texture::GetImage() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>17
+<k>13
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Texture.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Texture; SIGNATURE=Texture::GetImage() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=17; END_LINE=17; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>17
+<k>13
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Texture.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Texture::GetImage() const; NBD=0; TEMPLATE_FUNC=
+<l>17
+<k>13
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Texture.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Texture; SIGNATURE=Texture::Cleanup(); PARAMNO=0; DEF=false; DIT=true; START_LINE=19; END_LINE=19; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>19
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=VulkanRenderPass; NAMESPACE=; TEMPLATE_TYPE=; TAG=class
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanRenderPass; SIGNATURE=VulkanRenderPass::VulkanRenderPass(VkDevice_T *, VkFormat); PARAMNO=2; DEF=false; DIT=true; START_LINE=8; END_LINE=8; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>8
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanRenderPass; SIGNATURE=VulkanRenderPass::~VulkanRenderPass(); PARAMNO=0; DEF=false; DIT=true; START_LINE=9; END_LINE=9; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>9
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanRenderPass; SIGNATURE=VulkanRenderPass::Create(bool); PARAMNO=1; DEF=false; DIT=true; START_LINE=11; END_LINE=11; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>11
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanRenderPass; SIGNATURE=VulkanRenderPass::CreateFramebuffers(const std::vector<VkImageView_T *, std::allocator<VkImageView_T *>> &, VkExtent2D); PARAMNO=2; DEF=false; DIT=true; START_LINE=12; END_LINE=12; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>12
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanRenderPass; SIGNATURE=VulkanRenderPass::CreateOffScreenFramebuffer(VkImageView_T *, VkImageView_T *, VkExtent2D); PARAMNO=3; DEF=false; DIT=true; START_LINE=13; END_LINE=13; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>13
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanRenderPass; SIGNATURE=VulkanRenderPass::Cleanup(); PARAMNO=0; DEF=false; DIT=true; START_LINE=14; END_LINE=14; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>14
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanRenderPass::GetRenderPass() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>16
+<k>18
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanRenderPass; SIGNATURE=VulkanRenderPass::GetRenderPass() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=16; END_LINE=16; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>16
+<k>18
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanRenderPass::GetRenderPass() const; NBD=0; TEMPLATE_FUNC=
+<l>16
+<k>18
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanRenderPass::GetFramebuffers() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>17
+<k>39
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanRenderPass; SIGNATURE=VulkanRenderPass::GetFramebuffers() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=17; END_LINE=17; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>17
+<k>39
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanRenderPass::GetFramebuffers() const; NBD=0; TEMPLATE_FUNC=
+<l>17
+<k>39
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanRenderPass::GetOffScreenFramebuffer() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>18
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanRenderPass; SIGNATURE=VulkanRenderPass::GetOffScreenFramebuffer() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=18; END_LINE=18; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>18
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanRenderPass::GetOffScreenFramebuffer() const; NBD=0; TEMPLATE_FUNC=
+<l>18
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=VulkanCommandBuffer; NAMESPACE=; TEMPLATE_TYPE=; TAG=class
+<l>7
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::VulkanCommandBuffer(VkDevice_T *, VkPhysicalDevice_T *); PARAMNO=2; DEF=false; DIT=true; START_LINE=9; END_LINE=9; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>9
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::~VulkanCommandBuffer(); PARAMNO=0; DEF=false; DIT=true; START_LINE=10; END_LINE=10; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>10
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::CreateCommandPool(unsigned int); PARAMNO=1; DEF=false; DIT=true; START_LINE=12; END_LINE=12; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>12
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::CreateCommandBuffers(unsigned long long); PARAMNO=1; DEF=false; DIT=true; START_LINE=13; END_LINE=13; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>13
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::RecordCommandBuffer(VkCommandBuffer_T *, VkFramebuffer_T *, VkRenderPass_T *, VkExtent2D, VkPipeline_T *, VkPipelineLayout_T *); PARAMNO=6; DEF=false; DIT=true; START_LINE=14; END_LINE=16; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>14
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::RecordOffScreenCommandBuffer(VkCommandBuffer_T *, VkFramebuffer_T *, VkRenderPass_T *, VkExtent2D, VkPipeline_T *, VkPipelineLayout_T *); PARAMNO=6; DEF=false; DIT=true; START_LINE=17; END_LINE=19; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>17
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::Cleanup(); PARAMNO=0; DEF=false; DIT=true; START_LINE=20; END_LINE=20; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>20
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanCommandBuffer::GetCommandPool() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>22
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::GetCommandPool() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=22; END_LINE=22; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>22
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanCommandBuffer::GetCommandPool() const; NBD=0; TEMPLATE_FUNC=
+<l>22
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanCommandBuffer::GetCommandBuffers() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>23
+<k>41
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::GetCommandBuffers() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=23; END_LINE=23; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>23
+<k>41
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanCommandBuffer::GetCommandBuffers() const; NBD=0; TEMPLATE_FUNC=
+<l>23
+<k>41
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanCommandBuffer::GetCommandBuffer(unsigned long long) const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>24
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::GetCommandBuffer(unsigned long long) const; PARAMNO=1; DEF=true; DIT=true; START_LINE=24; END_LINE=24; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>24
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanCommandBuffer::GetCommandBuffer(unsigned long long) const; NBD=0; TEMPLATE_FUNC=
+<l>24
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::BeginSingleTimeCommands(); PARAMNO=0; DEF=false; DIT=true; START_LINE=27; END_LINE=27; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>27
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::EndSingleTimeCommands(VkCommandBuffer_T *, VkQueue_T *); PARAMNO=2; DEF=false; DIT=true; START_LINE=28; END_LINE=28; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>28
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=VulkanSyncObjects; NAMESPACE=; TEMPLATE_TYPE=; TAG=class
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSyncObjects; SIGNATURE=VulkanSyncObjects::VulkanSyncObjects(VkDevice_T *, unsigned int); PARAMNO=2; DEF=false; DIT=true; START_LINE=8; END_LINE=8; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>8
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSyncObjects; SIGNATURE=VulkanSyncObjects::~VulkanSyncObjects(); PARAMNO=0; DEF=false; DIT=true; START_LINE=9; END_LINE=9; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>9
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSyncObjects; SIGNATURE=VulkanSyncObjects::CreateSyncObjects(unsigned int); PARAMNO=1; DEF=false; DIT=true; START_LINE=16; END_LINE=16; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>16
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSyncObjects; SIGNATURE=VulkanSyncObjects::Cleanup(); PARAMNO=0; DEF=false; DIT=true; START_LINE=17; END_LINE=17; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>17
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSyncObjects; SIGNATURE=VulkanSyncObjects::GetImageAvailableSemaphore(unsigned int) const; PARAMNO=1; DEF=false; DIT=true; START_LINE=20; END_LINE=20; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>20
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSyncObjects; SIGNATURE=VulkanSyncObjects::GetRenderFinishedSemaphore(unsigned int) const; PARAMNO=1; DEF=false; DIT=true; START_LINE=21; END_LINE=21; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>21
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSyncObjects; SIGNATURE=VulkanSyncObjects::GetInFlightFence(unsigned int) const; PARAMNO=1; DEF=false; DIT=true; START_LINE=24; END_LINE=24; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>24
+<k>13
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSyncObjects; SIGNATURE=VulkanSyncObjects::GetImageInFlight(unsigned int); PARAMNO=1; DEF=false; DIT=true; START_LINE=27; END_LINE=27; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>27
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=VulkanDescriptorSet; NAMESPACE=; TEMPLATE_TYPE=; TAG=class
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDescriptorSet; SIGNATURE=VulkanDescriptorSet::VulkanDescriptorSet(VkDevice_T *); PARAMNO=1; DEF=false; DIT=true; START_LINE=8; END_LINE=8; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>8
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDescriptorSet; SIGNATURE=VulkanDescriptorSet::~VulkanDescriptorSet(); PARAMNO=0; DEF=false; DIT=true; START_LINE=9; END_LINE=9; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>9
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDescriptorSet; SIGNATURE=VulkanDescriptorSet::CreateDescriptorSetLayout(); PARAMNO=0; DEF=false; DIT=true; START_LINE=11; END_LINE=11; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>11
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDescriptorSet; SIGNATURE=VulkanDescriptorSet::CreateDescriptorPool(unsigned int); PARAMNO=1; DEF=false; DIT=true; START_LINE=12; END_LINE=12; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>12
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDescriptorSet; SIGNATURE=VulkanDescriptorSet::CreateDescriptorSets(const std::vector<VkBuffer_T *, std::allocator<VkBuffer_T *>> &, unsigned long long, VkImageView_T *, VkSampler_T *, VkImageView_T *, VkSampler_T *); PARAMNO=6; DEF=false; DIT=true; START_LINE=14; END_LINE=16; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>14
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDescriptorSet; SIGNATURE=VulkanDescriptorSet::Cleanup(); PARAMNO=0; DEF=false; DIT=true; START_LINE=17; END_LINE=17; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>17
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanDescriptorSet::GetLayout() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>19
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDescriptorSet; SIGNATURE=VulkanDescriptorSet::GetLayout() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=19; END_LINE=19; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>19
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanDescriptorSet::GetLayout() const; NBD=0; TEMPLATE_FUNC=
+<l>19
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanDescriptorSet::GetDescriptorSet(unsigned int) const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>20
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDescriptorSet; SIGNATURE=VulkanDescriptorSet::GetDescriptorSet(unsigned int) const; PARAMNO=1; DEF=true; DIT=true; START_LINE=20; END_LINE=20; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>20
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanDescriptorSet::GetDescriptorSet(unsigned int) const; NBD=0; TEMPLATE_FUNC=
+<l>20
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanDescriptorSet::GetDescriptorSets() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>21
+<k>41
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanDescriptorSet; SIGNATURE=VulkanDescriptorSet::GetDescriptorSets() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=21; END_LINE=21; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>21
+<k>41
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanDescriptorSet::GetDescriptorSets() const; NBD=0; TEMPLATE_FUNC=
+<l>21
+<k>41
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\PushConstantObject.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=PushConstantObject; NAMESPACE=; TEMPLATE_TYPE=; TAG=struct
+<l>4
+<k>8
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=ShadowPass; NAMESPACE=; TEMPLATE_TYPE=; TAG=class
+<l>10
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=ShadowPass; SIGNATURE=ShadowPass::ShadowPass(VulkanDevice *, unsigned int, unsigned int); PARAMNO=3; DEF=false; DIT=true; START_LINE=12; END_LINE=12; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>12
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=ShadowPass; SIGNATURE=ShadowPass::~ShadowPass(); PARAMNO=0; DEF=false; DIT=true; START_LINE=13; END_LINE=13; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>13
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=ShadowPass; SIGNATURE=ShadowPass::Initialize(VkDescriptorSetLayout_T *); PARAMNO=1; DEF=false; DIT=true; START_LINE=15; END_LINE=15; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>15
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=ShadowPass; SIGNATURE=ShadowPass::Cleanup(); PARAMNO=0; DEF=false; DIT=true; START_LINE=16; END_LINE=16; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>16
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=ShadowPass; SIGNATURE=ShadowPass::Begin(VkCommandBuffer_T *); PARAMNO=1; DEF=false; DIT=true; START_LINE=19; END_LINE=19; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>19
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=ShadowPass; SIGNATURE=ShadowPass::End(VkCommandBuffer_T *); PARAMNO=1; DEF=false; DIT=true; START_LINE=20; END_LINE=20; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>20
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=ShadowPass::GetShadowImageView() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>23
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=ShadowPass; SIGNATURE=ShadowPass::GetShadowImageView() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=23; END_LINE=23; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>23
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=ShadowPass::GetShadowImageView() const; NBD=0; TEMPLATE_FUNC=
+<l>23
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=ShadowPass::GetShadowSampler() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>24
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=ShadowPass; SIGNATURE=ShadowPass::GetShadowSampler() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=24; END_LINE=24; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>24
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=ShadowPass::GetShadowSampler() const; NBD=0; TEMPLATE_FUNC=
+<l>24
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=ShadowPass::GetRenderPass() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>25
+<k>18
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=ShadowPass; SIGNATURE=ShadowPass::GetRenderPass() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=25; END_LINE=25; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>25
+<k>18
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=ShadowPass::GetRenderPass() const; NBD=0; TEMPLATE_FUNC=
+<l>25
+<k>18
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=ShadowPass::GetPipeline() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>26
+<k>23
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=ShadowPass; SIGNATURE=ShadowPass::GetPipeline() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=26; END_LINE=26; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>26
+<k>23
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=ShadowPass::GetPipeline() const; NBD=0; TEMPLATE_FUNC=
+<l>26
+<k>23
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=ShadowPass::GetExtent() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>27
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=ShadowPass; SIGNATURE=ShadowPass::GetExtent() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=27; END_LINE=27; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>27
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=ShadowPass::GetExtent() const; NBD=0; TEMPLATE_FUNC=
+<l>27
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=ShadowPass; SIGNATURE=ShadowPass::CreateResources(); PARAMNO=0; DEF=false; DIT=true; START_LINE=46; END_LINE=46; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>46
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=ShadowPass; SIGNATURE=ShadowPass::CreateRenderPass(); PARAMNO=0; DEF=false; DIT=true; START_LINE=47; END_LINE=47; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>47
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=ShadowPass; SIGNATURE=ShadowPass::CreateFramebuffer(); PARAMNO=0; DEF=false; DIT=true; START_LINE=48; END_LINE=48; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>48
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=ShadowPass; SIGNATURE=ShadowPass::CreatePipeline(VkDescriptorSetLayout_T *); PARAMNO=1; DEF=false; DIT=true; START_LINE=49; END_LINE=49; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>49
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=Camera; NAMESPACE=; TEMPLATE_TYPE=; TAG=class
+<l>13
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Camera; SIGNATURE=Camera::Camera(); PARAMNO=0; DEF=false; DIT=true; START_LINE=15; END_LINE=15; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>15
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Camera; SIGNATURE=Camera::~Camera(); PARAMNO=0; DEF=false; DIT=true; START_LINE=16; END_LINE=16; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>16
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Camera; SIGNATURE=Camera::GetViewMatrix() const; PARAMNO=0; DEF=false; DIT=true; START_LINE=19; END_LINE=19; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>19
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Camera; SIGNATURE=Camera::GetProjectionMatrix(float) const; PARAMNO=1; DEF=false; DIT=true; START_LINE=20; END_LINE=20; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>20
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Camera::SetPosition(const glm::vec<(int)3, float, (glm::qualifier)0> &); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>23
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Camera; SIGNATURE=Camera::SetPosition(const glm::vec<(int)3, float, (glm::qualifier)0> &); PARAMNO=1; DEF=true; DIT=true; START_LINE=23; END_LINE=23; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>23
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Camera::SetPosition(const glm::vec<(int)3, float, (glm::qualifier)0> &); NBD=0; TEMPLATE_FUNC=
+<l>23
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Camera; SIGNATURE=Camera::SetTarget(const glm::vec<(int)3, float, (glm::qualifier)0> &); PARAMNO=1; DEF=false; DIT=true; START_LINE=24; END_LINE=24; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>24
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Camera; SIGNATURE=Camera::SetUp(const glm::vec<(int)3, float, (glm::qualifier)0> &); PARAMNO=1; DEF=false; DIT=true; START_LINE=25; END_LINE=25; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>25
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Camera; SIGNATURE=Camera::MoveForward(float); PARAMNO=1; DEF=false; DIT=true; START_LINE=28; END_LINE=28; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>28
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Camera; SIGNATURE=Camera::MoveBackward(float); PARAMNO=1; DEF=false; DIT=true; START_LINE=29; END_LINE=29; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>29
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Camera; SIGNATURE=Camera::MoveLeft(float); PARAMNO=1; DEF=false; DIT=true; START_LINE=30; END_LINE=30; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>30
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Camera; SIGNATURE=Camera::MoveRight(float); PARAMNO=1; DEF=false; DIT=true; START_LINE=31; END_LINE=31; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>31
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Camera; SIGNATURE=Camera::MoveUp(float); PARAMNO=1; DEF=false; DIT=true; START_LINE=32; END_LINE=32; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>32
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Camera; SIGNATURE=Camera::MoveDown(float); PARAMNO=1; DEF=false; DIT=true; START_LINE=33; END_LINE=33; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>33
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Camera; SIGNATURE=Camera::RotateYaw(float); PARAMNO=1; DEF=false; DIT=true; START_LINE=36; END_LINE=36; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>36
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Camera; SIGNATURE=Camera::RotatePitch(float); PARAMNO=1; DEF=false; DIT=true; START_LINE=37; END_LINE=37; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>37
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Camera::GetPosition() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>40
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Camera; SIGNATURE=Camera::GetPosition() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=40; END_LINE=40; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>40
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Camera::GetPosition() const; NBD=0; TEMPLATE_FUNC=
+<l>40
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Camera::GetFront() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>41
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Camera; SIGNATURE=Camera::GetFront() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=41; END_LINE=41; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>41
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Camera::GetFront() const; NBD=0; TEMPLATE_FUNC=
+<l>41
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Camera::GetUp() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>42
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Camera; SIGNATURE=Camera::GetUp() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=42; END_LINE=42; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>42
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Camera::GetUp() const; NBD=0; TEMPLATE_FUNC=
+<l>42
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Camera::SetFOV(float); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>45
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Camera; SIGNATURE=Camera::SetFOV(float); PARAMNO=1; DEF=true; DIT=true; START_LINE=45; END_LINE=45; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>45
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Camera::SetFOV(float); NBD=0; TEMPLATE_FUNC=
+<l>45
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Camera::SetNearFar(float, float); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>46
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Camera; SIGNATURE=Camera::SetNearFar(float, float); PARAMNO=2; DEF=true; DIT=true; START_LINE=46; END_LINE=49; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>46
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Camera::SetNearFar(float, float); NBD=0; TEMPLATE_FUNC=
+<l>46
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Camera::SetMoveSpeed(float); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>50
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Camera; SIGNATURE=Camera::SetMoveSpeed(float); PARAMNO=1; DEF=true; DIT=true; START_LINE=50; END_LINE=50; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>50
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Camera::SetMoveSpeed(float); NBD=0; TEMPLATE_FUNC=
+<l>50
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=Camera::SetRotateSpeed(float); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>51
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Camera; SIGNATURE=Camera::SetRotateSpeed(float); PARAMNO=1; DEF=true; DIT=true; START_LINE=51; END_LINE=51; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>51
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=Camera::SetRotateSpeed(float); NBD=0; TEMPLATE_FUNC=
+<l>51
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=Camera; SIGNATURE=Camera::UpdateCameraVectors(); PARAMNO=0; DEF=false; DIT=true; START_LINE=73; END_LINE=73; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>73
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=CameraController; NAMESPACE=; TEMPLATE_TYPE=; TAG=class
+<l>7
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=CameraController; SIGNATURE=CameraController::CameraController(); PARAMNO=0; DEF=false; DIT=true; START_LINE=9; END_LINE=9; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>9
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=CameraController; SIGNATURE=CameraController::~CameraController(); PARAMNO=0; DEF=false; DIT=true; START_LINE=10; END_LINE=10; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>10
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=CameraController; SIGNATURE=CameraController::Update(float); PARAMNO=1; DEF=false; DIT=true; START_LINE=12; END_LINE=12; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>12
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=CameraController::GetActiveCamera(); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>14
+<k>13
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=CameraController; SIGNATURE=CameraController::GetActiveCamera(); PARAMNO=0; DEF=true; DIT=true; START_LINE=14; END_LINE=14; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>14
+<k>13
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=CameraController::GetActiveCamera(); NBD=0; TEMPLATE_FUNC=
+<l>14
+<k>13
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=CameraController::GetActiveCameraType() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>15
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=CameraController; SIGNATURE=CameraController::GetActiveCameraType() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=15; END_LINE=15; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>15
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=CameraController::GetActiveCameraType() const; NBD=0; TEMPLATE_FUNC=
+<l>15
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=CameraController; SIGNATURE=CameraController::SwitchCamera(CameraType); PARAMNO=1; DEF=false; DIT=true; START_LINE=17; END_LINE=17; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>17
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=CameraController; SIGNATURE=CameraController::OnKeyPress(int, bool); PARAMNO=2; DEF=false; DIT=true; START_LINE=20; END_LINE=20; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>20
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=CameraController; SIGNATURE=CameraController::OnKeyRelease(int); PARAMNO=1; DEF=false; DIT=true; START_LINE=21; END_LINE=21; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>21
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=CameraController; SIGNATURE=CameraController::SetupCameras(); PARAMNO=0; DEF=false; DIT=true; START_LINE=36; END_LINE=36; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>36
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=CameraController; SIGNATURE=CameraController::UpdateFreeRoamCamera(float); PARAMNO=1; DEF=false; DIT=true; START_LINE=37; END_LINE=37; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>37
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleLibrary.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=ParticleLibrary::GetFireProps(); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>7
+<k>26
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleLibrary.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=GetFireProps; SIGNATURE=ParticleLibrary::GetFireProps(); NAMESPACE=ParticleLibrary; PARAMNO=0; DEF=true; START_LINE=7; END_LINE=22; TEMPLATE_FUNC=
+<l>7
+<k>26
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleLibrary.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=ParticleLibrary::GetFireProps(); NBD=0; TEMPLATE_FUNC=
+<l>7
+<k>26
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleLibrary.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=ParticleLibrary::GetSmokeProps(); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>24
+<k>26
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleLibrary.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=GetSmokeProps; SIGNATURE=ParticleLibrary::GetSmokeProps(); NAMESPACE=ParticleLibrary; PARAMNO=0; DEF=true; START_LINE=24; END_LINE=39; TEMPLATE_FUNC=
+<l>24
+<k>26
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleLibrary.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=ParticleLibrary::GetSmokeProps(); NBD=0; TEMPLATE_FUNC=
+<l>24
+<k>26
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleLibrary.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=ParticleLibrary::GetRainProps(); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>41
+<k>26
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleLibrary.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=GetRainProps; SIGNATURE=ParticleLibrary::GetRainProps(); NAMESPACE=ParticleLibrary; PARAMNO=0; DEF=true; START_LINE=41; END_LINE=55; TEMPLATE_FUNC=
+<l>41
+<k>26
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleLibrary.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=ParticleLibrary::GetRainProps(); NBD=0; TEMPLATE_FUNC=
+<l>41
+<k>26
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleLibrary.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=ParticleLibrary::GetSnowProps(); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>57
+<k>26
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleLibrary.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=GetSnowProps; SIGNATURE=ParticleLibrary::GetSnowProps(); NAMESPACE=ParticleLibrary; PARAMNO=0; DEF=true; START_LINE=57; END_LINE=77; TEMPLATE_FUNC=
+<l>57
+<k>26
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleLibrary.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=ParticleLibrary::GetSnowProps(); NBD=0; TEMPLATE_FUNC=
+<l>57
+<k>26
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleLibrary.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=ParticleLibrary::GetDustProps(); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>79
+<k>26
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleLibrary.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=GetDustProps; SIGNATURE=ParticleLibrary::GetDustProps(); NAMESPACE=ParticleLibrary; PARAMNO=0; DEF=true; START_LINE=79; END_LINE=93; TEMPLATE_FUNC=
+<l>79
+<k>26
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleLibrary.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=ParticleLibrary::GetDustProps(); NBD=0; TEMPLATE_FUNC=
+<l>79
+<k>26
 <s>false
 <N>
 <f>
@@ -331,7 +5361,7 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>INTERNAL-METRICS-LINES_TYPES
-<b>DATA=SSSBBSSBSSSSBSSBSSSBSBBSSSBSCSSSSBSSSSSSBSSSSSSSSBCSSSSSBCSSSSBSBCSSBSSSSBSSSSBSBSSSSBBBCSCSCSSBBCSSSSSSSBSSSSSSSBSSSSBSSSBSSSSBMSBCSSBBSSSBCSSSSBSBCSSBCSSBCSBSSBSSCSSSBSSBSSSBSSBCSSSSSBMBCSMBSCSSSCSSBCSBSSBSSBSCSSSBSMBSSSSSSSSBSCSSBCSSBSSBSCSSSSSSSSSSSSBCSSSSSSBSSSSBSSSSSBSSSSBSSSSBSSSSBSSSSBS
+<b>DATA=SSSBBSSSSSSSBSSSBSBSSSBSCSSSSBSSSSSSBSSSSSSSSBCSSSSSBCSSSSBSBCSSBSSBSSSSBSSSSBSBSSSSBCSCSCSSBCSSSSSSSBSSSSSSSBSSSSBSSSBSSSSBMSBCSSBBSSSBCSSSSBSBCSSBCSSBCSBSBSSBSSCSSSBSSBSSSBSSBCSSCSSSBMBCSMBSCSSSCSSBCSBSSBSSBSCSSSBSMBSSSSSSSSBSCSSBCSSBCSSBSCSSSSSSSSSSSSBCSSSSSSBSCSSSBSSSSSBSSSSBSSSSBSSSSBSSSSBS
 <l>1
 <k>-1
 <s>false

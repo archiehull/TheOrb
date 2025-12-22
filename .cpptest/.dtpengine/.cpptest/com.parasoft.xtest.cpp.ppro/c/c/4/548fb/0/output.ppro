@@ -192674,15 +192674,6 @@ H 147 C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
 K o
 I VK_NULL_HANDLE
 F 147
-L 147
-S 147
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 147
 L 148
 S 148
 f 4
@@ -192692,8 +192683,17 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 147
-L 151
-S 151
+L 149
+S 149
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 147
+L 152
+S 152
 f 4
 l 43
 EOR
@@ -192781,8 +192781,8 @@ H 151 C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
 K o
 I VK_NULL_HANDLE
 F 151
-L 98
-S 98
+L 103
+S 103
 f 4
 l 43
 EOR
@@ -192790,8 +192790,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 151
-L 99
-S 99
+L 104
+S 104
 f 4
 l 43
 EOR
@@ -192799,8 +192799,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 151
-L 101
-S 101
+L 106
+S 106
 f 4
 l 43
 EOR
@@ -228926,8 +228926,8 @@ H 210 C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
 K o
 I MAX_LIGHTS
 F 210
-L 202
-S 202
+L 203
+S 203
 f 146
 l 5
 EOR
@@ -228935,8 +228935,8 @@ EOR
 K o
 I MAX_LIGHTS
 F 210
-L 203
-S 203
+L 204
+S 204
 f 146
 l 5
 EOR

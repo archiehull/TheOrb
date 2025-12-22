@@ -1,0 +1,380 @@
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanShader::VulkanShader(VkDevice_T *); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>5
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanShader; SIGNATURE=VulkanShader::VulkanShader(VkDevice_T *); PARAMNO=1; DEF=true; DIT=false; START_LINE=5; END_LINE=6; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>5
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanShader::VulkanShader(VkDevice_T *); NBD=0; TEMPLATE_FUNC=
+<l>5
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanShader::~VulkanShader(); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>8
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanShader; SIGNATURE=VulkanShader::~VulkanShader(); PARAMNO=0; DEF=true; DIT=false; START_LINE=8; END_LINE=9; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>8
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanShader::~VulkanShader(); NBD=0; TEMPLATE_FUNC=
+<l>8
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanShader::LoadShader(const std::string&, VkShaderStageFlagBits); CC=3; SCC=3; MCC=3; TEMPLATE_FUNC=
+<l>11
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanShader; SIGNATURE=VulkanShader::LoadShader(const std::string&, VkShaderStageFlagBits); PARAMNO=2; DEF=true; DIT=false; START_LINE=11; END_LINE=21; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>11
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanShader::LoadShader(const std::string&, VkShaderStageFlagBits); NBD=1; TEMPLATE_FUNC=
+<l>11
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanShader::createShaderModule(const std::vector<char, std::allocator<char>> &); CC=2; SCC=2; MCC=2; TEMPLATE_FUNC=
+<l>23
+<k>30
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanShader; SIGNATURE=VulkanShader::createShaderModule(const std::vector<char, std::allocator<char>> &); PARAMNO=1; DEF=true; DIT=false; START_LINE=23; END_LINE=35; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>23
+<k>30
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanShader::createShaderModule(const std::vector<char, std::allocator<char>> &); NBD=1; TEMPLATE_FUNC=
+<l>23
+<k>30
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanShader::readFile(const std::string&); CC=2; SCC=2; MCC=2; TEMPLATE_FUNC=
+<l>37
+<k>33
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanShader; SIGNATURE=VulkanShader::readFile(const std::string&); PARAMNO=1; DEF=true; DIT=false; START_LINE=37; END_LINE=52; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>37
+<k>33
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanShader::readFile(const std::string&); NBD=1; TEMPLATE_FUNC=
+<l>37
+<k>33
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanShader::Cleanup(); CC=3; SCC=3; MCC=3; TEMPLATE_FUNC=
+<l>54
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanShader; SIGNATURE=VulkanShader::Cleanup(); PARAMNO=0; DEF=true; DIT=false; START_LINE=54; END_LINE=61; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>54
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanShader::Cleanup(); NBD=1; TEMPLATE_FUNC=
+<l>54
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=VulkanShader; NAMESPACE=; TEMPLATE_TYPE=; TAG=class
+<l>8
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanShader; SIGNATURE=VulkanShader::VulkanShader(VkDevice_T *); PARAMNO=1; DEF=false; DIT=true; START_LINE=10; END_LINE=10; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>10
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanShader::VulkanShader(VkDevice_T *); NBD=0; TEMPLATE_FUNC=
+<l>5
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanShader; SIGNATURE=VulkanShader::~VulkanShader(); PARAMNO=0; DEF=false; DIT=true; START_LINE=11; END_LINE=11; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>11
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanShader::~VulkanShader(); NBD=0; TEMPLATE_FUNC=
+<l>8
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanShader; SIGNATURE=VulkanShader::LoadShader(const std::string&, VkShaderStageFlagBits); PARAMNO=2; DEF=false; DIT=true; START_LINE=13; END_LINE=13; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>13
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanShader::LoadShader(const std::string&, VkShaderStageFlagBits); NBD=1; TEMPLATE_FUNC=
+<l>11
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanShader; SIGNATURE=VulkanShader::Cleanup(); PARAMNO=0; DEF=false; DIT=true; START_LINE=14; END_LINE=14; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>14
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanShader::Cleanup(); NBD=1; TEMPLATE_FUNC=
+<l>54
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanShader::GetVertexShader() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>16
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanShader; SIGNATURE=VulkanShader::GetVertexShader() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=16; END_LINE=16; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>16
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanShader::GetVertexShader() const; NBD=0; TEMPLATE_FUNC=
+<l>16
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanShader::GetFragmentShader() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>17
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanShader; SIGNATURE=VulkanShader::GetFragmentShader() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=17; END_LINE=17; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>17
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanShader::GetFragmentShader() const; NBD=0; TEMPLATE_FUNC=
+<l>17
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanShader; SIGNATURE=VulkanShader::createShaderModule(const std::vector<char, std::allocator<char>> &); PARAMNO=1; DEF=false; DIT=true; START_LINE=24; END_LINE=24; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>24
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanShader::createShaderModule(const std::vector<char, std::allocator<char>> &); NBD=1; TEMPLATE_FUNC=
+<l>23
+<k>30
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanShader; SIGNATURE=VulkanShader::readFile(const std::string&); PARAMNO=1; DEF=false; DIT=true; START_LINE=25; END_LINE=25; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>25
+<k>30
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanShader::readFile(const std::string&); NBD=1; TEMPLATE_FUNC=
+<l>37
+<k>33
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.cpp
+<c>INTERNAL-METRICS-LINES_TYPES
+<b>DATA=SSSBSSBSSBSSSBSSSSSSSBSSSSSBSSSSBSSBSSBSSSBSSBSSSBSSBSSSSSSSS
+<l>1
+<k>-1
+<s>false
+<N>
+<f>
+<L>0

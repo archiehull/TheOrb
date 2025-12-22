@@ -3,13 +3,28 @@
 #include <stdexcept>
 #include <array>
 
-GraphicsPipeline::GraphicsPipeline(VkDevice device, const GraphicsPipelineConfig& config)
-    : device(device), config(config) {
-    shader = std::make_unique<VulkanShader>(device);
+GraphicsPipeline::GraphicsPipeline(VkDevice deviceArg, const GraphicsPipelineConfig& configArg)
+    : device(deviceArg),
+    shader(std::make_unique<VulkanShader>(deviceArg)),
+    pipelineLayout(VK_NULL_HANDLE),
+    pipeline(VK_NULL_HANDLE),
+    dynamicStates{
+        VK_DYNAMIC_STATE_VIEWPORT,
+        VK_DYNAMIC_STATE_SCISSOR,
+        VK_DYNAMIC_STATE_LINE_WIDTH
+    },
+    config(configArg) {
+    // Constructor uses initializer list for all members; nothing else required here.
 }
 
 GraphicsPipeline::~GraphicsPipeline() {
-    Cleanup();
+    // Ensure Cleanup does not throw from dtor
+    try {
+        Cleanup();
+    }
+    catch (...) {
+        // Suppress exceptions in destructor
+    }
 }
 
 void GraphicsPipeline::Create() {
@@ -34,21 +49,19 @@ void GraphicsPipeline::Create() {
     fragShaderStageInfo.module = shader->GetFragmentShader();
     fragShaderStageInfo.pName = "main";
 
-    VkPipelineShaderStageCreateInfo shaderStages[] = { vertShaderStageInfo, fragShaderStageInfo };
+    std::array<VkPipelineShaderStageCreateInfo, 2> shaderStages = { vertShaderStageInfo, fragShaderStageInfo };
 
     // Vertex input
     VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
     vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
 
     if (config.bindingDescription && config.attributeDescriptions) {
-        // CHANGE: Use config.bindingCount instead of 1
         vertexInputInfo.vertexBindingDescriptionCount = config.bindingCount;
         vertexInputInfo.pVertexBindingDescriptions = config.bindingDescription;
 
         vertexInputInfo.vertexAttributeDescriptionCount = config.attributeCount;
         vertexInputInfo.pVertexAttributeDescriptions = config.attributeDescriptions;
     }
-
 
     // Input assembly
     VkPipelineInputAssemblyStateCreateInfo inputAssembly{};
@@ -91,7 +104,7 @@ void GraphicsPipeline::Create() {
     depthStencil.depthTestEnable = config.depthTestEnable ? VK_TRUE : VK_FALSE;
     depthStencil.depthWriteEnable = config.depthWriteEnable ? VK_TRUE : VK_FALSE;
 
-    // FIX: Use the value from config instead of hardcoded VK_COMPARE_OP_LESS
+    // Use configured compare op
     depthStencil.depthCompareOp = config.depthCompareOp;
 
     depthStencil.depthBoundsTestEnable = VK_FALSE;
@@ -104,7 +117,6 @@ void GraphicsPipeline::Create() {
     colorBlendAttachment.blendEnable = config.blendEnable ? VK_TRUE : VK_FALSE;
 
     if (config.blendEnable) {
-        // CHANGED: Use the values from 'config', do not hardcode!
         colorBlendAttachment.srcColorBlendFactor = config.srcColorBlendFactor;
         colorBlendAttachment.dstColorBlendFactor = config.dstColorBlendFactor;
         colorBlendAttachment.colorBlendOp = config.colorBlendOp;
@@ -141,8 +153,8 @@ void GraphicsPipeline::Create() {
     // Graphics pipeline
     VkGraphicsPipelineCreateInfo pipelineInfo{};
     pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
-    pipelineInfo.stageCount = 2;
-    pipelineInfo.pStages = shaderStages;
+    pipelineInfo.stageCount = static_cast<uint32_t>(shaderStages.size());
+    pipelineInfo.pStages = shaderStages.data();
     pipelineInfo.pVertexInputState = &vertexInputInfo;
     pipelineInfo.pInputAssemblyState = &inputAssembly;
     pipelineInfo.pViewportState = &viewportState;

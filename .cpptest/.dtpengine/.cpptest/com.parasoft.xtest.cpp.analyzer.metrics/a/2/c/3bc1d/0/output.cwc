@@ -1,0 +1,510 @@
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanContext::VulkanContext(); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>5
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanContext; SIGNATURE=VulkanContext::VulkanContext(); PARAMNO=0; DEF=true; DIT=false; START_LINE=5; END_LINE=6; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>5
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanContext::VulkanContext(); NBD=0; TEMPLATE_FUNC=
+<l>5
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanContext::~VulkanContext(); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>8
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanContext; SIGNATURE=VulkanContext::~VulkanContext(); PARAMNO=0; DEF=true; DIT=false; START_LINE=8; END_LINE=9; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>8
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanContext::~VulkanContext(); NBD=0; TEMPLATE_FUNC=
+<l>8
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanContext::CreateInstance(); CC=4; SCC=5; MCC=4; TEMPLATE_FUNC=
+<l>11
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanContext; SIGNATURE=VulkanContext::CreateInstance(); PARAMNO=0; DEF=true; DIT=false; START_LINE=11; END_LINE=48; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>11
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanContext::CreateInstance(); NBD=1; TEMPLATE_FUNC=
+<l>11
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanContext::SetupDebugMessenger(); CC=3; SCC=3; MCC=3; TEMPLATE_FUNC=
+<l>50
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanContext; SIGNATURE=VulkanContext::SetupDebugMessenger(); PARAMNO=0; DEF=true; DIT=false; START_LINE=50; END_LINE=59; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>50
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanContext::SetupDebugMessenger(); NBD=1; TEMPLATE_FUNC=
+<l>50
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanContext::CreateSurface(GLFWwindow *); CC=2; SCC=2; MCC=2; TEMPLATE_FUNC=
+<l>61
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanContext; SIGNATURE=VulkanContext::CreateSurface(GLFWwindow *); PARAMNO=1; DEF=true; DIT=false; START_LINE=61; END_LINE=65; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>61
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanContext::CreateSurface(GLFWwindow *); NBD=1; TEMPLATE_FUNC=
+<l>61
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanContext::Cleanup(); CC=4; SCC=5; MCC=4; TEMPLATE_FUNC=
+<l>67
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanContext; SIGNATURE=VulkanContext::Cleanup(); PARAMNO=0; DEF=true; DIT=false; START_LINE=67; END_LINE=82; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>67
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanContext::Cleanup(); NBD=1; TEMPLATE_FUNC=
+<l>67
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=VulkanContext; NAMESPACE=; TEMPLATE_TYPE=; TAG=class
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanContext; SIGNATURE=VulkanContext::VulkanContext(); PARAMNO=0; DEF=false; DIT=true; START_LINE=8; END_LINE=8; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>8
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanContext::VulkanContext(); NBD=0; TEMPLATE_FUNC=
+<l>5
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanContext; SIGNATURE=VulkanContext::~VulkanContext(); PARAMNO=0; DEF=false; DIT=true; START_LINE=9; END_LINE=9; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>9
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanContext::~VulkanContext(); NBD=0; TEMPLATE_FUNC=
+<l>8
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanContext; SIGNATURE=VulkanContext::CreateInstance(); PARAMNO=0; DEF=false; DIT=true; START_LINE=11; END_LINE=11; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>11
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanContext::CreateInstance(); NBD=1; TEMPLATE_FUNC=
+<l>11
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanContext; SIGNATURE=VulkanContext::SetupDebugMessenger(); PARAMNO=0; DEF=false; DIT=true; START_LINE=12; END_LINE=12; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>12
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanContext::SetupDebugMessenger(); NBD=1; TEMPLATE_FUNC=
+<l>50
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanContext; SIGNATURE=VulkanContext::CreateSurface(GLFWwindow *); PARAMNO=1; DEF=false; DIT=true; START_LINE=13; END_LINE=13; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>13
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanContext::CreateSurface(GLFWwindow *); NBD=1; TEMPLATE_FUNC=
+<l>61
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanContext; SIGNATURE=VulkanContext::Cleanup(); PARAMNO=0; DEF=false; DIT=true; START_LINE=14; END_LINE=14; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>14
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanContext::Cleanup(); NBD=1; TEMPLATE_FUNC=
+<l>67
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanContext::GetInstance() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>16
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanContext; SIGNATURE=VulkanContext::GetInstance() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=16; END_LINE=16; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>16
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanContext::GetInstance() const; NBD=0; TEMPLATE_FUNC=
+<l>16
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanContext::GetSurface() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>17
+<k>18
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanContext; SIGNATURE=VulkanContext::GetSurface() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=17; END_LINE=17; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>17
+<k>18
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanContext::GetSurface() const; NBD=0; TEMPLATE_FUNC=
+<l>17
+<k>18
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=CreateDebugUtilsMessengerEXT; SIGNATURE=VulkanUtils::CreateDebugUtilsMessengerEXT(VkInstance_T *, const VkDebugUtilsMessengerCreateInfoEXT *, const VkAllocationCallbacks *, VkDebugUtilsMessengerEXT_T **); NAMESPACE=VulkanUtils; PARAMNO=4; DEF=false; START_LINE=15; END_LINE=19; TEMPLATE_FUNC=
+<l>15
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=DestroyDebugUtilsMessengerEXT; SIGNATURE=VulkanUtils::DestroyDebugUtilsMessengerEXT(VkInstance_T *, VkDebugUtilsMessengerEXT_T *, const VkAllocationCallbacks *); NAMESPACE=VulkanUtils; PARAMNO=3; DEF=false; START_LINE=21; END_LINE=24; TEMPLATE_FUNC=
+<l>21
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=CheckValidationLayerSupport; SIGNATURE=VulkanUtils::CheckValidationLayerSupport(); NAMESPACE=VulkanUtils; PARAMNO=0; DEF=false; START_LINE=26; END_LINE=26; TEMPLATE_FUNC=
+<l>26
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=GetRequiredExtensions; SIGNATURE=VulkanUtils::GetRequiredExtensions(); NAMESPACE=VulkanUtils; PARAMNO=0; DEF=false; START_LINE=27; END_LINE=27; TEMPLATE_FUNC=
+<l>27
+<k>30
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=DebugCallback; SIGNATURE=VulkanUtils::DebugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT, unsigned int, const VkDebugUtilsMessengerCallbackDataEXT *, void *); NAMESPACE=VulkanUtils; PARAMNO=4; DEF=false; START_LINE=29; END_LINE=33; TEMPLATE_FUNC=
+<l>29
+<k>25
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=PopulateDebugMessengerCreateInfo; SIGNATURE=VulkanUtils::PopulateDebugMessengerCreateInfo(VkDebugUtilsMessengerCreateInfoEXT &); NAMESPACE=VulkanUtils; PARAMNO=1; DEF=false; START_LINE=35; END_LINE=35; TEMPLATE_FUNC=
+<l>35
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=FindMemoryType; SIGNATURE=VulkanUtils::FindMemoryType(VkPhysicalDevice_T *, unsigned int, unsigned int); NAMESPACE=VulkanUtils; PARAMNO=3; DEF=false; START_LINE=40; END_LINE=40; TEMPLATE_FUNC=
+<l>40
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=CreateImage; SIGNATURE=VulkanUtils::CreateImage(VkDevice_T *, VkPhysicalDevice_T *, unsigned int, unsigned int, unsigned int, unsigned int, VkFormat, VkImageTiling, unsigned int, unsigned int, VkImage_T *&, VkDeviceMemory_T *&, unsigned int); NAMESPACE=VulkanUtils; PARAMNO=13; DEF=false; START_LINE=43; END_LINE=45; TEMPLATE_FUNC=
+<l>43
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=CreateImageView; SIGNATURE=VulkanUtils::CreateImageView(VkDevice_T *, VkImage_T *, VkFormat, unsigned int, VkImageViewType, unsigned int); NAMESPACE=VulkanUtils; PARAMNO=6; DEF=false; START_LINE=48; END_LINE=48; TEMPLATE_FUNC=
+<l>48
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=BeginSingleTimeCommands; SIGNATURE=VulkanUtils::BeginSingleTimeCommands(VkDevice_T *, VkCommandPool_T *); NAMESPACE=VulkanUtils; PARAMNO=2; DEF=false; START_LINE=51; END_LINE=51; TEMPLATE_FUNC=
+<l>51
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=EndSingleTimeCommands; SIGNATURE=VulkanUtils::EndSingleTimeCommands(VkDevice_T *, VkCommandPool_T *, VkQueue_T *, VkCommandBuffer_T *); NAMESPACE=VulkanUtils; PARAMNO=4; DEF=false; START_LINE=52; END_LINE=52; TEMPLATE_FUNC=
+<l>52
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=TransitionImageLayout; SIGNATURE=VulkanUtils::TransitionImageLayout(VkDevice_T *, VkCommandPool_T *, VkQueue_T *, VkImage_T *, VkFormat, VkImageLayout, VkImageLayout, unsigned int); NAMESPACE=VulkanUtils; PARAMNO=8; DEF=false; START_LINE=55; END_LINE=56; TEMPLATE_FUNC=
+<l>55
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
+<c>INTERNAL-METRICS-FUNCTIONS2
+<b>FUNC=CopyBufferToImage; SIGNATURE=VulkanUtils::CopyBufferToImage(VkDevice_T *, VkCommandPool_T *, VkQueue_T *, VkBuffer_T *, VkImage_T *, unsigned int, unsigned int); NAMESPACE=VulkanUtils; PARAMNO=7; DEF=false; START_LINE=59; END_LINE=59; TEMPLATE_FUNC=
+<l>59
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
+<c>INTERNAL-METRICS-LINES_TYPES
+<b>DATA=SSSBSSBSSBSSSSBSSSSSSSBSSSBSSSBSSSSBSSSSSSSBSSSSBSSBSSBSSSSBSSSSSBSSSSSBSSSSBSSSSS
+<l>1
+<k>-1
+<s>false
+<N>
+<f>
+<L>0

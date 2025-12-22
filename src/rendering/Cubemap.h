@@ -5,10 +5,13 @@
 #include <string>
 #include "../vulkan/VulkanUtils.h"
 
-class Cubemap {
+class Cubemap final {
 public:
-    Cubemap(VkDevice device, VkPhysicalDevice physicalDevice, VkCommandPool commandPool, VkQueue graphicsQueue);
-    ~Cubemap();
+    Cubemap(VkDevice deviceArg, VkPhysicalDevice physicalDeviceArg, VkCommandPool commandPoolArg, VkQueue graphicsQueueArg);
+    ~Cubemap() = default;
+
+    Cubemap(const Cubemap&) = delete;
+    Cubemap& operator=(const Cubemap&) = delete;
 
     void LoadFromFiles(const std::vector<std::string>& paths);
 

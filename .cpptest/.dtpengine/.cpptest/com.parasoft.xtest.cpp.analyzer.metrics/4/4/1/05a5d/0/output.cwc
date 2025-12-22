@@ -1,0 +1,560 @@
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanCommandBuffer::VulkanCommandBuffer(VkDevice_T *, VkPhysicalDevice_T *); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>5
+<k>22
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::VulkanCommandBuffer(VkDevice_T *, VkPhysicalDevice_T *); PARAMNO=2; DEF=true; DIT=false; START_LINE=5; END_LINE=7; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>5
+<k>22
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanCommandBuffer::VulkanCommandBuffer(VkDevice_T *, VkPhysicalDevice_T *); NBD=0; TEMPLATE_FUNC=
+<l>5
+<k>22
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanCommandBuffer::~VulkanCommandBuffer(); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>9
+<k>22
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::~VulkanCommandBuffer(); PARAMNO=0; DEF=true; DIT=false; START_LINE=9; END_LINE=10; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>9
+<k>22
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanCommandBuffer::~VulkanCommandBuffer(); NBD=0; TEMPLATE_FUNC=
+<l>9
+<k>22
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanCommandBuffer::CreateCommandPool(unsigned int); CC=2; SCC=2; MCC=2; TEMPLATE_FUNC=
+<l>12
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::CreateCommandPool(unsigned int); PARAMNO=1; DEF=true; DIT=false; START_LINE=12; END_LINE=21; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>12
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanCommandBuffer::CreateCommandPool(unsigned int); NBD=1; TEMPLATE_FUNC=
+<l>12
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanCommandBuffer::CreateCommandBuffers(unsigned long long); CC=2; SCC=2; MCC=2; TEMPLATE_FUNC=
+<l>23
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::CreateCommandBuffers(unsigned long long); PARAMNO=1; DEF=true; DIT=false; START_LINE=23; END_LINE=35; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>23
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanCommandBuffer::CreateCommandBuffers(unsigned long long); NBD=1; TEMPLATE_FUNC=
+<l>23
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanCommandBuffer::RecordCommandBuffer(VkCommandBuffer_T *, VkFramebuffer_T *, VkRenderPass_T *, VkExtent2D, VkPipeline_T *, VkPipelineLayout_T *); CC=3; SCC=3; MCC=3; TEMPLATE_FUNC=
+<l>37
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::RecordCommandBuffer(VkCommandBuffer_T *, VkFramebuffer_T *, VkRenderPass_T *, VkExtent2D, VkPipeline_T *, VkPipelineLayout_T *); PARAMNO=6; DEF=true; DIT=false; START_LINE=37; END_LINE=94; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>37
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanCommandBuffer::RecordCommandBuffer(VkCommandBuffer_T *, VkFramebuffer_T *, VkRenderPass_T *, VkExtent2D, VkPipeline_T *, VkPipelineLayout_T *); NBD=1; TEMPLATE_FUNC=
+<l>37
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanCommandBuffer::RecordOffScreenCommandBuffer(VkCommandBuffer_T *, VkFramebuffer_T *, VkRenderPass_T *, VkExtent2D, VkPipeline_T *, VkPipelineLayout_T *); CC=3; SCC=3; MCC=3; TEMPLATE_FUNC=
+<l>96
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::RecordOffScreenCommandBuffer(VkCommandBuffer_T *, VkFramebuffer_T *, VkRenderPass_T *, VkExtent2D, VkPipeline_T *, VkPipelineLayout_T *); PARAMNO=6; DEF=true; DIT=false; START_LINE=96; END_LINE=154; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>96
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanCommandBuffer::RecordOffScreenCommandBuffer(VkCommandBuffer_T *, VkFramebuffer_T *, VkRenderPass_T *, VkExtent2D, VkPipeline_T *, VkPipelineLayout_T *); NBD=1; TEMPLATE_FUNC=
+<l>96
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanCommandBuffer::BeginSingleTimeCommands(); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>156
+<k>38
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::BeginSingleTimeCommands(); PARAMNO=0; DEF=true; DIT=false; START_LINE=156; END_LINE=173; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>156
+<k>38
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanCommandBuffer::BeginSingleTimeCommands(); NBD=0; TEMPLATE_FUNC=
+<l>156
+<k>38
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanCommandBuffer::EndSingleTimeCommands(VkCommandBuffer_T *, VkQueue_T *); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>175
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::EndSingleTimeCommands(VkCommandBuffer_T *, VkQueue_T *); PARAMNO=2; DEF=true; DIT=false; START_LINE=175; END_LINE=187; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>175
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanCommandBuffer::EndSingleTimeCommands(VkCommandBuffer_T *, VkQueue_T *); NBD=0; TEMPLATE_FUNC=
+<l>175
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanCommandBuffer::Cleanup(); CC=3; SCC=4; MCC=3; TEMPLATE_FUNC=
+<l>189
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::Cleanup(); PARAMNO=0; DEF=true; DIT=false; START_LINE=189; END_LINE=201; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>189
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanCommandBuffer::Cleanup(); NBD=1; TEMPLATE_FUNC=
+<l>189
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=VulkanCommandBuffer; NAMESPACE=; TEMPLATE_TYPE=; TAG=class
+<l>7
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::VulkanCommandBuffer(VkDevice_T *, VkPhysicalDevice_T *); PARAMNO=2; DEF=false; DIT=true; START_LINE=9; END_LINE=9; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>9
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanCommandBuffer::VulkanCommandBuffer(VkDevice_T *, VkPhysicalDevice_T *); NBD=0; TEMPLATE_FUNC=
+<l>5
+<k>22
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::~VulkanCommandBuffer(); PARAMNO=0; DEF=false; DIT=true; START_LINE=10; END_LINE=10; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>10
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanCommandBuffer::~VulkanCommandBuffer(); NBD=0; TEMPLATE_FUNC=
+<l>9
+<k>22
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::CreateCommandPool(unsigned int); PARAMNO=1; DEF=false; DIT=true; START_LINE=12; END_LINE=12; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>12
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanCommandBuffer::CreateCommandPool(unsigned int); NBD=1; TEMPLATE_FUNC=
+<l>12
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::CreateCommandBuffers(unsigned long long); PARAMNO=1; DEF=false; DIT=true; START_LINE=13; END_LINE=13; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>13
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanCommandBuffer::CreateCommandBuffers(unsigned long long); NBD=1; TEMPLATE_FUNC=
+<l>23
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::RecordCommandBuffer(VkCommandBuffer_T *, VkFramebuffer_T *, VkRenderPass_T *, VkExtent2D, VkPipeline_T *, VkPipelineLayout_T *); PARAMNO=6; DEF=false; DIT=true; START_LINE=14; END_LINE=16; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>14
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanCommandBuffer::RecordCommandBuffer(VkCommandBuffer_T *, VkFramebuffer_T *, VkRenderPass_T *, VkExtent2D, VkPipeline_T *, VkPipelineLayout_T *); NBD=1; TEMPLATE_FUNC=
+<l>37
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::RecordOffScreenCommandBuffer(VkCommandBuffer_T *, VkFramebuffer_T *, VkRenderPass_T *, VkExtent2D, VkPipeline_T *, VkPipelineLayout_T *); PARAMNO=6; DEF=false; DIT=true; START_LINE=17; END_LINE=19; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>17
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanCommandBuffer::RecordOffScreenCommandBuffer(VkCommandBuffer_T *, VkFramebuffer_T *, VkRenderPass_T *, VkExtent2D, VkPipeline_T *, VkPipelineLayout_T *); NBD=1; TEMPLATE_FUNC=
+<l>96
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::Cleanup(); PARAMNO=0; DEF=false; DIT=true; START_LINE=20; END_LINE=20; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>20
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanCommandBuffer::Cleanup(); NBD=1; TEMPLATE_FUNC=
+<l>189
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanCommandBuffer::GetCommandPool() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>22
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::GetCommandPool() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=22; END_LINE=22; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>22
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanCommandBuffer::GetCommandPool() const; NBD=0; TEMPLATE_FUNC=
+<l>22
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanCommandBuffer::GetCommandBuffers() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>23
+<k>41
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::GetCommandBuffers() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=23; END_LINE=23; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>23
+<k>41
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanCommandBuffer::GetCommandBuffers() const; NBD=0; TEMPLATE_FUNC=
+<l>23
+<k>41
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanCommandBuffer::GetCommandBuffer(unsigned long long) const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>24
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::GetCommandBuffer(unsigned long long) const; PARAMNO=1; DEF=true; DIT=true; START_LINE=24; END_LINE=24; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>24
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanCommandBuffer::GetCommandBuffer(unsigned long long) const; NBD=0; TEMPLATE_FUNC=
+<l>24
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::BeginSingleTimeCommands(); PARAMNO=0; DEF=false; DIT=true; START_LINE=27; END_LINE=27; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>27
+<k>21
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanCommandBuffer::BeginSingleTimeCommands(); NBD=0; TEMPLATE_FUNC=
+<l>156
+<k>38
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanCommandBuffer; SIGNATURE=VulkanCommandBuffer::EndSingleTimeCommands(VkCommandBuffer_T *, VkQueue_T *); PARAMNO=2; DEF=false; DIT=true; START_LINE=28; END_LINE=28; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>28
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanCommandBuffer::EndSingleTimeCommands(VkCommandBuffer_T *, VkQueue_T *); NBD=0; TEMPLATE_FUNC=
+<l>175
+<k>27
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
+<c>INTERNAL-METRICS-LINES_TYPES
+<b>DATA=SSSBSSSBSSBSSSSSBSSSSBSSBSSSSSBSSSSBSSSSSSSBSSSBCSSSSSSBSSSBSBCSBCSSSSSSSSBCSSSSBCSBCSBCSBSSSSBSSSSSSSBSSSBCSSSSSSBCSSSBSBCSBCSSSSSSSSBCSSSSBCSBCSBCSBSSSSBSSSSSSBSSBSSSBSBSSBSSBSSSSBSSBSSBSSSSSSSBSSSSS
+<l>1
+<k>-1
+<s>false
+<N>
+<f>
+<L>0

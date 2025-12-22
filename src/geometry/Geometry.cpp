@@ -1,11 +1,8 @@
 #include "Geometry.h"
 #include <stdexcept>
 
-Geometry::Geometry(VkDevice device, VkPhysicalDevice physicalDevice)
-    : device(device), physicalDevice(physicalDevice) {
-}
-
-Geometry::~Geometry() {
+Geometry::Geometry(VkDevice deviceArg, VkPhysicalDevice physicalDeviceArg)
+    : device(deviceArg), physicalDevice(physicalDeviceArg) {
 }
 
 void Geometry::CreateBuffers() {
@@ -15,7 +12,7 @@ void Geometry::CreateBuffers() {
 
     // Create vertex buffer
     vertexBuffer = std::make_unique<VulkanBuffer>(device, physicalDevice);
-    VkDeviceSize vertexBufferSize = sizeof(vertices[0]) * vertices.size();
+    const VkDeviceSize vertexBufferSize = sizeof(vertices[0]) * vertices.size();
 
     vertexBuffer->CreateBuffer(
         vertexBufferSize,
@@ -28,7 +25,7 @@ void Geometry::CreateBuffers() {
     // Create index buffer if indices exist
     if (!indices.empty()) {
         indexBuffer = std::make_unique<VulkanBuffer>(device, physicalDevice);
-        VkDeviceSize indexBufferSize = sizeof(indices[0]) * indices.size();
+        const VkDeviceSize indexBufferSize = sizeof(indices[0]) * indices.size();
 
         indexBuffer->CreateBuffer(
             indexBufferSize,
@@ -40,17 +37,17 @@ void Geometry::CreateBuffers() {
     }
 }
 
-void Geometry::Bind(VkCommandBuffer commandBuffer) {
-    VkBuffer vertexBuffers[] = { vertexBuffer->GetBuffer() };
-    VkDeviceSize offsets[] = { 0 };
-    vkCmdBindVertexBuffers(commandBuffer, 0, 1, vertexBuffers, offsets);
+void Geometry::Bind(VkCommandBuffer commandBuffer) const {
+    VkBuffer vb = vertexBuffer->GetBuffer();
+    VkDeviceSize offset = 0;
+    vkCmdBindVertexBuffers(commandBuffer, 0, 1, &vb, &offset);
 
     if (HasIndices()) {
         vkCmdBindIndexBuffer(commandBuffer, indexBuffer->GetBuffer(), 0, VK_INDEX_TYPE_UINT32);
     }
 }
 
-void Geometry::Draw(VkCommandBuffer commandBuffer) {
+void Geometry::Draw(VkCommandBuffer commandBuffer) const {
     if (HasIndices()) {
         vkCmdDrawIndexed(commandBuffer, static_cast<uint32_t>(indices.size()), 1, 0, 0, 0);
     }

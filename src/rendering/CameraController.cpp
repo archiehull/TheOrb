@@ -9,9 +9,6 @@ CameraController::CameraController()
     SwitchCamera(CameraType::FREE_ROAM);
 }
 
-CameraController::~CameraController() {
-}
-
 void CameraController::SetupCameras() {
     // FREE ROAM Camera
     auto freeRoamCam = std::make_unique<Camera>();
@@ -53,44 +50,44 @@ void CameraController::Update(float deltaTime) {
 }
 
 void CameraController::UpdateFreeRoamCamera(float deltaTime) {
-	// TODO: Clamp movement when near terrain or objects
+    // TODO: Clamp movement when near terrain or objects
 
     if (!activeCamera) return;
 
     // Compute exclusive (swapped) input mapping so one key set can't trigger both move and rotate.
     // Default (no CTRL): Group A (WASD) = movement, Group B (IJKL + Arrows) = rotation.
     // With CTRL held: groups swap roles (WASD = rotation, IJKL+Arrows = movement).
-    bool groupA_forward = keyW;
-    bool groupA_backward = keyS;
-    bool groupA_left = keyA;
-    bool groupA_right = keyD;
-    bool groupB_forward = keyI || keyUp;
-    bool groupB_backward = keyK || keyDown;
-    bool groupB_left = keyJ || keyLeft;
-    bool groupB_right = keyL || keyRight;
+    const bool groupA_forward = keyW;
+    const bool groupA_backward = keyS;
+    const bool groupA_left = keyA;
+    const bool groupA_right = keyD;
+    const bool groupB_forward = keyI || keyUp;
+    const bool groupB_backward = keyK || keyDown;
+    const bool groupB_left = keyJ || keyLeft;
+    const bool groupB_right = keyL || keyRight;
 
     // Effective movement flags
-    bool moveForward = keyCtrl ? groupB_forward : groupA_forward;
-    bool moveBackward = keyCtrl ? groupB_backward : groupA_backward;
-    bool moveLeft = keyCtrl ? groupB_left : groupA_left;
-    bool moveRight = keyCtrl ? groupB_right : groupA_right;
+    const bool moveForward = keyCtrl ? groupB_forward : groupA_forward;
+    const bool moveBackward = keyCtrl ? groupB_backward : groupA_backward;
+    const bool moveLeft = keyCtrl ? groupB_left : groupA_left;
+    const bool moveRight = keyCtrl ? groupB_right : groupA_right;
 
     // Vertical movement (Q/E) remain movement in both modes.
-    bool moveDown = keyQ;
-    bool moveUp = keyE;
+    const bool moveDown = keyQ;
+    const bool moveUp = keyE;
 
     // Effective rotation flags (pitch = look up/down, yaw = look left/right)
-    bool rotatePitchUp = keyCtrl ? groupA_forward : groupB_forward;  // Look up
-    bool rotatePitchDown = keyCtrl ? groupA_backward : groupB_backward; // Look down
-    bool rotateYawLeft = keyCtrl ? groupA_left : groupB_left;     // Look left
-    bool rotateYawRight = keyCtrl ? groupA_right : groupB_right;    // Look right
+    const bool rotatePitchUp = keyCtrl ? groupA_forward : groupB_forward;  // Look up
+    const bool rotatePitchDown = keyCtrl ? groupA_backward : groupB_backward; // Look down
+    const bool rotateYawLeft = keyCtrl ? groupA_left : groupB_left;     // Look left
+    const bool rotateYawRight = keyCtrl ? groupA_right : groupB_right;    // Look right
 
     // Movement and rotation multipliers adjusted by SHIFT
-    float shiftMultiplier = keyShift ? 3.0f : 1.0f; // movement multiplier
-    float rotationMultiplier = keyShift ? 3.0f : 1.0f; // rotation multiplier
+    const float shiftMultiplier = keyShift ? 3.0f : 1.0f; // movement multiplier
+    const float rotationMultiplier = keyShift ? 3.0f : 1.0f; // rotation multiplier
 
-    float moveDelta = deltaTime * shiftMultiplier;
-    float rotateDelta = deltaTime * rotationMultiplier;
+    const float moveDelta = deltaTime * shiftMultiplier;
+    const float rotateDelta = deltaTime * rotationMultiplier;
 
     // Apply movement (exclusive)
     if (moveForward)  activeCamera->MoveForward(moveDelta);
@@ -135,8 +132,4 @@ void CameraController::OnKeyPress(int key, bool pressed) {
     if (key == GLFW_KEY_LEFT_SHIFT || key == GLFW_KEY_RIGHT_SHIFT) {
         keyShift = pressed;
     }
-}
-
-void CameraController::OnKeyRelease(int key) {
-    OnKeyPress(key, false);
 }

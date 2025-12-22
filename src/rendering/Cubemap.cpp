@@ -4,12 +4,8 @@
 #include <iostream>
 #include <stb_image.h>
 
-Cubemap::Cubemap(VkDevice device, VkPhysicalDevice physicalDevice, VkCommandPool commandPool, VkQueue graphicsQueue)
-    : device(device), physicalDevice(physicalDevice), commandPool(commandPool), graphicsQueue(graphicsQueue) {
-}
-
-Cubemap::~Cubemap() {
-    Cleanup();
+Cubemap::Cubemap(VkDevice deviceArg, VkPhysicalDevice physicalDeviceArg, VkCommandPool commandPoolArg, VkQueue graphicsQueueArg)
+    : device(deviceArg), physicalDevice(physicalDeviceArg), commandPool(commandPoolArg), graphicsQueue(graphicsQueueArg) {
 }
 
 void Cubemap::LoadFromFiles(const std::vector<std::string>& paths) {
@@ -17,16 +13,16 @@ void Cubemap::LoadFromFiles(const std::vector<std::string>& paths) {
 
     int texWidth, texHeight, texChannels;
     std::vector<stbi_uc*> pixels(6);
-    VkDeviceSize layerSize = 0;
-    VkDeviceSize totalSize = 0;
+    VkDeviceSize layerSize;
+    VkDeviceSize totalSize;
 
     for (size_t i = 0; i < 6; i++) {
         pixels[i] = stbi_load(paths[i].c_str(), &texWidth, &texHeight, &texChannels, STBI_rgb_alpha);
         if (!pixels[i]) throw std::runtime_error("Failed to load cubemap image: " + paths[i]);
     }
 
-    layerSize = texWidth * texHeight * 4;
-    totalSize = layerSize * 6;
+    layerSize = static_cast<VkDeviceSize>(texWidth) * static_cast<VkDeviceSize>(texHeight) * 4u;
+    totalSize = layerSize * 6u;
 
     VulkanBuffer stagingBuffer(device, physicalDevice);
     stagingBuffer.CreateBuffer(totalSize, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
@@ -53,16 +49,16 @@ void Cubemap::LoadFromFiles(const std::vector<std::string>& paths) {
     VulkanUtils::TransitionImageLayout(device, commandPool, graphicsQueue, image, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 6);
 
     // Copy Buffer to Image
-    VkCommandBuffer commandBuffer = VulkanUtils::BeginSingleTimeCommands(device, commandPool);
+    const VkCommandBuffer commandBuffer = VulkanUtils::BeginSingleTimeCommands(device, commandPool);
     std::vector<VkBufferImageCopy> bufferCopyRegions;
     for (uint32_t i = 0; i < 6; i++) {
         VkBufferImageCopy region{};
-        region.bufferOffset = layerSize * i;
+        region.bufferOffset = layerSize * static_cast<VkDeviceSize>(i);
         region.imageSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
         region.imageSubresource.mipLevel = 0;
         region.imageSubresource.baseArrayLayer = i;
         region.imageSubresource.layerCount = 1;
-        region.imageExtent = { (uint32_t)texWidth, (uint32_t)texHeight, 1 };
+        region.imageExtent = { static_cast<uint32_t>(texWidth), static_cast<uint32_t>(texHeight), 1u };
         bufferCopyRegions.push_back(region);
     }
     vkCmdCopyBufferToImage(commandBuffer, stagingBuffer.GetBuffer(), image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, static_cast<uint32_t>(bufferCopyRegions.size()), bufferCopyRegions.data());

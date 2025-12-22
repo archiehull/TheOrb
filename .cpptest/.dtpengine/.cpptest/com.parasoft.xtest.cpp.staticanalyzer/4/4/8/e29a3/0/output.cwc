@@ -330,16 +330,6 @@
 <L>0
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
-<c>CODSTA-MCPP-23
-<b>Class 'Camera' should be final
-<l>13
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
 <c>CODSTA-45
 <b>The parameter 'fov' hides a member variable declared in class 'Camera'
 <l>45

@@ -9,246 +9,6 @@
 <f>
 <L>0
 <->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
-<c>CODSTA-CPP-11
-<b>Use a C++-style cast instead of a C-style cast to the 'float' type
-<l>184
-<k>50
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
-<c>CODSTA-CPP-105
-<b>The '~Application' function should be defined with =default
-<l>14
-<k>14
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'orbitRadius' as const
-<l>71
-<k>11
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'startSpeed' as const
-<l>72
-<k>11
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'deltaY' as const
-<l>75
-<k>11
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'orbRadius' as const
-<l>76
-<k>8
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'terrainHeightScale' as const
-<l>77
-<k>11
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'terrainNoiseFreq' as const
-<l>78
-<k>11
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'adjustedRadius' as const
-<l>80
-<k>11
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'currentTime' as const
-<l>166
-<k>14
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'activeCamera' as const
-<l>181
-<k>17
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'viewMatrix' as const
-<l>182
-<k>19
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'projMatrix' as const
-<l>183
-<k>19
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'dist' as const
-<l>190
-<k>15
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'ballRadius' as const
-<l>191
-<k>15
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'speedChangeRate' as const
-<l>218
-<k>11
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'app' as const
-<l>239
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'app' as const
-<l>265
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.h
-<c>CODSTA-MCPP-23
-<b>Class 'Application' should be final
-<l>14
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
-<c>CODSTA-45
-<b>The parameter 'window' hides a member variable declared in class 'Application'
-<l>238
-<k>43
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
-<c>CODSTA-45
-<b>The parameter 'window' hides a member variable declared in class 'Application'
-<l>264
-<k>57
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
-<c>INIT-14
-<b>Assignment in constructor 'Application' found. Use constructor initialization list instead
-<l>7
-<k>5
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.h
-<c>OPT-13
-<b>Members 'lastFrameTime' of class 'Application' are declared in suboptimal order for memory layout
-<l>14
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.h
-<c>CODSTA-CPP-105
-<b>The '~Application' function should be defined with =default
-<l>17
-<k>5
-<s>false
-<N>
-<f>
-<L>0
-<->
 <F>C:\Users\a\Desktop\TheOrb\src\core\Window.h
 <c>CODSTA-MCPP-23
 <b>Class 'Window' should be final
@@ -1251,7 +1011,7 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
 <c>OPT-13
-<b>Members 'boundsCenter, instanceBuffers, particles, texture, vertexBuffer' of class 'ParticleSystem' are declared in suboptimal order for memory layout
+<b>Members 'boundsCenter, emitters, instanceBuffers, particles, texture, vertexBuffer' of class 'ParticleSystem' are declared in suboptimal order for memory layout
 <l>25
 <k>7
 <s>false
@@ -1262,7 +1022,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
 <c>OPT-33
 <b>Returned value from function 'GetBindingDescriptions' is passed by value
-<l>51
+<l>55
 <k>57
 <s>false
 <N>
@@ -1272,7 +1032,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
 <c>OPT-33
 <b>Returned value from function 'GetAttributeDescriptions' is passed by value
-<l>52
+<l>56
 <k>59
 <s>false
 <N>
@@ -1634,16 +1394,6 @@
 <b>Returned value from function 'GetUp' is passed by value
 <l>42
 <k>15
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
-<c>CODSTA-MCPP-23
-<b>Class 'Camera' should be final
-<l>13
-<k>7
 <s>false
 <N>
 <f>

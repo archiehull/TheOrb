@@ -7,7 +7,7 @@
 class CameraController {
 public:
     CameraController();
-    ~CameraController();
+    ~CameraController() = default;
 
     void Update(float deltaTime);
 
@@ -18,7 +18,7 @@ public:
 
     // Input handling
     void OnKeyPress(int key, bool pressed);
-    void OnKeyRelease(int key);
+    inline void OnKeyRelease(int key) { OnKeyPress(key, false); }
 
 private:
     std::map<CameraType, std::unique_ptr<Camera>> cameras;
@@ -28,7 +28,7 @@ private:
     // Key states for free roam camera
     bool keyW = false, keyA = false, keyS = false, keyD = false;
     bool keyI = false, keyJ = false, keyK = false, keyL = false;
-    bool keyQ = false, keyE = false; 
+    bool keyQ = false, keyE = false;
     bool keyUp = false, keyDown = false, keyLeft = false, keyRight = false;
     bool keyCtrl = false;
     bool keyShift = false;

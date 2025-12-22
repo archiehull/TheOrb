@@ -49,10 +49,18 @@ struct GraphicsPipelineConfig {
     VkBlendOp alphaBlendOp = VK_BLEND_OP_ADD;
 };
 
-class GraphicsPipeline {
+class GraphicsPipeline final {
 public:
-    GraphicsPipeline(VkDevice device, const GraphicsPipelineConfig& config);
+    GraphicsPipeline(VkDevice deviceArg, const GraphicsPipelineConfig& configArg);
     ~GraphicsPipeline();
+
+    // Non-copyable
+    GraphicsPipeline(const GraphicsPipeline&) = delete;
+    GraphicsPipeline& operator=(const GraphicsPipeline&) = delete;
+
+    // Movable
+    GraphicsPipeline(GraphicsPipeline&&) noexcept = default;
+    GraphicsPipeline& operator=(GraphicsPipeline&&) noexcept = default;
 
     void Create();
     void Cleanup();
@@ -63,17 +71,20 @@ public:
 
 private:
     VkDevice device;
-    GraphicsPipelineConfig config;
 
-    // Core Vulkan objects (Moved from Pipeline base)
-    VkPipeline pipeline = VK_NULL_HANDLE;
-    VkPipelineLayout pipelineLayout = VK_NULL_HANDLE;
-
+    // Keep frequently accessed small handles together first for better layout
     std::unique_ptr<VulkanShader> shader;
 
+    VkPipelineLayout pipelineLayout = VK_NULL_HANDLE;
+    VkPipeline pipeline = VK_NULL_HANDLE;
+
+    // Dynamic states can change at runtime
     std::vector<VkDynamicState> dynamicStates = {
         VK_DYNAMIC_STATE_VIEWPORT,
         VK_DYNAMIC_STATE_SCISSOR,
         VK_DYNAMIC_STATE_LINE_WIDTH
     };
+
+    // Larger config struct last (contains std::vector)
+    GraphicsPipelineConfig config;
 };

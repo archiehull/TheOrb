@@ -6,27 +6,30 @@
 #include <string>
 #include <unordered_map>
 #include <stdexcept>
+#include <array>
 
-// Hashing helper for vertex data deduplication
-struct VertexKey {
-    int v_idx = -1;
-    int vt_idx = -1;
-    int vn_idx = -1; // Parsed but unused in your current Vertex struct
+namespace {
+    struct VertexKey {
+        int v_idx = -1;
+        int vt_idx = -1;
+        int vn_idx = -1;
+    };
 
-    bool operator==(const VertexKey& other) const {
-        return v_idx == other.v_idx && vt_idx == other.vt_idx && vn_idx == other.vn_idx;
+    bool operator==(const VertexKey& a, const VertexKey& b) {
+        return a.v_idx == b.v_idx && a.vt_idx == b.vt_idx && a.vn_idx == b.vn_idx;
     }
-};
 
-struct VertexKeyHash {
-    size_t operator()(const VertexKey& k) const {
-        // Simple hash combination
-        size_t h1 = std::hash<int>{}(k.v_idx);
-        size_t h2 = std::hash<int>{}(k.vt_idx);
-        size_t h3 = std::hash<int>{}(k.vn_idx);
+    struct VertexKeyHash {
+        size_t operator()(const VertexKey& k) const;
+    };
+
+    size_t VertexKeyHash::operator()(const VertexKey& k) const {
+        const size_t h1 = std::hash<int>{}(k.v_idx);
+        const size_t h2 = std::hash<int>{}(k.vt_idx);
+        const size_t h3 = std::hash<int>{}(k.vn_idx);
         return h1 ^ (h2 << 1) ^ (h3 << 2);
     }
-};
+} // namespace
 
 std::unique_ptr<Geometry> OBJLoader::Load(VkDevice device, VkPhysicalDevice physicalDevice, const std::string& filepath) {
     std::ifstream file(filepath);
@@ -37,7 +40,7 @@ std::unique_ptr<Geometry> OBJLoader::Load(VkDevice device, VkPhysicalDevice phys
     // Temporary storage for raw file data
     std::vector<glm::vec3> temp_positions;
     std::vector<glm::vec2> temp_texCoords;
-    std::vector<glm::vec3> temp_normals; 
+    std::vector<glm::vec3> temp_normals;
 
     // Deduplication map: Key -> Index in the final geometry vertex array
     std::unordered_map<VertexKey, uint32_t, VertexKeyHash> uniqueVertices;
@@ -81,7 +84,6 @@ std::unique_ptr<Geometry> OBJLoader::Load(VkDevice device, VkPhysicalDevice phys
                 VertexKey key;
                 std::stringstream segmentSS(segment);
                 std::string valStr;
-                int val;
 
                 // 1. Position Index
                 if (std::getline(segmentSS, valStr, '/')) {
@@ -103,27 +105,29 @@ std::unique_ptr<Geometry> OBJLoader::Load(VkDevice device, VkPhysicalDevice phys
 
             // Triangulate (Fan triangulation: 0-1-2, 0-2-3, etc.)
             for (size_t i = 1; i < faceVertices.size() - 1; ++i) {
-                VertexKey keys[3] = { faceVertices[0], faceVertices[i], faceVertices[i + 1] };
+                std::array<VertexKey, 3> keys = { faceVertices[0], faceVertices[i], faceVertices[i + 1] };
 
-                for (int k = 0; k < 3; ++k) {
-                    if (uniqueVertices.count(keys[k]) == 0) {
-                        uniqueVertices[keys[k]] = static_cast<uint32_t>(outVertices.size());
+                for (const auto& vk : keys) {
+                    auto it = uniqueVertices.find(vk);
+                    if (it == uniqueVertices.end()) {
+                        const uint32_t newIndex = static_cast<uint32_t>(outVertices.size());
+                        uniqueVertices.emplace(vk, newIndex);
 
                         Vertex newVertex{};
 
                         // Set Position
-                        if (keys[k].v_idx >= 0 && keys[k].v_idx < temp_positions.size()) {
-                            newVertex.pos = temp_positions[keys[k].v_idx];
+                        if (vk.v_idx >= 0 && vk.v_idx < static_cast<int>(temp_positions.size())) {
+                            newVertex.pos = temp_positions[vk.v_idx];
                         }
 
                         // Set TexCoord (default 0,0 if missing)
-                        if (keys[k].vt_idx >= 0 && keys[k].vt_idx < temp_texCoords.size()) {
-                            newVertex.texCoord = temp_texCoords[keys[k].vt_idx];
+                        if (vk.vt_idx >= 0 && vk.vt_idx < static_cast<int>(temp_texCoords.size())) {
+                            newVertex.texCoord = temp_texCoords[vk.vt_idx];
                         }
 
-						// Set Normal (default up vector if missing)
-                        if (keys[k].vn_idx >= 0 && keys[k].vn_idx < temp_normals.size()) {
-                            newVertex.normal = temp_normals[keys[k].vn_idx];
+                        // Set Normal (default up vector if missing)
+                        if (vk.vn_idx >= 0 && vk.vn_idx < static_cast<int>(temp_normals.size())) {
+                            newVertex.normal = temp_normals[vk.vn_idx];
                         }
                         else {
                             newVertex.normal = glm::vec3(0.0f, 1.0f, 0.0f); // Default normal
@@ -133,9 +137,11 @@ std::unique_ptr<Geometry> OBJLoader::Load(VkDevice device, VkPhysicalDevice phys
                         newVertex.color = glm::vec3(1.0f, 1.0f, 1.0f);
 
                         outVertices.push_back(newVertex);
+                        outIndices.push_back(newIndex);
                     }
-
-                    outIndices.push_back(uniqueVertices[keys[k]]);
+                    else {
+                        outIndices.push_back(it->second);
+                    }
                 }
             }
         }

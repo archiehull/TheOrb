@@ -1,1 +1,1 @@
-<?xml version='1.0' encoding='UTF-8'?><TestConfigs><TestConfig id="1" psUrl="c++test.builtin://Recommended Rules"><TestConfig id="2" psUrl="builtin://Recommended Rules"><TestConfig id="3" psUrl="c++test.user://700120 rule set 2024"><TestConfig id="4" psUrl="user://700120 rule set 2025"/></TestConfig></TestConfig></TestConfig></TestConfigs>
+<?xml version='1.0' encoding='UTF-8'?><TestConfigs><TestConfig id="1" psUrl="user://700120 rule set 2025"><TestConfig id="3" psUrl="c++test.user://700120 rule set 2024"/></TestConfig></TestConfigs>

@@ -4,8 +4,17 @@
 #include <glm/glm.hpp>
 #include <memory>
 
-class GeometryGenerator {
+class GeometryGenerator final {
 public:
+    // Static-only utility: prevent instantiation and inheritance
+    GeometryGenerator() = delete;
+    ~GeometryGenerator() = delete;
+
+    GeometryGenerator(const GeometryGenerator&) = delete;
+    GeometryGenerator& operator=(const GeometryGenerator&) = delete;
+    GeometryGenerator(GeometryGenerator&&) = delete;
+    GeometryGenerator& operator=(GeometryGenerator&&) = delete;
+
     static std::unique_ptr<Geometry> CreateCube(VkDevice device, VkPhysicalDevice physicalDevice);
     static std::unique_ptr<Geometry> CreateGrid(VkDevice device, VkPhysicalDevice physicalDevice,
         int rows, int cols, float cellSize = 0.1f);

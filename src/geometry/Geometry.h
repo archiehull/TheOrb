@@ -7,12 +7,12 @@
 
 class Geometry {
 public:
-    Geometry(VkDevice device, VkPhysicalDevice physicalDevice);
-    ~Geometry();
+    Geometry(VkDevice deviceArg, VkPhysicalDevice physicalDeviceArg);
+    ~Geometry() = default;
 
     void CreateBuffers();
-    void Bind(VkCommandBuffer commandBuffer);
-    void Draw(VkCommandBuffer commandBuffer);
+    void Bind(VkCommandBuffer commandBuffer) const;
+    void Draw(VkCommandBuffer commandBuffer) const;
     void Cleanup();
 
     // Allow GeometryGenerator to populate data

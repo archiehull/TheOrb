@@ -22,7 +22,7 @@ public:
     // Camera controls
     inline void SetPosition(const glm::vec3& pos) { position = pos; }
     void SetTarget(const glm::vec3& target);
-    void SetUp(const glm::vec3& up);
+    void SetUp(const glm::vec3& upVector);
 
     // Movement (for free roam)
     void MoveForward(float delta);
@@ -36,16 +36,16 @@ public:
     void RotateYaw(float delta);
     void RotatePitch(float delta);
 
-    // Getters
-    glm::vec3 GetPosition() const { return position; }
-    glm::vec3 GetFront() const { return front; }
-    glm::vec3 GetUp() const { return up; }
+    // Getters (return const references to avoid unnecessary copies)
+    const glm::vec3& GetPosition() const { return position; }
+    const glm::vec3& GetFront() const { return front; }
+    const glm::vec3& GetUp() const { return up; }
 
     // Camera settings
-    void SetFOV(float fov) { this->fov = fov; }
-    void SetNearFar(float nearPlane, float farPlane) {
-        this->nearPlane = nearPlane;
-        this->farPlane = farPlane;
+    void SetFOV(float newFov) { fov = newFov; }
+    void SetNearFar(float nearPlaneVal, float farPlaneVal) {
+        nearPlane = nearPlaneVal;
+        farPlane = farPlaneVal;
     }
     void SetMoveSpeed(float speed) { moveSpeed = speed; }
     void SetRotateSpeed(float speed) { rotateSpeed = speed; }

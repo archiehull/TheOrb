@@ -1,0 +1,329 @@
+<?xml version='1.0' encoding='UTF-8'?><ResultsSession buildId="Default Project-2025-12-22" climode="true" endTime="2025-12-22T12:29:42+00:00" execEnv="win32_x86_64" hasViols="true" id="1764995190714" lang="en_GB" machine="DESKTOP-GBA7TGV" prjModule="TheOrb" project="" tag="Recommended Rules" time="2025-12-22T12:29:06+00:00" toolDispName="C/C++test" toolId="c++test" toolName="DTP Engine for C/C++" toolVer="2025.1.0" user="a">
+   <TestParameters cmdLn="cpptestcli -settings C:\Users\a\Desktop\TheOrb\.cpptest\.dtpengine\session_20251222_122844\engine.properties -config builtin://Recommended Rules -input C:\Users\a\Desktop\TheOrb\.cpptest\.dtpengine\session_20251222_122844\bdf.lst"/>
+   <TestConfig machine="DESKTOP-GBA7TGV" name="Recommended Rules" pseudoUrl="builtin://Recommended Rules" user="a"/>
+   <Authors>
+      <Author id="dev1" name="a"/>
+   </Authors>
+   <Analyzers>
+      <Analyzer id="com.parasoft.xtest.scope.analyzer" name="Scope Analyzer" ver="10.7.2.20250508"/>
+      <Analyzer id="com.parasoft.xtest.cpp.analyzer.static.code" name="Parasoft C/C++ Code Analyzer" ver="10.7.2.20250522B2677"/>
+      <Analyzer id="com.parasoft.xtest.cpp.analyzer.desktop.files.in.scope" name="Helper Scope Analyzer for C/C++test Professional" ver="10.7.2.20250522B2677"/>
+      <Analyzer id="com.parasoft.xtest.dupcode.parser" name="Code Duplication Parser" ver="10.7.2.20250508"/>
+      <Analyzer id="com.parasoft.xtest.cpp.analyzer.static.pattern" name="Parasoft C/C++ Static Analyzer" ver="10.7.2.20250522B2677"/>
+      <Analyzer id="com.parasoft.xtest.cpp.analyzer.static.flow" name="Parasoft C/C++ Flow Analyzer" ver="10.7.2.20250507B5670"/>
+      <Analyzer id="com.parasoft.xtest.cpp.analyzer.static.metrics" name="Parasoft C/C++ Metrics Analyzer" ver="10.7.2.20250522B2677"/>
+      <Analyzer id="com.parasoft.xtest.cpp.analyzer.static.dupcode" name="Code Duplication Detector" ver="10.7.2.20250508"/>
+      <Analyzer id="com.parasoft.xtest.cpp.analyzer.static.global" name="Parasoft C/C++ Global Static Analyzer" ver="10.7.2.20250522B2677"/>
+   </Analyzers>
+   <VersionInfos>
+      <StorageInfo ownerId="" resultId="ISetupResult" ver="1" ver10x="1"/>
+      <StorageInfo ownerId="com.parasoft.xtest.checkers.api.standards" resultId="IMetricsViolation" ver="2" ver10x="1"/>
+      <StorageInfo ownerId="" resultId="IExecutionViolation" ver="1" ver10x="1"/>
+      <StorageInfo ownerId="com.parasoft.xtest.checkers.api.standards" resultId="IDupCodeViolation" ver="2" ver10x="1"/>
+      <StorageInfo ownerId="com.parasoft.xtest.checkers.api.standards" resultId="IFlowAnalysisViolation" ver="2" ver10x="1"/>
+      <StorageInfo ownerId="" resultId="IFunctionalViolation" ver="1" ver10x="1"/>
+      <StorageInfo ownerId="" resultId="IChangeImpactViolation" ver="1" ver10x="1"/>
+      <StorageInfo ownerId="com.parasoft.xtest.checkers.api.standards" resultId="ICodingStandardsViolation" ver="2" ver10x="1"/>
+      <StorageInfo ownerId="" resultId="IUnitTestViolation" ver="1" ver10x="1"/>
+   </VersionInfos>
+   <Goals tsks="22">
+      
+   </Goals>
+   <Metrics>
+      <Metric avg="2.279" disp="true" id="METRIC.CC" max="22" min="1" name="McCabe Cyclomatic Complexity" noi="319" stddev="2.713">
+         <Info avg="2.279" disp="true" elem="TheOrb" max="22" min="1" noi="319" stddev="2.713"/>
+      </Metric>
+      <Metric avg="0.539" disp="true" id="METRIC.NBD" max="6" min="0" name="Nested Blocks Depth" noi="319" stddev="0.794">
+         <Info avg="0.539" disp="true" elem="TheOrb" max="6" min="0" noi="319" stddev="0.794"/>
+      </Metric>
+      <Metric avg="119.655" disp="true" id="METRIC.NOPLIF" max="938" min="9" name="Physical Lines in Files" noi="55" stddev="148.49">
+         <Info avg="119.655" disp="true" elem="TheOrb" max="938" min="9" noi="55" stddev="148.49"/>
+      </Metric>
+      <Metric avg="13.257" disp="true" id="METRIC.NOSLIM" max="110" min="1" name="Source Lines in Methods" noi="319" stddev="16.012">
+         <Info avg="13.257" disp="true" elem="TheOrb" max="110" min="1" noi="319" stddev="16.012"/>
+      </Metric>
+   </Metrics>
+   <Scope>
+      <Repositories/>
+      <Locations>
+         <Loc auth="a" hash="307260401" locRef="1" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/rendering/Camera.cpp" totLns="96" uri="file:/C:/Users/a/Desktop/TheOrb/src/rendering/Camera.cpp"/>
+         <Loc auth="a" hash="2083137876" locRef="2" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/rendering/CameraController.cpp" totLns="142" uri="file:/C:/Users/a/Desktop/TheOrb/src/rendering/CameraController.cpp"/>
+         <Loc auth="a" hash="865831720" locRef="3" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/rendering/Cubemap.cpp" totLns="175" uri="file:/C:/Users/a/Desktop/TheOrb/src/rendering/Cubemap.cpp"/>
+         <Loc auth="a" hash="-87125296" locRef="4" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/rendering/GraphicsPipeline.cpp" totLns="176" uri="file:/C:/Users/a/Desktop/TheOrb/src/rendering/GraphicsPipeline.cpp"/>
+         <Loc auth="a" hash="1971069249" locRef="5" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/rendering/ParticleSystem.cpp" totLns="276" uri="file:/C:/Users/a/Desktop/TheOrb/src/rendering/ParticleSystem.cpp"/>
+         <Loc auth="a" hash="-635252813" locRef="6" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/rendering/Renderer.cpp" totLns="938" uri="file:/C:/Users/a/Desktop/TheOrb/src/rendering/Renderer.cpp"/>
+         <Loc auth="a" hash="-660767751" locRef="7" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/rendering/Scene.cpp" totLns="507" uri="file:/C:/Users/a/Desktop/TheOrb/src/rendering/Scene.cpp"/>
+         <Loc auth="a" hash="-170822131" locRef="8" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/rendering/ShadowPass.cpp" totLns="224" uri="file:/C:/Users/a/Desktop/TheOrb/src/rendering/ShadowPass.cpp"/>
+         <Loc auth="a" hash="-156838568" locRef="9" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/rendering/SkyboxPass.cpp" totLns="132" uri="file:/C:/Users/a/Desktop/TheOrb/src/rendering/SkyboxPass.cpp"/>
+         <Loc auth="a" hash="2133965865" locRef="10" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/rendering/Texture.cpp" totLns="153" uri="file:/C:/Users/a/Desktop/TheOrb/src/rendering/Texture.cpp"/>
+         <Loc auth="a" hash="-1611576206" locRef="11" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/geometry/OBJLoader.cpp" totLns="150" uri="file:/C:/Users/a/Desktop/TheOrb/src/geometry/OBJLoader.cpp"/>
+         <Loc auth="a" hash="-1917511260" locRef="12" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/main.cpp" totLns="18" uri="file:/C:/Users/a/Desktop/TheOrb/src/main.cpp"/>
+         <Loc auth="a" hash="438855145" locRef="13" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/vulkan/VulkanBuffer.cpp" totLns="63" uri="file:/C:/Users/a/Desktop/TheOrb/src/vulkan/VulkanBuffer.cpp"/>
+         <Loc auth="a" hash="2063270729" locRef="14" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/vulkan/VulkanCommandBuffer.cpp" totLns="201" uri="file:/C:/Users/a/Desktop/TheOrb/src/vulkan/VulkanCommandBuffer.cpp"/>
+         <Loc auth="a" hash="110246569" locRef="15" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/vulkan/VulkanContext.cpp" totLns="82" uri="file:/C:/Users/a/Desktop/TheOrb/src/vulkan/VulkanContext.cpp"/>
+         <Loc auth="a" hash="1096288980" locRef="16" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/vulkan/VulkanDescriptorSet.cpp" totLns="146" uri="file:/C:/Users/a/Desktop/TheOrb/src/vulkan/VulkanDescriptorSet.cpp"/>
+         <Loc auth="a" hash="1789334190" locRef="17" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/vulkan/VulkanDevice.cpp" totLns="153" uri="file:/C:/Users/a/Desktop/TheOrb/src/vulkan/VulkanDevice.cpp"/>
+         <Loc auth="a" hash="-435846319" locRef="18" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/vulkan/VulkanRenderPass.cpp" totLns="157" uri="file:/C:/Users/a/Desktop/TheOrb/src/vulkan/VulkanRenderPass.cpp"/>
+         <Loc auth="a" hash="-231639924" locRef="19" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/vulkan/VulkanShader.cpp" totLns="61" uri="file:/C:/Users/a/Desktop/TheOrb/src/vulkan/VulkanShader.cpp"/>
+         <Loc auth="a" hash="1534473864" locRef="20" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/vulkan/VulkanSwapChain.cpp" totLns="170" uri="file:/C:/Users/a/Desktop/TheOrb/src/vulkan/VulkanSwapChain.cpp"/>
+         <Loc auth="a" hash="-1932039040" locRef="21" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/vulkan/VulkanSyncObjects.cpp" totLns="103" uri="file:/C:/Users/a/Desktop/TheOrb/src/vulkan/VulkanSyncObjects.cpp"/>
+         <Loc auth="a" hash="408655617" locRef="22" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/vulkan/VulkanUtils.cpp" totLns="241" uri="file:/C:/Users/a/Desktop/TheOrb/src/vulkan/VulkanUtils.cpp"/>
+         <Loc auth="a" hash="-1796834233" locRef="23" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/core/Window.cpp" totLns="47" uri="file:/C:/Users/a/Desktop/TheOrb/src/core/Window.cpp"/>
+         <Loc auth="a" hash="1626347435" locRef="24" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/geometry/GeometryGenerator.cpp" totLns="408" uri="file:/C:/Users/a/Desktop/TheOrb/src/geometry/GeometryGenerator.cpp"/>
+         <Loc auth="a" hash="1764130566" locRef="25" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/geometry/Geometry.cpp" totLns="69" uri="file:/C:/Users/a/Desktop/TheOrb/src/geometry/Geometry.cpp"/>
+         <Loc auth="a" hash="-1536994865" locRef="26" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/core/Application.cpp" totLns="296" uri="file:/C:/Users/a/Desktop/TheOrb/src/core/Application.cpp"/>
+         <Loc auth="a" hash="1914635463" locRef="27" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/rendering/ShadowPass.h" totLns="51" uri="file:/C:/Users/a/Desktop/TheOrb/src/rendering/ShadowPass.h"/>
+         <Loc auth="a" hash="1125059465" locRef="28" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/rendering/CameraController.h" totLns="38" uri="file:/C:/Users/a/Desktop/TheOrb/src/rendering/CameraController.h"/>
+         <Loc auth="a" hash="-691641343" locRef="29" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/vulkan/VulkanCommandBuffer.h" totLns="35" uri="file:/C:/Users/a/Desktop/TheOrb/src/vulkan/VulkanCommandBuffer.h"/>
+         <Loc auth="a" hash="1238426998" locRef="30" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/rendering/SkyboxPass.h" totLns="31" uri="file:/C:/Users/a/Desktop/TheOrb/src/rendering/SkyboxPass.h"/>
+         <Loc auth="a" hash="1577835328" locRef="31" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/geometry/Geometry.h" totLns="36" uri="file:/C:/Users/a/Desktop/TheOrb/src/geometry/Geometry.h"/>
+         <Loc auth="a" hash="192694381" locRef="32" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/vulkan/Vertex.h" totLns="29" uri="file:/C:/Users/a/Desktop/TheOrb/src/vulkan/Vertex.h"/>
+         <Loc auth="a" hash="-691733730" locRef="33" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/rendering/Scene.h" totLns="156" uri="file:/C:/Users/a/Desktop/TheOrb/src/rendering/Scene.h"/>
+         <Loc auth="a" hash="-2092016757" locRef="34" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/vulkan/VulkanUtils.h" totLns="60" uri="file:/C:/Users/a/Desktop/TheOrb/src/vulkan/VulkanUtils.h"/>
+         <Loc auth="a" hash="-202626114" locRef="35" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/rendering/ParticleLibrary.h" totLns="94" uri="file:/C:/Users/a/Desktop/TheOrb/src/rendering/ParticleLibrary.h"/>
+         <Loc auth="a" hash="-1327047785" locRef="36" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/core/Application.h" totLns="50" uri="file:/C:/Users/a/Desktop/TheOrb/src/core/Application.h"/>
+         <Loc auth="a" hash="2021488626" locRef="37" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/vulkan/UniformBufferObject.h" totLns="25" uri="file:/C:/Users/a/Desktop/TheOrb/src/vulkan/UniformBufferObject.h"/>
+         <Loc auth="a" hash="-1920871089" locRef="38" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/core/Window.h" totLns="27" uri="file:/C:/Users/a/Desktop/TheOrb/src/core/Window.h"/>
+         <Loc auth="a" hash="1282775324" locRef="39" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/vulkan/VulkanDevice.h" totLns="44" uri="file:/C:/Users/a/Desktop/TheOrb/src/vulkan/VulkanDevice.h"/>
+         <Loc auth="a" hash="1597085155" locRef="40" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/rendering/ParticleSystem.h" totLns="110" uri="file:/C:/Users/a/Desktop/TheOrb/src/rendering/ParticleSystem.h"/>
+         <Loc auth="a" hash="-373752367" locRef="41" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/rendering/Camera.h" totLns="74" uri="file:/C:/Users/a/Desktop/TheOrb/src/rendering/Camera.h"/>
+         <Loc auth="a" hash="1268048859" locRef="42" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/vulkan/VulkanRenderPass.h" totLns="26" uri="file:/C:/Users/a/Desktop/TheOrb/src/vulkan/VulkanRenderPass.h"/>
+         <Loc auth="a" hash="1072519264" locRef="43" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/vulkan/VulkanDescriptorSet.h" totLns="28" uri="file:/C:/Users/a/Desktop/TheOrb/src/vulkan/VulkanDescriptorSet.h"/>
+         <Loc auth="a" hash="361658540" locRef="44" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/geometry/OBJLoader.h" totLns="11" uri="file:/C:/Users/a/Desktop/TheOrb/src/geometry/OBJLoader.h"/>
+         <Loc auth="a" hash="-1213245253" locRef="45" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/rendering/Cubemap.h" totLns="41" uri="file:/C:/Users/a/Desktop/TheOrb/src/rendering/Cubemap.h"/>
+         <Loc auth="a" hash="761974009" locRef="46" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/vulkan/VulkanContext.h" totLns="23" uri="file:/C:/Users/a/Desktop/TheOrb/src/vulkan/VulkanContext.h"/>
+         <Loc auth="a" hash="-679740247" locRef="47" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/vulkan/VulkanSwapChain.h" totLns="48" uri="file:/C:/Users/a/Desktop/TheOrb/src/vulkan/VulkanSwapChain.h"/>
+         <Loc auth="a" hash="-227626458" locRef="48" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/vulkan/VulkanShader.h" totLns="26" uri="file:/C:/Users/a/Desktop/TheOrb/src/vulkan/VulkanShader.h"/>
+         <Loc auth="a" hash="518394742" locRef="49" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/vulkan/PushConstantObject.h" totLns="9" uri="file:/C:/Users/a/Desktop/TheOrb/src/vulkan/PushConstantObject.h"/>
+         <Loc auth="a" hash="56587020" locRef="50" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/geometry/GeometryGenerator.h" totLns="28" uri="file:/C:/Users/a/Desktop/TheOrb/src/geometry/GeometryGenerator.h"/>
+         <Loc auth="a" hash="-504009281" locRef="51" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/rendering/GraphicsPipeline.h" totLns="79" uri="file:/C:/Users/a/Desktop/TheOrb/src/rendering/GraphicsPipeline.h"/>
+         <Loc auth="a" hash="1024393607" locRef="52" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/vulkan/VulkanSyncObjects.h" totLns="43" uri="file:/C:/Users/a/Desktop/TheOrb/src/vulkan/VulkanSyncObjects.h"/>
+         <Loc auth="a" hash="285654804" locRef="53" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/rendering/Renderer.h" totLns="116" uri="file:/C:/Users/a/Desktop/TheOrb/src/rendering/Renderer.h"/>
+         <Loc auth="a" hash="-691434929" locRef="54" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/rendering/Texture.h" totLns="32" uri="file:/C:/Users/a/Desktop/TheOrb/src/rendering/Texture.h"/>
+         <Loc auth="a" hash="1786508449" locRef="55" projId="TheOrb" projPath="/TheOrb" project="TheOrb" resProjPath="Source Files/src/vulkan/VulkanBuffer.h" totLns="27" uri="file:/C:/Users/a/Desktop/TheOrb/src/vulkan/VulkanBuffer.h"/>
+      </Locations>
+   </Scope>
+   
+  <SetupProblems>
+    <Problem msg="The &quot;Flow Analysis&quot; feature is not licensed. The reported results may be incomplete. The following rules that are specified in your test configuration were not executed:" sev="1" totErrs="1" type="NoLicenseSetupProblem">
+      <ErrorList>
+        <Error val="BD-API-NEGPARAM, BD-PB-ARRAY, BD-PB-CC, BD-PB-COOB, BD-PB-EXCEPT, BD-PB-INTUB, BD-PB-NOTINIT, BD-PB-NOTINITAT, BD-PB-NP, BD-PB-OVERFFMT, BD-PB-OVERFNZT, BD-PB-OVERFRD, BD-PB-OVERFWR, BD-PB-STREAMFLAGS, BD-PB-STREAMFMT, BD-PB-ZERO, BD-RES-BADDEALLOC, BD-RES-FREE, BD-RES-INVFREE, BD-RES-LEAKS, BD-TRS-DLOCK, BD-TRS-FORKFILE, BD-TRS-LOCK, BD-TRS-ORDER, BD-TRS-SYMLINK, BD-TRS-TIMEDLOCK, BD-TRS-TSHL"/>
+      </ErrorList>
+    </Problem>
+  </SetupProblems>
+
+   <CodingStandards ownerId="com.parasoft.xtest.checkers.api.standards" time="0:00:34">
+      <Projects>
+         <Project bdCheckedFiles="0" bdTotalFiles="0" checkedFiles="55" checkedLns="6581" id="TheOrb" name="TheOrb" qfixErrs="0" suppErrs="0" totErrs="22" totFiles="55" totLns="6581"/>
+      </Projects>
+      
+      
+      <Rules>
+         <CategoriesList>
+            <Category authTot="0;" authUrg="0;" desc="Flow Analysis" name="BD" rules="137" total="0">
+               <Category authTot="0;" authUrg="0;" desc="Incorrect API usage" name="BD-API" rules="7" total="0"/>
+               <Category authTot="0;" authUrg="0;" desc="Possible Bugs" name="BD-PB" rules="74" total="0"/>
+               <Category authTot="0;" authUrg="0;" desc="Resources" name="BD-RES" rules="8" total="0"/>
+               <Category authTot="0;" authUrg="0;" desc="Threads &amp; Synchronization" name="BD-TRS" rules="21" total="0"/>
+            </Category>
+            <Category authTot="3;" authUrg="3;" desc="Code Duplication Detection" name="CDD" rules="4" total="3"/>
+            <Category authTot="2;" authUrg="2;" desc="Coding Conventions" name="CODSTA" rules="570" total="2">
+               <Category authTot="3;" authUrg="3;" desc="Coding Conventions for C++" name="CODSTA-CPP" rules="136" total="3"/>
+            </Category>
+            <Category authTot="0;" authUrg="0;" desc="Exceptions" name="EXCEPT" rules="27" total="0"/>
+            <Category authTot="0;" authUrg="0;" desc="Initialization" name="INIT" rules="25" total="0"/>
+            <Category authTot="0;" authUrg="0;" desc="Metric" name="METRIC" rules="50" total="0"/>
+            <Category authTot="0;" authUrg="0;" desc="MISRA C 2004" name="MISRA2004" rules="226" total="0"/>
+            <Category authTot="0;" authUrg="0;" desc="Memory and Resource Management" name="MRM" rules="67" total="0"/>
+            <Category authTot="0;" authUrg="0;" desc="Object Oriented" name="OOP" rules="63" total="0"/>
+            <Category authTot="14;" authUrg="14;" desc="Optimization" name="OPT" rules="54" total="14"/>
+            <Category authTot="0;" authUrg="0;" desc="Possible Bugs" name="PB" rules="90" total="0"/>
+         </CategoriesList>
+         <RulesList>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.flow" authTot="0;" authUrg="0;" cat="BD-API" desc="Do not pass negative values to functions expecting non-negative arguments" id="BD-API-NEGPARAM" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.flow" authTot="0;" authUrg="0;" cat="BD-PB" desc="Always catch exceptions" id="BD-PB-EXCEPT" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.flow" authTot="0;" authUrg="0;" cat="BD-PB" desc="Avoid signed integer overflows" id="BD-PB-INTUB" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.flow" authTot="0;" authUrg="0;" cat="BD-PB" desc="Avoid use before initialization" id="BD-PB-NOTINIT" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.flow" authTot="0;" authUrg="0;" cat="BD-PB" desc="Atomic objects shall be properly initialized before being accessed" id="BD-PB-NOTINITAT" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.flow" authTot="0;" authUrg="0;" cat="BD-PB" desc="Avoid null pointer dereferencing" id="BD-PB-NP" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.flow" authTot="0;" authUrg="0;" cat="BD-PB" desc="Avoid buffer overflow due to defining incorrect format limits" id="BD-PB-OVERFFMT" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.flow" authTot="0;" authUrg="0;" cat="BD-PB" desc="Avoid overflow due to reading a not zero terminated string" id="BD-PB-OVERFNZT" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.flow" authTot="0;" authUrg="0;" cat="BD-PB" desc="Avoid overflow when reading from a buffer" id="BD-PB-OVERFRD" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.flow" authTot="0;" authUrg="0;" cat="BD-PB" desc="Avoid overflow when writing to a buffer" id="BD-PB-OVERFWR" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.flow" authTot="0;" authUrg="0;" cat="BD-PB" desc="Avoid division by zero" id="BD-PB-ZERO" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.flow" authTot="0;" authUrg="0;" cat="BD-PB" desc="Avoid accessing arrays out of bounds" id="BD-PB-ARRAY" sev="2" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.flow" authTot="0;" authUrg="0;" cat="BD-PB" desc="Avoid conditions that always evaluate to the same value" id="BD-PB-CC" sev="2" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.flow" authTot="0;" authUrg="0;" cat="BD-PB" desc="Avoid accessing collections out of bounds" id="BD-PB-COOB" sev="2" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.flow" authTot="0;" authUrg="0;" cat="BD-PB" desc="Suspicious setting of stream flags" id="BD-PB-STREAMFLAGS" sev="3" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.flow" authTot="0;" authUrg="0;" cat="BD-PB" desc="Restore stream format" id="BD-PB-STREAMFMT" sev="3" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.flow" authTot="0;" authUrg="0;" cat="BD-RES" desc="Properly deallocate dynamically allocated resources" id="BD-RES-BADDEALLOC" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.flow" authTot="0;" authUrg="0;" cat="BD-RES" desc="Do not use resources that have been freed" id="BD-RES-FREE" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.flow" authTot="0;" authUrg="0;" cat="BD-RES" desc="Do not free resources using invalid pointers" id="BD-RES-INVFREE" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.flow" authTot="0;" authUrg="0;" cat="BD-RES" desc="Ensure resources are freed" id="BD-RES-LEAKS" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.flow" authTot="0;" authUrg="0;" cat="BD-TRS" desc="Avoid double locking" id="BD-TRS-DLOCK" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.flow" authTot="0;" authUrg="0;" cat="BD-TRS" desc="Avoid race conditions when using fork and file descriptors" id="BD-TRS-FORKFILE" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.flow" authTot="0;" authUrg="0;" cat="BD-TRS" desc="Do not abandon unreleased locks" id="BD-TRS-LOCK" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.flow" authTot="0;" authUrg="0;" cat="BD-TRS" desc="Do not acquire locks in different order" id="BD-TRS-ORDER" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.flow" authTot="0;" authUrg="0;" cat="BD-TRS" desc="Avoid race conditions while checking for the existence of a symbolic link" id="BD-TRS-SYMLINK" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.flow" authTot="0;" authUrg="0;" cat="BD-TRS" desc="Do not use blocking functions while holding a lock" id="BD-TRS-TSHL" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.flow" authTot="0;" authUrg="0;" cat="BD-TRS" desc="The Standard Library function mtx_timedlock() shall not be invoked on a mutex that does not support timeout" id="BD-TRS-TIMEDLOCK" sev="2" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.dupcode" authTot="3;" authUrg="3;" cat="CDD" desc="Avoid function duplication" id="CDD-DUPM" sev="2" total="3"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" authTot="2;" authUrg="2;" cat="CODSTA" desc="Local variables should not use the same names as member variables" id="CODSTA-44" sev="1" total="2"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" authTot="0;" authUrg="0;" cat="CODSTA" desc="Pointer should not be compared with NULL using relational operators &lt;, >, >=, &lt;=" id="CODSTA-147" sev="3" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" authTot="0;" authUrg="0;" cat="CODSTA" desc="Do not use string literals as operands of equality or relational operators" id="CODSTA-148" sev="3" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" authTot="0;" authUrg="0;" cat="CODSTA" desc="Avoid infinite loops" id="CODSTA-82" sev="3" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" authTot="3;" authUrg="3;" cat="CODSTA-CPP" desc="Constructors allowing for conversion should be made explicit" id="CODSTA-CPP-04" sev="1" total="3"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" authTot="0;" authUrg="0;" cat="EXCEPT" desc="Throw by value, catch by reference" id="EXCEPT-02" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" authTot="0;" authUrg="0;" cat="EXCEPT" desc="Do not throw from within destructor" id="EXCEPT-03" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" authTot="0;" authUrg="0;" cat="INIT" desc="All member variables should be initialized in constructor" id="INIT-06" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.metrics" authTot="0;" authUrg="0;" cat="METRIC" desc="McCabe Cyclomatic Complexity" id="METRIC.CC" sev="3" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.metrics" authTot="0;" authUrg="0;" cat="METRIC" desc="Nested Blocks Depth" id="METRIC.NBD" sev="3" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" authTot="0;" authUrg="0;" cat="MISRA2004" desc="Floating-point expressions shall not be tested for equality or inequality" id="MISRA2004-13_3" sev="3" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" authTot="0;" authUrg="0;" cat="MISRA2004" desc="All exit paths from a function with non-void return type shall have an explicit return statement with an expression" id="MISRA2004-16_8" sev="3" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" authTot="0;" authUrg="0;" cat="MISRA2004" desc="The address of an object with automatic storage shall not be returned from a function" id="MISRA2004-17_6_a" sev="3" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" authTot="0;" authUrg="0;" cat="MRM" desc="Do not invoke malloc/realloc for objects having constructors" id="MRM-08" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" authTot="0;" authUrg="0;" cat="MRM" desc="Declare a copy assignment operator for classes with dynamically allocated memory" id="MRM-37" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" authTot="0;" authUrg="0;" cat="MRM" desc="Declare a copy constructor for classes with dynamically allocated memory" id="MRM-38" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" authTot="0;" authUrg="0;" cat="MRM" desc="Never provide brackets ([]) for delete when deallocating non-arrays" id="MRM-35" sev="3" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" authTot="0;" authUrg="0;" cat="MRM" desc="Always provide empty brackets ([]) for delete when deallocating arrays" id="MRM-36" sev="3" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" authTot="0;" authUrg="0;" cat="MRM" desc="Do not use 'delete' on pointers to a void type" id="MRM-51" sev="3" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" authTot="0;" authUrg="0;" cat="OOP" desc="Class cannot inherit other class more than once unless it is virtual inheritance" id="OOP-03" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" authTot="0;" authUrg="0;" cat="OOP" desc="Avoid calling virtual functions from constructors" id="OOP-16" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" authTot="0;" authUrg="0;" cat="OOP" desc="If a class has virtual functions it shall have a virtual destructor" id="OOP-23" sev="2" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" authTot="14;" authUrg="14;" cat="OPT" desc="Pass objects by reference instead of by value" id="OPT-14" sev="3" total="14"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" authTot="0;" authUrg="0;" cat="PB" desc="Do not call delete on non-pointers" id="PB-13" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" authTot="0;" authUrg="0;" cat="PB" desc="Properly terminate character strings" id="PB-21" sev="1" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" authTot="0;" authUrg="0;" cat="PB" desc="Do not cast from or to incomplete class at the point of casting" id="PB-54" sev="2" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" authTot="0;" authUrg="0;" cat="PB" desc="Do not delete objects with incomplete class at the point of deletion" id="PB-55" sev="2" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" authTot="0;" authUrg="0;" cat="PB" desc="Boolean condition always evaluates to the same value due to enumeration with only zero or only non-zero constants" id="PB-68" sev="2" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" authTot="0;" authUrg="0;" cat="PB" desc="Suspicious argument to malloc" id="PB-60" sev="3" total="0"/>
+            <Rule analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" authTot="0;" authUrg="0;" cat="PB" desc="Pointer arithmetic performed on freshly allocated memory" id="PB-61" sev="3" total="0"/>
+         </RulesList>
+         <SeverityList>
+            <Severity authTot="5;" authUrg="5;" id="1" total="5"/>
+            <Severity authTot="3;" authUrg="3;" id="2" total="3"/>
+            <Severity authTot="14;" authUrg="14;" id="3" total="14"/>
+         </SeverityList>
+      </Rules>
+      
+  <Supps/>
+
+      
+  <StdViols>
+    <StdViol msg="The local variable 'texture' hides a member variable declared in class 'Renderer'" ln="252" locFile="/TheOrb/Source Files/src/rendering/Renderer.cpp" locStartln="252" sev="1" auth="a" locRef="6" rule="CODSTA-44" lnHash="-138335327" rule.header="Local variables should not use the same names as member variables" tool="c++test" lineHash="-138335327" unbViolId="e090dc96-78b0-31df-9ebf-1ef443b8c0e1" locStartPos="9" analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" lang="cpp" violId="7b614de1-5391-3666-8e4c-5bc7916a8228" locEndPos="10" locType="sr" urgent="true" hash="-635252813" locEndLn="252" goals="1,"/>
+    <StdViol msg="The parameter 'extent' of function 'Initialize' is passed by value" ln="55" locFile="/TheOrb/Source Files/src/rendering/SkyboxPass.cpp" locStartln="55" sev="3" auth="a" locRef="9" rule="OPT-14" lnHash="-1983967822" rule.header="Pass objects by reference instead of by value" tool="c++test" lineHash="-1983967822" unbViolId="14374997-4778-370c-beeb-10a3099f8e78" locStartPos="64" analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" lang="cpp" violId="880ba4a7-7afc-332b-89c0-5729500798d3" locEndPos="65" locType="sr" urgent="true" hash="-156838568" locEndLn="55" goals="1,"/>
+    <StdViol msg="The parameter 'extent' of function 'RecordCommandBuffer' is passed by value" ln="38" locFile="/TheOrb/Source Files/src/vulkan/VulkanCommandBuffer.cpp" locStartln="38" sev="3" auth="a" locRef="14" rule="OPT-14" lnHash="-817724174" rule.header="Pass objects by reference instead of by value" tool="c++test" lineHash="-817724174" unbViolId="5fe803df-cd01-39a5-8d36-fdcce7b6c2a6" locStartPos="40" analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" lang="cpp" violId="2f1b658c-ede2-3f83-a3a4-12a28e9e7654" locEndPos="41" locType="sr" urgent="true" hash="2063270729" locEndLn="38" goals="1,"/>
+    <DupViol msg="Duplicated function: 'void VulkanCommandBuffer :: RecordCommandBuffer (...'" ln="39" locFile="/TheOrb/Source Files/src/vulkan/VulkanCommandBuffer.cpp" locStartln="39" sev="2" auth="a" locRef="14" rule="CDD-DUPM" lnHash="1390262680" rule.header="Avoid function duplication" tool="c++test" lineHash="1390262680" unbViolId="5be1d9eb-b729-3cde-8319-bb95076f8e1d" locStartPos="58" analyzer="com.parasoft.xtest.cpp.analyzer.static.dupcode" lang="cpp" violId="f87760f7-a7eb-3797-b45b-0d081b6d469e" locType="sr" locEndPos="1" urgent="true" hash="2063270729" locEndLn="94" goals="1,">
+      <ElDescList>
+        <ElDesc lineHash="1390262680" ln="39" srcRngStartPos="58" srcRngEndPos="1" locRef="14" locType="sr" srcRnghash="2063270729" srcRngStartln="39" srcRngEndLn="94" srcRngFile="/TheOrb/Source Files/src/vulkan/VulkanCommandBuffer.cpp" desc="[Line 39] Duplicated function in file 'VulkanCommandBuffer.cpp'" rngLn="39"/>
+        <ElDesc lineHash="1390262680" ln="98" srcRngStartPos="58" srcRngEndPos="1" locRef="14" locType="sr" srcRnghash="2063270729" srcRngStartln="98" srcRngEndLn="154" srcRngFile="/TheOrb/Source Files/src/vulkan/VulkanCommandBuffer.cpp" desc="[Line 98] Duplicated function in file 'VulkanCommandBuffer.cpp'" rngLn="98"/>
+      </ElDescList>
+    </DupViol>
+    <StdViol msg="The parameter 'extent' of function 'RecordOffScreenCommandBuffer' is passed by value" ln="97" locFile="/TheOrb/Source Files/src/vulkan/VulkanCommandBuffer.cpp" locStartln="97" sev="3" auth="a" locRef="14" rule="OPT-14" lnHash="-817724174" rule.header="Pass objects by reference instead of by value" tool="c++test" lineHash="-817724174" unbViolId="3e2be987-3840-37d5-bf73-b24d76b1ddc4" locStartPos="40" analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" lang="cpp" violId="b1fc9287-f27a-3991-8717-202f49fd6f12" locEndPos="41" locType="sr" urgent="true" hash="2063270729" locEndLn="97" goals="1,"/>
+    <StdViol msg="The local variable 'device' hides a member variable declared in class 'VulkanDevice'" ln="25" locFile="/TheOrb/Source Files/src/vulkan/VulkanDevice.cpp" locStartln="25" sev="1" auth="a" locRef="17" rule="CODSTA-44" lnHash="534036736" rule.header="Local variables should not use the same names as member variables" tool="c++test" lineHash="534036736" unbViolId="aba50b44-0016-3474-aa54-e4d8f1d483db" locStartPos="21" analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" lang="cpp" violId="c4af7d2b-6e00-36ec-9e17-67477947d552" locEndPos="22" locType="sr" urgent="true" hash="1789334190" locEndLn="25" goals="1,"/>
+    <StdViol msg="The parameter 'extent' of function 'CreateFramebuffers' is passed by value" ln="99" locFile="/TheOrb/Source Files/src/vulkan/VulkanRenderPass.cpp" locStartln="99" sev="3" auth="a" locRef="18" rule="OPT-14" lnHash="1512136314" rule.header="Pass objects by reference instead of by value" tool="c++test" lineHash="1512136314" unbViolId="082ad667-d77a-3e5d-a2fa-b9001a6cd4bc" locStartPos="97" analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" lang="cpp" violId="2893576e-ce5d-3c98-ab1d-0607682c6f81" locEndPos="98" locType="sr" urgent="true" hash="-435846319" locEndLn="99" goals="1,"/>
+    <StdViol msg="The parameter 'extent' of function 'CreateOffScreenFramebuffer' is passed by value" ln="120" locFile="/TheOrb/Source Files/src/vulkan/VulkanRenderPass.cpp" locStartln="120" sev="3" auth="a" locRef="18" rule="OPT-14" lnHash="-2089409965" rule.header="Pass objects by reference instead of by value" tool="c++test" lineHash="-2089409965" unbViolId="6f97cc8d-8e3a-38fe-be2a-2e04b7b1fca2" locStartPos="117" analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" lang="cpp" violId="1d34f456-a119-3602-b39d-6bf4ad3eb4cb" locEndPos="118" locType="sr" urgent="true" hash="-435846319" locEndLn="120" goals="1,"/>
+    <StdViol msg="The parameter 'extent' of function 'RecordCommandBuffer' is passed by value" ln="15" locFile="/TheOrb/Source Files/src/vulkan/VulkanCommandBuffer.h" locStartln="15" sev="3" auth="a" locRef="29" rule="OPT-14" lnHash="-1604158222" rule.header="Pass objects by reference instead of by value" tool="c++test" lineHash="-1604158222" unbViolId="c23437ef-2df5-374f-b773-436b297a36bc" locStartPos="44" analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" lang="cpp" violId="efe043ea-fe22-30c8-961f-349ecdf6d9e6" locEndPos="45" locType="sr" urgent="true" hash="-691641343" locEndLn="15" goals="1,"/>
+    <StdViol msg="The parameter 'extent' of function 'RecordOffScreenCommandBuffer' is passed by value" ln="18" locFile="/TheOrb/Source Files/src/vulkan/VulkanCommandBuffer.h" locStartln="18" sev="3" auth="a" locRef="29" rule="OPT-14" lnHash="-1604158222" rule.header="Pass objects by reference instead of by value" tool="c++test" lineHash="-1604158222" unbViolId="88d8ed07-fb0b-30da-af49-e9df62169926" locStartPos="44" analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" lang="cpp" violId="a2ff91b2-0b93-3349-8470-13cd6c448ae5" locEndPos="45" locType="sr" urgent="true" hash="-691641343" locEndLn="18" goals="1,"/>
+    <StdViol msg="The parameter 'extent' of function 'Initialize' is passed by value" ln="15" locFile="/TheOrb/Source Files/src/rendering/SkyboxPass.h" locStartln="15" sev="3" auth="a" locRef="30" rule="OPT-14" lnHash="1661830761" rule.header="Pass objects by reference instead of by value" tool="c++test" lineHash="1661830761" unbViolId="edc89d5d-bd45-39e0-bcb4-630954d5ac51" locStartPos="56" analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" lang="cpp" violId="96ba7d99-5d94-3af2-b42e-2d5991cb1f9c" locEndPos="57" locType="sr" urgent="true" hash="1238426998" locEndLn="15" goals="1,"/>
+    <StdViol msg="Constructor 'SceneObject' allowing conversion should be made explicit" ln="57" locFile="/TheOrb/Source Files/src/rendering/Scene.h" locStartln="57" sev="1" auth="a" locRef="33" rule="CODSTA-CPP-04" lnHash="-530062568" rule.header="Constructors allowing for conversion should be made explicit" tool="c++test" lineHash="-530062568" unbViolId="d7052cbf-dfc0-3f55-a2fb-4a71fca226f4" locStartPos="4" analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" lang="cpp" violId="5989b8f2-5a56-3242-b869-be6108de0149" locEndPos="5" locType="sr" urgent="true" hash="-691733730" locEndLn="57" goals="1,"/>
+    <DupViol msg="Duplicated function: 'inline ParticleProps GetFireProps ( ) { ParticleProps props ;...'" ln="7" locFile="/TheOrb/Source Files/src/rendering/ParticleLibrary.h" locStartln="7" sev="2" auth="a" locRef="35" rule="CDD-DUPM" lnHash="1493553853" rule.header="Avoid function duplication" tool="c++test" lineHash="1493553853" unbViolId="d4ca9586-fa43-38b7-818f-95ffbd69310e" locStartPos="40" analyzer="com.parasoft.xtest.cpp.analyzer.static.dupcode" lang="cpp" violId="1aae2010-11c3-366b-9eab-012e8551c7f9" locType="sr" locEndPos="5" urgent="true" hash="-202626114" locEndLn="22" goals="1,">
+      <ElDescList>
+        <ElDesc lineHash="1493553853" ln="7" srcRngStartPos="40" srcRngEndPos="5" locRef="35" locType="sr" srcRnghash="-202626114" srcRngStartln="7" srcRngEndLn="22" srcRngFile="/TheOrb/Source Files/src/rendering/ParticleLibrary.h" desc="[Line 7] Duplicated function in file 'ParticleLibrary.h'" rngLn="7"/>
+        <ElDesc lineHash="-1158025994" ln="24" srcRngStartPos="41" srcRngEndPos="5" locRef="35" locType="sr" srcRnghash="-202626114" srcRngStartln="24" srcRngEndLn="39" srcRngFile="/TheOrb/Source Files/src/rendering/ParticleLibrary.h" desc="[Line 24] Duplicated function in file 'ParticleLibrary.h'" rngLn="24"/>
+      </ElDescList>
+    </DupViol>
+    <DupViol msg="Duplicated function: 'inline ParticleProps GetRainProps ( ) { ParticleProps props ;...'" ln="41" locFile="/TheOrb/Source Files/src/rendering/ParticleLibrary.h" locStartln="41" sev="2" auth="a" locRef="35" rule="CDD-DUPM" lnHash="-1540905185" rule.header="Avoid function duplication" tool="c++test" lineHash="-1540905185" unbViolId="7ace6975-e062-3ff6-b63c-f8bb8ce272c7" locStartPos="40" analyzer="com.parasoft.xtest.cpp.analyzer.static.dupcode" lang="cpp" violId="161eed8b-ce13-362f-a7e7-47aea5b949c8" locType="sr" locEndPos="5" urgent="true" hash="-202626114" locEndLn="55" goals="1,">
+      <ElDescList>
+        <ElDesc lineHash="-1540905185" ln="41" srcRngStartPos="40" srcRngEndPos="5" locRef="35" locType="sr" srcRnghash="-202626114" srcRngStartln="41" srcRngEndLn="55" srcRngFile="/TheOrb/Source Files/src/rendering/ParticleLibrary.h" desc="[Line 41] Duplicated function in file 'ParticleLibrary.h'" rngLn="41"/>
+        <ElDesc lineHash="178339344" ln="57" srcRngStartPos="40" srcRngEndPos="5" locRef="35" locType="sr" srcRnghash="-202626114" srcRngStartln="57" srcRngEndLn="77" srcRngFile="/TheOrb/Source Files/src/rendering/ParticleLibrary.h" desc="[Line 57] Duplicated function in file 'ParticleLibrary.h'" rngLn="57"/>
+      </ElDescList>
+    </DupViol>
+    <StdViol msg="Returned value from function 'GetPosition' is passed by value" ln="40" locFile="/TheOrb/Source Files/src/rendering/Camera.h" locStartln="40" sev="3" auth="a" locRef="41" rule="OPT-14" lnHash="-558296742" rule.header="Pass objects by reference instead of by value" tool="c++test" lineHash="-558296742" unbViolId="a93c39ff-6c18-37d9-84b1-fb1144f0d385" locStartPos="14" analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" lang="cpp" violId="801db61f-1b7f-3d63-90bb-0fd01596df0e" locEndPos="15" locType="sr" urgent="true" hash="-373752367" locEndLn="40" goals="1,"/>
+    <StdViol msg="Returned value from function 'GetFront' is passed by value" ln="41" locFile="/TheOrb/Source Files/src/rendering/Camera.h" locStartln="41" sev="3" auth="a" locRef="41" rule="OPT-14" lnHash="253090250" rule.header="Pass objects by reference instead of by value" tool="c++test" lineHash="253090250" unbViolId="a6d86c31-3edd-3d86-807d-296e6f5dd94c" locStartPos="14" analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" lang="cpp" violId="7973174c-2ca4-346a-937a-fdaa0bce1837" locEndPos="15" locType="sr" urgent="true" hash="-373752367" locEndLn="41" goals="1,"/>
+    <StdViol msg="Returned value from function 'GetUp' is passed by value" ln="42" locFile="/TheOrb/Source Files/src/rendering/Camera.h" locStartln="42" sev="3" auth="a" locRef="41" rule="OPT-14" lnHash="-379583626" rule.header="Pass objects by reference instead of by value" tool="c++test" lineHash="-379583626" unbViolId="26a3155e-bf4b-3824-8394-001dbc0fa7a3" locStartPos="14" analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" lang="cpp" violId="87725779-b111-3fe6-b0e9-4b0d472eec2d" locEndPos="15" locType="sr" urgent="true" hash="-373752367" locEndLn="42" goals="1,"/>
+    <StdViol msg="The parameter 'extent' of function 'CreateFramebuffers' is passed by value" ln="12" locFile="/TheOrb/Source Files/src/vulkan/VulkanRenderPass.h" locStartln="12" sev="3" auth="a" locRef="42" rule="OPT-14" lnHash="-1920189302" rule.header="Pass objects by reference instead of by value" tool="c++test" lineHash="-1920189302" unbViolId="556b756d-7189-33d4-85c9-89e473a0a2cb" locStartPos="83" analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" lang="cpp" violId="1784e189-15e7-3d3b-ac3d-f5d7a2406bfc" locEndPos="84" locType="sr" urgent="true" hash="1268048859" locEndLn="12" goals="1,"/>
+    <StdViol msg="The parameter 'extent' of function 'CreateOffScreenFramebuffer' is passed by value" ln="13" locFile="/TheOrb/Source Files/src/vulkan/VulkanRenderPass.h" locStartln="13" sev="3" auth="a" locRef="42" rule="OPT-14" lnHash="1759962769" rule.header="Pass objects by reference instead of by value" tool="c++test" lineHash="1759962769" unbViolId="dd84e707-9dea-3103-a263-51e391bfc453" locStartPos="103" analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" lang="cpp" violId="e2629f3b-f7b0-3eb2-96c5-861827500c36" locEndPos="104" locType="sr" urgent="true" hash="1268048859" locEndLn="13" goals="1,"/>
+    <StdViol msg="Constructor 'VulkanDescriptorSet' allowing conversion should be made explicit" ln="8" locFile="/TheOrb/Source Files/src/vulkan/VulkanDescriptorSet.h" locStartln="8" sev="1" auth="a" locRef="43" rule="CODSTA-CPP-04" lnHash="404128445" rule.header="Constructors allowing for conversion should be made explicit" tool="c++test" lineHash="404128445" unbViolId="e0379df5-191c-3b5f-a60e-2409a37213cc" locStartPos="4" analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" lang="cpp" violId="c28f6fa8-fabe-30ef-a8bc-e09feb29b43b" locEndPos="5" locType="sr" urgent="true" hash="1072519264" locEndLn="8" goals="1,"/>
+    <StdViol msg="Returned value from function 'GetExtent' is passed by value" ln="31" locFile="/TheOrb/Source Files/src/vulkan/VulkanSwapChain.h" locStartln="31" sev="3" auth="a" locRef="47" rule="OPT-14" lnHash="-610402016" rule.header="Pass objects by reference instead of by value" tool="c++test" lineHash="-610402016" unbViolId="34122786-2fc4-359b-817d-53a9df4be53b" locStartPos="15" analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" lang="cpp" violId="5a3672c8-4bc1-3b2a-a249-32342a34bb72" locEndPos="16" locType="sr" urgent="true" hash="-679740247" locEndLn="31" goals="1,"/>
+    <StdViol msg="Constructor 'VulkanShader' allowing conversion should be made explicit" ln="10" locFile="/TheOrb/Source Files/src/vulkan/VulkanShader.h" locStartln="10" sev="1" auth="a" locRef="48" rule="CODSTA-CPP-04" lnHash="-880745755" rule.header="Constructors allowing for conversion should be made explicit" tool="c++test" lineHash="-880745755" unbViolId="418924b6-0a89-31f0-b9cf-43a22e926bd8" locStartPos="4" analyzer="com.parasoft.xtest.cpp.analyzer.static.pattern" lang="cpp" violId="9e2666c6-d60e-30c3-a3af-8125688b35a8" locEndPos="5" locType="sr" urgent="true" hash="-227626458" locEndLn="10" goals="1,"/>
+  </StdViols>
+
+      <TestedFilesDetails>
+         <Total name="Total (Suppressed)" supp="0" total="22">
+            <Project id="TheOrb" name="TheOrb" supp="0" total="22">
+               <Res name="Source Files" supp="0" total="22">
+                  <Res name="src" supp="0" total="22">
+                     <Res name="rendering" supp="0" total="9">
+                        <Res loc="/TheOrb/Source Files/src/rendering/Camera.cpp" locRef="1" locType="sr" name="Camera.cpp" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/rendering/CameraController.cpp" locRef="2" locType="sr" name="CameraController.cpp" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/rendering/Cubemap.cpp" locRef="3" locType="sr" name="Cubemap.cpp" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/rendering/GraphicsPipeline.cpp" locRef="4" locType="sr" name="GraphicsPipeline.cpp" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/rendering/ParticleSystem.cpp" locRef="5" locType="sr" name="ParticleSystem.cpp" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/rendering/Renderer.cpp" locRef="6" locType="sr" name="Renderer.cpp" supp="0" total="1"/>
+                        <Res loc="/TheOrb/Source Files/src/rendering/Scene.cpp" locRef="7" locType="sr" name="Scene.cpp" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/rendering/ShadowPass.cpp" locRef="8" locType="sr" name="ShadowPass.cpp" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/rendering/SkyboxPass.cpp" locRef="9" locType="sr" name="SkyboxPass.cpp" supp="0" total="1"/>
+                        <Res loc="/TheOrb/Source Files/src/rendering/Texture.cpp" locRef="10" locType="sr" name="Texture.cpp" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/rendering/ShadowPass.h" locRef="27" locType="sr" name="ShadowPass.h" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/rendering/CameraController.h" locRef="28" locType="sr" name="CameraController.h" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/rendering/SkyboxPass.h" locRef="30" locType="sr" name="SkyboxPass.h" supp="0" total="1"/>
+                        <Res loc="/TheOrb/Source Files/src/rendering/Scene.h" locRef="33" locType="sr" name="Scene.h" supp="0" total="1"/>
+                        <Res loc="/TheOrb/Source Files/src/rendering/ParticleLibrary.h" locRef="35" locType="sr" name="ParticleLibrary.h" supp="0" total="2"/>
+                        <Res loc="/TheOrb/Source Files/src/rendering/ParticleSystem.h" locRef="40" locType="sr" name="ParticleSystem.h" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/rendering/Camera.h" locRef="41" locType="sr" name="Camera.h" supp="0" total="3"/>
+                        <Res loc="/TheOrb/Source Files/src/rendering/Cubemap.h" locRef="45" locType="sr" name="Cubemap.h" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/rendering/GraphicsPipeline.h" locRef="51" locType="sr" name="GraphicsPipeline.h" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/rendering/Renderer.h" locRef="53" locType="sr" name="Renderer.h" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/rendering/Texture.h" locRef="54" locType="sr" name="Texture.h" supp="0" total="0"/>
+                     </Res>
+                     <Res name="geometry" supp="0" total="0">
+                        <Res loc="/TheOrb/Source Files/src/geometry/OBJLoader.cpp" locRef="11" locType="sr" name="OBJLoader.cpp" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/geometry/GeometryGenerator.cpp" locRef="24" locType="sr" name="GeometryGenerator.cpp" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/geometry/Geometry.cpp" locRef="25" locType="sr" name="Geometry.cpp" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/geometry/Geometry.h" locRef="31" locType="sr" name="Geometry.h" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/geometry/OBJLoader.h" locRef="44" locType="sr" name="OBJLoader.h" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/geometry/GeometryGenerator.h" locRef="50" locType="sr" name="GeometryGenerator.h" supp="0" total="0"/>
+                     </Res>
+                     <Res loc="/TheOrb/Source Files/src/main.cpp" locRef="12" locType="sr" name="main.cpp" supp="0" total="0"/>
+                     <Res name="vulkan" supp="0" total="13">
+                        <Res loc="/TheOrb/Source Files/src/vulkan/VulkanBuffer.cpp" locRef="13" locType="sr" name="VulkanBuffer.cpp" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/vulkan/VulkanCommandBuffer.cpp" locRef="14" locType="sr" name="VulkanCommandBuffer.cpp" supp="0" total="3"/>
+                        <Res loc="/TheOrb/Source Files/src/vulkan/VulkanContext.cpp" locRef="15" locType="sr" name="VulkanContext.cpp" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/vulkan/VulkanDescriptorSet.cpp" locRef="16" locType="sr" name="VulkanDescriptorSet.cpp" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/vulkan/VulkanDevice.cpp" locRef="17" locType="sr" name="VulkanDevice.cpp" supp="0" total="1"/>
+                        <Res loc="/TheOrb/Source Files/src/vulkan/VulkanRenderPass.cpp" locRef="18" locType="sr" name="VulkanRenderPass.cpp" supp="0" total="2"/>
+                        <Res loc="/TheOrb/Source Files/src/vulkan/VulkanShader.cpp" locRef="19" locType="sr" name="VulkanShader.cpp" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/vulkan/VulkanSwapChain.cpp" locRef="20" locType="sr" name="VulkanSwapChain.cpp" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/vulkan/VulkanSyncObjects.cpp" locRef="21" locType="sr" name="VulkanSyncObjects.cpp" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/vulkan/VulkanUtils.cpp" locRef="22" locType="sr" name="VulkanUtils.cpp" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/vulkan/VulkanCommandBuffer.h" locRef="29" locType="sr" name="VulkanCommandBuffer.h" supp="0" total="2"/>
+                        <Res loc="/TheOrb/Source Files/src/vulkan/Vertex.h" locRef="32" locType="sr" name="Vertex.h" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/vulkan/VulkanUtils.h" locRef="34" locType="sr" name="VulkanUtils.h" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/vulkan/UniformBufferObject.h" locRef="37" locType="sr" name="UniformBufferObject.h" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/vulkan/VulkanDevice.h" locRef="39" locType="sr" name="VulkanDevice.h" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/vulkan/VulkanRenderPass.h" locRef="42" locType="sr" name="VulkanRenderPass.h" supp="0" total="2"/>
+                        <Res loc="/TheOrb/Source Files/src/vulkan/VulkanDescriptorSet.h" locRef="43" locType="sr" name="VulkanDescriptorSet.h" supp="0" total="1"/>
+                        <Res loc="/TheOrb/Source Files/src/vulkan/VulkanContext.h" locRef="46" locType="sr" name="VulkanContext.h" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/vulkan/VulkanSwapChain.h" locRef="47" locType="sr" name="VulkanSwapChain.h" supp="0" total="1"/>
+                        <Res loc="/TheOrb/Source Files/src/vulkan/VulkanShader.h" locRef="48" locType="sr" name="VulkanShader.h" supp="0" total="1"/>
+                        <Res loc="/TheOrb/Source Files/src/vulkan/PushConstantObject.h" locRef="49" locType="sr" name="PushConstantObject.h" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/vulkan/VulkanSyncObjects.h" locRef="52" locType="sr" name="VulkanSyncObjects.h" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/vulkan/VulkanBuffer.h" locRef="55" locType="sr" name="VulkanBuffer.h" supp="0" total="0"/>
+                     </Res>
+                     <Res name="core" supp="0" total="0">
+                        <Res loc="/TheOrb/Source Files/src/core/Window.cpp" locRef="23" locType="sr" name="Window.cpp" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/core/Application.cpp" locRef="26" locType="sr" name="Application.cpp" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/core/Application.h" locRef="36" locType="sr" name="Application.h" supp="0" total="0"/>
+                        <Res loc="/TheOrb/Source Files/src/core/Window.h" locRef="38" locType="sr" name="Window.h" supp="0" total="0"/>
+                     </Res>
+                  </Res>
+               </Res>
+            </Project>
+         </Total>
+      </TestedFilesDetails>
+   </CodingStandards>
+   <Statistics>
+      
+   </Statistics>
+</ResultsSession>

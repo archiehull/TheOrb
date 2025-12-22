@@ -2,7 +2,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.cpp
 <c>STL-37-DOWNGRADED
 <b>The 'sets' array should not be used
-<l>198
+<l>199
 <k>21
 <s>false
 <N>
@@ -12,7 +12,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.cpp
 <c>STL-37-DOWNGRADED
 <b>The 'vertexBuffers' array should not be used
-<l>201
+<l>202
 <k>14
 <s>false
 <N>
@@ -22,7 +22,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.cpp
 <c>STL-37-DOWNGRADED
 <b>The 'offsets' array should not be used
-<l>202
+<l>203
 <k>18
 <s>false
 <N>
@@ -32,7 +32,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.cpp
 <c>STL-37-DOWNGRADED
 <b>The 'instanceBufferRaw' array should not be used
-<l>206
+<l>207
 <k>14
 <s>false
 <N>
@@ -42,7 +42,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.cpp
 <c>STL-37-DOWNGRADED
 <b>The 'vertices' array should not be used
-<l>214
+<l>215
 <k>11
 <s>false
 <N>
@@ -52,7 +52,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.cpp
 <c>CODSTA-CPP-11
 <b>Use a C++-style cast instead of a C-style cast to the 'size_t' type
-<l>182
+<l>183
 <k>43
 <s>false
 <N>
@@ -62,16 +62,6 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.cpp
 <c>CODSTA-CPP-53
 <b>Declare local variable 'emitInterval' as const
-<l>122
-<k>15
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'maxTime' as const
 <l>123
 <k>15
 <s>false
@@ -81,8 +71,18 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.cpp
 <c>CODSTA-CPP-53
+<b>Declare local variable 'maxTime' as const
+<l>124
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.cpp
+<c>CODSTA-CPP-53
 <b>Declare local variable 'dist' as const
-<l>141
+<l>142
 <k>19
 <s>false
 <N>
@@ -92,7 +92,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.cpp
 <c>CODSTA-CPP-53
 <b>Declare local variable 'dir' as const
-<l>146
+<l>147
 <k>31
 <s>false
 <N>
@@ -102,7 +102,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.cpp
 <c>CODSTA-CPP-53
 <b>Declare local variable 'lifeT' as const
-<l>161
+<l>162
 <k>15
 <s>false
 <N>
@@ -112,7 +112,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.cpp
 <c>CODSTA-CPP-53
 <b>Declare local variable 'currentSize' as const
-<l>172
+<l>173
 <k>15
 <s>false
 <N>
@@ -122,7 +122,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.cpp
 <c>CODSTA-CPP-53
 <b>Declare local variable 'size' as const
-<l>179
+<l>180
 <k>22
 <s>false
 <N>
@@ -132,7 +132,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.cpp
 <c>OPT-33
 <b>Returned value from function 'GetBindingDescriptions' is passed by value
-<l>238
+<l>239
 <k>62
 <s>false
 <N>
@@ -142,7 +142,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.cpp
 <c>OPT-33
 <b>Returned value from function 'GetAttributeDescriptions' is passed by value
-<l>254
+<l>255
 <k>64
 <s>false
 <N>
@@ -240,6 +240,16 @@
 <L>0
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.cpp
+<c>CODSTA-45
+<b>The parameter 'isAdditive' hides a member variable declared in class 'ParticleSystem'
+<l>34
+<k>135
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.cpp
 <c>INIT-14
 <b>Assignment in constructor 'ParticleSystem' found. Use constructor initialization list instead
 <l>17
@@ -291,7 +301,7 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
 <c>OPT-13
-<b>Members 'boundsCenter, instanceBuffers, particles, texture, vertexBuffer' of class 'ParticleSystem' are declared in suboptimal order for memory layout
+<b>Members 'boundsCenter, emitters, instanceBuffers, particles, texture, vertexBuffer' of class 'ParticleSystem' are declared in suboptimal order for memory layout
 <l>25
 <k>7
 <s>false
@@ -302,7 +312,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
 <c>OPT-33
 <b>Returned value from function 'GetBindingDescriptions' is passed by value
-<l>51
+<l>55
 <k>57
 <s>false
 <N>
@@ -312,7 +322,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
 <c>OPT-33
 <b>Returned value from function 'GetAttributeDescriptions' is passed by value
-<l>52
+<l>56
 <k>59
 <s>false
 <N>

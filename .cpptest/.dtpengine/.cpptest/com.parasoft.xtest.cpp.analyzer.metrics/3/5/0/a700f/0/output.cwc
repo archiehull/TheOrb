@@ -1,0 +1,410 @@
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanRenderPass::VulkanRenderPass(VkDevice_T *, VkFormat); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>5
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanRenderPass; SIGNATURE=VulkanRenderPass::VulkanRenderPass(VkDevice_T *, VkFormat); PARAMNO=2; DEF=true; DIT=false; START_LINE=5; END_LINE=7; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>5
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanRenderPass::VulkanRenderPass(VkDevice_T *, VkFormat); NBD=0; TEMPLATE_FUNC=
+<l>5
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanRenderPass::~VulkanRenderPass(); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>9
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanRenderPass; SIGNATURE=VulkanRenderPass::~VulkanRenderPass(); PARAMNO=0; DEF=true; DIT=false; START_LINE=9; END_LINE=10; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>9
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanRenderPass::~VulkanRenderPass(); NBD=0; TEMPLATE_FUNC=
+<l>9
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanRenderPass::Create(bool); CC=7; SCC=7; MCC=7; TEMPLATE_FUNC=
+<l>12
+<k>24
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanRenderPass; SIGNATURE=VulkanRenderPass::Create(bool); PARAMNO=1; DEF=true; DIT=false; START_LINE=12; END_LINE=97; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>12
+<k>24
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanRenderPass::Create(bool); NBD=2; TEMPLATE_FUNC=
+<l>12
+<k>24
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanRenderPass::CreateFramebuffers(const std::vector<VkImageView_T *, std::allocator<VkImageView_T *>> &, VkExtent2D); CC=3; SCC=3; MCC=3; TEMPLATE_FUNC=
+<l>99
+<k>24
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanRenderPass; SIGNATURE=VulkanRenderPass::CreateFramebuffers(const std::vector<VkImageView_T *, std::allocator<VkImageView_T *>> &, VkExtent2D); PARAMNO=2; DEF=true; DIT=false; START_LINE=99; END_LINE=118; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>99
+<k>24
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanRenderPass::CreateFramebuffers(const std::vector<VkImageView_T *, std::allocator<VkImageView_T *>> &, VkExtent2D); NBD=2; TEMPLATE_FUNC=
+<l>99
+<k>24
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanRenderPass::CreateOffScreenFramebuffer(VkImageView_T *, VkImageView_T *, VkExtent2D); CC=2; SCC=2; MCC=2; TEMPLATE_FUNC=
+<l>120
+<k>24
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanRenderPass; SIGNATURE=VulkanRenderPass::CreateOffScreenFramebuffer(VkImageView_T *, VkImageView_T *, VkExtent2D); PARAMNO=3; DEF=true; DIT=false; START_LINE=120; END_LINE=135; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>120
+<k>24
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanRenderPass::CreateOffScreenFramebuffer(VkImageView_T *, VkImageView_T *, VkExtent2D); NBD=1; TEMPLATE_FUNC=
+<l>120
+<k>24
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanRenderPass::Cleanup(); CC=5; SCC=5; MCC=5; TEMPLATE_FUNC=
+<l>137
+<k>24
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanRenderPass; SIGNATURE=VulkanRenderPass::Cleanup(); PARAMNO=0; DEF=true; DIT=false; START_LINE=137; END_LINE=157; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>137
+<k>24
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanRenderPass::Cleanup(); NBD=2; TEMPLATE_FUNC=
+<l>137
+<k>24
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=VulkanRenderPass; NAMESPACE=; TEMPLATE_TYPE=; TAG=class
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanRenderPass; SIGNATURE=VulkanRenderPass::VulkanRenderPass(VkDevice_T *, VkFormat); PARAMNO=2; DEF=false; DIT=true; START_LINE=8; END_LINE=8; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>8
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanRenderPass::VulkanRenderPass(VkDevice_T *, VkFormat); NBD=0; TEMPLATE_FUNC=
+<l>5
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanRenderPass; SIGNATURE=VulkanRenderPass::~VulkanRenderPass(); PARAMNO=0; DEF=false; DIT=true; START_LINE=9; END_LINE=9; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>9
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanRenderPass::~VulkanRenderPass(); NBD=0; TEMPLATE_FUNC=
+<l>9
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanRenderPass; SIGNATURE=VulkanRenderPass::Create(bool); PARAMNO=1; DEF=false; DIT=true; START_LINE=11; END_LINE=11; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>11
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanRenderPass::Create(bool); NBD=2; TEMPLATE_FUNC=
+<l>12
+<k>24
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanRenderPass; SIGNATURE=VulkanRenderPass::CreateFramebuffers(const std::vector<VkImageView_T *, std::allocator<VkImageView_T *>> &, VkExtent2D); PARAMNO=2; DEF=false; DIT=true; START_LINE=12; END_LINE=12; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>12
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanRenderPass::CreateFramebuffers(const std::vector<VkImageView_T *, std::allocator<VkImageView_T *>> &, VkExtent2D); NBD=2; TEMPLATE_FUNC=
+<l>99
+<k>24
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanRenderPass; SIGNATURE=VulkanRenderPass::CreateOffScreenFramebuffer(VkImageView_T *, VkImageView_T *, VkExtent2D); PARAMNO=3; DEF=false; DIT=true; START_LINE=13; END_LINE=13; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>13
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanRenderPass::CreateOffScreenFramebuffer(VkImageView_T *, VkImageView_T *, VkExtent2D); NBD=1; TEMPLATE_FUNC=
+<l>120
+<k>24
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanRenderPass; SIGNATURE=VulkanRenderPass::Cleanup(); PARAMNO=0; DEF=false; DIT=true; START_LINE=14; END_LINE=14; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>14
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanRenderPass::Cleanup(); NBD=2; TEMPLATE_FUNC=
+<l>137
+<k>24
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanRenderPass::GetRenderPass() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>16
+<k>18
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanRenderPass; SIGNATURE=VulkanRenderPass::GetRenderPass() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=16; END_LINE=16; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>16
+<k>18
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanRenderPass::GetRenderPass() const; NBD=0; TEMPLATE_FUNC=
+<l>16
+<k>18
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanRenderPass::GetFramebuffers() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>17
+<k>39
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanRenderPass; SIGNATURE=VulkanRenderPass::GetFramebuffers() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=17; END_LINE=17; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>17
+<k>39
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanRenderPass::GetFramebuffers() const; NBD=0; TEMPLATE_FUNC=
+<l>17
+<k>39
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanRenderPass::GetOffScreenFramebuffer() const; CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>18
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanRenderPass; SIGNATURE=VulkanRenderPass::GetOffScreenFramebuffer() const; PARAMNO=0; DEF=true; DIT=true; START_LINE=18; END_LINE=18; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>18
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanRenderPass::GetOffScreenFramebuffer() const; NBD=0; TEMPLATE_FUNC=
+<l>18
+<k>19
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.cpp
+<c>INTERNAL-METRICS-LINES_TYPES
+<b>DATA=SSSBSSSBSSBSSSSSSSSSBCSSSSSSBSSSMSSSSSSSBSSSBSSSBSSSSSSSBSSSSSSSBCSSBSSSSSSSSBSSSSSSSSSSSSSBSSSSSBSSBSSBSSSSSSSSBSSSSSBSSBSSSSSSSSBSSSSBSCSSSSSSBCSSSSBCSSSSS
+<l>1
+<k>-1
+<s>false
+<N>
+<f>
+<L>0

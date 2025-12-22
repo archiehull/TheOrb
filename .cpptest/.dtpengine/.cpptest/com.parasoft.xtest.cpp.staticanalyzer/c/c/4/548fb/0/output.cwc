@@ -11,48 +11,8 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
 <c>CODSTA-CPP-53
-<b>Declare local variable 'vertexCount' as const
-<l>15
-<k>12
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'planeY' as const
-<l>33
-<k>11
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'absDist' as const
-<l>35
-<k>11
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-105
-<b>The '~Scene' function should be defined with =default
-<l>49
-<k>8
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
 <b>Declare local variable 'distRad' as const
-<l>71
+<l>72
 <k>43
 <s>false
 <N>
@@ -61,108 +21,8 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
 <c>CODSTA-CPP-53
-<b>Declare local variable 'r' as const
-<l>79
-<k>15
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'theta' as const
-<l>80
-<k>15
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'x' as const
-<l>81
-<k>15
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'z' as const
-<l>82
-<k>15
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'yOffset' as const
-<l>85
-<k>15
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'y' as const
-<l>86
-<k>15
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'pick' as const
-<l>89
-<k>15
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'name' as const
-<l>108
-<k>21
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'obj' as const
-<l>114
-<k>19
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'randomYaw' as const
-<l>122
-<k>19
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
 <b>Declare local variable 'sys' as const
-<l>233
+<l>231
 <k>16
 <s>false
 <N>
@@ -171,19 +31,9 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
 <c>CODSTA-CPP-53
-<b>Declare local variable 'pipeline' as const
-<l>242
-<k>23
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'ptr' as const
-<l>245
-<k>21
+<b>Declare local variable 'sys' as const
+<l>244
+<k>16
 <s>false
 <N>
 <f>
@@ -192,137 +42,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
 <c>CODSTA-CPP-53
 <b>Declare local variable 'sys' as const
-<l>281
-<k>11
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'sys' as const
-<l>298
-<k>11
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'sys' as const
-<l>311
-<k>11
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'axisLen' as const
-<l>321
-<k>11
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'rot' as const
-<l>326
-<k>15
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'offset' as const
-<l>327
-<k>15
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'it' as const
-<l>333
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'objectPtr' as const
-<l>339
-<k>22
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'initialPosition' as const
-<l>340
-<k>19
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'initialPosition' as const
-<l>357
-<k>19
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'itObj' as const
-<l>366
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'itLight' as const
-<l>373
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'newPos' as const
-<l>398
-<k>23
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'sys' as const
-<l>403
+<l>414
 <k>16
 <s>false
 <N>
@@ -332,7 +52,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
 <c>OPT-33
 <b>Returned value from function 'GetLights' is passed by value
-<l>408
+<l>419
 <k>33
 <s>false
 <N>
@@ -342,58 +62,8 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
 <c>CODSTA-CPP-53
 <b>Declare local variable 'obj' as const
-<l>418
+<l>429
 <k>16
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'it' as const
-<l>434
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'it' as const
-<l>463
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'it' as const
-<l>477
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'it' as const
-<l>488
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>OPT-24
-<b>Function 'Cleanup' is not inlined
-<l>498
-<k>13
 <s>false
 <N>
 <f>
@@ -449,26 +119,6 @@
 <f>
 <L>0
 <->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-54
-<b>Member function 'RadiusAdjustment' should be declared as const
-<l>32
-<k>14
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-54
-<b>Member function 'InitializeOrbit' should be declared as const
-<l>316
-<k>18
-<s>false
-<N>
-<f>
-<L>0
-<->
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
 <c>CODSTA-MCPP-23
 <b>Class 'Scene' should be final
@@ -481,28 +131,8 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
 <c>CODSTA-45
-<b>The parameter 'device' hides a member variable declared in class 'Scene'
-<l>45
-<k>23
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-45
-<b>The parameter 'physicalDevice' hides a member variable declared in class 'Scene'
-<l>45
-<k>48
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-45
 <b>The parameter 'commandPool' hides a member variable declared in class 'Scene'
-<l>220
+<l>221
 <k>47
 <s>false
 <N>
@@ -512,7 +142,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
 <c>CODSTA-45
 <b>The parameter 'graphicsQueue' hides a member variable declared in class 'Scene'
-<l>220
+<l>221
 <k>68
 <s>false
 <N>
@@ -522,7 +152,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
 <c>CODSTA-45
 <b>The parameter 'framesInFlight' hides a member variable declared in class 'Scene'
-<l>222
+<l>223
 <k>44
 <s>false
 <N>
@@ -560,16 +190,6 @@
 <L>0
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
-<c>CODSTA-CPP-105
-<b>The '~Scene' function should be defined with =default
-<l>74
-<k>5
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
 <c>CODSTA-CPP-06
 <b>Member function 'GetParticleSystems' returns handles to member data: 'particleSystems'
 <l>110
@@ -594,16 +214,6 @@
 <b>Member function 'GetObjects' returns handles to member data: 'objects'
 <l>118
 <k>75
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>OPT-24
-<b>Function 'Cleanup' is not inlined
-<l>498
-<k>13
 <s>false
 <N>
 <f>
@@ -951,7 +561,7 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
 <c>OPT-13
-<b>Members 'boundsCenter, instanceBuffers, particles, texture, vertexBuffer' of class 'ParticleSystem' are declared in suboptimal order for memory layout
+<b>Members 'boundsCenter, emitters, instanceBuffers, particles, texture, vertexBuffer' of class 'ParticleSystem' are declared in suboptimal order for memory layout
 <l>25
 <k>7
 <s>false
@@ -962,7 +572,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
 <c>OPT-33
 <b>Returned value from function 'GetBindingDescriptions' is passed by value
-<l>51
+<l>55
 <k>57
 <s>false
 <N>
@@ -972,7 +582,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
 <c>OPT-33
 <b>Returned value from function 'GetAttributeDescriptions' is passed by value
-<l>52
+<l>56
 <k>59
 <s>false
 <N>

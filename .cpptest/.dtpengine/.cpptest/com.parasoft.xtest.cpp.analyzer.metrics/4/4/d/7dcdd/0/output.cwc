@@ -1,0 +1,420 @@
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanSyncObjects::VulkanSyncObjects(VkDevice_T *, unsigned int); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>4
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSyncObjects; SIGNATURE=VulkanSyncObjects::VulkanSyncObjects(VkDevice_T *, unsigned int); PARAMNO=2; DEF=true; DIT=false; START_LINE=4; END_LINE=6; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>4
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanSyncObjects::VulkanSyncObjects(VkDevice_T *, unsigned int); NBD=0; TEMPLATE_FUNC=
+<l>4
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanSyncObjects::~VulkanSyncObjects(); CC=1; SCC=1; MCC=1; TEMPLATE_FUNC=
+<l>8
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSyncObjects; SIGNATURE=VulkanSyncObjects::~VulkanSyncObjects(); PARAMNO=0; DEF=true; DIT=false; START_LINE=8; END_LINE=9; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>8
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanSyncObjects::~VulkanSyncObjects(); NBD=0; TEMPLATE_FUNC=
+<l>8
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanSyncObjects::CreateSyncObjects(unsigned int); CC=7; SCC=7; MCC=7; TEMPLATE_FUNC=
+<l>11
+<k>25
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSyncObjects; SIGNATURE=VulkanSyncObjects::CreateSyncObjects(unsigned int); PARAMNO=1; DEF=true; DIT=false; START_LINE=11; END_LINE=50; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>11
+<k>25
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanSyncObjects::CreateSyncObjects(unsigned int); NBD=2; TEMPLATE_FUNC=
+<l>11
+<k>25
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanSyncObjects::Cleanup(); CC=7; SCC=7; MCC=7; TEMPLATE_FUNC=
+<l>52
+<k>25
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSyncObjects; SIGNATURE=VulkanSyncObjects::Cleanup(); PARAMNO=0; DEF=true; DIT=false; START_LINE=52; END_LINE=75; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>52
+<k>25
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanSyncObjects::Cleanup(); NBD=2; TEMPLATE_FUNC=
+<l>52
+<k>25
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanSyncObjects::GetImageAvailableSemaphore(unsigned int) const; CC=2; SCC=2; MCC=2; TEMPLATE_FUNC=
+<l>77
+<k>32
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSyncObjects; SIGNATURE=VulkanSyncObjects::GetImageAvailableSemaphore(unsigned int) const; PARAMNO=1; DEF=true; DIT=false; START_LINE=77; END_LINE=82; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>77
+<k>32
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanSyncObjects::GetImageAvailableSemaphore(unsigned int) const; NBD=1; TEMPLATE_FUNC=
+<l>77
+<k>32
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanSyncObjects::GetRenderFinishedSemaphore(unsigned int) const; CC=2; SCC=2; MCC=2; TEMPLATE_FUNC=
+<l>84
+<k>32
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSyncObjects; SIGNATURE=VulkanSyncObjects::GetRenderFinishedSemaphore(unsigned int) const; PARAMNO=1; DEF=true; DIT=false; START_LINE=84; END_LINE=89; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>84
+<k>32
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanSyncObjects::GetRenderFinishedSemaphore(unsigned int) const; NBD=1; TEMPLATE_FUNC=
+<l>84
+<k>32
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanSyncObjects::GetInFlightFence(unsigned int) const; CC=2; SCC=2; MCC=2; TEMPLATE_FUNC=
+<l>91
+<k>28
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSyncObjects; SIGNATURE=VulkanSyncObjects::GetInFlightFence(unsigned int) const; PARAMNO=1; DEF=true; DIT=false; START_LINE=91; END_LINE=96; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>91
+<k>28
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanSyncObjects::GetInFlightFence(unsigned int) const; NBD=1; TEMPLATE_FUNC=
+<l>91
+<k>28
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-CC
+<b>FUNC=VulkanSyncObjects::GetImageInFlight(unsigned int); CC=2; SCC=2; MCC=2; TEMPLATE_FUNC=
+<l>98
+<k>29
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSyncObjects; SIGNATURE=VulkanSyncObjects::GetImageInFlight(unsigned int); PARAMNO=1; DEF=true; DIT=false; START_LINE=98; END_LINE=103; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>98
+<k>29
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanSyncObjects::GetImageInFlight(unsigned int); NBD=1; TEMPLATE_FUNC=
+<l>98
+<k>29
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
+<c>INTERNAL-METRICS-TYPES
+<b>CLASS=VulkanSyncObjects; NAMESPACE=; TEMPLATE_TYPE=; TAG=class
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSyncObjects; SIGNATURE=VulkanSyncObjects::VulkanSyncObjects(VkDevice_T *, unsigned int); PARAMNO=2; DEF=false; DIT=true; START_LINE=8; END_LINE=8; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>8
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanSyncObjects::VulkanSyncObjects(VkDevice_T *, unsigned int); NBD=0; TEMPLATE_FUNC=
+<l>4
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSyncObjects; SIGNATURE=VulkanSyncObjects::~VulkanSyncObjects(); PARAMNO=0; DEF=false; DIT=true; START_LINE=9; END_LINE=9; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>9
+<k>5
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanSyncObjects::~VulkanSyncObjects(); NBD=0; TEMPLATE_FUNC=
+<l>8
+<k>20
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSyncObjects; SIGNATURE=VulkanSyncObjects::CreateSyncObjects(unsigned int); PARAMNO=1; DEF=false; DIT=true; START_LINE=16; END_LINE=16; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>16
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanSyncObjects::CreateSyncObjects(unsigned int); NBD=2; TEMPLATE_FUNC=
+<l>11
+<k>25
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSyncObjects; SIGNATURE=VulkanSyncObjects::Cleanup(); PARAMNO=0; DEF=false; DIT=true; START_LINE=17; END_LINE=17; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>17
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanSyncObjects::Cleanup(); NBD=2; TEMPLATE_FUNC=
+<l>52
+<k>25
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSyncObjects; SIGNATURE=VulkanSyncObjects::GetImageAvailableSemaphore(unsigned int) const; PARAMNO=1; DEF=false; DIT=true; START_LINE=20; END_LINE=20; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>20
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanSyncObjects::GetImageAvailableSemaphore(unsigned int) const; NBD=1; TEMPLATE_FUNC=
+<l>77
+<k>32
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSyncObjects; SIGNATURE=VulkanSyncObjects::GetRenderFinishedSemaphore(unsigned int) const; PARAMNO=1; DEF=false; DIT=true; START_LINE=21; END_LINE=21; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>21
+<k>17
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanSyncObjects::GetRenderFinishedSemaphore(unsigned int) const; NBD=1; TEMPLATE_FUNC=
+<l>84
+<k>32
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSyncObjects; SIGNATURE=VulkanSyncObjects::GetInFlightFence(unsigned int) const; PARAMNO=1; DEF=false; DIT=true; START_LINE=24; END_LINE=24; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>24
+<k>13
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanSyncObjects::GetInFlightFence(unsigned int) const; NBD=1; TEMPLATE_FUNC=
+<l>91
+<k>28
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
+<c>INTERNAL-METRICS-METHODS2
+<b>CLASS=VulkanSyncObjects; SIGNATURE=VulkanSyncObjects::GetImageInFlight(unsigned int); PARAMNO=1; DEF=false; DIT=true; START_LINE=27; END_LINE=27; TEMPLATE_CLASS=; TEMPLATE_FUNC=
+<l>27
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-NBD
+<b>FUNC=VulkanSyncObjects::GetImageInFlight(unsigned int); NBD=1; TEMPLATE_FUNC=
+<l>98
+<k>29
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
+<c>INTERNAL-METRICS-LINES_TYPES
+<b>DATA=SSBSSSBSSBSCSCSBCSBCSBSSBSSSBCSSSSSBCSSSSSBCSSSSSSBSSSSSSSBSSSSSSBSSSSSSBSSBSSSSSSBSSSSSSBSSSSSSBSSSSSS
+<l>1
+<k>-1
+<s>false
+<N>
+<f>
+<L>0
