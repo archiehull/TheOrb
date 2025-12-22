@@ -1,9 +1,9 @@
 ﻿  Application.cpp
-  OBJLoader.cpp
-  Scene.cpp
+  Window.cpp
+  main.cpp
   Generating code
-  251 of 4102 functions ( 6.1%) were compiled, the rest were copied from previous compilation.
-    198 functions were new in current compilation
-    46 functions had inline decision re-evaluated but remain unchanged
+  310 of 4003 functions ( 7.7%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    109 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   TheOrb.vcxproj -> C:\Users\a\Desktop\TheOrb\x64\Release\TheOrb.exe

@@ -4,28 +4,62 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <utility>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
-Texture::Texture(VkDevice device, VkPhysicalDevice physicalDevice, VkCommandPool commandPool, VkQueue graphicsQueue)
-    : device(device), physicalDevice(physicalDevice), commandPool(commandPool), graphicsQueue(graphicsQueue) {
+Texture::Texture(VkDevice deviceArg, VkPhysicalDevice physicalDeviceArg, VkCommandPool commandPoolArg, VkQueue graphicsQueueArg)
+    : device(deviceArg), physicalDevice(physicalDeviceArg), commandPool(commandPoolArg), graphicsQueue(graphicsQueueArg) {
 }
 
-Texture::~Texture() {
+Texture::~Texture() noexcept {
+    try {
+        Cleanup();
+    }
+    catch (...) {
+        // Ensure destructor does not allow exceptions to propagate.
+    }
+}
+
+Texture::Texture(Texture&& other) noexcept
+    : device(other.device),
+    physicalDevice(other.physicalDevice),
+    commandPool(other.commandPool),
+    graphicsQueue(other.graphicsQueue),
+    image(std::exchange(other.image, VK_NULL_HANDLE)),
+    imageMemory(std::exchange(other.imageMemory, VK_NULL_HANDLE)),
+    imageView(std::exchange(other.imageView, VK_NULL_HANDLE)),
+    sampler(std::exchange(other.sampler, VK_NULL_HANDLE)) {
+}
+
+Texture& Texture::operator=(Texture&& other) noexcept {
+    if (this == &other) return *this;
+
+    // Clean up current resources
     Cleanup();
+
+    device = other.device;
+    physicalDevice = other.physicalDevice;
+    commandPool = other.commandPool;
+    graphicsQueue = other.graphicsQueue;
+
+    image = std::exchange(other.image, VK_NULL_HANDLE);
+    imageMemory = std::exchange(other.imageMemory, VK_NULL_HANDLE);
+    imageView = std::exchange(other.imageView, VK_NULL_HANDLE);
+    sampler = std::exchange(other.sampler, VK_NULL_HANDLE);
+
+    return *this;
 }
 
 bool Texture::LoadFromFile(const std::string& filepath) {
-    // Try the requested file first. If it fails, try a default texture file.
-    const std::string defaultTexturePath = "textures/default.jpg";
-
     int texWidth = 0, texHeight = 0, texChannels = 0;
     stbi_uc* pixels = stbi_load(filepath.c_str(), &texWidth, &texHeight, &texChannels, STBI_rgb_alpha);
     bool usedStbLoaded = true;
     bool manualAlloc = false;
 
     if (!pixels) {
+        const std::string defaultTexturePath = "textures/default.jpg";
         std::cerr << "Warning: Failed to load texture '" << filepath << "'. Attempting default texture '" << defaultTexturePath << "'.\n";
         pixels = stbi_load(defaultTexturePath.c_str(), &texWidth, &texHeight, &texChannels, STBI_rgb_alpha);
         if (!pixels) {
@@ -40,7 +74,7 @@ bool Texture::LoadFromFile(const std::string& filepath) {
         }
     }
 
-    VkDeviceSize imageSize = static_cast<VkDeviceSize>(texWidth) * texHeight * 4;
+    const VkDeviceSize imageSize = static_cast<VkDeviceSize>(texWidth) * texHeight * 4;
 
     // 1. Create Staging Buffer
     VulkanBuffer stagingBuffer(device, physicalDevice);
@@ -57,7 +91,7 @@ bool Texture::LoadFromFile(const std::string& filepath) {
         pixels = nullptr;
     }
 
-    VkFormat format = VK_FORMAT_R8G8B8A8_UNORM;
+    const VkFormat format = VK_FORMAT_R8G8B8A8_UNORM;
 
     // 2. Create Image (Using VulkanUtils)
     VulkanUtils::CreateImage(
@@ -108,9 +142,9 @@ bool Texture::LoadFromFile(const std::string& filepath) {
     samplerInfo.addressModeW = VK_SAMPLER_ADDRESS_MODE_REPEAT;
 
     // Enable anisotropy if available
-    samplerInfo.anisotropyEnable = deviceFeatures.samplerAnisotropy ? VK_TRUE : VK_FALSE;
+    samplerInfo.anisotropyEnable = (deviceFeatures.samplerAnisotropy != 0) ? VK_TRUE : VK_FALSE;
     if (samplerInfo.anisotropyEnable == VK_TRUE) {
-        float maxAniso = std::min<float>(properties.limits.maxSamplerAnisotropy, 16.0f);
+        const float maxAniso = std::min<float>(properties.limits.maxSamplerAnisotropy, 16.0f);
         samplerInfo.maxAnisotropy = maxAniso;
     }
     else {

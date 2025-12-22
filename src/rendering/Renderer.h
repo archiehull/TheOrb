@@ -21,22 +21,26 @@
 #include <vulkan/VulkanContext.h>
 #include "Camera.h"
 
-class Renderer {
+class Renderer final {
 public:
     Renderer(VulkanDevice* device, VulkanSwapChain* swapChain);
-    ~Renderer();
+    ~Renderer() = default;
+
+    // Non-copyable
+    Renderer(const Renderer&) = delete;
+    Renderer& operator=(const Renderer&) = delete;
 
     void Initialize();
 
     void DrawFrame(Scene& scene, uint32_t currentFrame, const glm::mat4& viewMatrix, const glm::mat4& projMatrix, int layerMask = SceneLayers::ALL);
     void UpdateUniformBuffer(uint32_t currentFrame, const UniformBufferObject& ubo);
-    void WaitIdle();
+    void WaitIdle() const;
     void Cleanup();
 
-    void SetupSceneParticles(Scene& scene);
+    void SetupSceneParticles(Scene& scene) const;
 
-    VulkanRenderPass* GetRenderPass() { return renderPass.get(); }
-    GraphicsPipeline* GetPipeline() { return graphicsPipeline.get(); }
+    VulkanRenderPass* GetRenderPass() const { return renderPass.get(); }
+    GraphicsPipeline* GetPipeline() const { return graphicsPipeline.get(); }
 
 private:
     Camera* m_camera = nullptr;
@@ -85,6 +89,14 @@ private:
     struct TextureResource {
         std::unique_ptr<Texture> texture;
         VkDescriptorSet descriptorSet = VK_NULL_HANDLE;
+
+        // Explicitly disable copying (unique_ptr inside)
+        TextureResource(const TextureResource&) = delete;
+        TextureResource& operator=(const TextureResource&) = delete;
+
+        TextureResource() = default;
+        TextureResource(TextureResource&&) = default;
+        TextureResource& operator=(TextureResource&&) = default;
     };
     std::map<std::string, TextureResource> textureCache;
     TextureResource defaultTextureResource;

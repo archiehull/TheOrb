@@ -7,17 +7,21 @@
 #include "../vulkan/VulkanDevice.h"
 #include "../vulkan/VulkanUtils.h" // Include the Utils header
 
-class ShadowPass {
+class ShadowPass final {
 public:
     ShadowPass(VulkanDevice* device, uint32_t width, uint32_t height);
-    ~ShadowPass();
+    ~ShadowPass() = default;
+
+    // Non-copyable
+    ShadowPass(const ShadowPass&) = delete;
+    ShadowPass& operator=(const ShadowPass&) = delete;
 
     void Initialize(VkDescriptorSetLayout globalSetLayout);
     void Cleanup();
 
     // Commands to record the shadow pass
-    void Begin(VkCommandBuffer cmd);
-    void End(VkCommandBuffer cmd);
+    void Begin(VkCommandBuffer cmd) const;
+    void End(VkCommandBuffer cmd) const;
 
     // Accessors for the Main Renderer
     VkImageView GetShadowImageView() const { return shadowImageView; }

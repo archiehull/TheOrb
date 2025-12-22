@@ -1,13 +1,46 @@
 #include "Window.h"
 #include <stdexcept>
 
-Window::Window(uint32_t width, uint32_t height, const std::string& title)
-    : width(width), height(height), title(title), window(nullptr) {
+Window::Window(uint32_t widthArg, uint32_t heightArg, const std::string& titleArg)
+    : width(widthArg), height(heightArg), title(titleArg), window(nullptr) {
     initWindow();
 }
 
-Window::~Window() {
+Window::~Window() noexcept {
+    try {
+        Cleanup();
+    }
+    catch (...) {
+        // Ensure destructor does not allow exceptions to propagate.
+    }
+}
+
+Window::Window(Window&& other) noexcept
+    : window(other.window),
+    title(std::move(other.title)),
+    width(other.width),
+    height(other.height) {
+    other.window = nullptr;
+    other.width = 0;
+    other.height = 0;
+}
+
+Window& Window::operator=(Window&& other) noexcept {
+    if (this == &other) return *this;
+
+    // Release current resources
     Cleanup();
+
+    window = other.window;
+    title = std::move(other.title);
+    width = other.width;
+    height = other.height;
+
+    other.window = nullptr;
+    other.width = 0;
+    other.height = 0;
+
+    return *this;
 }
 
 void Window::initWindow() {
@@ -24,18 +57,6 @@ void Window::initWindow() {
         glfwTerminate();
         throw std::runtime_error("failed to create GLFW window!");
     }
-}
-
-bool Window::ShouldClose() const {
-    return glfwWindowShouldClose(window);
-}
-
-void Window::PollEvents() const {
-    glfwPollEvents();
-}
-
-void Window::SetFramebufferResizeCallback(GLFWframebuffersizefun callback) {
-    glfwSetFramebufferSizeCallback(window, callback);
 }
 
 void Window::Cleanup() {

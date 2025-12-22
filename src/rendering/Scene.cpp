@@ -68,7 +68,7 @@ void Scene::GenerateProceduralObjects(int count, float terrainRadius, float delt
     std::random_device rd;
     std::mt19937 gen(rd());
 
-    // CHANGE: Removed 'const' because operator() is non-const
+    // 'distRad' must remain non-const because distribution::operator() is non-const.
     std::uniform_real_distribution<float> distRad(0.0f, terrainRadius * 0.9f);
     std::uniform_real_distribution<float> distAngle(0.0f, glm::two_pi<float>());
     std::uniform_real_distribution<float> distFreq(0.0f, totalFreq);
@@ -228,7 +228,7 @@ void Scene::SetupParticleSystem(VkCommandPool commandPool, VkQueue graphicsQueue
     this->particleDescriptorLayout = layout;
     this->framesInFlight = framesInFlight;
 
-    for (auto& sys : particleSystems) {
+    for (const auto& sys : particleSystems) {
         if (sys->IsAdditive()) {
             sys->SetPipeline(particlePipelineAdditive);
         }
@@ -240,8 +240,7 @@ void Scene::SetupParticleSystem(VkCommandPool commandPool, VkQueue graphicsQueue
 
 ParticleSystem* Scene::GetOrCreateSystem(const ParticleProps& props) {
     // Check if a system with this texture already exists
-    // Rule ID: CODSTA-CPP.53
-    for (auto& sys : particleSystems) {
+    for (const auto& sys : particleSystems) {
         if (sys->GetTexturePath() == props.texturePath) {
             return sys.get();
         }
@@ -411,7 +410,7 @@ void Scene::Update(float deltaTime) {
         }
     }
 
-    for (auto& sys : particleSystems) {
+    for (const auto& sys : particleSystems) {
         sys->Update(deltaTime);
     }
 }
@@ -426,7 +425,7 @@ const std::vector<Light> Scene::GetLights() const {
 }
 
 void Scene::Clear() {
-    for (auto& obj : objects) {
+    for (const auto& obj : objects) {
         if (obj && obj->geometry) {
             obj->geometry->Cleanup();
         }

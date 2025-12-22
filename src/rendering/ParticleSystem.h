@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 #include <vector>
 #include <memory>
+#include <array>
 #include "GraphicsPipeline.h"
 #include "Texture.h"
 #include "../vulkan/VulkanBuffer.h"
@@ -17,18 +18,25 @@ struct ParticleProps {
     glm::vec4 colorEnd = glm::vec4(1.0f);
     float sizeBegin = 1.0f, sizeEnd = 1.0f, sizeVariation = 0.0f;
     float lifeTime = 1.0f;
-
-    std::string texturePath;
     bool isAdditive = false;
+    std::string texturePath;
 };
 
-class ParticleSystem {
+class ParticleSystem final {
 public:
-    ParticleSystem(VkDevice device, VkPhysicalDevice physicalDevice, VkCommandPool commandPool, VkQueue graphicsQueue, uint32_t maxParticles, uint32_t framesInFlight);
+    ParticleSystem(VkDevice deviceArg, VkPhysicalDevice physicalDeviceArg, VkCommandPool commandPool, VkQueue graphicsQueue, uint32_t maxParticlesArg, uint32_t framesInFlightArg);
     ~ParticleSystem();
 
+    // Non-copyable
+    ParticleSystem(const ParticleSystem&) = delete;
+    ParticleSystem& operator=(const ParticleSystem&) = delete;
+
+    // Movable
+    ParticleSystem(ParticleSystem&&) noexcept = default;
+    ParticleSystem& operator=(ParticleSystem&&) noexcept = default;
+
     // Change: Added isAdditive parameter
-    void Initialize(VkDescriptorSetLayout textureLayout, GraphicsPipeline* pipeline, const std::string& texturePath, bool isAdditive);
+    void Initialize(VkDescriptorSetLayout textureLayoutArg, GraphicsPipeline* pipelineArg, const std::string& texturePathArg, bool isAdditiveArg);
 
     // Set constraints for particle movement
     void SetSimulationBounds(const glm::vec3& center, float radius);
@@ -52,8 +60,8 @@ public:
     };
 
     // Static helpers to describe vertex input for the shared pipeline
-    static std::vector<VkVertexInputBindingDescription> GetBindingDescriptions();
-    static std::vector<VkVertexInputAttributeDescription> GetAttributeDescriptions();
+    static std::array<VkVertexInputBindingDescription, 2> GetBindingDescriptions();
+    static std::array<VkVertexInputAttributeDescription, 5> GetAttributeDescriptions();
 
 private:
     struct Particle {
@@ -75,34 +83,35 @@ private:
         float timeSinceLastEmit = 0.0f;
     };
 
-    std::string texturePath;
-    bool isAdditive = false;
-
-    std::vector<ParticleEmitter> emitters;
-
-    // Simulation Bounds
-    bool useBounds = false;
-    glm::vec3 boundsCenter = glm::vec3(0.0f);
-    float boundsRadius = 0.0f;
-
+    // Device handles first for compact layout
     VkDevice device;
     VkPhysicalDevice physicalDevice;
 
-    std::vector<Particle> particles;
+    // Small PODs next
     uint32_t maxParticles;
     uint32_t framesInFlight;
     uint32_t poolIndex = 9999;
 
-    // Rendering resources
-    GraphicsPipeline* pipeline = nullptr;
+    // Simulation state
+    bool useBounds = false;
+    glm::vec3 boundsCenter = glm::vec3(0.0f);
+    float boundsRadius = 0.0f;
 
+    // Texture/meta
+    std::string texturePath;
+    bool isAdditive = false;
+
+    // Dynamic collections and heap resources
+    std::vector<Particle> particles;
+    std::vector<ParticleEmitter> emitters;
+    std::vector<std::unique_ptr<VulkanBuffer>> instanceBuffers;
     std::unique_ptr<Texture> texture;
     std::unique_ptr<VulkanBuffer> vertexBuffer;
-    std::vector<std::unique_ptr<VulkanBuffer>> instanceBuffers;
 
+    // Rendering resources
+    GraphicsPipeline* pipeline = nullptr;
     VkDescriptorSet descriptorSet = VK_NULL_HANDLE;
     VkDescriptorPool descriptorPool = VK_NULL_HANDLE;
-
     VkDescriptorSetLayout textureLayout = VK_NULL_HANDLE;
 
     void SetupBuffers();

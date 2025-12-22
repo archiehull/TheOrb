@@ -4,9 +4,9 @@
 #include <cstdlib>
 
 int main() {
-    Application app;
 
     try {
+        Application app;
         app.Run();
     }
     catch (const std::exception& e) {

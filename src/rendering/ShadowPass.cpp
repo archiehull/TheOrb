@@ -8,9 +8,7 @@ ShadowPass::ShadowPass(VulkanDevice* device, uint32_t width, uint32_t height)
     : device(device), width(width), height(height) {
 }
 
-ShadowPass::~ShadowPass() {
-    Cleanup();
-}
+// Destructor is defaulted in the header; resource cleanup is performed by Cleanup().
 
 void ShadowPass::Initialize(VkDescriptorSetLayout globalSetLayout) {
     CreateResources();
@@ -19,7 +17,7 @@ void ShadowPass::Initialize(VkDescriptorSetLayout globalSetLayout) {
     CreatePipeline(globalSetLayout);
 }
 
-void ShadowPass::Begin(VkCommandBuffer cmd) {
+void ShadowPass::Begin(VkCommandBuffer cmd) const {
     VkRenderPassBeginInfo renderPassInfo{};
     renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
     renderPassInfo.renderPass = renderPass;
@@ -38,8 +36,8 @@ void ShadowPass::Begin(VkCommandBuffer cmd) {
 
     // Dynamic State
     VkViewport viewport{};
-    viewport.width = (float)width;
-    viewport.height = (float)height;
+    viewport.width = static_cast<float>(width);
+    viewport.height = static_cast<float>(height);
     viewport.minDepth = 0.0f;
     viewport.maxDepth = 1.0f;
     vkCmdSetViewport(cmd, 0, 1, &viewport);
@@ -53,12 +51,12 @@ void ShadowPass::Begin(VkCommandBuffer cmd) {
     vkCmdSetDepthBias(cmd, 0.5f, 0.0f, 0.5f);
 }
 
-void ShadowPass::End(VkCommandBuffer cmd) {
+void ShadowPass::End(VkCommandBuffer cmd) const {
     vkCmdEndRenderPass(cmd);
 }
 
 void ShadowPass::CreateResources() {
-    VkFormat depthFormat = VK_FORMAT_D32_SFLOAT;
+    const VkFormat depthFormat = VK_FORMAT_D32_SFLOAT;
 
     VulkanUtils::CreateImage(
         device->GetDevice(),
@@ -117,7 +115,7 @@ void ShadowPass::CreateRenderPass() {
     subpass.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
     subpass.pDepthStencilAttachment = &depthRef;
 
-    // FIX: Initialize array with {} to ensure default values, and set flags explicitly
+    // Initialize array with {} to ensure default values, and set flags explicitly
     std::array<VkSubpassDependency, 2> dependencies{};
 
     dependencies[0].srcSubpass = VK_SUBPASS_EXTERNAL;
@@ -176,12 +174,12 @@ void ShadowPass::CreatePipeline(VkDescriptorSetLayout globalSetLayout) {
     config.extent = { width, height };
     config.bindingDescription = &bindingDescription;
     config.attributeDescriptions = attributeDescriptions.data();
-    
-    config.attributeCount = 1; 
+
+    config.attributeCount = 1;
 
     config.descriptorSetLayouts = { globalSetLayout };
 
-    config.cullMode = VK_CULL_MODE_NONE; 
+    config.cullMode = VK_CULL_MODE_NONE;
     config.depthBiasEnable = false;
 
     config.depthTestEnable = true;

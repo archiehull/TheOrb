@@ -2,12 +2,21 @@
 
 #include <vulkan/vulkan.h>
 #include <string>
-#include "../vulkan/VulkanUtils.h" 
+#include "../vulkan/VulkanUtils.h"
+#include <utility>
 
-class Texture {
+class Texture final {
 public:
-    Texture(VkDevice device, VkPhysicalDevice physicalDevice, VkCommandPool commandPool, VkQueue graphicsQueue);
-    ~Texture();
+    Texture(VkDevice deviceArg, VkPhysicalDevice physicalDeviceArg, VkCommandPool commandPoolArg, VkQueue graphicsQueueArg);
+    ~Texture() noexcept;
+
+    // Non-copyable
+    Texture(const Texture&) = delete;
+    Texture& operator=(const Texture&) = delete;
+
+    // Movable
+    Texture(Texture&& other) noexcept;
+    Texture& operator=(Texture&& other) noexcept;
 
     // Loads file via stb_image, uploads to GPU, creates image view + sampler.
     bool LoadFromFile(const std::string& filepath);
@@ -28,5 +37,4 @@ private:
     VkDeviceMemory imageMemory = VK_NULL_HANDLE;
     VkImageView imageView = VK_NULL_HANDLE;
     VkSampler sampler = VK_NULL_HANDLE;
-
 };

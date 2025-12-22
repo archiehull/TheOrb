@@ -4,30 +4,33 @@
 #include <filesystem>
 #include <iostream>
 
-SkyboxPass::SkyboxPass(VkDevice device, VkPhysicalDevice physicalDevice, VkCommandPool commandPool, VkQueue graphicsQueue)
-    : device(device), physicalDevice(physicalDevice), commandPool(commandPool), graphicsQueue(graphicsQueue) {
+SkyboxPass::SkyboxPass(VkDevice deviceArg, VkPhysicalDevice physicalDeviceArg, VkCommandPool commandPoolArg, VkQueue graphicsQueueArg)
+    : device(deviceArg), physicalDevice(physicalDeviceArg), commandPool(commandPoolArg), graphicsQueue(graphicsQueueArg) {
 }
 
 SkyboxPass::~SkyboxPass() {
-    Cleanup();
+    try {
+        Cleanup();
+    }
+    catch (...) {
+        // Ensure destructor does not allow exceptions to propagate.
+    }
 }
 
 // Returns the six face file paths for a skybox named `name`.
-std::vector<std::string> SkyboxPass::GetSkyboxFaces(const std::string& name) {
+std::vector<std::string> SkyboxPass::GetSkyboxFaces(const std::string& name) const {
     namespace fs = std::filesystem;
 
     const std::string base = "textures/skybox/" + name + "/";
 
     const std::vector<std::string> faces = {
-    base + "px.png", // +X
-    base + "nx.png", // -X
-    base + "py.png", // +Y
-    base + "ny.png", // -Y
-    base + "pz.png", // +Z
-    base + "nz.png"  // -Z
+        base + "px.png", // +X
+        base + "nx.png", // -X
+        base + "py.png", // +Y
+        base + "ny.png", // -Y
+        base + "pz.png", // +Z
+        base + "nz.png"  // -Z
     };
-
-
 
     const std::vector<std::string> defaultFaces = {
         "textures/skybox/cubemap_0(+X).jpg", "textures/skybox/cubemap_1(-X).jpg",
@@ -52,11 +55,11 @@ std::vector<std::string> SkyboxPass::GetSkyboxFaces(const std::string& name) {
     return faces;
 }
 
-void SkyboxPass::Initialize(VkRenderPass renderPass, VkExtent2D extent, VkDescriptorSetLayout globalSetLayout) {
+void SkyboxPass::Initialize(VkRenderPass renderPass, const VkExtent2D& extent, VkDescriptorSetLayout globalSetLayout) {
     // 1. Initialize Cubemap
     cubemap = std::make_unique<Cubemap>(device, physicalDevice, commandPool, graphicsQueue);
 
-    auto faces = GetSkyboxFaces("desert");
+    const auto faces = GetSkyboxFaces("desert");
 
     cubemap->LoadFromFiles(faces);
 
@@ -91,7 +94,9 @@ void SkyboxPass::Initialize(VkRenderPass renderPass, VkExtent2D extent, VkDescri
     pipeline->Create();
 }
 
-void SkyboxPass::Draw(VkCommandBuffer cmd, Scene& scene, uint32_t currentFrame, VkDescriptorSet globalDescriptorSet) {
+void SkyboxPass::Draw(VkCommandBuffer cmd, const Scene& scene, uint32_t currentFrame, VkDescriptorSet globalDescriptorSet) const {
+    (void)currentFrame; // suppress unused param warning
+
     if (!pipeline || !cubemap) return;
 
     vkCmdBindPipeline(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline->GetPipeline());
@@ -100,7 +105,7 @@ void SkyboxPass::Draw(VkCommandBuffer cmd, Scene& scene, uint32_t currentFrame, 
     vkCmdBindDescriptorSets(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline->GetLayout(), 0, 1, &globalDescriptorSet, 0, nullptr);
 
     // Bind Cubemap (Set 1)
-    VkDescriptorSet skySet = cubemap->GetDescriptorSet();
+    const VkDescriptorSet skySet = cubemap->GetDescriptorSet();
     vkCmdBindDescriptorSets(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline->GetLayout(), 1, 1, &skySet, 0, nullptr);
 
     // Render objects marked with shadingMode = 2 (Skybox) OR 3 (Combined)

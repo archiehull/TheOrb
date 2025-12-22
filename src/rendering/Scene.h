@@ -54,8 +54,9 @@ struct SceneObject {
     OrbitData orbitData;
 
     int layerMask = SceneLayers::INSIDE;
-    SceneObject(std::unique_ptr<Geometry> geo, const std::string& texPath = "", const std::string& objName = "")
-        : geometry(std::move(geo)), texturePath(texPath), name(objName) {
+
+    explicit SceneObject(std::unique_ptr<Geometry> geo, const std::string& texPath = "", const std::string& objName = "")
+        : name(objName), geometry(std::move(geo)), texturePath(texPath) {
     }
 };
 
@@ -68,10 +69,14 @@ struct ProceduralObjectConfig {
     glm::vec3 baseRotation;
 };
 
-class Scene {
+class Scene final {
 public:
     Scene(VkDevice vkDevice, VkPhysicalDevice physDevice);
     ~Scene() = default;
+
+    // Non-copyable
+    Scene(const Scene&) = delete;
+    Scene& operator=(const Scene&) = delete;
 
     float RadiusAdjustment(const float radius, const float deltaY) const;
 

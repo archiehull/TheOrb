@@ -11,8 +11,7 @@ Renderer::Renderer(VulkanDevice* device, VulkanSwapChain* swapChain)
     : device(device), swapChain(swapChain) {
 }
 
-Renderer::~Renderer() {
-}
+// Destructor now defaulted in header; removed implementation here.
 
 void Renderer::Initialize() {
     CreateRenderPass();
@@ -91,7 +90,7 @@ void Renderer::DrawFrame(Scene& scene, uint32_t currentFrame, const glm::mat4& v
 
     // Acquire next image
     uint32_t imageIndex;
-    VkResult result = vkAcquireNextImageKHR(
+    const VkResult result = vkAcquireNextImageKHR(
         device->GetDevice(),
         swapChain->GetSwapChain(),
         UINT64_MAX,
@@ -159,7 +158,7 @@ void Renderer::CreateShadowPass() {
 }
 
 void Renderer::CreateUniformBuffers() {
-    VkDeviceSize bufferSize = sizeof(UniformBufferObject);
+    const VkDeviceSize bufferSize = sizeof(UniformBufferObject);
     uniformBuffers.resize(MAX_FRAMES_IN_FLIGHT);
     uniformBuffersMapped.resize(MAX_FRAMES_IN_FLIGHT);
 
@@ -243,17 +242,17 @@ VkDescriptorSet Renderer::GetTextureDescriptorSet(const std::string& path) {
     if (path.empty()) return defaultTextureResource.descriptorSet;
 
     // Check cache
-    auto it = textureCache.find(path);
+    const auto it = textureCache.find(path);
     if (it != textureCache.end()) {
         return it->second.descriptorSet;
     }
 
     // Load new texture
-    auto texture = std::make_unique<Texture>(
+    auto tex = std::make_unique<Texture>(
         device->GetDevice(), device->GetPhysicalDevice(),
         commandBuffer->GetCommandPool(), device->GetGraphicsQueue());
 
-    if (!texture->LoadFromFile(path)) {
+    if (!tex->LoadFromFile(path)) {
         std::cerr << "Failed to load texture: " << path << ", using default." << std::endl;
         return defaultTextureResource.descriptorSet;
     }
@@ -271,8 +270,8 @@ VkDescriptorSet Renderer::GetTextureDescriptorSet(const std::string& path) {
     // Update Set
     VkDescriptorImageInfo imageInfo{};
     imageInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
-    imageInfo.imageView = texture->GetImageView();
-    imageInfo.sampler = texture->GetSampler();
+    imageInfo.imageView = tex->GetImageView();
+    imageInfo.sampler = tex->GetSampler();
 
     VkWriteDescriptorSet descriptorWrite{};
     descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
@@ -285,7 +284,7 @@ VkDescriptorSet Renderer::GetTextureDescriptorSet(const std::string& path) {
     vkUpdateDescriptorSets(device->GetDevice(), 1, &descriptorWrite, 0, nullptr);
 
     // Store in cache
-    textureCache[path] = { std::move(texture), descSet };
+    textureCache[path] = { std::move(tex), descSet };
     return descSet;
 }
 
@@ -358,8 +357,8 @@ void Renderer::CreatePipeline() {
 }
 
 void Renderer::CreateOffScreenResources() {
-    VkExtent2D extent = swapChain->GetExtent();
-    VkFormat imageFormat = swapChain->GetImageFormat();
+    const VkExtent2D extent = swapChain->GetExtent();
+    const VkFormat imageFormat = swapChain->GetImageFormat();
 
     // --- 1. Main OffScreen Color Attachment ---
     VulkanUtils::CreateImage(
@@ -412,7 +411,7 @@ void Renderer::CreateOffScreenResources() {
     }
 
     // --- 3. Shared Depth Attachment ---
-    VkFormat depthFormat = findDepthFormat(device->GetPhysicalDevice());
+    const VkFormat depthFormat = findDepthFormat(device->GetPhysicalDevice());
 
     VulkanUtils::CreateImage(
         device->GetDevice(),
@@ -449,8 +448,8 @@ void Renderer::RenderRefractionPass(VkCommandBuffer cmd, uint32_t currentFrame, 
     vkCmdBeginRenderPass(cmd, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
     VkViewport viewport{};
-    viewport.width = (float)swapChain->GetExtent().width;
-    viewport.height = (float)swapChain->GetExtent().height;
+    viewport.width = static_cast<float>(swapChain->GetExtent().width);
+    viewport.height = static_cast<float>(swapChain->GetExtent().height);
     viewport.minDepth = 0.0f;
     viewport.maxDepth = 1.0f;
     vkCmdSetViewport(cmd, 0, 1, &viewport);
@@ -482,7 +481,7 @@ void Renderer::RenderRefractionPass(VkCommandBuffer cmd, uint32_t currentFrame, 
         pco.layerMask = obj->layerMask;
         vkCmdPushConstants(cmd, graphicsPipeline->GetLayout(), VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(PushConstantObject), &pco);
 
-        VkDescriptorSet textureSet = GetTextureDescriptorSet(obj->texturePath);
+        const VkDescriptorSet textureSet = GetTextureDescriptorSet(obj->texturePath);
         vkCmdBindDescriptorSets(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->GetLayout(), 1, 1, &textureSet, 0, nullptr);
 
         obj->geometry->Bind(cmd);
@@ -534,7 +533,7 @@ void Renderer::CreateSyncObjects() {
     );
 
     // Explicitly cast size_t -> uint32_t and guard against empty swapchain
-    uint32_t imageCount = static_cast<uint32_t>(swapChain->GetImages().size());
+    const uint32_t imageCount = static_cast<uint32_t>(swapChain->GetImages().size());
     if (imageCount == 0) {
         throw std::runtime_error("swap chain contains no images");
     }
@@ -563,7 +562,7 @@ void Renderer::DrawSceneObjects(VkCommandBuffer cmd, Scene& scene, VkPipelineLay
 
         // Bind Textures
         if (bindTextures) {
-            VkDescriptorSet textureSet = GetTextureDescriptorSet(obj->texturePath);
+            const VkDescriptorSet textureSet = GetTextureDescriptorSet(obj->texturePath);
             vkCmdBindDescriptorSets(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, layout, 1, 1, &textureSet, 0, nullptr);
         }
 
@@ -613,7 +612,7 @@ void Renderer::CreateParticlePipelines() {
     particlePipelineAlpha->Create();
 }
 
-void Renderer::SetupSceneParticles(Scene& scene) {
+void Renderer::SetupSceneParticles(Scene& scene) const {
     scene.SetupParticleSystem(
         commandBuffer->GetCommandPool(),
         device->GetGraphicsQueue(),
@@ -676,24 +675,24 @@ void Renderer::RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex,
     glm::mat4 lightProj = glm::ortho(-200.0f, 200.0f, -200.0f, 200.0f, 1.0f, 500.0f);
     glm::mat4 lightView = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     lightProj[1][1] *= -1;
-    glm::mat4 lightSpaceMatrix = lightProj * lightView;
+    const glm::mat4 lightSpaceMatrix = lightProj * lightView;
 
     UniformBufferObject ubo{};
     ubo.view = viewMatrix;
     ubo.proj = projMatrix;
     ubo.viewPos = glm::vec3(glm::inverse(viewMatrix)[3]);
     ubo.lightSpaceMatrix = lightSpaceMatrix;
-    size_t count = std::min(lights.size(), (size_t)MAX_LIGHTS);
+    const size_t count = std::min(lights.size(), (size_t)MAX_LIGHTS);
     if (count > 0) std::memcpy(ubo.lights, lights.data(), count * sizeof(Light));
     ubo.numLights = static_cast<int>(count);
 
     float factor = 1.0f;
     if (!lights.empty()) {
-        float sunY = lights[0].position.y;
-        float lower = -50.0f;
-        float upper = 50.0f;
+        const float sunY = lights[0].position.y;
+        const float lower = -50.0f;
+        const float upper = 50.0f;
 
-        float t = (sunY - lower) / (upper - lower);
+        const float t = (sunY - lower) / (upper - lower);
         factor = std::max(0.0f, std::min(t, 1.0f));
     }
     ubo.dayNightFactor = factor;
@@ -737,8 +736,8 @@ void Renderer::RenderScene(VkCommandBuffer cmd, uint32_t currentFrame, Scene& sc
     VkViewport viewport{};
     viewport.x = 0.0f;
     viewport.y = 0.0f;
-    viewport.width = (float)swapChain->GetExtent().width;
-    viewport.height = (float)swapChain->GetExtent().height;
+    viewport.width = static_cast<float>(swapChain->GetExtent().width);
+    viewport.height = static_cast<float>(swapChain->GetExtent().height);
     viewport.minDepth = 0.0f;
     viewport.maxDepth = 1.0f;
     vkCmdSetViewport(cmd, 0, 1, &viewport);
@@ -825,7 +824,7 @@ void Renderer::CopyOffScreenToSwapChain(VkCommandBuffer cmd, uint32_t imageIndex
         0, 0, nullptr, 0, nullptr, 1, &swapChainBarrier);
 }
 
-void Renderer::WaitIdle() {
+void Renderer::WaitIdle() const {
     vkDeviceWaitIdle(device->GetDevice());
 }
 
@@ -837,7 +836,7 @@ void Renderer::Cleanup() {
         }
     }
 
-    for (auto& uniformBuffer : uniformBuffers) {
+    for (const auto& uniformBuffer : uniformBuffers) {
         if (uniformBuffer) {
             uniformBuffer->Cleanup();
         }

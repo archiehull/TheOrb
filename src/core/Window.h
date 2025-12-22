@@ -4,24 +4,34 @@
 #include <GLFW/glfw3.h>
 #include <string>
 
-class Window {
+class Window final {
 public:
-    Window(uint32_t width, uint32_t height, const std::string& title);
-    ~Window();
+    Window(uint32_t widthArg, uint32_t heightArg, const std::string& titleArg);
+    ~Window() noexcept;
 
-    bool ShouldClose() const;
-    void PollEvents() const;
+    // Non-copyable
+    Window(const Window&) = delete;
+    Window& operator=(const Window&) = delete;
+
+    // Movable
+    Window(Window&&) noexcept;
+    Window& operator=(Window&&) noexcept;
+
+    // Small accessors/inlines to avoid non-inlined warnings
+    bool ShouldClose() const { return glfwWindowShouldClose(window); }
+    void PollEvents() const { glfwPollEvents(); }
     GLFWwindow* GetGLFWWindow() const { return window; }
 
-    // Add callback setter
-    void SetFramebufferResizeCallback(GLFWframebuffersizefun callback);
+    // Setting the framebuffer callback does not modify observable state in this class
+    void SetFramebufferResizeCallback(GLFWframebuffersizefun callback) const { glfwSetFramebufferSizeCallback(window, callback); }
 
 private:
     void initWindow();
     void Cleanup();
 
-    uint32_t width;
-    uint32_t height;
+    // Reordered members to reduce padding and improve layout
+    GLFWwindow* window = nullptr;
     std::string title;
-    GLFWwindow* window;
+    uint32_t width = 0;
+    uint32_t height = 0;
 };
