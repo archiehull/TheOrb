@@ -1,244 +1,4 @@
 <->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.cpp
-<c>CODSTA-CPP-105
-<b>The '~CameraController' function should be defined with =default
-<l>12
-<k>19
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'groupA_forward' as const
-<l>63
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'groupA_backward' as const
-<l>64
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'groupA_left' as const
-<l>65
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'groupA_right' as const
-<l>66
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'groupB_forward' as const
-<l>67
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'groupB_backward' as const
-<l>68
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'groupB_left' as const
-<l>69
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'groupB_right' as const
-<l>70
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'moveForward' as const
-<l>73
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'moveBackward' as const
-<l>74
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'moveLeft' as const
-<l>75
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'moveRight' as const
-<l>76
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'moveDown' as const
-<l>79
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'moveUp' as const
-<l>80
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'rotatePitchUp' as const
-<l>83
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'rotatePitchDown' as const
-<l>84
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'rotateYawLeft' as const
-<l>85
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'rotateYawRight' as const
-<l>86
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'shiftMultiplier' as const
-<l>89
-<k>11
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'rotationMultiplier' as const
-<l>90
-<k>11
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'moveDelta' as const
-<l>92
-<k>11
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'rotateDelta' as const
-<l>93
-<k>11
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.cpp
-<c>OPT-24
-<b>Function 'OnKeyRelease' is not inlined
-<l>140
-<k>24
-<s>false
-<N>
-<f>
-<L>0
-<->
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.h
 <c>CODSTA-CPP-54
 <b>Member function 'GetActiveCamera' should be declared as const
@@ -279,81 +39,31 @@
 <f>
 <L>0
 <->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.h
-<c>CODSTA-CPP-105
-<b>The '~CameraController' function should be defined with =default
-<l>10
-<k>5
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.cpp
-<c>OPT-24
-<b>Function 'OnKeyRelease' is not inlined
-<l>140
-<k>24
-<s>false
-<N>
-<f>
-<L>0
-<->
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
-<c>OPT-14
-<b>Returned value from function 'GetPosition' is passed by value
+<c>CODSTA-CPP-06
+<b>Member function 'GetPosition' returns handles to member data: 'position'
 <l>40
-<k>15
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
-<c>OPT-14
-<b>Returned value from function 'GetFront' is passed by value
-<l>41
-<k>15
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
-<c>OPT-14
-<b>Returned value from function 'GetUp' is passed by value
-<l>42
-<k>15
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
-<c>CODSTA-45
-<b>The parameter 'fov' hides a member variable declared in class 'Camera'
-<l>45
-<k>23
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
-<c>CODSTA-45
-<b>The parameter 'nearPlane' hides a member variable declared in class 'Camera'
-<l>46
-<k>27
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
-<c>CODSTA-45
-<b>The parameter 'farPlane' hides a member variable declared in class 'Camera'
-<l>46
 <k>44
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetFront' returns handles to member data: 'front'
+<l>41
+<k>41
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetUp' returns handles to member data: 'up'
+<l>42
+<k>38
 <s>false
 <N>
 <f>

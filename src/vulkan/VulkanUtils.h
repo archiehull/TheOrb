@@ -57,4 +57,7 @@ namespace VulkanUtils {
 
     // Copies buffer data to an image
     void CopyBufferToImage(VkDevice device, VkCommandPool commandPool, VkQueue graphicsQueue, VkBuffer buffer, VkImage image, uint32_t width, uint32_t height);
+
+	// Clean up image resources
+    void CleanupImageResources(VkDevice device, VkImage& image, VkDeviceMemory& imageMemory, VkImageView& imageView, VkSampler& sampler);
 }

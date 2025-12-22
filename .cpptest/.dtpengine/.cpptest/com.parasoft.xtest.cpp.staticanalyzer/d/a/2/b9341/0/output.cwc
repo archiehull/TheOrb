@@ -1,8 +1,8 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.cpp
-<c>STL-37-DOWNGRADED
-<b>The 'vertexBuffers' array should not be used
-<l>44
+<c>CODSTA-CPP-53
+<b>Declare local variable 'vb' as const
+<l>41
 <k>14
 <s>false
 <N>
@@ -10,60 +10,10 @@
 <L>0
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.cpp
-<c>STL-37-DOWNGRADED
-<b>The 'offsets' array should not be used
-<l>45
-<k>18
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.cpp
-<c>CODSTA-CPP-105
-<b>The '~Geometry' function should be defined with =default
-<l>8
-<k>11
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.cpp
 <c>CODSTA-CPP-53
-<b>Declare local variable 'vertexBufferSize' as const
-<l>18
+<b>Declare local variable 'offset' as const
+<l>42
 <k>18
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'indexBufferSize' as const
-<l>31
-<k>22
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.cpp
-<c>CODSTA-CPP-54
-<b>Member function 'Bind' should be declared as const
-<l>43
-<k>16
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.cpp
-<c>CODSTA-CPP-54
-<b>Member function 'Draw' should be declared as const
-<l>53
-<k>16
 <s>false
 <N>
 <f>
@@ -74,26 +24,6 @@
 <b>Class 'Geometry' should be final
 <l>8
 <k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.cpp
-<c>CODSTA-45
-<b>The parameter 'device' hides a member variable declared in class 'Geometry'
-<l>4
-<k>29
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.cpp
-<c>CODSTA-45
-<b>The parameter 'physicalDevice' hides a member variable declared in class 'Geometry'
-<l>4
-<k>54
 <s>false
 <N>
 <f>
@@ -190,16 +120,6 @@
 <L>0
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
-<c>CODSTA-CPP-105
-<b>The '~Geometry' function should be defined with =default
-<l>11
-<k>5
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
 <c>CODSTA-CPP-06
 <b>Member function 'GetVertices' returns handles to member data: 'vertices'
 <l>19
@@ -254,26 +174,6 @@
 <b>Member function 'GetIndices' returns handles to member data: 'indices'
 <l>23
 <k>55
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\Vertex.h
-<c>OPT-33
-<b>Returned value from function 'getBindingDescription' is passed by value
-<l>13
-<k>44
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\Vertex.h
-<c>OPT-33
-<b>Returned value from function 'getAttributeDescriptions' is passed by value
-<l>21
-<k>61
 <s>false
 <N>
 <f>

@@ -49,8 +49,6 @@ void GraphicsPipeline::Create() {
     fragShaderStageInfo.module = shader->GetFragmentShader();
     fragShaderStageInfo.pName = "main";
 
-    std::array<VkPipelineShaderStageCreateInfo, 2> shaderStages = { vertShaderStageInfo, fragShaderStageInfo };
-
     // Vertex input
     VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
     vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
@@ -149,6 +147,8 @@ void GraphicsPipeline::Create() {
     if (vkCreatePipelineLayout(device, &pipelineLayoutInfo, nullptr, &pipelineLayout) != VK_SUCCESS) {
         throw std::runtime_error("failed to create pipeline layout!");
     }
+
+    std::array<VkPipelineShaderStageCreateInfo, 2> shaderStages = { vertShaderStageInfo, fragShaderStageInfo };
 
     // Graphics pipeline
     VkGraphicsPipelineCreateInfo pipelineInfo{};

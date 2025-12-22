@@ -1,79 +1,9 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\geometry\OBJLoader.cpp
-<c>STL-37-DOWNGRADED
-<b>The 'keys' array should not be used
-<l>106
-<k>27
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\OBJLoader.cpp
-<c>CODSTA-CPP-51
-<b>Inline function '==' was found in source file
-<l>16
-<k>18
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\OBJLoader.cpp
-<c>CODSTA-CPP-51
-<b>Inline function '()' was found in source file
-<l>22
-<k>20
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\OBJLoader.cpp
 <c>CODSTA-CPP-53
-<b>Declare local variable 'h1' as const
-<l>24
-<k>16
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\OBJLoader.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'h2' as const
-<l>25
-<k>16
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\OBJLoader.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'h3' as const
-<l>26
-<k>16
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\OBJLoader.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'val' as const
-<l>84
-<k>21
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\OBJLoader.cpp
-<c>OPT-02
-<b>Local variable 'val' declared but not used
-<l>84
-<k>21
+<b>Declare local variable 'it' as const
+<l>111
+<k>26
 <s>false
 <N>
 <f>
@@ -82,7 +12,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\geometry\OBJLoader.cpp
 <c>OPT-33
 <b>Returned value from function 'Load' is passed by value
-<l>31
+<l>34
 <k>38
 <s>false
 <N>
@@ -90,29 +20,9 @@
 <L>0
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\geometry\OBJLoader.h
-<c>CODSTA-MCPP-23
-<b>Class 'OBJLoader' should be final
-<l>8
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\OBJLoader.cpp
-<c>OPT-02
-<b>Local variable 'val' declared but not used
-<l>84
-<k>21
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\OBJLoader.h
 <c>OPT-33
 <b>Returned value from function 'Load' is passed by value
-<l>10
+<l>19
 <k>38
 <s>false
 <N>
@@ -274,26 +184,6 @@
 <b>Member function 'GetIndices' returns handles to member data: 'indices'
 <l>23
 <k>55
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\Vertex.h
-<c>OPT-33
-<b>Returned value from function 'getBindingDescription' is passed by value
-<l>13
-<k>44
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\Vertex.h
-<c>OPT-33
-<b>Returned value from function 'getAttributeDescriptions' is passed by value
-<l>21
-<k>61
 <s>false
 <N>
 <f>

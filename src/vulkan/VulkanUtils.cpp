@@ -238,4 +238,23 @@ namespace VulkanUtils {
 
         EndSingleTimeCommands(device, commandPool, graphicsQueue, commandBuffer);
     }
+
+    void CleanupImageResources(VkDevice device, VkImage& image, VkDeviceMemory& imageMemory, VkImageView& imageView, VkSampler& sampler) {
+        if (sampler != VK_NULL_HANDLE) {
+            vkDestroySampler(device, sampler, nullptr);
+            sampler = VK_NULL_HANDLE;
+        }
+        if (imageView != VK_NULL_HANDLE) {
+            vkDestroyImageView(device, imageView, nullptr);
+            imageView = VK_NULL_HANDLE;
+        }
+        if (image != VK_NULL_HANDLE) {
+            vkDestroyImage(device, image, nullptr);
+            image = VK_NULL_HANDLE;
+        }
+        if (imageMemory != VK_NULL_HANDLE) {
+            vkFreeMemory(device, imageMemory, nullptr);
+            imageMemory = VK_NULL_HANDLE;
+        }
+    }
 }

@@ -46,8 +46,6 @@ std::unique_ptr<Geometry> OBJLoader::Load(VkDevice device, VkPhysicalDevice phys
     std::unordered_map<VertexKey, uint32_t, VertexKeyHash> uniqueVertices;
 
     auto geometry = std::make_unique<Geometry>(device, physicalDevice);
-    std::vector<Vertex>& outVertices = geometry->GetVertices();
-    std::vector<uint32_t>& outIndices = geometry->GetIndices();
 
     std::string line;
     while (std::getline(file, line)) {
@@ -110,7 +108,7 @@ std::unique_ptr<Geometry> OBJLoader::Load(VkDevice device, VkPhysicalDevice phys
                 for (const auto& vk : keys) {
                     auto it = uniqueVertices.find(vk);
                     if (it == uniqueVertices.end()) {
-                        const uint32_t newIndex = static_cast<uint32_t>(outVertices.size());
+                        const uint32_t newIndex = static_cast<uint32_t>(geometry->VertexCount());
                         uniqueVertices.emplace(vk, newIndex);
 
                         Vertex newVertex{};
@@ -136,18 +134,20 @@ std::unique_ptr<Geometry> OBJLoader::Load(VkDevice device, VkPhysicalDevice phys
                         // Set Default Color (White) since OBJ usually doesn't provide it per vertex
                         newVertex.color = glm::vec3(1.0f, 1.0f, 1.0f);
 
-                        outVertices.push_back(newVertex);
-                        outIndices.push_back(newIndex);
+                        // FIX: Use AddVertex/AddIndex
+                        geometry->AddVertex(newVertex);
+                        geometry->AddIndex(newIndex);
                     }
                     else {
-                        outIndices.push_back(it->second);
+                        // FIX: Use AddIndex
+                        geometry->AddIndex(it->second);
                     }
                 }
             }
         }
     }
 
-    if (outVertices.empty()) {
+    if (geometry->VertexCount() == 0) {
         throw std::runtime_error("OBJ file contained no vertices or failed to parse: " + filepath);
     }
 

@@ -20,50 +20,10 @@
 <L>0
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'sys' as const
-<l>231
-<k>16
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'sys' as const
-<l>244
-<k>16
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'sys' as const
-<l>414
-<k>16
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
 <c>OPT-33
 <b>Returned value from function 'GetLights' is passed by value
-<l>419
+<l>418
 <k>33
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'obj' as const
-<l>429
-<k>16
 <s>false
 <N>
 <f>
@@ -90,40 +50,10 @@
 <L>0
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
-<c>CODSTA-CPP-04
-<b>Constructor 'SceneObject' allowing conversion should be made explicit
-<l>57
-<k>5
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
-<c>INIT-10
-<b>List members in an initialization list should be in the order in which they are declared ['name', 'geometry', 'texturePath']
-<l>57
-<k>5
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
 <c>OPT-13
 <b>Members 'baseRotation, maxScale, minScale' of structure 'ProceduralObjectConfig' are declared in suboptimal order for memory layout
-<l>62
+<l>63
 <k>8
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
-<c>CODSTA-MCPP-23
-<b>Class 'Scene' should be final
-<l>71
-<k>7
 <s>false
 <N>
 <f>
@@ -160,29 +90,9 @@
 <L>0
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
-<c>MRM-49
-<b>Class 'Scene' shall declare a copy assignment operator
-<l>71
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
-<c>MRM-49
-<b>Class 'Scene' shall declare a copy constructor
-<l>71
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
 <c>OPT-13
 <b>Members 'objects, particleSystems, proceduralRegistry' of class 'Scene' are declared in suboptimal order for memory layout
-<l>71
+<l>72
 <k>7
 <s>false
 <N>
@@ -192,7 +102,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
 <c>CODSTA-CPP-06
 <b>Member function 'GetParticleSystems' returns handles to member data: 'particleSystems'
-<l>110
+<l>115
 <k>86
 <s>false
 <N>
@@ -202,7 +112,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
 <c>OPT-33
 <b>Returned value from function 'GetLights' is passed by value
-<l>114
+<l>119
 <k>30
 <s>false
 <N>
@@ -212,7 +122,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
 <c>CODSTA-CPP-06
 <b>Member function 'GetObjects' returns handles to member data: 'objects'
-<l>118
+<l>123
 <k>75
 <s>false
 <N>
@@ -379,26 +289,6 @@
 <f>
 <L>0
 <->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\Vertex.h
-<c>OPT-33
-<b>Returned value from function 'getBindingDescription' is passed by value
-<l>13
-<k>44
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\Vertex.h
-<c>OPT-33
-<b>Returned value from function 'getAttributeDescriptions' is passed by value
-<l>21
-<k>61
-<s>false
-<N>
-<f>
-<L>0
-<->
 <F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanBuffer.h
 <c>CODSTA-MCPP-23
 <b>Class 'VulkanBuffer' should be final
@@ -440,19 +330,9 @@
 <L>0
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
-<c>CODSTA-MCPP-23
-<b>Class 'GeometryGenerator' should be final
-<l>7
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
 <c>OPT-33
 <b>Returned value from function 'CreateCube' is passed by value
-<l>9
+<l>18
 <k>38
 <s>false
 <N>
@@ -462,36 +342,6 @@
 <F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
 <c>OPT-33
 <b>Returned value from function 'CreateGrid' is passed by value
-<l>10
-<k>38
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
-<c>OPT-33
-<b>Returned value from function 'CreateSphere' is passed by value
-<l>12
-<k>38
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
-<c>OPT-33
-<b>Returned value from function 'CreateTerrain' is passed by value
-<l>15
-<k>38
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
-<c>OPT-33
-<b>Returned value from function 'CreateBowl' is passed by value
 <l>19
 <k>38
 <s>false
@@ -501,8 +351,38 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
 <c>OPT-33
+<b>Returned value from function 'CreateSphere' is passed by value
+<l>21
+<k>38
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>OPT-33
+<b>Returned value from function 'CreateTerrain' is passed by value
+<l>24
+<k>38
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>OPT-33
+<b>Returned value from function 'CreateBowl' is passed by value
+<l>28
+<k>38
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>OPT-33
 <b>Returned value from function 'CreatePedestal' is passed by value
-<l>22
+<l>31
 <k>38
 <s>false
 <N>
@@ -512,38 +392,8 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
 <c>OPT-13
 <b>Members 'texturePath' of structure 'ParticleProps' are declared in suboptimal order for memory layout
-<l>10
+<l>11
 <k>8
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
-<c>CODSTA-MCPP-23
-<b>Class 'ParticleSystem' should be final
-<l>25
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
-<c>MRM-49
-<b>Class 'ParticleSystem' shall declare a copy assignment operator
-<l>25
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
-<c>MRM-49
-<b>Class 'ParticleSystem' shall declare a copy constructor
-<l>25
-<k>7
 <s>false
 <N>
 <f>
@@ -561,7 +411,7 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
 <c>OPT-13
-<b>Members 'boundsCenter, emitters, instanceBuffers, particles, texture, vertexBuffer' of class 'ParticleSystem' are declared in suboptimal order for memory layout
+<b>Members 'boundsCenter, emitters, instanceBuffers, particles, texture, texturePath, vertexBuffer' of class 'ParticleSystem' are declared in suboptimal order for memory layout
 <l>25
 <k>7
 <s>false
@@ -572,8 +422,8 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
 <c>OPT-33
 <b>Returned value from function 'GetBindingDescriptions' is passed by value
-<l>55
-<k>57
+<l>63
+<k>59
 <s>false
 <N>
 <f>
@@ -582,8 +432,8 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
 <c>OPT-33
 <b>Returned value from function 'GetAttributeDescriptions' is passed by value
-<l>56
-<k>59
+<l>64
+<k>61
 <s>false
 <N>
 <f>
@@ -614,36 +464,6 @@
 <b>Members 'descriptorSetLayouts, extent' of structure 'GraphicsPipelineConfig' are declared in suboptimal order for memory layout
 <l>10
 <k>8
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
-<c>CODSTA-MCPP-23
-<b>Class 'GraphicsPipeline' should be final
-<l>52
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
-<c>MRM-49
-<b>Class 'GraphicsPipeline' shall declare a copy assignment operator
-<l>52
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
-<c>MRM-49
-<b>Class 'GraphicsPipeline' shall declare a copy constructor
-<l>52
-<k>7
 <s>false
 <N>
 <f>
@@ -709,31 +529,11 @@
 <f>
 <L>0
 <->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Texture.h
-<c>CODSTA-MCPP-23
-<b>Class 'Texture' should be final
-<l>7
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Texture.h
-<c>MRM-49
-<b>Class 'Texture' shall declare a copy assignment operator
-<l>7
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Texture.h
-<c>MRM-49
-<b>Class 'Texture' shall declare a copy constructor
-<l>7
-<k>7
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleLibrary.h
+<c>CODSTA-CPP-53
+<b>Declare local variable 'p' as const
+<l>9
+<k>27
 <s>false
 <N>
 <f>
@@ -741,59 +541,59 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleLibrary.h
 <c>OPT-33
-<b>Returned value from function 'GetFireProps' is passed by value
-<l>7
-<k>26
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleLibrary.h
-<c>OPT-33
-<b>Returned value from function 'GetSmokeProps' is passed by value
-<l>24
-<k>26
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleLibrary.h
-<c>OPT-33
-<b>Returned value from function 'GetRainProps' is passed by value
-<l>41
-<k>26
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleLibrary.h
-<c>OPT-33
-<b>Returned value from function 'GetSnowProps' is passed by value
-<l>57
-<k>26
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleLibrary.h
-<c>OPT-33
-<b>Returned value from function 'GetDustProps' is passed by value
-<l>79
-<k>26
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\OBJLoader.h
-<c>CODSTA-MCPP-23
-<b>Class 'OBJLoader' should be final
+<b>Returned value from function 'MakeDefaultProps' is passed by value
 <l>8
-<k>7
+<k>30
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleLibrary.h
+<c>PB-19
+<b>Global inline function GetFireProps contains declaration of static local variable
+<l>15
+<k>33
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleLibrary.h
+<c>PB-19
+<b>Global inline function GetSmokeProps contains declaration of static local variable
+<l>33
+<k>33
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleLibrary.h
+<c>PB-19
+<b>Global inline function GetRainProps contains declaration of static local variable
+<l>51
+<k>33
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleLibrary.h
+<c>PB-19
+<b>Global inline function GetSnowProps contains declaration of static local variable
+<l>69
+<k>33
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleLibrary.h
+<c>PB-19
+<b>Global inline function GetDustProps contains declaration of static local variable
+<l>87
+<k>33
 <s>false
 <N>
 <f>
@@ -802,7 +602,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\geometry\OBJLoader.h
 <c>OPT-33
 <b>Returned value from function 'Load' is passed by value
-<l>10
+<l>19
 <k>38
 <s>false
 <N>

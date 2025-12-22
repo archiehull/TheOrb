@@ -185055,8 +185055,8 @@ H 140 C:\Users\a\Desktop\TheOrb\src\vulkan\Vertex.h
 K f
 I offsetof
 F 140
-L 23
-S 23
+L 29
+S 29
 f 3
 l 47
 EOR
@@ -185064,8 +185064,8 @@ EOR
 K f
 I offsetof
 F 140
-L 24
-S 24
+L 30
+S 30
 f 3
 l 47
 EOR
@@ -185073,8 +185073,8 @@ EOR
 K f
 I offsetof
 F 140
-L 25
-S 25
+L 31
+S 31
 f 3
 l 47
 EOR
@@ -185082,8 +185082,8 @@ EOR
 K f
 I offsetof
 F 140
-L 26
-S 26
+L 32
+S 32
 f 3
 l 47
 EOR
@@ -185093,8 +185093,8 @@ H 141 C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
 K o
 I VK_NULL_HANDLE
 F 141
-L 69
-S 69
+L 78
+S 78
 f 4
 l 43
 EOR
@@ -185102,8 +185102,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 141
-L 70
-S 70
+L 79
+S 79
 f 4
 l 43
 EOR
@@ -192503,8 +192503,8 @@ H 147 C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
 K o
 I VK_NULL_HANDLE
 F 147
-L 35
-S 35
+L 39
+S 39
 f 4
 l 43
 EOR
@@ -192512,26 +192512,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 147
-L 36
-S 36
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 147
-L 37
-S 37
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 147
-L 38
-S 38
+L 40
+S 40
 f 4
 l 43
 EOR
@@ -192550,6 +192532,24 @@ I VK_NULL_HANDLE
 F 147
 L 42
 S 42
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 147
+L 45
+S 45
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 147
+L 46
+S 46
 f 4
 l 43
 EOR
@@ -192862,8 +192862,8 @@ H 151 C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.cpp
 K o
 I VK_FALSE
 F 151
-L 91
-S 91
+L 89
+S 89
 f 4
 l 129
 EOR
@@ -192871,8 +192871,8 @@ EOR
 K o
 I VK_SUBPASS_EXTERNAL
 F 151
-L 123
-S 123
+L 121
+S 121
 f 4
 l 134
 EOR
@@ -192880,10 +192880,19 @@ EOR
 K o
 I VK_SUBPASS_EXTERNAL
 F 151
-L 132
-S 132
+L 130
+S 130
 f 4
 l 134
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 151
+L 198
+S 198
+f 4
+l 43
 EOR
 
 K o
@@ -192981,15 +192990,6 @@ I VK_NULL_HANDLE
 F 151
 L 220
 S 220
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 151
-L 222
-S 222
 f 4
 l 43
 EOR

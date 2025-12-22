@@ -1,5 +1,6 @@
 #include "Cubemap.h"
 #include "../vulkan/VulkanBuffer.h"
+#include "../vulkan/VulkanUtils.h"
 #include <stdexcept>
 #include <iostream>
 #include <stb_image.h>
@@ -152,20 +153,5 @@ void Cubemap::Cleanup() {
         vkDestroyDescriptorSetLayout(device, descriptorSetLayout, nullptr);
         descriptorSetLayout = VK_NULL_HANDLE;
     }
-    if (sampler != VK_NULL_HANDLE) {
-        vkDestroySampler(device, sampler, nullptr);
-        sampler = VK_NULL_HANDLE;
-    }
-    if (imageView != VK_NULL_HANDLE) {
-        vkDestroyImageView(device, imageView, nullptr);
-        imageView = VK_NULL_HANDLE;
-    }
-    if (image != VK_NULL_HANDLE) {
-        vkDestroyImage(device, image, nullptr);
-        image = VK_NULL_HANDLE;
-    }
-    if (imageMemory != VK_NULL_HANDLE) {
-        vkFreeMemory(device, imageMemory, nullptr);
-        imageMemory = VK_NULL_HANDLE;
-    }
+    VulkanUtils::CleanupImageResources(device, image, imageMemory, imageView, sampler);
 }

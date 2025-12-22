@@ -15,19 +15,18 @@ float SmoothStep(float edge0, float edge1, float x) {
 }
 
 void GeometryGenerator::GenerateGridIndices(Geometry* geometry, int slices, int stacks) {
-    auto& indices = geometry->GetIndices();
     for (int i = 0; i < stacks; ++i) {
         for (int j = 0; j < slices; ++j) {
             const uint32_t first = i * (slices + 1) + j;
             const uint32_t second = first + (slices + 1);
 
-            indices.push_back(first);
-            indices.push_back(first + 1);
-            indices.push_back(second);
+            geometry->AddIndex(first);
+            geometry->AddIndex(first + 1);
+            geometry->AddIndex(second);
 
-            indices.push_back(first + 1);
-            indices.push_back(second + 1);
-            indices.push_back(second);
+            geometry->AddIndex(first + 1);
+            geometry->AddIndex(second + 1);
+            geometry->AddIndex(second);
         }
     }
 }
@@ -66,6 +65,10 @@ float GeometryGenerator::GetTerrainHeight(float x, float z, float radius, float 
 std::unique_ptr<Geometry> GeometryGenerator::CreateBowl(VkDevice device, VkPhysicalDevice physicalDevice, float radius, int slices, int stacks) {
     auto geometry = std::make_unique<Geometry>(device, physicalDevice);
 
+    // Reserve reasonable sizes
+    geometry->ReserveVertices((slices + 1) * (stacks + 1));
+    geometry->ReserveIndices(slices * stacks * 6);
+
     // Generate Bottom Hemisphere (Phi: PI/2 -> PI)
     for (int i = 0; i <= stacks; ++i) {
 
@@ -93,7 +96,7 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateBowl(VkDevice device, VkPhysi
             // Simple white/grey color base
             glm::vec3 color(0.8f, 0.8f, 0.8f);
 
-            geometry->GetVertices().push_back({ pos, color, uv, normal });
+            geometry->AddVertex({ pos, color, uv, normal });
         }
     }
 
@@ -107,8 +110,8 @@ std::unique_ptr<Geometry> GeometryGenerator::CreatePedestal(VkDevice device, VkP
     float topRadius, float baseWidth, float height, int slices, int stacks) {
 
     auto geometry = std::make_unique<Geometry>(device, physicalDevice);
-    std::vector<Vertex>& vertices = geometry->GetVertices();
-    std::vector<uint32_t>& indices = geometry->GetIndices();
+    geometry->ReserveVertices((slices + 1) * (stacks + 1));
+    geometry->ReserveIndices(slices * stacks * 6);
 
     for (int i = 0; i <= stacks; ++i) {
         const float v = static_cast<float>(i) / stacks;
@@ -137,50 +140,54 @@ std::unique_ptr<Geometry> GeometryGenerator::CreatePedestal(VkDevice device, VkP
             glm::vec3 color(0.8f, 0.8f, 0.8f);
             glm::vec3 normal(0.0f, 1.0f, 0.0f); // Placeholder, computed below
 
-            vertices.push_back({ pos, color, uv, normal });
+            geometry->AddVertex({ pos, color, uv, normal });
         }
     }
 
     // Indices (Standard Grid Logic)
     for (int i = 0; i < stacks; ++i) {
         for (int j = 0; j < slices; ++j) {
-            uint32_t current = i * (slices + 1) + j;
-            uint32_t next = current + (slices + 1);
+            const uint32_t current = i * (slices + 1) + j;
+            const uint32_t next = current + (slices + 1);
 
-            indices.push_back(current);
-            indices.push_back(current + 1);
-            indices.push_back(next);
+            geometry->AddIndex(current);
+            geometry->AddIndex(current + 1);
+            geometry->AddIndex(next);
 
-            indices.push_back(current + 1);
-            indices.push_back(next + 1);
-            indices.push_back(next);
+            geometry->AddIndex(current + 1);
+            geometry->AddIndex(next + 1);
+            geometry->AddIndex(next);
         }
     }
 
     // Compute Normals (Smooth)
-    for (auto& v : vertices) v.normal = glm::vec3(0.0f);
-    for (size_t i = 0; i < indices.size(); i += 3) {
-        const uint32_t i0 = indices[i];
-        const uint32_t i1 = indices[i + 1];
-        const uint32_t i2 = indices[i + 2];
+    for (size_t i = 0; i < geometry->VertexCount(); ++i) {
+        geometry->GetVertex(i).normal = glm::vec3(0.0f);
+    }
 
-        const glm::vec3 v0 = vertices[i0].pos;
-        const glm::vec3 v1 = vertices[i1].pos;
-        const glm::vec3 v2 = vertices[i2].pos;
+    for (size_t i = 0; i < geometry->IndexCount(); i += 3) {
+        const uint32_t i0 = geometry->GetIndex(i);
+        const uint32_t i1 = geometry->GetIndex(i + 1);
+        const uint32_t i2 = geometry->GetIndex(i + 2);
+
+        const glm::vec3 v0 = geometry->GetVertex(i0).pos;
+        const glm::vec3 v1 = geometry->GetVertex(i1).pos;
+        const glm::vec3 v2 = geometry->GetVertex(i2).pos;
 
         const glm::vec3 edge1 = v1 - v0;
         const glm::vec3 edge2 = v2 - v0;
         const glm::vec3 normal = glm::cross(edge1, edge2);
 
-        vertices[i0].normal += normal;
-        vertices[i1].normal += normal;
-        vertices[i2].normal += normal;
+        geometry->GetVertex(i0).normal += normal;
+        geometry->GetVertex(i1).normal += normal;
+        geometry->GetVertex(i2).normal += normal;
     }
-    for (auto& v : vertices) {
-        if (glm::length(v.normal) > 0.00001f)
-            v.normal = glm::normalize(v.normal);
+    for (size_t i = 0; i < geometry->VertexCount(); ++i) {
+        auto& v = geometry->GetVertex(i).normal;
+        if (glm::length(v) > 0.00001f)
+            v = glm::normalize(v);
         else
-            v.normal = glm::vec3(0, 1, 0);
+            v = glm::vec3(0, 1, 0);
     }
 
     geometry->CreateBuffers();
@@ -191,8 +198,8 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateTerrain(VkDevice device, VkPh
     float radius, int rings, int segments, float heightScale, float noiseFreq) {
 
     auto geometry = std::make_unique<Geometry>(device, physicalDevice);
-    std::vector<Vertex>& vertices = geometry->GetVertices();
-    std::vector<uint32_t>& indices = geometry->GetIndices();
+    geometry->ReserveVertices((rings + 1) * (segments + 1));
+    geometry->ReserveIndices(rings * segments * 6);
 
     for (int i = 0; i <= rings; ++i) {
         const float r = static_cast<float>(i) / rings * radius;
@@ -237,41 +244,42 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateTerrain(VkDevice device, VkPh
             uv *= textureTiling;
 
             const glm::vec3 normal = glm::vec3(0.0f, 1.0f, 0.0f);
-            vertices.push_back({ pos, color, uv, normal });
+            geometry->AddVertex({ pos, color, uv, normal });
         }
     }
 
     for (int i = 0; i < rings; ++i) {
         for (int j = 0; j < segments; ++j) {
-            uint32_t current = i * (segments + 1) + j;
-            uint32_t next = current + (segments + 1);
+            const uint32_t current = i * (segments + 1) + j;
+            const uint32_t next = current + (segments + 1);
 
-            indices.push_back(current);
-            indices.push_back(current + 1);
-            indices.push_back(next);
+            geometry->AddIndex(current);
+            geometry->AddIndex(current + 1);
+            geometry->AddIndex(next);
 
-            indices.push_back(current + 1);
-            indices.push_back(next + 1);
-            indices.push_back(next);
+            geometry->AddIndex(current + 1);
+            geometry->AddIndex(next + 1);
+            geometry->AddIndex(next);
         }
     }
 
-    for (auto& v : vertices) v.normal = glm::vec3(0.0f);
-    for (size_t i = 0; i < indices.size(); i += 3) {
-        const uint32_t i0 = indices[i];
-        const uint32_t i1 = indices[i + 1];
-        const uint32_t i2 = indices[i + 2];
-        const glm::vec3 v0 = vertices[i0].pos;
-        const glm::vec3 v1 = vertices[i1].pos;
-        const glm::vec3 v2 = vertices[i2].pos;
+    for (size_t i = 0; i < geometry->VertexCount(); ++i) geometry->GetVertex(i).normal = glm::vec3(0.0f);
+    for (size_t i = 0; i < geometry->IndexCount(); i += 3) {
+        const uint32_t i0 = geometry->GetIndex(i);
+        const uint32_t i1 = geometry->GetIndex(i + 1);
+        const uint32_t i2 = geometry->GetIndex(i + 2);
+        const glm::vec3 v0 = geometry->GetVertex(i0).pos;
+        const glm::vec3 v1 = geometry->GetVertex(i1).pos;
+        const glm::vec3 v2 = geometry->GetVertex(i2).pos;
         const glm::vec3 normal = glm::cross(v1 - v0, v2 - v0);
-        vertices[i0].normal += normal;
-        vertices[i1].normal += normal;
-        vertices[i2].normal += normal;
+        geometry->GetVertex(i0).normal += normal;
+        geometry->GetVertex(i1).normal += normal;
+        geometry->GetVertex(i2).normal += normal;
     }
-    for (auto& v : vertices) {
-        if (glm::length(v.normal) > 0.0001f) v.normal = glm::normalize(v.normal);
-        else v.normal = glm::vec3(0.0f, 1.0f, 0.0f);
+    for (size_t i = 0; i < geometry->VertexCount(); ++i) {
+        auto& n = geometry->GetVertex(i).normal;
+        if (glm::length(n) > 0.0001f) n = glm::normalize(n);
+        else n = glm::vec3(0.0f, 1.0f, 0.0f);
     }
 
     geometry->CreateBuffers();
@@ -280,14 +288,15 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateTerrain(VkDevice device, VkPh
 
 std::unique_ptr<Geometry> GeometryGenerator::CreateCube(VkDevice device, VkPhysicalDevice physicalDevice) {
     auto geometry = std::make_unique<Geometry>(device, physicalDevice);
-    std::vector<Vertex>& verts = geometry->GetVertices();
+    geometry->ReserveVertices(24);
+    geometry->ReserveIndices(36);
 
     // Helper to add face with specific normal
     auto AddFace = [&](glm::vec3 n, glm::vec3 p1, glm::vec3 p2, glm::vec3 p3, glm::vec3 p4, glm::vec2 uv1, glm::vec2 uv2, glm::vec2 uv3, glm::vec2 uv4) {
-        verts.push_back({ p1, glm::vec3(1.0f), uv1, n });
-        verts.push_back({ p2, glm::vec3(1.0f), uv2, n });
-        verts.push_back({ p3, glm::vec3(1.0f), uv3, n });
-        verts.push_back({ p4, glm::vec3(1.0f), uv4, n });
+        geometry->AddVertex({ p1, glm::vec3(1.0f), uv1, n });
+        geometry->AddVertex({ p2, glm::vec3(1.0f), uv2, n });
+        geometry->AddVertex({ p3, glm::vec3(1.0f), uv3, n });
+        geometry->AddVertex({ p4, glm::vec3(1.0f), uv4, n });
         };
 
     // Front Face (+Z)
@@ -320,14 +329,14 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateCube(VkDevice device, VkPhysi
         glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec3(-0.5f, -0.5f, 0.5f), glm::vec3(-0.5f, 0.5f, 0.5f), glm::vec3(-0.5f, 0.5f, -0.5f),
         { 0, 1 }, { 1, 1 }, { 1, 0 }, { 0, 0 });
 
-    geometry->GetIndices() = {
+    geometry->SetIndices({
         0, 1, 2, 2, 3, 0,       // Front
         4, 5, 6, 6, 7, 4,       // Back
         8, 9, 10, 10, 11, 8,    // Top
         12, 13, 14, 14, 15, 12, // Bottom
         16, 17, 18, 18, 19, 16, // Right
         20, 21, 22, 22, 23, 20  // Left
-    };
+        });
 
     geometry->CreateBuffers();
     return geometry;
@@ -340,6 +349,9 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateGrid(VkDevice device, VkPhysi
     const float startX = -width / 2.0f;
     const float startY = -height / 2.0f;
 
+    geometry->ReserveVertices((rows + 1) * (cols + 1));
+    geometry->ReserveIndices(rows * cols * 6);
+
     for (int row = 0; row <= rows; ++row) {
         for (int col = 0; col <= cols; ++col) {
             const float x = startX + col * cellSize;
@@ -347,7 +359,7 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateGrid(VkDevice device, VkPhysi
             glm::vec3 color = GenerateColor(row * (cols + 1) + col, (rows + 1) * (cols + 1));
             glm::vec2 uv = glm::vec2(static_cast<float>(col) / cols, static_cast<float>(row) / rows);
             // Grid in XZ plane, Normal is +Y
-            geometry->GetVertices().push_back({ glm::vec3(x, 0.0f, y), color, uv, glm::vec3(0.0f, 1.0f, 0.0f) });
+            geometry->AddVertex({ glm::vec3(x, 0.0f, y), color, uv, glm::vec3(0.0f, 1.0f, 0.0f) });
         }
     }
     for (int row = 0; row < rows; ++row) {
@@ -356,12 +368,12 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateGrid(VkDevice device, VkPhysi
             const uint32_t topRight = topLeft + 1;
             const uint32_t bottomLeft = (row + 1) * (cols + 1) + col;
             const uint32_t bottomRight = bottomLeft + 1;
-            geometry->GetIndices().push_back(topLeft);
-            geometry->GetIndices().push_back(bottomLeft);
-            geometry->GetIndices().push_back(topRight);
-            geometry->GetIndices().push_back(topRight);
-            geometry->GetIndices().push_back(bottomLeft);
-            geometry->GetIndices().push_back(bottomRight);
+            geometry->AddIndex(topLeft);
+            geometry->AddIndex(bottomLeft);
+            geometry->AddIndex(topRight);
+            geometry->AddIndex(topRight);
+            geometry->AddIndex(bottomLeft);
+            geometry->AddIndex(bottomRight);
         }
     }
     geometry->CreateBuffers();
@@ -372,6 +384,9 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateSphere(VkDevice device, VkPhy
     if (stacks < 2) stacks = 2;
     if (slices < 3) slices = 3;
     auto geometry = std::make_unique<Geometry>(device, physicalDevice);
+
+    geometry->ReserveVertices((stacks + 1) * (slices + 1));
+    geometry->ReserveIndices(stacks * slices * 6);
 
     for (int i = 0; i <= stacks; ++i) {
         const float phi = static_cast<float>(PI) * i / stacks;
@@ -388,7 +403,7 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateSphere(VkDevice device, VkPhy
             glm::vec3 color = GenerateColor(i * (slices + 1) + j, (stacks + 1) * (slices + 1));
             glm::vec2 uv = glm::vec2(static_cast<float>(j) / slices, 1.0f - static_cast<float>(i) / stacks);
 
-            geometry->GetVertices().push_back({ pos, color, uv, normal });
+            geometry->AddVertex({ pos, color, uv, normal });
         }
     }
 

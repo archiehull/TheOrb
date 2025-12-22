@@ -1,59 +1,29 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
-<c>OPT-14
-<b>Returned value from function 'GetPosition' is passed by value
+<c>CODSTA-CPP-06
+<b>Member function 'GetPosition' returns handles to member data: 'position'
 <l>40
-<k>15
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
-<c>OPT-14
-<b>Returned value from function 'GetFront' is passed by value
-<l>41
-<k>15
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
-<c>OPT-14
-<b>Returned value from function 'GetUp' is passed by value
-<l>42
-<k>15
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
-<c>CODSTA-45
-<b>The parameter 'fov' hides a member variable declared in class 'Camera'
-<l>45
-<k>23
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
-<c>CODSTA-45
-<b>The parameter 'nearPlane' hides a member variable declared in class 'Camera'
-<l>46
-<k>27
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
-<c>CODSTA-45
-<b>The parameter 'farPlane' hides a member variable declared in class 'Camera'
-<l>46
 <k>44
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetFront' returns handles to member data: 'front'
+<l>41
+<k>41
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetUp' returns handles to member data: 'up'
+<l>42
+<k>38
 <s>false
 <N>
 <f>

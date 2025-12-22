@@ -36,10 +36,10 @@ public:
     void RotateYaw(float delta);
     void RotatePitch(float delta);
 
-    // Getters (return const references to avoid unnecessary copies)
-    const glm::vec3& GetPosition() const { return position; }
-    const glm::vec3& GetFront() const { return front; }
-    const glm::vec3& GetUp() const { return up; }
+    // Getters (return by value to avoid exposing internal handles)
+    glm::vec3 GetPosition() const { return position; }
+    glm::vec3 GetFront() const { return front; }
+    glm::vec3 GetUp() const { return up; }
 
     // Camera settings
     void SetFOV(float newFov) { fov = newFov; }

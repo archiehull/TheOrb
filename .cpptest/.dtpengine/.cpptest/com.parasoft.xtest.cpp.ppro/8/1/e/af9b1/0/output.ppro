@@ -134509,35 +134509,17 @@ H 85 C:\Users\a\Desktop\TheOrb\src\rendering\Cubemap.h
 K o
 I VK_NULL_HANDLE
 F 85
-L 29
-S 29
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 85
-L 30
-S 30
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 85
-L 31
-S 31
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 85
 L 32
 S 32
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 85
+L 33
+S 33
 f 4
 l 43
 EOR
@@ -134563,8 +134545,26 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 85
-L 36
-S 36
+L 37
+S 37
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 85
+L 38
+S 38
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 85
+L 39
+S 39
 f 4
 l 43
 EOR
@@ -176404,10 +176404,28 @@ H 121 C:\Users\a\Desktop\TheOrb\src\rendering\Cubemap.cpp
 K o
 I VK_TRUE
 F 121
-L 86
-S 86
+L 82
+S 82
 f 4
 l 135
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 121
+L 147
+S 147
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 121
+L 149
+S 149
+f 4
+l 43
 EOR
 
 K o
@@ -176496,24 +176514,6 @@ I VK_NULL_HANDLE
 F 121
 L 169
 S 169
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 121
-L 171
-S 171
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 121
-L 173
-S 173
 f 4
 l 43
 EOR

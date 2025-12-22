@@ -158801,8 +158801,8 @@ H 117 C:\Users\a\Desktop\TheOrb\src\vulkan\Vertex.h
 K f
 I offsetof
 F 117
-L 23
-S 23
+L 29
+S 29
 f 3
 l 47
 EOR
@@ -158810,8 +158810,8 @@ EOR
 K f
 I offsetof
 F 117
-L 24
-S 24
+L 30
+S 30
 f 3
 l 47
 EOR
@@ -158819,8 +158819,8 @@ EOR
 K f
 I offsetof
 F 117
-L 25
-S 25
+L 31
+S 31
 f 3
 l 47
 EOR
@@ -158828,8 +158828,8 @@ EOR
 K f
 I offsetof
 F 117
-L 26
-S 26
+L 32
+S 32
 f 3
 l 47
 EOR

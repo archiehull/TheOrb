@@ -10,15 +10,21 @@ struct QueueFamilyIndices {
     std::optional<uint32_t> graphicsFamily;
     std::optional<uint32_t> presentFamily;
 
-    bool isComplete() {
+    bool isComplete() const {
         return graphicsFamily.has_value() && presentFamily.has_value();
     }
 };
 
-class VulkanDevice {
+class VulkanDevice final {
 public:
     VulkanDevice(VkInstance instance, VkSurfaceKHR surface);
     ~VulkanDevice();
+
+    VulkanDevice(const VulkanDevice&) = delete;
+    VulkanDevice& operator=(const VulkanDevice&) = delete;
+
+    VulkanDevice(VulkanDevice&&) = default;
+    VulkanDevice& operator=(VulkanDevice&&) = default;
 
     void PickPhysicalDevice();
     void CreateLogicalDevice();

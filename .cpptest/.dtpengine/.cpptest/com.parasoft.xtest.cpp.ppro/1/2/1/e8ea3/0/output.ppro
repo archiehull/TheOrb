@@ -135823,8 +135823,8 @@ H 85 C:\Users\a\Desktop\TheOrb\src\core\Window.cpp
 K o
 I GLFW_CLIENT_API
 F 85
-L 18
-S 18
+L 51
+S 51
 f 16
 l 1031
 EOR
@@ -135832,8 +135832,8 @@ EOR
 K o
 I GLFW_NO_API
 F 85
-L 18
-S 18
+L 51
+S 51
 f 16
 l 1140
 EOR
@@ -135841,8 +135841,8 @@ EOR
 K o
 I GLFW_RESIZABLE
 F 85
-L 19
-S 19
+L 52
+S 52
 f 16
 l 870
 EOR
@@ -135850,8 +135850,8 @@ EOR
 K o
 I GLFW_TRUE
 F 85
-L 19
-S 19
+L 52
+S 52
 f 16
 l 312
 EOR

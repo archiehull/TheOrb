@@ -145647,35 +145647,17 @@ H 92 C:\Users\a\Desktop\TheOrb\src\rendering\Cubemap.h
 K o
 I VK_NULL_HANDLE
 F 92
-L 29
-S 29
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 92
-L 30
-S 30
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 92
-L 31
-S 31
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 92
 L 32
 S 32
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 92
+L 33
+S 33
 f 4
 l 43
 EOR
@@ -145701,8 +145683,26 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 92
-L 36
-S 36
+L 37
+S 37
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 92
+L 38
+S 38
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 92
+L 39
+S 39
 f 4
 l 43
 EOR
@@ -192670,8 +192670,8 @@ H 145 C:\Users\a\Desktop\TheOrb\src\vulkan\Vertex.h
 K f
 I offsetof
 F 145
-L 23
-S 23
+L 29
+S 29
 f 3
 l 47
 EOR
@@ -192679,8 +192679,8 @@ EOR
 K f
 I offsetof
 F 145
-L 24
-S 24
+L 30
+S 30
 f 3
 l 47
 EOR
@@ -192688,8 +192688,8 @@ EOR
 K f
 I offsetof
 F 145
-L 25
-S 25
+L 31
+S 31
 f 3
 l 47
 EOR
@@ -192697,8 +192697,8 @@ EOR
 K f
 I offsetof
 F 145
-L 26
-S 26
+L 32
+S 32
 f 3
 l 47
 EOR
@@ -192728,8 +192728,8 @@ H 147 C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
 K o
 I VK_NULL_HANDLE
 F 147
-L 69
-S 69
+L 78
+S 78
 f 4
 l 43
 EOR
@@ -192737,8 +192737,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 147
-L 70
-S 70
+L 79
+S 79
 f 4
 l 43
 EOR
@@ -192779,8 +192779,8 @@ H 150 C:\Users\a\Desktop\TheOrb\src\rendering\Texture.h
 K o
 I VK_NULL_HANDLE
 F 150
-L 27
-S 27
+L 36
+S 36
 f 4
 l 43
 EOR
@@ -192788,8 +192788,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 150
-L 28
-S 28
+L 37
+S 37
 f 4
 l 43
 EOR
@@ -192797,8 +192797,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 150
-L 29
-S 29
+L 38
+S 38
 f 4
 l 43
 EOR
@@ -192806,8 +192806,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 150
-L 30
-S 30
+L 39
+S 39
 f 4
 l 43
 EOR
@@ -192817,8 +192817,8 @@ H 151 C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
 K o
 I VK_NULL_HANDLE
 F 151
-L 103
-S 103
+L 113
+S 113
 f 4
 l 43
 EOR
@@ -192826,8 +192826,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 151
-L 104
-S 104
+L 114
+S 114
 f 4
 l 43
 EOR
@@ -192835,8 +192835,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 151
-L 106
-S 106
+L 115
+S 115
 f 4
 l 43
 EOR
@@ -192846,8 +192846,8 @@ H 152 C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
 K o
 I VK_NULL_HANDLE
 F 152
-L 148
-S 148
+L 153
+S 153
 f 4
 l 43
 EOR
@@ -192855,8 +192855,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 152
-L 149
-S 149
+L 154
+S 154
 f 4
 l 43
 EOR
@@ -192864,8 +192864,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 152
-L 152
-S 152
+L 157
+S 157
 f 4
 l 43
 EOR
@@ -193060,8 +193060,8 @@ H 160 C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
 K o
 I VK_NULL_HANDLE
 F 160
-L 35
-S 35
+L 39
+S 39
 f 4
 l 43
 EOR
@@ -193069,26 +193069,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 160
-L 36
-S 36
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 160
-L 37
-S 37
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 160
-L 38
-S 38
+L 40
+S 40
 f 4
 l 43
 EOR
@@ -193107,6 +193089,24 @@ I VK_NULL_HANDLE
 F 160
 L 42
 S 42
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 160
+L 45
+S 45
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 160
+L 46
+S 46
 f 4
 l 43
 EOR
@@ -195174,44 +195174,17 @@ H 164 C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
 K o
 I VK_NULL_HANDLE
 F 164
-L 62
-S 62
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 164
-L 63
-S 63
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 164
-L 64
-S 64
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 164
-L 65
-S 65
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 164
 L 66
 S 66
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 164
+L 67
+S 67
 f 4
 l 43
 EOR
@@ -195273,8 +195246,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 164
-L 82
-S 82
+L 76
+S 76
 f 4
 l 43
 EOR
@@ -195282,8 +195255,26 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 164
-L 83
-S 83
+L 77
+S 77
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 164
+L 78
+S 78
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 164
+L 86
+S 86
 f 4
 l 43
 EOR
@@ -195293,6 +195284,15 @@ I VK_NULL_HANDLE
 F 164
 L 87
 S 87
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 164
+L 91
+S 91
 f 4
 l 43
 EOR
@@ -197763,8 +197763,8 @@ H 176 C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.cpp
 K o
 I VK_TRUE
 F 176
-L 90
-S 90
+L 89
+S 89
 f 4
 l 135
 EOR
@@ -197774,8 +197774,8 @@ H 177 C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.
 K o
 I UINT64_MAX
 F 176
-L 90
-S 90
+L 89
+S 89
 f 177
 l 60
 EOR
@@ -197783,8 +197783,8 @@ EOR
 K o
 I UINT64_MAX
 F 176
-L 97
-S 97
+L 96
+S 96
 f 177
 l 60
 EOR
@@ -197792,8 +197792,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 176
-L 99
-S 99
+L 98
+S 98
 f 4
 l 43
 EOR
@@ -197801,8 +197801,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 176
-L 112
-S 112
+L 111
+S 111
 f 4
 l 43
 EOR
@@ -197810,8 +197810,8 @@ EOR
 K o
 I VK_TRUE
 F 176
-L 113
-S 113
+L 112
+S 112
 f 4
 l 135
 EOR
@@ -197819,10 +197819,19 @@ EOR
 K o
 I UINT64_MAX
 F 176
-L 113
-S 113
+L 112
+S 112
 f 177
 l 60
+EOR
+
+K o
+I VK_QUEUE_FAMILY_IGNORED
+F 176
+L 500
+S 500
+f 4
+l 131
 EOR
 
 K o
@@ -197835,21 +197844,21 @@ l 131
 EOR
 
 K o
-I VK_QUEUE_FAMILY_IGNORED
+I MAX_LIGHTS
 F 176
-L 502
-S 502
-f 4
-l 131
+L 685
+S 685
+f 149
+l 5
 EOR
 
 K o
-I MAX_LIGHTS
+I VK_QUEUE_FAMILY_IGNORED
 F 176
-L 686
-S 686
-f 149
-l 5
+L 776
+S 776
+f 4
+l 131
 EOR
 
 K o
@@ -197864,8 +197873,8 @@ EOR
 K o
 I VK_QUEUE_FAMILY_IGNORED
 F 176
-L 778
-S 778
+L 792
+S 792
 f 4
 l 131
 EOR
@@ -197880,19 +197889,10 @@ l 131
 EOR
 
 K o
-I VK_QUEUE_FAMILY_IGNORED
-F 176
-L 794
-S 794
-f 4
-l 131
-EOR
-
-K o
 I VK_NULL_HANDLE
 F 176
-L 859
-S 859
+L 858
+S 858
 f 4
 l 43
 EOR
@@ -197900,8 +197900,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 176
-L 867
-S 867
+L 866
+S 866
 f 4
 l 43
 EOR
@@ -197909,8 +197909,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 176
-L 869
-S 869
+L 868
+S 868
 f 4
 l 43
 EOR
@@ -197918,8 +197918,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 176
-L 871
-S 871
+L 870
+S 870
 f 4
 l 43
 EOR
@@ -197927,8 +197927,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 176
-L 874
-S 874
+L 873
+S 873
 f 4
 l 43
 EOR
@@ -197936,8 +197936,17 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 176
-L 876
-S 876
+L 875
+S 875
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 176
+L 924
+S 924
 f 4
 l 43
 EOR
@@ -197963,8 +197972,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 176
-L 927
-S 927
+L 928
+S 928
 f 4
 l 43
 EOR
@@ -197990,8 +197999,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 176
-L 931
-S 931
+L 932
+S 932
 f 4
 l 43
 EOR
@@ -198028,15 +198037,6 @@ I VK_NULL_HANDLE
 F 176
 L 936
 S 936
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 176
-L 937
-S 937
 f 4
 l 43
 EOR

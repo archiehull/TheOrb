@@ -3,10 +3,16 @@
 #include <vulkan/vulkan.h>
 #include "VulkanUtils.h"
 
-class VulkanBuffer {
+class VulkanBuffer final {
 public:
     VulkanBuffer(VkDevice device, VkPhysicalDevice physicalDevice);
     ~VulkanBuffer();
+
+    VulkanBuffer(const VulkanBuffer&) = delete;
+    VulkanBuffer& operator=(const VulkanBuffer&) = delete;
+
+    VulkanBuffer(VulkanBuffer&&) = default;
+    VulkanBuffer& operator=(VulkanBuffer&&) = default;
 
     void CreateBuffer(VkDeviceSize size, VkBufferUsageFlags usage,
         VkMemoryPropertyFlags properties);
@@ -23,5 +29,4 @@ private:
     VkPhysicalDevice physicalDevice;
     VkBuffer buffer = VK_NULL_HANDLE;
     VkDeviceMemory bufferMemory = VK_NULL_HANDLE;
-
 };

@@ -1,9 +1,9 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.cpp
-<c>STL-37-DOWNGRADED
-<b>The 'shaderStages' array should not be used
-<l>37
-<k>37
+<c>OPT-20
+<b>Postpone definition of 'shaderStages'
+<l>52
+<k>52
 <s>false
 <N>
 <f>
@@ -40,110 +40,10 @@
 <L>0
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
-<c>CODSTA-MCPP-23
-<b>Class 'GraphicsPipeline' should be final
-<l>52
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.cpp
-<c>CODSTA-45
-<b>The parameter 'device' hides a member variable declared in class 'GraphicsPipeline'
-<l>6
-<k>45
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.cpp
-<c>CODSTA-45
-<b>The parameter 'config' hides a member variable declared in class 'GraphicsPipeline'
-<l>6
-<k>83
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.cpp
-<c>EXCEPT-01
-<b>Destructor '~GraphicsPipeline' should not call function 'Cleanup' that is not in try context
-<l>12
-<k>5
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.cpp
-<c>INIT-14
-<b>Assignment in constructor 'GraphicsPipeline' found. Use constructor initialization list instead
-<l>8
-<k>5
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
-<c>MRM-40_d
-<b>Class GraphicsPipeline has a non-trivial destructor, but no copy constructor nor copy assignment operator
-<l>52
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
-<c>MRM-49
-<b>Class 'GraphicsPipeline' shall declare a copy assignment operator
-<l>52
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
-<c>MRM-49
-<b>Class 'GraphicsPipeline' shall declare a copy constructor
-<l>52
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
 <c>OPT-13
 <b>Members 'config, dynamicStates, shader' of class 'GraphicsPipeline' are declared in suboptimal order for memory layout
 <l>52
 <k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\Vertex.h
-<c>OPT-33
-<b>Returned value from function 'getBindingDescription' is passed by value
-<l>13
-<k>44
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\Vertex.h
-<c>OPT-33
-<b>Returned value from function 'getAttributeDescriptions' is passed by value
-<l>21
-<k>61
 <s>false
 <N>
 <f>

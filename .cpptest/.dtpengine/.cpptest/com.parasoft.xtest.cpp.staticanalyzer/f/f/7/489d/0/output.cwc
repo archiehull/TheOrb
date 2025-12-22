@@ -60,19 +60,9 @@
 <L>0
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
-<c>CODSTA-MCPP-23
-<b>Class 'GeometryGenerator' should be final
-<l>7
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
 <c>OPT-33
 <b>Returned value from function 'CreateCube' is passed by value
-<l>9
+<l>18
 <k>38
 <s>false
 <N>
@@ -82,36 +72,6 @@
 <F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
 <c>OPT-33
 <b>Returned value from function 'CreateGrid' is passed by value
-<l>10
-<k>38
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
-<c>OPT-33
-<b>Returned value from function 'CreateSphere' is passed by value
-<l>12
-<k>38
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
-<c>OPT-33
-<b>Returned value from function 'CreateTerrain' is passed by value
-<l>15
-<k>38
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
-<c>OPT-33
-<b>Returned value from function 'CreateBowl' is passed by value
 <l>19
 <k>38
 <s>false
@@ -121,8 +81,38 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
 <c>OPT-33
+<b>Returned value from function 'CreateSphere' is passed by value
+<l>21
+<k>38
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>OPT-33
+<b>Returned value from function 'CreateTerrain' is passed by value
+<l>24
+<k>38
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>OPT-33
+<b>Returned value from function 'CreateBowl' is passed by value
+<l>28
+<k>38
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>OPT-33
 <b>Returned value from function 'CreatePedestal' is passed by value
-<l>22
+<l>31
 <k>38
 <s>false
 <N>
@@ -284,26 +274,6 @@
 <b>Member function 'GetIndices' returns handles to member data: 'indices'
 <l>23
 <k>55
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\Vertex.h
-<c>OPT-33
-<b>Returned value from function 'getBindingDescription' is passed by value
-<l>13
-<k>44
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\Vertex.h
-<c>OPT-33
-<b>Returned value from function 'getAttributeDescriptions' is passed by value
-<l>21
-<k>61
 <s>false
 <N>
 <f>

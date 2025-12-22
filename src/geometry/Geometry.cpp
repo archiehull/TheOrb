@@ -38,8 +38,8 @@ void Geometry::CreateBuffers() {
 }
 
 void Geometry::Bind(VkCommandBuffer commandBuffer) const {
-    VkBuffer vb = vertexBuffer->GetBuffer();
-    VkDeviceSize offset = 0;
+    const VkBuffer vb = vertexBuffer->GetBuffer();
+    const VkDeviceSize offset = 0;
     vkCmdBindVertexBuffers(commandBuffer, 0, 1, &vb, &offset);
 
     if (HasIndices()) {

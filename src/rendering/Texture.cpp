@@ -1,5 +1,6 @@
 #include "Texture.h"
 #include "../vulkan/VulkanBuffer.h"
+#include "../vulkan/VulkanUtils.h"
 #include <stdexcept>
 #include <vector>
 #include <algorithm>
@@ -168,20 +169,5 @@ bool Texture::LoadFromFile(const std::string& filepath) {
 }
 
 void Texture::Cleanup() {
-    if (sampler != VK_NULL_HANDLE) {
-        vkDestroySampler(device, sampler, nullptr);
-        sampler = VK_NULL_HANDLE;
-    }
-    if (imageView != VK_NULL_HANDLE) {
-        vkDestroyImageView(device, imageView, nullptr);
-        imageView = VK_NULL_HANDLE;
-    }
-    if (image != VK_NULL_HANDLE) {
-        vkDestroyImage(device, image, nullptr);
-        image = VK_NULL_HANDLE;
-    }
-    if (imageMemory != VK_NULL_HANDLE) {
-        vkFreeMemory(device, imageMemory, nullptr);
-        imageMemory = VK_NULL_HANDLE;
-    }
+    VulkanUtils::CleanupImageResources(device, image, imageMemory, imageView, sampler);
 }
