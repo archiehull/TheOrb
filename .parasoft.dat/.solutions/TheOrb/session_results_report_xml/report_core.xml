@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<ResultsSession buildId="Default Project-2025-12-22" date="12/22/25 23:19:33" endTime="1970-01-01T00:00:00+00:00" machine="DESKTOP-GBA7TGV" project="Default Project" tag="700120 rule set 2024" time="2025-12-22T23:19:33+00:00" toolName="C++test" toolVer="2025.1.0.20250523B2782" user="a">
+<ResultsSession buildId="Default Project-2025-12-23" date="12/23/25 11:55:05" endTime="1970-01-01T00:00:00+00:00" machine="DESKTOP-GBA7TGV" project="Default Project" tag="700120 rule set 2024" time="2025-12-23T11:55:05+00:00" toolName="C++test" toolVer="2025.1.0.20250523B2782" user="a">
    <TestParameters cmdLn="C++test: -config c++test.user://700120 rule set 2024 "/>
    <TestConfig machine="DESKTOP-GBA7TGV" name="700120 rule set 2024" pseudoUrl="c++test.user://700120 rule set 2024" user="a"/>
    <Authors>
@@ -23,7 +23,7 @@
          <ScopeProjectInfo fltFiles="56" fltLns="6747" project="TheOrb/TheOrb" totFiles="56" totLns="6747"/>
       </ProjectInformations>
    </Scope>
-   <CodingStandards ownerId="com.parasoft.xtest.checkers.api.standards" time="0:00:45">
+   <CodingStandards ownerId="com.parasoft.xtest.checkers.api.standards" time="0:00:22">
       <Projects>
          <Project bdCheckedFiles="0" bdTotalFiles="0" checkedFiles="56" checkedLns="6747" name="TheOrb" qfixErrs="0" suppErrs="0" totErrs="200" totFiles="56" totLns="6747"/>
       </Projects>

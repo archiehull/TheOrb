@@ -6,7 +6,7 @@
 class VulkanSyncObjects {
 public:
     VulkanSyncObjects(VkDevice device, uint32_t maxFramesInFlight);
-    ~VulkanSyncObjects();
+    ~VulkanSyncObjects() = default;
 
     // Create sync objects:
     // - imageAvailableSemaphores: one per frame-in-flight (index by currentFrame)

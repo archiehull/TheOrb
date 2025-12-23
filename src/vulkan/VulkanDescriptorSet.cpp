@@ -2,11 +2,8 @@
 #include <stdexcept>
 #include <array>
 
-VulkanDescriptorSet::VulkanDescriptorSet(VkDevice device)
-    : device(device) {
-}
-
-VulkanDescriptorSet::~VulkanDescriptorSet() {
+VulkanDescriptorSet::VulkanDescriptorSet(VkDevice deviceArg)
+    : device(deviceArg) {
 }
 
 void VulkanDescriptorSet::CreateDescriptorSetLayout() {

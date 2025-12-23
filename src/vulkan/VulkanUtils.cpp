@@ -31,7 +31,7 @@ namespace VulkanUtils {
         std::vector<VkLayerProperties> availableLayers(layerCount);
         vkEnumerateInstanceLayerProperties(&layerCount, availableLayers.data());
 
-        for (const char* layerName : validationLayers) {
+        for (const char* const layerName : validationLayers) {
             bool layerFound = false;
             for (const auto& layerProperties : availableLayers) {
                 if (strcmp(layerName, layerProperties.layerName) == 0) {
@@ -44,16 +44,19 @@ namespace VulkanUtils {
         return true;
     }
 
-    std::vector<const char*> GetRequiredExtensions() {
+    void GetRequiredExtensions(std::vector<const char*>& extensions) {
         uint32_t glfwExtensionCount = 0;
         const char** glfwExtensions;
         glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
-        std::vector<const char*> extensions(glfwExtensions, glfwExtensions + glfwExtensionCount);
-        if (enableValidationLayers) extensions.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
-        return extensions;
+
+        extensions.assign(glfwExtensions, glfwExtensions + glfwExtensionCount);
+
+        if (enableValidationLayers) {
+            extensions.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
+        }
     }
 
-    VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, void* pUserData) {
+    VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity, VkDebugUtilsMessageTypeFlagsEXT messageType, const VkDebugUtilsMessengerCallbackDataEXT* pCallbackData, void* const pUserData) {
         std::cerr << "\nvalidation layer: " << pCallbackData->pMessage << std::endl;
         return VK_FALSE;
     }
@@ -178,8 +181,9 @@ namespace VulkanUtils {
     }
 
     void TransitionImageLayout(VkDevice device, VkCommandPool commandPool, VkQueue graphicsQueue,
-        VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout, uint32_t layerCount) {
-        VkCommandBuffer commandBuffer = BeginSingleTimeCommands(device, commandPool);
+        VkImage image, VkFormat /*format*/, VkImageLayout oldLayout, VkImageLayout newLayout, uint32_t layerCount) {
+
+        const VkCommandBuffer commandBuffer = BeginSingleTimeCommands(device, commandPool);
 
         VkImageMemoryBarrier barrier{};
         barrier.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
@@ -221,7 +225,7 @@ namespace VulkanUtils {
     }
 
     void CopyBufferToImage(VkDevice device, VkCommandPool commandPool, VkQueue graphicsQueue, VkBuffer buffer, VkImage image, uint32_t width, uint32_t height) {
-        VkCommandBuffer commandBuffer = BeginSingleTimeCommands(device, commandPool);
+        const VkCommandBuffer commandBuffer = BeginSingleTimeCommands(device, commandPool);
 
         VkBufferImageCopy region{};
         region.bufferOffset = 0;

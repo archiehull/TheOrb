@@ -5,8 +5,8 @@
 
 class VulkanContext {
 public:
-    VulkanContext();
-    ~VulkanContext();
+    VulkanContext() = default;
+    ~VulkanContext() = default;
 
     void CreateInstance();
     void SetupDebugMessenger();

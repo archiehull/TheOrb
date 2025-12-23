@@ -1,11 +1,8 @@
 #include "VulkanSyncObjects.h"
 #include <stdexcept>
 
-VulkanSyncObjects::VulkanSyncObjects(VkDevice device, uint32_t maxFramesInFlight)
-    : device(device), maxFramesInFlight(maxFramesInFlight) {
-}
-
-VulkanSyncObjects::~VulkanSyncObjects() {
+VulkanSyncObjects::VulkanSyncObjects(VkDevice deviceArg, uint32_t maxFramesInFlightArg)
+    : device(deviceArg), maxFramesInFlight(maxFramesInFlightArg) {
 }
 
 void VulkanSyncObjects::CreateSyncObjects(uint32_t swapChainImageCount) {
@@ -50,21 +47,21 @@ void VulkanSyncObjects::CreateSyncObjects(uint32_t swapChainImageCount) {
 }
 
 void VulkanSyncObjects::Cleanup() {
-    for (auto semaphore : imageAvailableSemaphores) {
+    for (const auto semaphore : imageAvailableSemaphores) {
         if (semaphore != VK_NULL_HANDLE) {
             vkDestroySemaphore(device, semaphore, nullptr);
         }
     }
     imageAvailableSemaphores.clear();
 
-    for (auto semaphore : renderFinishedSemaphores) {
+    for (const auto semaphore : renderFinishedSemaphores) {
         if (semaphore != VK_NULL_HANDLE) {
             vkDestroySemaphore(device, semaphore, nullptr);
         }
     }
     renderFinishedSemaphores.clear();
 
-    for (auto fence : inFlightFences) {
+    for (const auto fence : inFlightFences) {
         if (fence != VK_NULL_HANDLE) {
             vkDestroyFence(device, fence, nullptr);
         }

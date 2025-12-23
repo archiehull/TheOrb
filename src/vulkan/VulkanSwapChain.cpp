@@ -3,25 +3,23 @@
 #include <stdexcept>
 #include <algorithm>
 #include <limits>
+#include <array>
 
-VulkanSwapChain::VulkanSwapChain(VkDevice device, VkPhysicalDevice physicalDevice, VkSurfaceKHR surface, GLFWwindow* window)
-    : device(device),
-    physicalDevice(physicalDevice),
-    surface(surface),
-    window(window),
+VulkanSwapChain::VulkanSwapChain(VkDevice deviceArg, VkPhysicalDevice physicalDeviceArg, VkSurfaceKHR surfaceArg, GLFWwindow* windowArg)
+    : device(deviceArg),
+    physicalDevice(physicalDeviceArg),
+    surface(surfaceArg),
+    window(windowArg),
     swapChainImageFormat(VK_FORMAT_UNDEFINED),
     swapChainExtent{ 0, 0 } {
 }
 
-VulkanSwapChain::~VulkanSwapChain() {
-}
-
 void VulkanSwapChain::Create(const QueueFamilyIndices& indices) {
-    SwapChainSupportDetails swapChainSupport = QuerySwapChainSupport(physicalDevice, surface);
+    const SwapChainSupportDetails swapChainSupport = QuerySwapChainSupport(physicalDevice, surface);
 
-    VkSurfaceFormatKHR surfaceFormat = chooseSwapSurfaceFormat(swapChainSupport.formats);
-    VkPresentModeKHR presentMode = chooseSwapPresentMode(swapChainSupport.presentModes);
-    VkExtent2D extent = chooseSwapExtent(swapChainSupport.capabilities);
+    const VkSurfaceFormatKHR surfaceFormat = chooseSwapSurfaceFormat(swapChainSupport.formats);
+    const VkPresentModeKHR presentMode = chooseSwapPresentMode(swapChainSupport.presentModes);
+    const VkExtent2D extent = chooseSwapExtent(swapChainSupport.capabilities);
 
     uint32_t imageCount = swapChainSupport.capabilities.minImageCount + 1;
     if (swapChainSupport.capabilities.maxImageCount > 0 && imageCount > swapChainSupport.capabilities.maxImageCount) {
@@ -39,12 +37,14 @@ void VulkanSwapChain::Create(const QueueFamilyIndices& indices) {
     // Add TRANSFER_DST_BIT to allow copying to swap chain images
     createInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT;
 
-    uint32_t queueFamilyIndices[] = { indices.graphicsFamily.value(), indices.presentFamily.value() };
+    // Use vector to manage lifetime and avoid raw array usage
+    std::vector<uint32_t> queueFamilyIndices;
 
     if (indices.graphicsFamily != indices.presentFamily) {
+        queueFamilyIndices = { indices.graphicsFamily.value(), indices.presentFamily.value() };
         createInfo.imageSharingMode = VK_SHARING_MODE_CONCURRENT;
-        createInfo.queueFamilyIndexCount = 2;
-        createInfo.pQueueFamilyIndices = queueFamilyIndices;
+        createInfo.queueFamilyIndexCount = static_cast<uint32_t>(queueFamilyIndices.size());
+        createInfo.pQueueFamilyIndices = queueFamilyIndices.data();
     }
     else {
         createInfo.imageSharingMode = VK_SHARING_MODE_EXCLUSIVE;
@@ -95,7 +95,7 @@ void VulkanSwapChain::CreateImageViews() {
 }
 
 void VulkanSwapChain::Cleanup() {
-    for (auto imageView : swapChainImageViews) {
+    for (const auto imageView : swapChainImageViews) {
         vkDestroyImageView(device, imageView, nullptr);
     }
     swapChainImageViews.clear();
@@ -106,31 +106,31 @@ void VulkanSwapChain::Cleanup() {
     }
 }
 
-SwapChainSupportDetails VulkanSwapChain::QuerySwapChainSupport(VkPhysicalDevice device, VkSurfaceKHR surface) {
+SwapChainSupportDetails VulkanSwapChain::QuerySwapChainSupport(VkPhysicalDevice physicalDeviceArg, VkSurfaceKHR surfaceArg) {
     SwapChainSupportDetails details;
 
-    vkGetPhysicalDeviceSurfaceCapabilitiesKHR(device, surface, &details.capabilities);
+    vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDeviceArg, surfaceArg, &details.capabilities);
 
     uint32_t formatCount;
-    vkGetPhysicalDeviceSurfaceFormatsKHR(device, surface, &formatCount, nullptr);
+    vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDeviceArg, surfaceArg, &formatCount, nullptr);
 
     if (formatCount != 0) {
         details.formats.resize(formatCount);
-        vkGetPhysicalDeviceSurfaceFormatsKHR(device, surface, &formatCount, details.formats.data());
+        vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDeviceArg, surfaceArg, &formatCount, details.formats.data());
     }
 
     uint32_t presentModeCount;
-    vkGetPhysicalDeviceSurfacePresentModesKHR(device, surface, &presentModeCount, nullptr);
+    vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDeviceArg, surfaceArg, &presentModeCount, nullptr);
 
     if (presentModeCount != 0) {
         details.presentModes.resize(presentModeCount);
-        vkGetPhysicalDeviceSurfacePresentModesKHR(device, surface, &presentModeCount, details.presentModes.data());
+        vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDeviceArg, surfaceArg, &presentModeCount, details.presentModes.data());
     }
 
     return details;
 }
 
-VkSurfaceFormatKHR VulkanSwapChain::chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats) {
+VkSurfaceFormatKHR VulkanSwapChain::chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats) const {
     for (const auto& availableFormat : availableFormats) {
         if (availableFormat.format == VK_FORMAT_B8G8R8A8_SRGB &&
             availableFormat.colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR) {
@@ -140,7 +140,7 @@ VkSurfaceFormatKHR VulkanSwapChain::chooseSwapSurfaceFormat(const std::vector<Vk
     return availableFormats[0];
 }
 
-VkPresentModeKHR VulkanSwapChain::chooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes) {
+VkPresentModeKHR VulkanSwapChain::chooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes) const {
     for (const auto& availablePresentMode : availablePresentModes) {
         if (availablePresentMode == VK_PRESENT_MODE_MAILBOX_KHR) {
             return availablePresentMode;
@@ -149,7 +149,7 @@ VkPresentModeKHR VulkanSwapChain::chooseSwapPresentMode(const std::vector<VkPres
     return VK_PRESENT_MODE_FIFO_KHR;
 }
 
-VkExtent2D VulkanSwapChain::chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities) {
+VkExtent2D VulkanSwapChain::chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities) const {
     if (capabilities.currentExtent.width != (std::numeric_limits<uint32_t>::max)()) {
         return capabilities.currentExtent;
     }

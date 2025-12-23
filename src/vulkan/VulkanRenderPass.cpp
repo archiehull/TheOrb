@@ -2,11 +2,8 @@
 #include <stdexcept>
 #include <array>
 
-VulkanRenderPass::VulkanRenderPass(VkDevice device, VkFormat swapChainImageFormat)
-    : device(device), imageFormat(swapChainImageFormat) {
-}
-
-VulkanRenderPass::~VulkanRenderPass() {
+VulkanRenderPass::VulkanRenderPass(VkDevice deviceArg, VkFormat swapChainImageFormat)
+    : device(deviceArg), imageFormat(swapChainImageFormat) {
 }
 
 void VulkanRenderPass::Create(bool offScreen) {
@@ -65,12 +62,12 @@ void VulkanRenderPass::Create(bool offScreen) {
 
     // Build attachments array (color [, depth])
     if (offScreen) {
-        VkAttachmentDescription attachments[2] = { colorAttachment, depthAttachment };
+        std::array<VkAttachmentDescription, 2> attachments = { colorAttachment, depthAttachment };
 
         VkRenderPassCreateInfo renderPassInfo{};
         renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
-        renderPassInfo.attachmentCount = 2;
-        renderPassInfo.pAttachments = attachments;
+        renderPassInfo.attachmentCount = static_cast<uint32_t>(attachments.size());
+        renderPassInfo.pAttachments = attachments.data();
         renderPassInfo.subpassCount = 1;
         renderPassInfo.pSubpasses = &subpass;
         renderPassInfo.dependencyCount = 1;
@@ -96,17 +93,17 @@ void VulkanRenderPass::Create(bool offScreen) {
     }
 }
 
-void VulkanRenderPass::CreateFramebuffers(const std::vector<VkImageView>& imageViews, VkExtent2D extent) {
+void VulkanRenderPass::CreateFramebuffers(const std::vector<VkImageView>& imageViews, const VkExtent2D& extent) {
     framebuffers.resize(imageViews.size());
 
     for (size_t i = 0; i < imageViews.size(); i++) {
-        VkImageView attachments[] = { imageViews[i] };
+        std::array<VkImageView, 1> attachments = { imageViews[i] };
 
         VkFramebufferCreateInfo framebufferInfo{};
         framebufferInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
         framebufferInfo.renderPass = renderPass;
-        framebufferInfo.attachmentCount = 1;
-        framebufferInfo.pAttachments = attachments;
+        framebufferInfo.attachmentCount = static_cast<uint32_t>(attachments.size());
+        framebufferInfo.pAttachments = attachments.data();
         framebufferInfo.width = extent.width;
         framebufferInfo.height = extent.height;
         framebufferInfo.layers = 1;
@@ -117,14 +114,14 @@ void VulkanRenderPass::CreateFramebuffers(const std::vector<VkImageView>& imageV
     }
 }
 
-void VulkanRenderPass::CreateOffScreenFramebuffer(VkImageView colorImageView, VkImageView depthImageView, VkExtent2D extent) {
-    VkImageView attachments[] = { colorImageView, depthImageView };
+void VulkanRenderPass::CreateOffScreenFramebuffer(VkImageView colorImageView, VkImageView depthImageView, const VkExtent2D& extent) {
+    std::array<VkImageView, 2> attachments = { colorImageView, depthImageView };
 
     VkFramebufferCreateInfo framebufferInfo{};
     framebufferInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
     framebufferInfo.renderPass = renderPass;
-    framebufferInfo.attachmentCount = 2;
-    framebufferInfo.pAttachments = attachments;
+    framebufferInfo.attachmentCount = static_cast<uint32_t>(attachments.size());
+    framebufferInfo.pAttachments = attachments.data();
     framebufferInfo.width = extent.width;
     framebufferInfo.height = extent.height;
     framebufferInfo.layers = 1;
@@ -136,7 +133,7 @@ void VulkanRenderPass::CreateOffScreenFramebuffer(VkImageView colorImageView, Vk
 
 void VulkanRenderPass::Cleanup() {
     // Clean up framebuffers
-    for (auto framebuffer : framebuffers) {
+    for (const auto framebuffer : framebuffers) {
         if (framebuffer != VK_NULL_HANDLE) {
             vkDestroyFramebuffer(device, framebuffer, nullptr);
         }

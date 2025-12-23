@@ -2,12 +2,6 @@
 #include "VulkanUtils.h"
 #include <stdexcept>
 
-VulkanContext::VulkanContext() {
-}
-
-VulkanContext::~VulkanContext() {
-}
-
 void VulkanContext::CreateInstance() {
     if (VulkanUtils::enableValidationLayers && !VulkanUtils::CheckValidationLayerSupport()) {
         throw std::runtime_error("validation layers requested, but not available!");
@@ -25,7 +19,10 @@ void VulkanContext::CreateInstance() {
     createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
     createInfo.pApplicationInfo = &appInfo;
 
-    auto extensions = VulkanUtils::GetRequiredExtensions();
+    // Rule ID: OPT.33 - Use out-parameter from VulkanUtils::GetRequiredExtensions
+    std::vector<const char*> extensions;
+    VulkanUtils::GetRequiredExtensions(extensions);
+
     createInfo.enabledExtensionCount = static_cast<uint32_t>(extensions.size());
     createInfo.ppEnabledExtensionNames = extensions.data();
 

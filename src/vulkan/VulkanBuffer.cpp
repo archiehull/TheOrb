@@ -3,12 +3,16 @@
 #include <stdexcept>
 #include <cstring>
 
-VulkanBuffer::VulkanBuffer(VkDevice device, VkPhysicalDevice physicalDevice)
-    : device(device), physicalDevice(physicalDevice) {
+VulkanBuffer::VulkanBuffer(VkDevice deviceArg, VkPhysicalDevice physicalDeviceArg)
+    : device(deviceArg), physicalDevice(physicalDeviceArg) {
 }
 
 VulkanBuffer::~VulkanBuffer() {
-    Cleanup();
+    try {
+        Cleanup();
+    }
+    catch (...) {
+    }
 }
 
 void VulkanBuffer::CreateBuffer(VkDeviceSize size, VkBufferUsageFlags usage,
@@ -30,7 +34,6 @@ void VulkanBuffer::CreateBuffer(VkDeviceSize size, VkBufferUsageFlags usage,
     allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
     allocInfo.allocationSize = memRequirements.size;
 
-    // REFACTORED: Use VulkanUtils to find memory type
     allocInfo.memoryTypeIndex = VulkanUtils::FindMemoryType(
         physicalDevice,
         memRequirements.memoryTypeBits,
@@ -44,10 +47,12 @@ void VulkanBuffer::CreateBuffer(VkDeviceSize size, VkBufferUsageFlags usage,
     vkBindBufferMemory(device, buffer, bufferMemory, 0);
 }
 
-void VulkanBuffer::CopyData(const void* data, VkDeviceSize size) {
+void VulkanBuffer::CopyData(const void* data, VkDeviceSize size) const {
     void* mappedData;
     vkMapMemory(device, bufferMemory, 0, size, 0, &mappedData);
-    memcpy(mappedData, data, (size_t)size);
+
+    memcpy(mappedData, data, static_cast<size_t>(size));
+
     vkUnmapMemory(device, bufferMemory);
 }
 

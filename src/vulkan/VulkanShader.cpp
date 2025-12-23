@@ -2,15 +2,14 @@
 #include <fstream>
 #include <stdexcept>
 
-VulkanShader::VulkanShader(VkDevice device) : device(device) {
-}
-
-VulkanShader::~VulkanShader() {
+VulkanShader::VulkanShader(VkDevice deviceArg) : device(deviceArg) {
 }
 
 void VulkanShader::LoadShader(const std::string& filename, VkShaderStageFlagBits stage) {
-    auto code = readFile(filename);
-    VkShaderModule shaderModule = createShaderModule(code);
+    std::vector<char> code;
+    readFile(filename, code);
+
+    const VkShaderModule shaderModule = createShaderModule(code);
 
     if (stage == VK_SHADER_STAGE_VERTEX_BIT) {
         vertexShaderModule = shaderModule;
@@ -20,7 +19,7 @@ void VulkanShader::LoadShader(const std::string& filename, VkShaderStageFlagBits
     }
 }
 
-VkShaderModule VulkanShader::createShaderModule(const std::vector<char>& code) {
+VkShaderModule VulkanShader::createShaderModule(const std::vector<char>& code) const {
     VkShaderModuleCreateInfo createInfo{};
     createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
     createInfo.codeSize = code.size();
@@ -34,24 +33,22 @@ VkShaderModule VulkanShader::createShaderModule(const std::vector<char>& code) {
     return shaderModule;
 }
 
-std::vector<char> VulkanShader::readFile(const std::string& filename) {
+void VulkanShader::readFile(const std::string& filename, std::vector<char>& output) {
     std::ifstream file(filename, std::ios::ate | std::ios::binary);
 
     if (!file.is_open()) {
         throw std::runtime_error("failed to open file: " + filename);
     }
 
-    size_t fileSize = (size_t)file.tellg();
-    std::vector<char> buffer(fileSize);
+    const size_t fileSize = static_cast<size_t>(file.tellg());
+    output.resize(fileSize);
 
     file.seekg(0);
-    file.read(buffer.data(), fileSize);
+    file.read(output.data(), fileSize);
     file.close();
-
-    return buffer;
 }
 
-void VulkanShader::Cleanup() {
+void VulkanShader::Cleanup() const {
     if (fragmentShaderModule != VK_NULL_HANDLE) {
         vkDestroyShaderModule(device, fragmentShaderModule, nullptr);
     }

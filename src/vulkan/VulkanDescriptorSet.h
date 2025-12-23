@@ -6,7 +6,7 @@
 class VulkanDescriptorSet {
 public:
     VulkanDescriptorSet(VkDevice device);
-    ~VulkanDescriptorSet();
+    ~VulkanDescriptorSet() = default;
 
     void CreateDescriptorSetLayout();
     void CreateDescriptorPool(uint32_t maxSets);

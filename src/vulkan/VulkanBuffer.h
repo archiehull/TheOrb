@@ -17,7 +17,7 @@ public:
     void CreateBuffer(VkDeviceSize size, VkBufferUsageFlags usage,
         VkMemoryPropertyFlags properties);
 
-    void CopyData(const void* data, VkDeviceSize size);
+    void CopyData(const void* data, VkDeviceSize size) const;
 
     VkBuffer GetBuffer() const { return buffer; }
     VkDeviceMemory GetBufferMemory() const { return bufferMemory; }

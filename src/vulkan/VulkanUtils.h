@@ -24,7 +24,9 @@ namespace VulkanUtils {
         const VkAllocationCallbacks* pAllocator);
 
     bool CheckValidationLayerSupport();
-    std::vector<const char*> GetRequiredExtensions();
+
+    // Rule ID: OPT.33 - Changed return by value to out-parameter
+    void GetRequiredExtensions(std::vector<const char*>& extensions);
 
     VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(
         VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
@@ -58,6 +60,6 @@ namespace VulkanUtils {
     // Copies buffer data to an image
     void CopyBufferToImage(VkDevice device, VkCommandPool commandPool, VkQueue graphicsQueue, VkBuffer buffer, VkImage image, uint32_t width, uint32_t height);
 
-	// Clean up image resources
+    // Clean up image resources
     void CleanupImageResources(VkDevice device, VkImage& image, VkDeviceMemory& imageMemory, VkImageView& imageView, VkSampler& sampler);
 }

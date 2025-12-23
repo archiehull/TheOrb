@@ -17,8 +17,8 @@ struct QueueFamilyIndices {
 
 class VulkanDevice final {
 public:
-    VulkanDevice(VkInstance instance, VkSurfaceKHR surface);
-    ~VulkanDevice();
+    VulkanDevice(VkInstance instanceArg, VkSurfaceKHR surfaceArg);
+    ~VulkanDevice() = default;
 
     VulkanDevice(const VulkanDevice&) = delete;
     VulkanDevice& operator=(const VulkanDevice&) = delete;
@@ -34,7 +34,7 @@ public:
     VkDevice GetDevice() const { return device; }
     VkQueue GetGraphicsQueue() const { return graphicsQueue; }
     VkQueue GetPresentQueue() const { return presentQueue; }
-    QueueFamilyIndices GetQueueFamilies() const { return findQueueFamilies(physicalDevice); }
+    const QueueFamilyIndices& GetQueueFamilies() const { return cachedQueueFamilies; }
 
 private:
     VkInstance instance;
@@ -44,7 +44,9 @@ private:
     VkQueue graphicsQueue = VK_NULL_HANDLE;
     VkQueue presentQueue = VK_NULL_HANDLE;
 
-    QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device) const;
-    bool isDeviceSuitable(VkPhysicalDevice device) const;
-    bool checkDeviceExtensionSupport(VkPhysicalDevice device) const;
+    QueueFamilyIndices cachedQueueFamilies;
+
+    QueueFamilyIndices findQueueFamilies(VkPhysicalDevice physDevice) const;
+    bool isDeviceSuitable(VkPhysicalDevice physDevice) const;
+    bool checkDeviceExtensionSupport(VkPhysicalDevice physDevice) const;
 };
