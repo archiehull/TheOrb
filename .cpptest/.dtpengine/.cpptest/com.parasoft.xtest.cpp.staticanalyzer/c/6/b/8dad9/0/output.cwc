@@ -10,16 +10,6 @@
 <L>0
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\Texture.cpp
-<c>CODSTA-CPP-54
-<b>Member function 'Cleanup' should be declared as const
-<l>171
-<k>15
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Texture.cpp
 <c>OPT-24
 <b>Function 'Cleanup' is not inlined
 <l>171

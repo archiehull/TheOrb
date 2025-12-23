@@ -178,7 +178,6 @@ void Application::MainLoop() {
         // Get camera matrices
         Camera* const activeCamera = cameraController->GetActiveCamera();
         const glm::mat4 viewMatrix = activeCamera->GetViewMatrix();
-        // Rule ID: CODSTA-CPP.11 - C++ style cast
         const glm::mat4 projMatrix = activeCamera->GetProjectionMatrix(
             vulkanSwapChain->GetExtent().width / static_cast<float>(vulkanSwapChain->GetExtent().height)
         );
@@ -234,9 +233,8 @@ void Application::ProcessInput() {
     }
 }
 
-// Rule ID: CODSTA.45 - Renamed parameter 'window' to 'glfwWindow'
 void Application::KeyCallback(GLFWwindow* glfwWindow, int key, int scancode, int action, int mods) {
-    auto* const app = reinterpret_cast<Application*>(glfwGetWindowUserPointer(glfwWindow));
+    auto* const app = static_cast<Application*>(glfwGetWindowUserPointer(glfwWindow));
 
     if (action == GLFW_PRESS) {
         // Camera switching
@@ -262,8 +260,7 @@ void Application::KeyCallback(GLFWwindow* glfwWindow, int key, int scancode, int
 }
 
 void Application::FramebufferResizeCallback(GLFWwindow* glfwWindow, int width, int height) {
-    // Rule ID: CODSTA-CPP.53
-    auto* const app = reinterpret_cast<Application*>(glfwGetWindowUserPointer(glfwWindow));
+    auto* const app = static_cast<Application*>(glfwGetWindowUserPointer(glfwWindow));
     app->framebufferResized = true;
 }
 

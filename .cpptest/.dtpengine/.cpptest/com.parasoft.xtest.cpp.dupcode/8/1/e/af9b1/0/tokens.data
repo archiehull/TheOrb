@@ -124,11 +124,12 @@ T|c=51|*
 I|c=53|pCallbackData
 T|c=66|,
 SL||35
-T|c=9|void
-T|c=13|*
-I|c=15|pUserData
-T|c=24|)
-T|c=25:e_B=1|;
+T|c=9|const
+T|c=15|void
+T|c=19|*
+I|c=21|pUserData
+T|c=30|)
+T|c=31:e_B=1|;
 SL||37
 T|c=5:s_B=1|void
 I|c=10|PopulateDebugMessengerCreateInfo

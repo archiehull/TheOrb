@@ -168,6 +168,6 @@ bool Texture::LoadFromFile(const std::string& filepath) {
     return true;
 }
 
-void Texture::Cleanup() {
+void Texture::Cleanup() const {
     VulkanUtils::CleanupImageResources(device, image, imageMemory, imageView, sampler);
 }

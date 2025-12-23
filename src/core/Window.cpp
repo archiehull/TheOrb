@@ -2,7 +2,7 @@
 #include <stdexcept>
 
 Window::Window(uint32_t widthArg, uint32_t heightArg, const std::string& titleArg)
-    : width(widthArg), height(heightArg), title(titleArg), window(nullptr) {
+    : window(nullptr), title(titleArg), width(widthArg), height(heightArg) {
     initWindow();
 }
 

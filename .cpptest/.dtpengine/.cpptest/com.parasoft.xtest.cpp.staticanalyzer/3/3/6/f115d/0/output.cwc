@@ -1,19 +1,9 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
-<c>OPT-14
-<b>Returned value from function 'GetDescriptorSets' is passed by value
+<c>CODSTA-CPP-06
+<b>Member function 'GetDescriptorSets' returns handles to member data: 'descriptorSets'
 <l>23
-<k>34
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
-<c>OPT-33
-<b>Returned value from function 'GetDescriptorSets' is passed by value
-<l>23
-<k>34
+<k>69
 <s>false
 <N>
 <f>

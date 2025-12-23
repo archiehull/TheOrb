@@ -20,7 +20,7 @@ public:
 
     VkDescriptorSetLayout GetLayout() const { return descriptorSetLayout; }
     VkDescriptorSet GetDescriptorSet(uint32_t index) const { return descriptorSets[index]; }
-    std::vector<VkDescriptorSet> GetDescriptorSets() const { return descriptorSets; }
+    const std::vector<VkDescriptorSet>& GetDescriptorSets() const { return descriptorSets; }
 
 private:
     std::vector<VkDescriptorSet> descriptorSets;

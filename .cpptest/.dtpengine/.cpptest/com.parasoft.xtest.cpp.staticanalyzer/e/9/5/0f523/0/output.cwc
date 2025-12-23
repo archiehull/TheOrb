@@ -2,18 +2,8 @@
 <F>C:\Users\a\Desktop\TheOrb\src\vulkan\UniformBufferObject.h
 <c>STL-37-DOWNGRADED
 <b>The 'lights' array should not be used
-<l>22
+<l>23
 <k>23
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\SkyboxPass.cpp
-<c>CODSTA-CPP-11
-<b>Use a C++-style cast instead of a C-style cast to the 'void' type
-<l>98
-<k>5
 <s>false
 <N>
 <f>
@@ -124,16 +114,6 @@
 <b>Member function 'GetObjects' returns handles to member data: 'objects'
 <l>122
 <k>75
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
-<c>OPT-14
-<b>The parameter 'newIndices' of function 'SetIndices' is passed by value
-<l>42
-<k>43
 <s>false
 <N>
 <f>

@@ -1,35 +1,5 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
-<c>CODSTA-MCPP-23
-<b>Class 'VulkanSyncObjects' should be final
-<l>6
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
-<c>MRM-49
-<b>Class 'VulkanSyncObjects' shall declare a copy assignment operator
-<l>6
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
-<c>MRM-49
-<b>Class 'VulkanSyncObjects' shall declare a copy constructor
-<l>6
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
 <c>OPT-13
 <b>Members 'imageAvailableSemaphores, imagesInFlight, inFlightFences, renderFinishedSemaphores' of class 'VulkanSyncObjects' are declared in suboptimal order for memory layout
 <l>6

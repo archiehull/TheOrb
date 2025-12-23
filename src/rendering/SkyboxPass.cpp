@@ -95,7 +95,7 @@ void SkyboxPass::Initialize(VkRenderPass renderPass, const VkExtent2D& extent, V
 }
 
 void SkyboxPass::Draw(VkCommandBuffer cmd, const Scene& scene, uint32_t currentFrame, VkDescriptorSet globalDescriptorSet) const {
-    (void)currentFrame; // suppress unused param warning
+    static_cast<void>(currentFrame);
 
     if (!pipeline || !cubemap) return;
 

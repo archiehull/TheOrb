@@ -82,7 +82,7 @@ void Renderer::Initialize() {
     CreateSyncObjects();
 }
 
-void Renderer::DrawFrame(Scene& scene, uint32_t currentFrame, const glm::mat4& viewMatrix, const glm::mat4& projMatrix, int layerMask) {
+void Renderer::DrawFrame(const Scene& scene, uint32_t currentFrame, const glm::mat4& viewMatrix, const glm::mat4& projMatrix, int layerMask) {
     // Wait for this frame's fence
     const VkFence fence = syncObjects->GetInFlightFence(currentFrame);
     vkWaitForFences(device->GetDevice(), 1, &fence, VK_TRUE, UINT64_MAX);

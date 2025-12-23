@@ -1,18 +1,8 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.cpp
-<c>OPT-01
-<b>Variable "queueFamilyIndices" should be declared as locally as possible
-<l>41
-<k>27
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.cpp
 <c>OPT-33
 <b>Returned value from function 'QuerySwapChainSupport' is passed by value
-<l>109
+<l>111
 <k>42
 <s>false
 <N>
@@ -22,7 +12,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.cpp
 <c>OPT-33
 <b>Returned value from function 'chooseSwapSurfaceFormat' is passed by value
-<l>133
+<l>135
 <k>37
 <s>false
 <N>
@@ -32,48 +22,8 @@
 <F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.cpp
 <c>OPT-33
 <b>Returned value from function 'chooseSwapExtent' is passed by value
-<l>152
+<l>154
 <k>29
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
-<c>OPT-14
-<b>Returned value from function 'GetExtent' is passed by value
-<l>31
-<k>16
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
-<c>CODSTA-MCPP-23
-<b>Class 'VulkanSwapChain' should be final
-<l>16
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
-<c>MRM-49
-<b>Class 'VulkanSwapChain' shall declare a copy assignment operator
-<l>16
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
-<c>MRM-49
-<b>Class 'VulkanSwapChain' shall declare a copy constructor
-<l>16
-<k>7
 <s>false
 <N>
 <f>
@@ -89,20 +39,10 @@
 <f>
 <L>0
 <->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.cpp
-<c>OPT-01
-<b>Variable "queueFamilyIndices" should be declared as locally as possible
-<l>41
-<k>27
-<s>false
-<N>
-<f>
-<L>0
-<->
 <F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
 <c>OPT-33
 <b>Returned value from function 'QuerySwapChainSupport' is passed by value
-<l>25
+<l>29
 <k>36
 <s>false
 <N>
@@ -112,7 +52,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
 <c>CODSTA-CPP-06
 <b>Member function 'GetImages' returns handles to member data: 'swapChainImages'
-<l>28
+<l>32
 <k>53
 <s>false
 <N>
@@ -122,7 +62,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
 <c>CODSTA-CPP-06
 <b>Member function 'GetImageViews' returns handles to member data: 'swapChainImageViews'
-<l>29
+<l>33
 <k>61
 <s>false
 <N>
@@ -130,10 +70,10 @@
 <L>0
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
-<c>OPT-33
-<b>Returned value from function 'GetExtent' is passed by value
-<l>31
-<k>16
+<c>CODSTA-CPP-06
+<b>Member function 'GetExtent' returns handles to member data: 'swapChainExtent'
+<l>35
+<k>43
 <s>false
 <N>
 <f>
@@ -142,7 +82,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
 <c>OPT-33
 <b>Returned value from function 'chooseSwapSurfaceFormat' is passed by value
-<l>45
+<l>49
 <k>24
 <s>false
 <N>
@@ -152,7 +92,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
 <c>OPT-33
 <b>Returned value from function 'chooseSwapExtent' is passed by value
-<l>47
+<l>51
 <k>16
 <s>false
 <N>

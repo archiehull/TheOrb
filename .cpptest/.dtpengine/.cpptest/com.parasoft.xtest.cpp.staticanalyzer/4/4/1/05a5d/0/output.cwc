@@ -1,39 +1,9 @@
 <->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'clearColor' as const
-<l>97
-<k>18
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'clearColor' as const
-<l>105
-<k>18
-<s>false
-<N>
-<f>
-<L>0
-<->
 <F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
-<c>OPT-14
-<b>Returned value from function 'GetCommandBuffers' is passed by value
+<c>CODSTA-CPP-06
+<b>Member function 'GetCommandBuffers' returns handles to member data: 'commandBuffers'
 <l>29
-<k>34
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
-<c>OPT-33
-<b>Returned value from function 'GetCommandBuffers' is passed by value
-<l>29
-<k>34
+<k>78
 <s>false
 <N>
 <f>

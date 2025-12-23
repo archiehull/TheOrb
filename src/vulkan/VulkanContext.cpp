@@ -1,6 +1,11 @@
 #include "VulkanContext.h"
 #include "VulkanUtils.h"
 #include <stdexcept>
+#include <vector>
+
+static constexpr uint32_t MakeVersion(uint32_t major, uint32_t minor, uint32_t patch) {
+    return (static_cast<uint32_t>(major) << 22) | (static_cast<uint32_t>(minor) << 12) | static_cast<uint32_t>(patch);
+}
 
 void VulkanContext::CreateInstance() {
     if (VulkanUtils::enableValidationLayers && !VulkanUtils::CheckValidationLayerSupport()) {
@@ -10,24 +15,24 @@ void VulkanContext::CreateInstance() {
     VkApplicationInfo appInfo{};
     appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
     appInfo.pApplicationName = "The Orb";
-    appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
+    appInfo.applicationVersion = MakeVersion(1, 0, 0);
     appInfo.pEngineName = "No Engine";
-    appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);
-    appInfo.apiVersion = VK_API_VERSION_1_0;
+    appInfo.engineVersion = MakeVersion(1, 0, 0);
+    appInfo.apiVersion = MakeVersion(1, 0, 0);
 
     VkInstanceCreateInfo createInfo{};
     createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
     createInfo.pApplicationInfo = &appInfo;
 
-    // Rule ID: OPT.33 - Use out-parameter from VulkanUtils::GetRequiredExtensions
     std::vector<const char*> extensions;
     VulkanUtils::GetRequiredExtensions(extensions);
 
     createInfo.enabledExtensionCount = static_cast<uint32_t>(extensions.size());
     createInfo.ppEnabledExtensionNames = extensions.data();
 
-    VkDebugUtilsMessengerCreateInfoEXT debugCreateInfo{};
     if (VulkanUtils::enableValidationLayers) {
+        VkDebugUtilsMessengerCreateInfoEXT debugCreateInfo{};
+
         createInfo.enabledLayerCount = static_cast<uint32_t>(VulkanUtils::validationLayers.size());
         createInfo.ppEnabledLayerNames = VulkanUtils::validationLayers.data();
 

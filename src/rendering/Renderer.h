@@ -32,7 +32,7 @@ public:
 
     void Initialize();
 
-    void DrawFrame(Scene& scene, uint32_t currentFrame, const glm::mat4& viewMatrix, const glm::mat4& projMatrix, int layerMask = SceneLayers::ALL);
+    void DrawFrame(const Scene& scene, uint32_t currentFrame, const glm::mat4& viewMatrix, const glm::mat4& projMatrix, int layerMask = SceneLayers::ALL);
     void UpdateUniformBuffer(uint32_t currentFrame, const UniformBufferObject& ubo);
     void WaitIdle() const;
     void Cleanup();

@@ -26,7 +26,7 @@ public:
     void Cleanup();
 
     VkCommandPool GetCommandPool() const { return commandPool; }
-    std::vector<VkCommandBuffer> GetCommandBuffers() const { return commandBuffers; }
+    const std::vector<VkCommandBuffer>& GetCommandBuffers() const noexcept { return commandBuffers; }
     VkCommandBuffer GetCommandBuffer(size_t index) const { return commandBuffers[index]; }
 
     // Single time command helpers

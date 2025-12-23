@@ -13,10 +13,14 @@ struct SwapChainSupportDetails {
 
 struct QueueFamilyIndices;
 
-class VulkanSwapChain {
+class VulkanSwapChain final {
 public:
     VulkanSwapChain(VkDevice device, VkPhysicalDevice physicalDevice, VkSurfaceKHR surface, GLFWwindow* window);
     ~VulkanSwapChain() = default;
+
+    // Non-copyable to manage swapchain handle
+    VulkanSwapChain(const VulkanSwapChain&) = delete;
+    VulkanSwapChain& operator=(const VulkanSwapChain&) = delete;
 
     void Create(const QueueFamilyIndices& indices);
     void CreateImageViews();
@@ -28,7 +32,7 @@ public:
     const std::vector<VkImage>& GetImages() const { return swapChainImages; }
     const std::vector<VkImageView>& GetImageViews() const { return swapChainImageViews; }
     VkFormat GetImageFormat() const { return swapChainImageFormat; }
-    VkExtent2D GetExtent() const { return swapChainExtent; }
+    const VkExtent2D& GetExtent() const { return swapChainExtent; }
 
 private:
     VkDevice device;

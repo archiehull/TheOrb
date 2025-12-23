@@ -3,10 +3,14 @@
 #include <vulkan/vulkan.h>
 #include <vector>
 
-class VulkanRenderPass {
+class VulkanRenderPass final {
 public:
     VulkanRenderPass(VkDevice device, VkFormat swapChainImageFormat);
     ~VulkanRenderPass() = default;
+
+    // Non-copyable to prevent double-free of Vulkan handles
+    VulkanRenderPass(const VulkanRenderPass&) = delete;
+    VulkanRenderPass& operator=(const VulkanRenderPass&) = delete;
 
     void Create(bool offScreen = false);
     void CreateFramebuffers(const std::vector<VkImageView>& imageViews, const VkExtent2D& extent);

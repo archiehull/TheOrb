@@ -3,10 +3,14 @@
 #include <vulkan/vulkan.h>
 #include <vector>
 
-class VulkanSyncObjects {
+class VulkanSyncObjects final {
 public:
     VulkanSyncObjects(VkDevice device, uint32_t maxFramesInFlight);
     ~VulkanSyncObjects() = default;
+
+    // Non-copyable (explicitly deleted)
+    VulkanSyncObjects(const VulkanSyncObjects&) = delete;
+    VulkanSyncObjects& operator=(const VulkanSyncObjects&) = delete;
 
     // Create sync objects:
     // - imageAvailableSemaphores: one per frame-in-flight (index by currentFrame)

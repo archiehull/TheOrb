@@ -25,7 +25,8 @@ public:
     VkSampler GetSampler() const { return sampler; }
     VkImage GetImage() const { return image; }
 
-    void Cleanup();
+
+    void Cleanup() const;
 
 private:
     VkDevice device;
@@ -33,8 +34,8 @@ private:
     VkCommandPool commandPool;
     VkQueue graphicsQueue;
 
-    VkImage image = VK_NULL_HANDLE;
-    VkDeviceMemory imageMemory = VK_NULL_HANDLE;
-    VkImageView imageView = VK_NULL_HANDLE;
-    VkSampler sampler = VK_NULL_HANDLE;
+    mutable VkImage image = VK_NULL_HANDLE;
+    mutable VkDeviceMemory imageMemory = VK_NULL_HANDLE;
+    mutable VkImageView imageView = VK_NULL_HANDLE;
+    mutable VkSampler sampler = VK_NULL_HANDLE;
 };

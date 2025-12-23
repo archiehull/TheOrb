@@ -1,14 +1,4 @@
 <->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Window.cpp
-<c>INIT-10
-<b>List members in an initialization list should be in the order in which they are declared ['window', 'title', 'width', 'height']
-<l>4
-<k>9
-<s>false
-<N>
-<f>
-<L>0
-<->
 <F>C:\Users\a\Desktop\TheOrb\src\core\Window.h
 <c>OPT-13
 <b>Members 'title' of class 'Window' are declared in suboptimal order for memory layout

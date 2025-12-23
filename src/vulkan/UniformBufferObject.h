@@ -2,7 +2,8 @@
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
 
 #include <glm/glm.hpp>
-#define MAX_LIGHTS 32
+
+constexpr int MAX_LIGHTS = 32;
 
 struct Light
 {

@@ -20,16 +20,6 @@
 <L>0
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
-<c>OPT-14
-<b>The parameter 'newIndices' of function 'SetIndices' is passed by value
-<l>42
-<k>43
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
 <c>OPT-13
 <b>Members 'indexBuffer, vertexBuffer' of class 'Geometry' are declared in suboptimal order for memory layout
 <l>10

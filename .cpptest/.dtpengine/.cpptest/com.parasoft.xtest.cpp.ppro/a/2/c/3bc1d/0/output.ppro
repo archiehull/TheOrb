@@ -27930,8 +27930,8 @@ H 17 C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.h
 K o
 I VK_NULL_HANDLE
 F 17
-L 20
-S 20
+L 24
+S 24
 f 4
 l 43
 EOR
@@ -27939,8 +27939,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 17
-L 21
-S 21
+L 25
+S 25
 f 4
 l 43
 EOR
@@ -27948,8 +27948,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 17
-L 22
-S 22
+L 26
+S 26
 f 4
 l 43
 EOR
@@ -139010,51 +139010,6 @@ EOR
 
 H 87 C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanContext.cpp
 
-K f
-I VK_MAKE_VERSION
-F 87
-L 13
-S 13
-f 4
-l 79
-EOR
-
-K f
-I VK_MAKE_VERSION
-F 87
-L 15
-S 15
-f 4
-l 79
-EOR
-
-K o
-I VK_API_VERSION_1_0
-F 87
-L 16
-S 16
-f 4
-l 69
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 87
-L 65
-S 65
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 87
-L 67
-S 67
-f 4
-l 43
-EOR
-
 K o
 I VK_NULL_HANDLE
 F 87
@@ -139087,6 +139042,24 @@ I VK_NULL_HANDLE
 F 87
 L 77
 S 77
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 87
+L 80
+S 80
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 87
+L 82
+S 82
 f 4
 l 43
 EOR

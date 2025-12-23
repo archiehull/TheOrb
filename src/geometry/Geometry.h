@@ -39,7 +39,7 @@ public:
     void ReserveVertices(size_t n) { vertices.reserve(n); }
     void ReserveIndices(size_t n) { indices.reserve(n); }
 
-    void SetIndices(std::vector<uint32_t> newIndices) { indices = std::move(newIndices); }
+    void SetIndices(const std::vector<uint32_t>& newIndices) { indices = newIndices; }
 
     // Random access when needed (safe single-element access)
     size_t VertexCount() const { return vertices.size(); }

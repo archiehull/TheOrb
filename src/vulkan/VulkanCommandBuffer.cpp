@@ -94,7 +94,7 @@ void VulkanCommandBuffer::RecordCommandBuffer(VkCommandBuffer commandBuffer, VkF
     VkRenderPass renderPass, const VkExtent2D& extent,
     VkPipeline pipeline, VkPipelineLayout /*pipelineLayout*/) const {
 
-    VkClearValue clearColor = { {{0.0f, 0.0f, 0.0f, 1.0f}} };
+    const VkClearValue clearColor = { {{0.0f, 0.0f, 0.0f, 1.0f}} };
     RecordCommandBufferInternal(commandBuffer, framebuffer, renderPass, extent, pipeline, clearColor);
 }
 
@@ -102,7 +102,7 @@ void VulkanCommandBuffer::RecordOffScreenCommandBuffer(VkCommandBuffer commandBu
     VkRenderPass renderPass, const VkExtent2D& extent,
     VkPipeline pipeline, VkPipelineLayout /*pipelineLayout*/) const {
 
-    VkClearValue clearColor = { {{0.1f, 0.1f, 0.1f, 1.0f}} };
+    const VkClearValue clearColor = { {{0.1f, 0.1f, 0.1f, 1.0f}} };
     RecordCommandBufferInternal(commandBuffer, framebuffer, renderPass, extent, pipeline, clearColor);
 }
 
