@@ -124183,8 +124183,8 @@ H 79 C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.cpp
 K o
 I VK_NULL_HANDLE
 F 79
-L 21
-S 21
+L 18
+S 18
 f 4
 l 43
 EOR
@@ -124192,8 +124192,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 79
-L 54
-S 54
+L 51
+S 51
 f 4
 l 43
 EOR
@@ -124201,8 +124201,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 79
-L 61
-S 61
+L 58
+S 58
 f 4
 l 43
 EOR
@@ -124210,8 +124210,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 79
-L 68
-S 68
+L 65
+S 65
 f 4
 l 43
 EOR

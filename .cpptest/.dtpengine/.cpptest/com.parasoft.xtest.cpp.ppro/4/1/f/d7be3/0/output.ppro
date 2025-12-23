@@ -192443,8 +192443,8 @@ H 144 C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
 K o
 I VK_NULL_HANDLE
 F 144
-L 21
-S 21
+L 24
+S 24
 f 4
 l 43
 EOR
@@ -192452,8 +192452,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 144
-L 22
-S 22
+L 25
+S 25
 f 4
 l 43
 EOR
@@ -192512,8 +192512,8 @@ H 147 C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
 K o
 I VK_NULL_HANDLE
 F 147
-L 39
-S 39
+L 33
+S 33
 f 4
 l 43
 EOR
@@ -192521,8 +192521,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 147
-L 40
-S 40
+L 34
+S 34
 f 4
 l 43
 EOR
@@ -192530,8 +192530,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 147
-L 41
-S 41
+L 35
+S 35
 f 4
 l 43
 EOR
@@ -192539,8 +192539,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 147
-L 42
-S 42
+L 36
+S 36
 f 4
 l 43
 EOR
@@ -192548,8 +192548,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 147
-L 45
-S 45
+L 37
+S 37
 f 4
 l 43
 EOR
@@ -192557,8 +192557,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 147
-L 46
-S 46
+L 38
+S 38
 f 4
 l 43
 EOR
@@ -192851,8 +192851,8 @@ H 150 C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
 K o
 I VKAPI_ATTR
 F 150
-L 29
-S 29
+L 31
+S 31
 f 5
 l 41
 EOR
@@ -192860,8 +192860,8 @@ EOR
 K o
 I VKAPI_CALL
 F 150
-L 29
-S 29
+L 31
+S 31
 f 5
 l 42
 EOR
@@ -192871,8 +192871,8 @@ H 151 C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.cpp
 K o
 I VK_FALSE
 F 151
-L 89
-S 89
+L 80
+S 80
 f 4
 l 129
 EOR
@@ -192880,8 +192880,8 @@ EOR
 K o
 I VK_SUBPASS_EXTERNAL
 F 151
-L 121
-S 121
+L 111
+S 111
 f 4
 l 134
 EOR
@@ -192889,10 +192889,55 @@ EOR
 K o
 I VK_SUBPASS_EXTERNAL
 F 151
-L 130
-S 130
+L 120
+S 120
 f 4
 l 134
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 151
+L 188
+S 188
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 151
+L 190
+S 190
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 151
+L 192
+S 192
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 151
+L 194
+S 194
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 151
+L 196
+S 196
+f 4
+l 43
 EOR
 
 K o
@@ -192954,51 +192999,6 @@ I VK_NULL_HANDLE
 F 151
 L 210
 S 210
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 151
-L 212
-S 212
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 151
-L 214
-S 214
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 151
-L 216
-S 216
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 151
-L 218
-S 218
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 151
-L 220
-S 220
 f 4
 l 43
 EOR

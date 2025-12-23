@@ -1,0 +1,11 @@
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary=8hlwt6zQMFTPGBZNyiNHybFuARwfCasA3YRfa43U
+StorageVersion: v1
+
+--8hlwt6zQMFTPGBZNyiNHybFuARwfCasA3YRfa43U
+
+<?xml version='1.0' encoding='UTF-8'?><ResultsList path="TheOrb/TheOrb/Source Files/src/vulkan/VulkanCommandBuffer.cpp"><VersionInfos><StorageInfo ownerId="com.parasoft.xtest.checkers.api.execution" resultId="IExecutionViolation" ver="2"/><StorageInfo ownerId="com.parasoft.xtest.checkers.api.execution" resultId="InsureViolation" ver="3"/><StorageInfo ownerId="com.parasoft.xtest.checkers.api.scope" resultId="IScopeProjectInfo" ver="3"/><StorageInfo ownerId="com.parasoft.xtest.checkers.api.standards" resultId="IMetricsViolation" ver="2"/><StorageInfo ownerId="com.parasoft.xtest.checkers.api.standards" resultId="IDupCodeViolation" ver="2"/><StorageInfo ownerId="com.parasoft.xtest.checkers.api.standards" resultId="IFlowAnalysisViolation" ver="2"/><StorageInfo ownerId="com.parasoft.xtest.checkers.api.standards" resultId="ICodingStandardsViolation" ver="2"/><StorageInfo ownerId="com.parasoft.xtest.checkers.api.generation" resultId="IGenerationInfo" ver="2"/><StorageInfo ownerId="com.parasoft.xtest.checkers.api.generation" resultId="IGenerationProjectInfo" ver="2"/></VersionInfos></ResultsList>
+--8hlwt6zQMFTPGBZNyiNHybFuARwfCasA3YRfa43U
+
+<?xml version='1.0' encoding='UTF-8'?><ResultInfo resultId="ICodingStandardsViolation" ownerId="com.parasoft.xtest.checkers.api.standards" violKeys="null;null"><StdViol msg="Declare local variable 'clearColor' as const" ln="97" sev="3" auth="a" rule="CODSTA-CPP-53" tool="c++test" cat="CODSTA-CPP" lang="cpp" locType="sr" config="3" hash="-1551231224" locStartln="97" locStartPos="17" locEndLn="97" locEndPos="18" locFile="TheOrb/TheOrb/Source Files/src/vulkan/VulkanCommandBuffer.cpp"/><StdViol msg="Declare local variable 'clearColor' as const" ln="105" sev="3" auth="a" rule="CODSTA-CPP-53" tool="c++test" cat="CODSTA-CPP" lang="cpp" locType="sr" config="3" hash="-1551231224" locStartln="105" locStartPos="17" locEndLn="105" locEndPos="18" locFile="TheOrb/TheOrb/Source Files/src/vulkan/VulkanCommandBuffer.cpp"/></ResultInfo>
+--8hlwt6zQMFTPGBZNyiNHybFuARwfCasA3YRfa43U

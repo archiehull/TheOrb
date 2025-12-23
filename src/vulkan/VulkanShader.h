@@ -5,10 +5,13 @@
 #include <vector>
 #include <string>
 
-class VulkanShader {
+class VulkanShader final {
 public:
-    VulkanShader(VkDevice device);
+    explicit VulkanShader(VkDevice device);
     ~VulkanShader() = default;
+
+    VulkanShader(const VulkanShader&) = delete;
+    VulkanShader& operator=(const VulkanShader&) = delete;
 
     void LoadShader(const std::string& filename, VkShaderStageFlagBits stage);
     void Cleanup() const;

@@ -4,11 +4,9 @@
 #include <stdexcept>
 #include <array>
 
-ShadowPass::ShadowPass(VulkanDevice* device, uint32_t width, uint32_t height)
-    : device(device), width(width), height(height) {
+ShadowPass::ShadowPass(VulkanDevice* deviceArg, uint32_t widthArg, uint32_t heightArg)
+    : device(deviceArg), extent{ widthArg, heightArg } {
 }
-
-// Destructor is defaulted in the header; resource cleanup is performed by Cleanup().
 
 void ShadowPass::Initialize(VkDescriptorSetLayout globalSetLayout) {
     CreateResources();
@@ -23,7 +21,7 @@ void ShadowPass::Begin(VkCommandBuffer cmd) const {
     renderPassInfo.renderPass = renderPass;
     renderPassInfo.framebuffer = framebuffer;
     renderPassInfo.renderArea.offset = { 0, 0 };
-    renderPassInfo.renderArea.extent = { width, height };
+    renderPassInfo.renderArea.extent = extent;
 
     VkClearValue clearValue{};
     clearValue.depthStencil = { 1.0f, 0 };
@@ -34,25 +32,18 @@ void ShadowPass::Begin(VkCommandBuffer cmd) const {
 
     vkCmdBindPipeline(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline->GetPipeline());
 
-    // Dynamic State
     VkViewport viewport{};
-    viewport.width = static_cast<float>(width);
-    viewport.height = static_cast<float>(height);
+    viewport.width = static_cast<float>(extent.width);
+    viewport.height = static_cast<float>(extent.height);
     viewport.minDepth = 0.0f;
     viewport.maxDepth = 1.0f;
     vkCmdSetViewport(cmd, 0, 1, &viewport);
 
     VkRect2D scissor{};
-    scissor.extent = { width, height };
+    scissor.extent = extent;
     vkCmdSetScissor(cmd, 0, 1, &scissor);
 
-    // Enable Depth Bias to reduce shadow acne on the terrain
-    // constantFactor: adds constant offset. slopeFactor: adds offset based on polygon slope.
     vkCmdSetDepthBias(cmd, 0.5f, 0.0f, 0.5f);
-}
-
-void ShadowPass::End(VkCommandBuffer cmd) const {
-    vkCmdEndRenderPass(cmd);
 }
 
 void ShadowPass::CreateResources() {
@@ -61,7 +52,7 @@ void ShadowPass::CreateResources() {
     VulkanUtils::CreateImage(
         device->GetDevice(),
         device->GetPhysicalDevice(),
-        width, height, 1, 1,
+        extent.width, extent.height, 1, 1,
         depthFormat,
         VK_IMAGE_TILING_OPTIMAL,
         VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
@@ -115,7 +106,6 @@ void ShadowPass::CreateRenderPass() {
     subpass.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
     subpass.pDepthStencilAttachment = &depthRef;
 
-    // Initialize array with {} to ensure default values, and set flags explicitly
     std::array<VkSubpassDependency, 2> dependencies{};
 
     dependencies[0].srcSubpass = VK_SUBPASS_EXTERNAL;
@@ -124,7 +114,7 @@ void ShadowPass::CreateRenderPass() {
     dependencies[0].dstStageMask = VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT;
     dependencies[0].srcAccessMask = VK_ACCESS_SHADER_READ_BIT;
     dependencies[0].dstAccessMask = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
-    dependencies[0].dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT; // Explicitly set flag
+    dependencies[0].dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
 
     dependencies[1].srcSubpass = 0;
     dependencies[1].dstSubpass = VK_SUBPASS_EXTERNAL;
@@ -132,7 +122,7 @@ void ShadowPass::CreateRenderPass() {
     dependencies[1].dstStageMask = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
     dependencies[1].srcAccessMask = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
     dependencies[1].dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
-    dependencies[1].dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT; // Explicitly set flag
+    dependencies[1].dependencyFlags = VK_DEPENDENCY_BY_REGION_BIT;
 
     VkRenderPassCreateInfo renderPassInfo{};
     renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
@@ -154,8 +144,8 @@ void ShadowPass::CreateFramebuffer() {
     framebufferInfo.renderPass = renderPass;
     framebufferInfo.attachmentCount = 1;
     framebufferInfo.pAttachments = &shadowImageView;
-    framebufferInfo.width = width;
-    framebufferInfo.height = height;
+    framebufferInfo.width = extent.width;
+    framebufferInfo.height = extent.height;
     framebufferInfo.layers = 1;
 
     if (vkCreateFramebuffer(device->GetDevice(), &framebufferInfo, nullptr, &framebuffer) != VK_SUCCESS) {
@@ -171,7 +161,7 @@ void ShadowPass::CreatePipeline(VkDescriptorSetLayout globalSetLayout) {
     config.vertShaderPath = "src/shaders/shadow_vert.spv";
     config.fragShaderPath = "src/shaders/shadow_frag.spv";
     config.renderPass = renderPass;
-    config.extent = { width, height };
+    config.extent = extent;
     config.bindingDescription = &bindingDescription;
     config.attributeDescriptions = attributeDescriptions.data();
 

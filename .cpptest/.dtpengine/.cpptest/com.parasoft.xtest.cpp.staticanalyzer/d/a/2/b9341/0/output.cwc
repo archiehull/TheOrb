@@ -38,13 +38,3 @@
 <N>
 <f>
 <L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
-<c>OPT-33
-<b>Returned value from function 'GetRequiredExtensions' is passed by value
-<l>27
-<k>30
-<s>false
-<N>
-<f>
-<L>0

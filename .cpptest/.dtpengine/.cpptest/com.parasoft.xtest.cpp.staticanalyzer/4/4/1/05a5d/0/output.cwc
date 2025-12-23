@@ -1,169 +1,39 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
-<c>OPT-03
-<b>Parameter 'pipelineLayout' is not used
-<l>39
-<k>43
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
-<c>OPT-03
-<b>Parameter 'pipelineLayout' is not used
-<l>98
-<k>43
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
-<c>OPT-14
-<b>The parameter 'extent' of function 'RecordCommandBuffer' is passed by value
-<l>38
-<k>41
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
-<c>OPT-14
-<b>The parameter 'extent' of function 'RecordOffScreenCommandBuffer' is passed by value
+<c>CODSTA-CPP-53
+<b>Declare local variable 'clearColor' as const
 <l>97
-<k>41
+<k>18
 <s>false
 <N>
 <f>
 <L>0
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
-<c>CODSTA-CPP-105
-<b>The '~VulkanCommandBuffer' function should be defined with =default
-<l>9
-<k>22
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
-<c>CODSTA-CPP-54
-<b>Member function 'RecordCommandBuffer' should be declared as const
-<l>37
-<k>27
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
-<c>CODSTA-CPP-54
-<b>Member function 'RecordOffScreenCommandBuffer' should be declared as const
-<l>96
-<k>27
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
-<c>CODSTA-CPP-54
-<b>Member function 'BeginSingleTimeCommands' should be declared as const
-<l>156
-<k>38
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
-<c>CODSTA-CPP-54
-<b>Member function 'EndSingleTimeCommands' should be declared as const
-<l>175
-<k>27
+<c>CODSTA-CPP-53
+<b>Declare local variable 'clearColor' as const
+<l>105
+<k>18
 <s>false
 <N>
 <f>
 <L>0
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
-<c>CODSTA-MCPP-23
-<b>Class 'VulkanCommandBuffer' should be final
-<l>7
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
-<c>CODSTA-45
-<b>The parameter 'device' hides a member variable declared in class 'VulkanCommandBuffer'
-<l>5
-<k>51
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.cpp
-<c>CODSTA-45
-<b>The parameter 'physicalDevice' hides a member variable declared in class 'VulkanCommandBuffer'
-<l>5
-<k>76
+<c>OPT-14
+<b>Returned value from function 'GetCommandBuffers' is passed by value
+<l>29
+<k>34
 <s>false
 <N>
 <f>
 <L>0
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
-<c>MRM-49
-<b>Class 'VulkanCommandBuffer' shall declare a copy assignment operator
-<l>7
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
-<c>MRM-49
-<b>Class 'VulkanCommandBuffer' shall declare a copy constructor
-<l>7
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
-<c>OPT-13
-<b>Members 'commandBuffers' of class 'VulkanCommandBuffer' are declared in suboptimal order for memory layout
-<l>7
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
-<c>CODSTA-CPP-105
-<b>The '~VulkanCommandBuffer' function should be defined with =default
-<l>10
-<k>5
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
-<c>CODSTA-CPP-06
-<b>Member function 'GetCommandBuffers' returns handles to member data: 'commandBuffers'
-<l>23
-<k>69
+<c>OPT-33
+<b>Returned value from function 'GetCommandBuffers' is passed by value
+<l>29
+<k>34
 <s>false
 <N>
 <f>

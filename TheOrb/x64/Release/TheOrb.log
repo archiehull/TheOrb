@@ -1,7 +1,19 @@
-﻿  VulkanUtils.cpp
+﻿  Application.cpp
+  main.cpp
+  GraphicsPipeline.cpp
+  ParticleLibrary.cpp
+  ParticleSystem.cpp
+  Renderer.cpp
+  Scene.cpp
+  ShadowPass.cpp
+  SkyboxPass.cpp
+  VulkanCommandBuffer.cpp
+  VulkanDescriptorSet.cpp
+  VulkanShader.cpp
+  VulkanUtils.cpp
   Generating code
-  78 of 4057 functions ( 1.9%) were compiled, the rest were copied from previous compilation.
-    9 functions were new in current compilation
-    60 functions had inline decision re-evaluated but remain unchanged
+  136 of 4070 functions ( 3.3%) were compiled, the rest were copied from previous compilation.
+    15 functions were new in current compilation
+    88 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   TheOrb.vcxproj -> C:\Users\a\Desktop\TheOrb\x64\Release\TheOrb.exe

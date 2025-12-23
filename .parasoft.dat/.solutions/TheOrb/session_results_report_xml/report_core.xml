@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<ResultsSession buildId="Default Project-2025-12-23" date="12/23/25 11:55:05" endTime="1970-01-01T00:00:00+00:00" machine="DESKTOP-GBA7TGV" project="Default Project" tag="700120 rule set 2024" time="2025-12-23T11:55:05+00:00" toolName="C++test" toolVer="2025.1.0.20250523B2782" user="a">
+<ResultsSession buildId="Default Project-2025-12-23" date="12/23/25 15:50:27" endTime="1970-01-01T00:00:00+00:00" machine="DESKTOP-GBA7TGV" project="Default Project" tag="700120 rule set 2024" time="2025-12-23T15:50:27+00:00" toolName="C++test" toolVer="2025.1.0.20250523B2782" user="a">
    <TestParameters cmdLn="C++test: -config c++test.user://700120 rule set 2024 "/>
    <TestConfig machine="DESKTOP-GBA7TGV" name="700120 rule set 2024" pseudoUrl="c++test.user://700120 rule set 2024" user="a"/>
    <Authors>
@@ -20,20 +20,20 @@
    <mergePnt id="executedTestsDetails"/>
    <Scope>
       <ProjectInformations>
-         <ScopeProjectInfo fltFiles="56" fltLns="6747" project="TheOrb/TheOrb" totFiles="56" totLns="6747"/>
+         <ScopeProjectInfo fltFiles="56" fltLns="6690" project="TheOrb/TheOrb" totFiles="56" totLns="6690"/>
       </ProjectInformations>
    </Scope>
-   <CodingStandards ownerId="com.parasoft.xtest.checkers.api.standards" time="0:00:22">
+   <CodingStandards ownerId="com.parasoft.xtest.checkers.api.standards" time="0:00:42">
       <Projects>
-         <Project bdCheckedFiles="0" bdTotalFiles="0" checkedFiles="56" checkedLns="6747" name="TheOrb" qfixErrs="0" suppErrs="0" totErrs="200" totFiles="56" totLns="6747"/>
+         <Project bdCheckedFiles="0" bdTotalFiles="0" checkedFiles="56" checkedLns="6690" name="TheOrb" qfixErrs="0" suppErrs="0" totErrs="95" totFiles="56" totLns="6690"/>
       </Projects>
       <Rules>
          <RulesList>
             <Rule cat="CDD" desc="Avoid function duplication" id="CDD-DUPM" sev="2">
-               <Stats authTot="1;" total="1"/>
+               <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="CDD" desc="Avoid code duplication" id="CDD-DUPC" sev="3">
-               <Stats authTot="1;" total="1"/>
+               <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="CDD" desc="Avoid duplication of #include directives" id="CDD-DUPI" sev="3">
                <Stats authTot="0;" total="0"/>
@@ -42,10 +42,10 @@
                <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="CODSTA" desc="Local variables should not use the same names as member variables" id="CODSTA-44" sev="1">
-               <Stats authTot="1;" total="1"/>
+               <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="CODSTA" desc="Parameters should not use the same names as member variables" id="CODSTA-45" sev="1">
-               <Stats authTot="23;" total="23"/>
+               <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="CODSTA" desc="Do not declare the size of an array when the array is passed into a function as a parameter" id="CODSTA-15" sev="2">
                <Stats authTot="0;" total="0"/>
@@ -78,13 +78,13 @@
                <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="CODSTA-CPP" desc="Constructors allowing for conversion should be made explicit" id="CODSTA-CPP-04" sev="1">
-               <Stats authTot="2;" total="2"/>
+               <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="CODSTA-CPP" desc="Do not use user-defined conversion functions" id="CODSTA-CPP-05" sev="1">
                <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="CODSTA-CPP" desc="The first operand of a conditional-operator shall have type bool" id="CODSTA-CPP-65" sev="1">
-               <Stats authTot="1;" total="1"/>
+               <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="CODSTA-CPP" desc="Copy operations must not mutate the source object" id="CODSTA-CPP-98" sev="2">
                <Stats authTot="0;" total="0"/>
@@ -108,10 +108,10 @@
                <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="CODSTA-CPP" desc="Define special members as =default when the behavior is equivalent to the compiler's behavior" id="CODSTA-CPP-105" sev="3">
-               <Stats authTot="18;" total="18"/>
+               <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="CODSTA-CPP" desc="C-style casts should not be used" id="CODSTA-CPP-11" sev="3">
-               <Stats authTot="7;" total="7"/>
+               <Stats authTot="5;" total="5"/>
             </Rule>
             <Rule cat="CODSTA-CPP" desc="If you'd like to support mixed-mode operations make operators a non-member functions" id="CODSTA-CPP-20" sev="3">
                <Stats authTot="0;" total="0"/>
@@ -144,10 +144,10 @@
                <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="CODSTA-CPP" desc="Declare local variable as const whenever possible" id="CODSTA-CPP-53" sev="3">
-               <Stats authTot="18;" total="18"/>
+               <Stats authTot="2;" total="2"/>
             </Rule>
             <Rule cat="CODSTA-CPP" desc="Member functions shall be declared const whenever possible" id="CODSTA-CPP-54" sev="3">
-               <Stats authTot="11;" total="11"/>
+               <Stats authTot="1;" total="1"/>
             </Rule>
             <Rule cat="CODSTA-CPP" desc="Literal zero (0) shall not be used as the null-pointer-constant" id="CODSTA-CPP-63" sev="3">
                <Stats authTot="0;" total="0"/>
@@ -195,7 +195,7 @@
                <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="CODSTA-MCPP" desc="If a public destructor of a class is non-virtual, then the class should be declared final" id="CODSTA-MCPP-23" sev="3">
-               <Stats authTot="7;" total="7"/>
+               <Stats authTot="4;" total="4"/>
             </Rule>
             <Rule cat="CODSTA-MCPP" desc="Consider using 'std::unique_ptr' instead of 'std::shared_ptr' for local objects" id="CODSTA-MCPP-30" sev="3">
                <Stats authTot="0;" total="0"/>
@@ -207,7 +207,7 @@
                <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="EXCEPT" desc="Never allow an exception to be thrown from a destructor, deallocation, and swap" id="EXCEPT-01" sev="1">
-               <Stats authTot="1;" total="1"/>
+               <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="EXCEPT" desc="Throw by value, catch by reference" id="EXCEPT-02" sev="1">
                <Stats authTot="0;" total="0"/>
@@ -357,7 +357,7 @@
                <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="MRM" desc="A copy constructor and a copy assignment operator shall be declared for classes that contain pointers to data items or nontrivial destructors" id="MRM-49" sev="3">
-               <Stats authTot="14;" total="14"/>
+               <Stats authTot="8;" total="8"/>
             </Rule>
             <Rule cat="NAMING" desc="All &quot;#define&quot; constants shall be in uppercase" id="NAMING-01" sev="3">
                <Stats authTot="0;" total="0"/>
@@ -459,7 +459,7 @@
                <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="OPT" desc="Eliminate unused parameters" id="OPT-03" sev="2">
-               <Stats authTot="3;" total="3"/>
+               <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="OPT" desc="Variables will not be introduced until they can be initialized with meaningful values" id="OPT-26" sev="2">
                <Stats authTot="0;" total="0"/>
@@ -474,7 +474,7 @@
                <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="OPT" desc="Pass objects by reference instead of by value" id="OPT-14" sev="3">
-               <Stats authTot="13;" total="13"/>
+               <Stats authTot="7;" total="7"/>
             </Rule>
             <Rule cat="OPT" desc="Global function containing recursion, loops or virtual function call should not be inlined" id="OPT-16" sev="3">
                <Stats authTot="0;" total="0"/>
@@ -498,16 +498,16 @@
                <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="OPT" desc="Trivial forwarding functions should be inlined" id="OPT-24" sev="4">
-               <Stats authTot="2;" total="2"/>
+               <Stats authTot="1;" total="1"/>
             </Rule>
             <Rule cat="OPT" desc="Remove unnecessary '== true'" id="OPT-09" sev="5">
                <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="OPT" desc="Consider returning object by reference instead of by value" id="OPT-33" sev="5">
-               <Stats authTot="38;" total="38"/>
+               <Stats authTot="34;" total="34"/>
             </Rule>
             <Rule cat="OPT-13" desc="Declare member variables in the descending size order" id="OPT-13-DOWNGRADED" sev="5">
-               <Stats authTot="19;" total="19"/>
+               <Stats authTot="17;" total="17"/>
             </Rule>
             <Rule cat="PB" desc="Do not call delete on non-pointers" id="PB-13" sev="1">
                <Stats authTot="0;" total="0"/>
@@ -558,7 +558,7 @@
                <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="STL-37" desc="C-style arrays shall not be used" id="STL-37-DOWNGRADED" sev="4">
-               <Stats authTot="5;" total="5"/>
+               <Stats authTot="1;" total="1"/>
             </Rule>
             <Rule cat="TEMPL" desc="Define non-member functions inside templates when type conversions are desired" id="TEMPL-02" sev="3">
                <Stats authTot="0;" total="0"/>
@@ -572,22 +572,22 @@
          </RulesList>
          <CategoriesList>
             <Category desc="Code Duplication Detection" name="CDD" total="4">
-               <Stats authTot="2;" total="2"/>
+               <Stats authTot="0;" total="0"/>
             </Category>
             <Category desc="Coding Conventions" name="CODSTA" total="570">
                <Category desc="Coding Conventions for C++" name="CODSTA-CPP" total="136">
                   <Category desc="UNKNOWN" name="CODSTA-CPP-06" total="1">
                      <Stats authTot="9;" total="9"/>
                   </Category>
-                  <Stats authTot="58;" total="58"/>
+                  <Stats authTot="9;" total="9"/>
                </Category>
                <Category desc="Coding Conventions for Modern C++" name="CODSTA-MCPP" total="82">
-                  <Stats authTot="7;" total="7"/>
+                  <Stats authTot="4;" total="4"/>
                </Category>
-               <Stats authTot="25;" total="25"/>
+               <Stats authTot="1;" total="1"/>
             </Category>
             <Category desc="Exceptions" name="EXCEPT" total="27">
-               <Stats authTot="1;" total="1"/>
+               <Stats authTot="0;" total="0"/>
             </Category>
             <Category desc="Initialization" name="INIT" total="25">
                <Stats authTot="1;" total="1"/>
@@ -602,7 +602,7 @@
                <Stats authTot="0;" total="0"/>
             </Category>
             <Category desc="Memory and Resource Management" name="MRM" total="67">
-               <Stats authTot="14;" total="14"/>
+               <Stats authTot="8;" total="8"/>
             </Category>
             <Category desc="Naming Conventions" name="NAMING" total="107">
                <Stats authTot="0;" total="0"/>
@@ -615,9 +615,9 @@
             </Category>
             <Category desc="Optimization" name="OPT" total="54">
                <Category desc="UNKNOWN" name="OPT-13" total="1">
-                  <Stats authTot="19;" total="19"/>
+                  <Stats authTot="17;" total="17"/>
                </Category>
-               <Stats authTot="58;" total="58"/>
+               <Stats authTot="44;" total="44"/>
             </Category>
             <Category desc="Possible Bugs" name="PB" total="90">
                <Stats authTot="0;" total="0"/>
@@ -633,7 +633,7 @@
             </Category>
             <Category desc="STL Best Practices" name="STL" total="42">
                <Category desc="UNKNOWN" name="STL-37" total="1">
-                  <Stats authTot="5;" total="5"/>
+                  <Stats authTot="1;" total="1"/>
                </Category>
                <Stats authTot="0;" total="0"/>
             </Category>
@@ -642,20 +642,14 @@
             </Category>
          </CategoriesList>
          <SeverityList>
-            <Severity id="1">
-               <Stats authTot="28;" total="28"/>
-            </Severity>
-            <Severity id="2">
-               <Stats authTot="4;" total="4"/>
-            </Severity>
             <Severity id="3">
-               <Stats authTot="95;" total="95"/>
+               <Stats authTot="33;" total="33"/>
             </Severity>
             <Severity id="4">
-               <Stats authTot="7;" total="7"/>
+               <Stats authTot="2;" total="2"/>
             </Severity>
             <Severity id="5">
-               <Stats authTot="66;" total="66"/>
+               <Stats authTot="60;" total="60"/>
             </Severity>
          </SeverityList>
       </Rules>

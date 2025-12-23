@@ -1,0 +1,317 @@
+Diagnostics file initialized on Tue Dec 23 15:49:17 GMT 2025
+================================================================================================
+AVAILABLE BUNDLES AND SERVICES (102)
+================================================================================================
+Bundle [0]: org.apache.felix.framework, state: [8], version: 7.0.3
+Bundle [1]: org.apache.felix.scr, state: [32], version: 1.8.2
+Bundle [2]: com.parasoft.xtest.services.api, state: [32], version: 10.7.2.20250508
+Bundle [3]: com.parasoft.xtest.analyzers.api, state: [2], version: 10.7.2.20250508
+Bundle [4]: com.parasoft.xtest.common.api, state: [2], version: 10.7.2.20250508
+Bundle [5]: com.parasoft.xtest.common.base, state: [2], version: 10.7.2.20250508
+Bundle [6]: com.parasoft.xtest.configuration.api, state: [2], version: 10.7.2.20250508
+Bundle [7]: com.parasoft.xtest.coverage.api, state: [2], version: 10.7.2.20250508
+Bundle [8]: com.parasoft.xtest.cpp.api, state: [2], version: 10.7.2.20250522B2677
+Bundle [9]: com.parasoft.xtest.dupcode.api, state: [2], version: 10.7.2.20250508
+Bundle [10]: com.parasoft.xtest.logging.api, state: [4], version: 10.7.2.20250508
+Bundle [11]: com.parasoft.xtest.preference.api, state: [2], version: 10.7.2.20250508
+Bundle [12]: com.parasoft.xtest.results.api, state: [2], version: 10.7.2.20250508
+Bundle [13]: com.parasoft.xtest.scope.api, state: [2], version: 10.7.2.20250508
+Bundle [14]: com.parasoft.xtest.testcases.api, state: [2], version: 10.7.2.20250508
+Bundle [15]: groovy-all, state: [2], version: 2.4.21
+Bundle [16]: com.parasoft.xtest.cpp.analyzer.code, state: [2], version: 10.7.2.20250522B2677
+Bundle [17]: com.parasoft.xtest.cpp.analyzer.dependency, state: [2], version: 10.7.2.20250522B2677
+Bundle [18]: com.parasoft.xtest.cpp.analyzer.googletest, state: [2], version: 10.7.2.20250522B2677
+Bundle [19]: com.parasoft.xtest.cpp.analyzer.metrics, state: [2], version: 10.7.2.20250522B2677
+Bundle [20]: com.parasoft.xtest.cpp.analyzer.scripting, state: [2], version: 10.7.2.20250522B2677
+Bundle [21]: com.parasoft.xtest.cpp.analyzer.static.global, state: [2], version: 10.7.2.20250522B2677
+Bundle [22]: com.parasoft.xtest.cpp.config.rulesvalidator, state: [2], version: 10.7.2.20250522B2677
+Bundle [23]: com.parasoft.xtest.cpp.coverage, state: [2], version: 10.7.2.20250522B2677
+Bundle [24]: com.parasoft.xtest.cpp.coverageanalyzer, state: [2], version: 10.7.2.20250522B2677
+Bundle [25]: com.parasoft.xtest.cpp.dupcode, state: [2], version: 10.7.2.20250522B2677
+Bundle [26]: com.parasoft.xtest.cpp.filter.duplicateviolationsremover, state: [2], version: 10.7.2.20250522B2677
+Bundle [27]: com.parasoft.xtest.cpp.filter.fileexists, state: [2], version: 10.7.2.20250522B2677
+Bundle [28]: com.parasoft.xtest.cpp.filter.filename, state: [2], version: 10.7.2.20250522B2677
+Bundle [29]: com.parasoft.xtest.cpp.filter.linesuppressions, state: [2], version: 10.7.2.20250522B2677
+Bundle [30]: com.parasoft.xtest.cpp.filter.localsuppressions, state: [2], version: 10.7.2.20250522B2677
+Bundle [31]: com.parasoft.xtest.cpp.filter.ownerassigner, state: [2], version: 10.7.2.20250522B2677
+Bundle [32]: com.parasoft.xtest.cpp.filter.violationmessagedecorator, state: [2], version: 10.7.2.20250522B2677
+Bundle [33]: com.parasoft.xtest.cpp.filter.violationslimiter, state: [2], version: 10.7.2.20250522B2677
+Bundle [34]: com.parasoft.xtest.cpp.flowexecutor, state: [2], version: 10.7.2.20250522B2677
+Bundle [35]: com.parasoft.xtest.cpp.integration.desktop, state: [2], version: 10.7.2.20250522B2677
+Bundle [36]: com.parasoft.xtest.cpp.integration.unittesting, state: [2], version: 10.7.2.20250522B2677
+Bundle [37]: com.parasoft.xtest.cpp.reporter.csv, state: [2], version: 10.7.2.20250522B2677
+Bundle [38]: com.parasoft.xtest.cpp.reporter.desktop, state: [2], version: 10.7.2.20250522B2677
+Bundle [39]: com.parasoft.xtest.cpp.reporter.exitcode, state: [2], version: 10.7.2.20250522B2677
+Bundle [40]: com.parasoft.xtest.cpp.reporter.txt, state: [2], version: 10.7.2.20250522B2677
+Bundle [41]: com.parasoft.xtest.cpp.reporter.xml, state: [2], version: 10.7.2.20250522B2677
+Bundle [42]: com.parasoft.xtest.cpp.scope.adjuster.cu, state: [2], version: 10.7.2.20250522B2677
+Bundle [43]: com.parasoft.xtest.cpp.scope.adjuster.uh, state: [2], version: 10.7.2.20250522B2677
+Bundle [44]: com.parasoft.xtest.cpp.scope.bdf, state: [2], version: 10.7.2.20250522B2677
+Bundle [45]: com.parasoft.xtest.cpp.scope.cmake, state: [2], version: 10.7.2.20250522B2677
+Bundle [46]: com.parasoft.xtest.cpp.scope.coverage, state: [2], version: 10.7.2.20250522B2677
+Bundle [47]: com.parasoft.xtest.cpp.scope.direct, state: [2], version: 10.7.2.20250522B2677
+Bundle [48]: com.parasoft.xtest.cpp.scope.googletest, state: [2], version: 10.7.2.20250522B2677
+Bundle [49]: com.parasoft.xtest.cpp.scope.lst, state: [2], version: 10.7.2.20250522B2677
+Bundle [50]: com.parasoft.xtest.cpp.scope.sln, state: [2], version: 10.7.2.20250522B2677
+Bundle [51]: com.parasoft.xtest.cpp.scope.trace, state: [2], version: 10.7.2.20250522B2677
+Bundle [52]: com.parasoft.xtest.cpp.scope.txt, state: [2], version: 10.7.2.20250522B2677
+Bundle [53]: com.parasoft.xtest.cpp.scope.vcproj, state: [2], version: 10.7.2.20250522B2677
+Bundle [54]: com.parasoft.xtest.cpp.scope.vcxproj, state: [2], version: 10.7.2.20250522B2677
+Bundle [55]: com.parasoft.xtest.cpp.scopeanalyzer, state: [2], version: 10.7.2.20250522B2677
+Bundle [56]: com.parasoft.xtest.cpp.staticanalyzer, state: [2], version: 10.7.2.20250522B2677
+Bundle [57]: com.parasoft.xtest.cpp.techsupport, state: [2], version: 10.7.2.20250522B2677
+Bundle [58]: com.parasoft.xtest.cpp.util, state: [2], version: 10.7.2.20250522B2677
+Bundle [59]: com.parasoft.flowanalysis.common.cfg, state: [2], version: 10.7.2.20250507B5670
+Bundle [60]: com.parasoft.flowanalysis.common.configuration, state: [2], version: 10.7.2.20250507B5670
+Bundle [61]: com.parasoft.flowanalysis.common.core, state: [2], version: 10.7.2.20250507B5670
+Bundle [62]: com.parasoft.flowanalysis.common.language, state: [2], version: 10.7.2.20250507B5670
+Bundle [63]: com.parasoft.flowanalysis.common.precondition, state: [2], version: 10.7.2.20250507B5670
+Bundle [64]: com.parasoft.flowanalysis.common.util, state: [2], version: 10.7.2.20250507B5670
+Bundle [65]: com.parasoft.flowanalysis.cpp.core, state: [2], version: 10.7.2.20250507B5670
+Bundle [66]: com.fasterxml.jackson.core.jackson-annotations, state: [2], version: 2.18.3
+Bundle [67]: com.fasterxml.jackson.core.jackson-core, state: [2], version: 2.18.3
+Bundle [68]: com.fasterxml.jackson.core.jackson-databind, state: [2], version: 2.18.3
+Bundle [69]: com.fasterxml.woodstox.woodstox-core, state: [2], version: 6.5.1
+Bundle [70]: com.parasoft.xtest.ai, state: [2], version: 10.7.2.20250508
+Bundle [71]: com.parasoft.xtest.authorship, state: [2], version: 10.7.2.20250508
+Bundle [72]: com.parasoft.xtest.chart.api, state: [2], version: 10.7.2.20250508
+Bundle [73]: com.parasoft.xtest.common, state: [2], version: 10.7.2.20250508
+Bundle [74]: com.parasoft.xtest.communicator, state: [2], version: 10.7.2.20250508
+Bundle [75]: com.parasoft.xtest.configuration, state: [2], version: 10.7.2.20250508
+Bundle [76]: com.parasoft.xtest.coverage, state: [2], version: 10.7.2.20250508
+Bundle [77]: com.parasoft.xtest.dupcode, state: [2], version: 10.7.2.20250508
+Bundle [78]: com.parasoft.xtest.lic.client, state: [2], version: 10.7.2.20250508
+Bundle [79]: com.parasoft.xtest.reports.api, state: [2], version: 10.7.2.20250508
+Bundle [80]: com.parasoft.xtest.reports.fonts, state: [2], version: 10.7.2.20250508
+Bundle [81]: com.parasoft.xtest.reports.pdf, state: [2], version: 10.7.2.20250508
+Bundle [82]: com.parasoft.xtest.reports, state: [2], version: 10.7.2.20250508
+Bundle [83]: com.parasoft.xtest.repository, state: [2], version: 10.7.2.20250508
+Bundle [84]: com.parasoft.xtest.resource.api, state: [2], version: 10.7.2.20250508
+Bundle [85]: com.parasoft.xtest.results, state: [2], version: 10.7.2.20250508
+Bundle [86]: com.parasoft.xtest.scontrol.api, state: [2], version: 10.7.2.20250508
+Bundle [87]: com.parasoft.xtest.scontrol.tfs, state: [2], version: 10.7.2.20250508
+Bundle [88]: com.parasoft.xtest.scontrol, state: [2], version: 10.7.2.20250508
+Bundle [89]: com.parasoft.xtest.scope, state: [2], version: 10.7.2.20250508
+Bundle [90]: com.parasoft.xtest.share.api, state: [2], version: 10.7.2.20250508
+Bundle [91]: com.parasoft.xtest.share, state: [2], version: 10.7.2.20250508
+Bundle [92]: com.parasoft.xtest.suppressions, state: [2], version: 10.7.2.20250508
+Bundle [93]: com.parasoft.xtest.techsupport, state: [2], version: 10.7.2.20250508
+Bundle [94]: com.parasoft.xtest.testimpact, state: [2], version: 10.7.2.20250508
+Bundle [95]: com.sun.activation.javax.activation, state: [2], version: 1.2.0
+Bundle [96]: com.sun.mail.javax.mail, state: [2], version: 1.6.2
+Bundle [97]: org.apache.commons.commons-io, state: [2], version: 2.18.0
+Bundle [98]: org.apache.commons.logging, state: [2], version: 1.2.0
+Bundle [99]: org.apache.jcs, state: [2], version: 1.3.4
+Bundle [100]: org.suigeneris.jrcs.diff, state: [2], version: 0.4.2
+Bundle [101]: stax2-api, state: [2], version: 4.2.1
+
+
+
+================================================================================================
+SERVICE: com.parasoft.xtest.common.dtp.DtpAutoconfPreferencesService@50fe837a
+CONTEXT: com.parasoft.xtest.common.services.RawConsoleServiceContext@7692cd34
+LICENSE ENABLED: 
+================================================================================================
+LOCAL SETTINGS:
+    authors.ignore.case=false
+    build.id=Default Project-2025-12-23
+    configuration.dir.builtin=C:\Program Files\Parasoft\C++test for Visual Studio (x86_64)\10.7\plugins\com.parasoft.xtest.vstudio.cpp\configs
+    configuration.dir.user=C:\Users\a\Desktop\TheOrb\Parasoft Ruleset\Parasoft rules 2025\Parasoft\cpptest\configs\user
+    console.verbosity.level=normal
+    cpptest.analyzer.coverage.decision.enabled=false
+    cpptest.analyzer.coverage.enabled=true
+    cpptest.analyzer.coverage.line.enabled=true
+    cpptest.analyzer.dependency.data.location=${property:local.storage.dir}/com.parasoft.xtest.cpp.analyzer.dependency
+    cpptest.analyzer.dependency.enabled=true
+    cpptest.analyzer.dependency.report.file={2}_{1}.ldi.xml
+    cpptest.analyzer.dependency.report.location=${property:report.location}/deps
+    cpptest.analyzer.dependency.scope=true
+    cpptest.analyzer.desktop.files.in.scope.file=C:\Users\a\Desktop\TheOrb\.cpptest\.dtpengine\session_20251223_154911\tested_files.txt
+    cpptest.analyzer.desktop.modules.file=C:\Users\a\Desktop\TheOrb\.cpptest\.dtpengine\session_20251223_154911\modules.properties
+    cpptest.analyzer.desktop.ut.enabled=false
+    cpptest.analyzer.dupcode.enabled=true
+    cpptest.analyzer.flow.enabled=true
+    cpptest.analyzer.global.enabled=true
+    cpptest.analyzer.googletest.enabled=true
+    cpptest.analyzer.metrics.enabled=true
+    cpptest.analyzer.scope.enabled=false
+    cpptest.analyzer.source.enabled=true
+    cpptest.analyzer.source.incremental.enabled=true
+    cpptest.analyzer.source.timeout=3600
+    cpptest.analyzer.static.cwcsuppress.enabled=false
+    cpptest.analyzer.static.enabled=true
+    cpptest.analyzer.unittesting.enabled=true
+    cpptest.analyzer.verbose=false
+    cpptest.compiler.dir.builtin=C:\Program Files\Parasoft\C++test for Visual Studio (x86_64)\10.7\engine\etc\compilers
+    cpptest.compiler.dir.user=C:\Users\a\AppData\Local\Xtest\.plugins.vs\com.parasoft.xtest.checkers.vstudio.core.cpp\compilers
+    cpptest.config.properties.file=${cpptest:launcher_dir}/cpptestcli.properties;${cpptest:user_home}/cpptestcli.properties;cpptestcli.properties
+    cpptest.config.psrc.file=${cpptest:etc_dir}/default.psrc;
+    cpptest.configuration=builtin://Recommended Rules
+    cpptest.input.bdf.cache.enabled=true
+    cpptest.input.bdf.file=${cpptest:workspace_dir}/cpptest.bdf
+    cpptest.input.bdf.legacy.project.enabled=false
+    cpptest.input.msvc.add.compiler.options=-I.
+    cpptest.license.local.password=>>hidden<<
+    cpptest.license.use_network=false
+    cpptest.output.error.max.lines=10
+    cpptest.report.csv.enabled=false
+    cpptest.report.desktop.enabled=false
+    cpptest.report.desktop.setup.results.file=C:\Users\a\Desktop\TheOrb\.cpptest\.dtpengine\session_20251223_154911\setup_problem_files.txt
+    cpptest.report.text.enabled=true
+    cpptest.report.text.print.summary=auto
+    cpptest.report.xml.enabled=false
+    cpptest.result.assign.owner.enabled=true
+    cpptest.result.limit.violations.enabled=false
+    cpptest.result.remove.duplicates.enabled=true
+    cpptest.rule.dir.builtin=${property:cpptest.rule.dir}/builtin/${cpptest:locale:en|ja|zh_CN}
+    cpptest.rule.dir.user=${property:rule.dir.user}
+    cpptest.rule.dir=C:\Program Files\Parasoft\C++test for Visual Studio (x86_64)\10.7\engine\dtp\rules
+    cpptest.scope.adjuster.cu.add.header=true
+    cpptest.scope.adjuster.cu.add.source=true
+    cpptest.scope.adjuster.cu.enabled=false
+    cpptest.scope.adjuster.uh.enabled=false
+    cpptest.scope.coverage.dir=${cpptest:workspace_dir}/.cpptest/cpptestcc
+    cpptest.scope.filter.fileexists.enabled=true
+    cpptest.scope.filter.name.enabled=true
+    cpptest.scope.filter.name.include=.*\.(${property:cpptest.testable.source.file.ext})|.*\.(${property:cpptest.testable.header.file.ext})
+    cpptest.scope.uptodate.check.enabled=true
+    cpptest.scripting.dir.builtin=${cpptest:root_dir}/scripts/builtin
+    cpptest.scripting.dir.user=${cpptest:root_dir}/scripts/user
+    cpptest.testable.header.file.ext=hh|HH|h|H|hpp|hxx|HPP|HXX|
+    cpptest.testable.source.file.ext=cc|CC|cpp|cxx|CPP|CXX|c|C|
+    local.storage.dir=C:\Users\a\Desktop\TheOrb\.cpptest\.dtpengine/.cpptest
+    parallel.mode=Auto
+    report.active_rules=true
+    report.associations=true
+    report.authors_details=false
+    report.contexts_details=true
+    report.developer_errors=true
+    report.developer_reports=false
+    report.format=xml
+    report.location=C:\Users\a\Desktop\TheOrb\.cpptest\.dtpengine\session_20251223_154911\reports
+    report.setup.problems=bottom
+    report.test_params=true
+    report.xsl.dir.builtin=${cpptest:etc_dir}/xsl
+    rule.dir.user=${property:cpptest.rule.dir}/user
+    rules.mappings=all
+    rules.provider_UserRuleProviderU_0.analyzer=com.parasoft.xtest.cpp.analyzer.static.pattern
+    rules.provider_UserRuleProviderU_0.data=C:\Users\a\Desktop\TheOrb\Parasoft Ruleset\Parasoft rules 2025\Parasoft\cpptest\rules\user\rules10.xml
+    rules.provider_UserRuleProviderU_0.dir.exclude=.*[\\/]ext[\\/].*
+    rules.provider_UserRuleProviderU_0.dir=C:\Users\a\Desktop\TheOrb\Parasoft Ruleset\Parasoft rules 2025\Parasoft\cpptest\rules\user
+    rules.provider_UserRuleProviderU_0.id=UserRuleProviderU_0
+    rules.provider_UserRuleProviderU_0.mapping=C:\Users\a\Desktop\TheOrb\Parasoft Ruleset\Parasoft rules 2025\Parasoft\cpptest\rules\user\rulemap.xml
+    rules.provider_UserRuleProviderU_0.separator=-
+    rules.provider_UserRuleProviderU_0.type=codingstandards
+    rules.provider_cpptest_cdd.analyzer=com.parasoft.xtest.cpp.analyzer.static.dupcode
+    rules.provider_cpptest_cdd.data=${property:cpptest.rule.dir}/builtin_cdd/rules.xml
+    rules.provider_cpptest_cdd.id=cpptest_cdd
+    rules.provider_cpptest_cdd.separator=-
+    rules.provider_cpptest_cdd.type=codeduplication
+    rules.provider_cpptest_cs_builtin.analyzer=com.parasoft.xtest.cpp.analyzer.static.pattern
+    rules.provider_cpptest_cs_builtin.categories=${property:cpptest.rule.dir.builtin}/categories.properties
+    rules.provider_cpptest_cs_builtin.data=${property:local.storage.dir}/rules/builtin/rules.xml
+    rules.provider_cpptest_cs_builtin.dir.exclude=.*[\\/]ext[\\/].*
+    rules.provider_cpptest_cs_builtin.dir=${property:cpptest.rule.dir.builtin}
+    rules.provider_cpptest_cs_builtin.id=cpptest_cs_builtin
+    rules.provider_cpptest_cs_builtin.mapping=${property:cpptest.rule.dir.builtin}/rulemap.xml
+    rules.provider_cpptest_cs_builtin.separator=-
+    rules.provider_cpptest_cs_builtin.type=codingstandards
+    rules.provider_cpptest_cs_builtin_incode.analyzer=com.parasoft.xtest.cpp.analyzer.static.pattern
+    rules.provider_cpptest_cs_builtin_incode.data=${property:cpptest.rule.dir}/builtin_incode/rules.xml
+    rules.provider_cpptest_cs_builtin_incode.id=cpptest_cs_builtin_incode
+    rules.provider_cpptest_cs_builtin_incode.mapping=${property:cpptest.rule.dir}/builtin_incode/rulemap.xml
+    rules.provider_cpptest_cs_builtin_incode.separator=-
+    rules.provider_cpptest_cs_builtin_incode.type=codingstandards
+    rules.provider_cpptest_cs_dtp.analyzer=com.parasoft.xtest.cpp.analyzer.static.pattern
+    rules.provider_cpptest_cs_dtp.categories=${property:local.storage.dir}/rules/dtp/categories.properties
+    rules.provider_cpptest_cs_dtp.data=${property:local.storage.dir}/rules/dtp/rules.xml
+    rules.provider_cpptest_cs_dtp.dir.exclude=.*[\\/]ext[\\/].*
+    rules.provider_cpptest_cs_dtp.dir=${property:local.storage.dir}/rules/dtp
+    rules.provider_cpptest_cs_dtp.id=cpptest_cs_dtp
+    rules.provider_cpptest_cs_dtp.mapping=${property:local.storage.dir}/rules/dtp/rulemap.xml
+    rules.provider_cpptest_cs_dtp.separator=-
+    rules.provider_cpptest_cs_dtp.share.url=true
+    rules.provider_cpptest_cs_dtp.type=codingstandards
+    rules.provider_cpptest_cs_global.analyzer=com.parasoft.xtest.cpp.analyzer.static.global
+    rules.provider_cpptest_cs_global.data=${property:cpptest.rule.dir}/builtin_global/rules.xml
+    rules.provider_cpptest_cs_global.id=cpptest_cs_global
+    rules.provider_cpptest_cs_global.separator=-
+    rules.provider_cpptest_cs_global.type=codingstandards
+    rules.provider_cpptest_cs_user.analyzer=com.parasoft.xtest.cpp.analyzer.static.pattern
+    rules.provider_cpptest_cs_user.categories=${property:cpptest.rule.dir.user}/categories.properties
+    rules.provider_cpptest_cs_user.data=${property:local.storage.dir}/rules/user/rules.xml
+    rules.provider_cpptest_cs_user.dir.exclude=.*[\\/]ext[\\/].*
+    rules.provider_cpptest_cs_user.dir=${property:cpptest.rule.dir.user}
+    rules.provider_cpptest_cs_user.id=cpptest_cs_user
+    rules.provider_cpptest_cs_user.mapping=${property:cpptest.rule.dir.user}/rulemap.xml
+    rules.provider_cpptest_cs_user.separator=-
+    rules.provider_cpptest_cs_user.type=codingstandards
+    rules.provider_cpptest_fa_builtin.analyzer=com.parasoft.xtest.cpp.analyzer.static.flow
+    rules.provider_cpptest_fa_builtin.data=${property:cpptest.rule.dir}/builtin_fa/rules.xml
+    rules.provider_cpptest_fa_builtin.id=cpptest_fa_builtin
+    rules.provider_cpptest_fa_builtin.mapping=${property:cpptest.rule.dir}/builtin_fa/rulemap.xml
+    rules.provider_cpptest_fa_builtin.separator=-
+    rules.provider_cpptest_fa_builtin.type=flowanalysis
+    rules.provider_cpptest_fa_user.analyzer=com.parasoft.xtest.cpp.analyzer.static.flow
+    rules.provider_cpptest_fa_user.data=${property:cpptest.rule.dir}/user_fa/rules.xml
+    rules.provider_cpptest_fa_user.id=cpptest_fa_user
+    rules.provider_cpptest_fa_user.mapping=${property:cpptest.rule.dir}/user_fa/rulemap.xml
+    rules.provider_cpptest_fa_user.separator=-
+    rules.provider_cpptest_fa_user.type=flowanalysis
+    rules.provider_cpptest_metrics.analyzer=com.parasoft.xtest.cpp.analyzer.static.metrics
+    rules.provider_cpptest_metrics.data=${property:cpptest.rule.dir}/builtin_metrics/metrics.xml
+    rules.provider_cpptest_metrics.id=cpptest_metrics
+    rules.provider_cpptest_metrics.separator=.
+    rules.provider_cpptest_metrics.type=metrics
+    rules.provider_cpptest_pe_builtin.analyzer=com.parasoft.xtest.cpp.analyzer.static.pattern
+    rules.provider_cpptest_pe_builtin.data=${property:cpptest.rule.dir}/builtin_pe/rules.xml
+    rules.provider_cpptest_pe_builtin.id=cpptest_parseerrors_builtin
+    rules.provider_cpptest_pe_builtin.mapping=${property:cpptest.rule.dir}/builtin_pe/rulemap.xml
+    rules.provider_cpptest_pe_builtin.separator=-
+    rules.provider_cpptest_pe_builtin.type=codingstandards
+    runtime.command_line=cpptestcli -settings C:\Users\a\Desktop\TheOrb\.cpptest\.dtpengine\session_20251223_154911\engine.properties -config user://700120 rule set 2024 -input C:\Users\a\Desktop\TheOrb\.cpptest\.dtpengine\session_20251223_154911\bdf.lst
+    runtime.ide_controlled=88L0ausiZ8xd0O4KaZasp+eNtld6yN8zFX3WxiGMlwQG7ydDaLK3KgjDUaSqZHCf
+    scontrol.git.exec=git.exe
+    scope.local=true
+    scope.xmlmap.file=C:\Users\a\AppData\Local\Xtest\.plugins.vs\team.util\authorMap.xml
+    session.tag=700120 rule set 2024
+    suppression.equivalents.enabled=false
+    suppression.equivalents.file=${property:cpptest.rule.dir.builtin}/suppression.equivalents.txt
+    suppression1.comment=//
+    suppression1.file.ext=${property:cpptest.testable.source.file.ext}|${property:cpptest.testable.header.file.ext}
+    suppression2.comment=/*
+    suppression2.file.ext=${property:cpptest.testable.source.file.ext}|${property:cpptest.testable.header.file.ext}
+    techsupport.archive.location=${property:local.storage.dir}
+    techsupport.create.on.exit=true
+    techsupport.enabled=false
+    usage.reporting.enabled=false
+
+DIAGNOSTICS INFO:
+DTP autoconfiguration is not enabled.
+
+================================================================================================
+SERVICE: com.parasoft.xtest.techsupport.TechSupportService@1f9d6c7b
+CONTEXT: com.parasoft.xtest.cpp.flowexecutor.DefaultFlowExecutor$ResultsServiceContext@125c082e
+LICENSE ENABLED: 
+================================================================================================
+LOCAL SETTINGS:
+    logging.scontrol.verbose=
+    techsupport.archive.location=C:\Users\a\Desktop\TheOrb\.cpptest\.dtpengine/.cpptest
+    techsupport.create.on.exit=true
+    techsupport.enabled=false
+    techsupport.include.reports=
+    techsupport.single.archive.mode=
+
+DIAGNOSTICS INFO:
+Preferences class: com.parasoft.xtest.techsupport.internal.preferences.TechSupportPreferences
+Current packages dir: C:\Users\a\Desktop\TheOrb\.cpptest\.dtpengine\.cpptest
+Total registered items: 8
+   com.parasoft.xtest.cpp.techsupport.CpptestLogsTechSupportItem, name: C/C++test log file, key: null
+   com.parasoft.xtest.reports.internal.ReportsTechSupportItem, name: Report files, key: techsupport.include.reports
+   com.parasoft.xtest.techsupport.internal.EnvironmentTechSupportItem, key: null
+   com.parasoft.xtest.techsupport.internal.LogsTechSupportItem, name: Source control output, key: logging.scontrol.verbose
+   com.parasoft.xtest.techsupport.internal.DiagnosticsTechSupportItem, key: null
+   com.parasoft.xtest.techsupport.internal.ConsoleTechSupportItem, key: null
+   com.parasoft.xtest.techsupport.internal.LicenseTechSupportItem, key: null
+   com.parasoft.xtest.techsupport.internal.TestConfigurationTechSupportItem, key: null
+

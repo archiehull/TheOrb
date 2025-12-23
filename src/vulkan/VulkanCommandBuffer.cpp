@@ -2,11 +2,8 @@
 #include <stdexcept>
 #include <array>
 
-VulkanCommandBuffer::VulkanCommandBuffer(VkDevice device, VkPhysicalDevice physicalDevice)
-    : device(device), physicalDevice(physicalDevice) {
-}
-
-VulkanCommandBuffer::~VulkanCommandBuffer() {
+VulkanCommandBuffer::VulkanCommandBuffer(VkDevice deviceArg, VkPhysicalDevice physicalDeviceArg)
+    : device(deviceArg), physicalDevice(physicalDeviceArg) {
 }
 
 void VulkanCommandBuffer::CreateCommandPool(uint32_t queueFamilyIndex) {
@@ -34,9 +31,10 @@ void VulkanCommandBuffer::CreateCommandBuffers(size_t count) {
     }
 }
 
-void VulkanCommandBuffer::RecordCommandBuffer(VkCommandBuffer commandBuffer, VkFramebuffer framebuffer,
-    VkRenderPass renderPass, VkExtent2D extent,
-    VkPipeline pipeline, VkPipelineLayout pipelineLayout) {
+void VulkanCommandBuffer::RecordCommandBufferInternal(VkCommandBuffer commandBuffer, VkFramebuffer framebuffer,
+    VkRenderPass renderPass, const VkExtent2D& extent,
+    VkPipeline pipeline, const VkClearValue& clearColor) const {
+
     VkCommandBufferBeginInfo beginInfo{};
     beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
     beginInfo.flags = 0;
@@ -54,67 +52,6 @@ void VulkanCommandBuffer::RecordCommandBuffer(VkCommandBuffer commandBuffer, VkF
     renderPassInfo.renderArea.offset = { 0, 0 };
     renderPassInfo.renderArea.extent = extent;
 
-    VkClearValue clearColor = { {{0.0f, 0.0f, 0.0f, 1.0f}} };
-    renderPassInfo.clearValueCount = 1;
-    renderPassInfo.pClearValues = &clearColor;
-
-    vkCmdBeginRenderPass(commandBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
-
-    // Bind graphics pipeline
-    vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline);
-
-    // Set dynamic viewport
-    VkViewport viewport{};
-    viewport.x = 0.0f;
-    viewport.y = 0.0f;
-    viewport.width = static_cast<float>(extent.width);
-    viewport.height = static_cast<float>(extent.height);
-    viewport.minDepth = 0.0f;
-    viewport.maxDepth = 1.0f;
-    vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
-
-    // Set dynamic scissor
-    VkRect2D scissor{};
-    scissor.offset = { 0, 0 };
-    scissor.extent = extent;
-    vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
-
-    // Set dynamic line width
-    vkCmdSetLineWidth(commandBuffer, 1.0f);
-
-    // Draw command (simple triangle with 3 vertices)
-    vkCmdDraw(commandBuffer, 3, 1, 0, 0);
-
-    // End render pass
-    vkCmdEndRenderPass(commandBuffer);
-
-    if (vkEndCommandBuffer(commandBuffer) != VK_SUCCESS) {
-        throw std::runtime_error("failed to record command buffer!");
-    }
-}
-
-void VulkanCommandBuffer::RecordOffScreenCommandBuffer(VkCommandBuffer commandBuffer, VkFramebuffer framebuffer,
-    VkRenderPass renderPass, VkExtent2D extent,
-    VkPipeline pipeline, VkPipelineLayout pipelineLayout) {
-    VkCommandBufferBeginInfo beginInfo{};
-    beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
-    beginInfo.flags = 0;
-    beginInfo.pInheritanceInfo = nullptr;
-
-    if (vkBeginCommandBuffer(commandBuffer, &beginInfo) != VK_SUCCESS) {
-        throw std::runtime_error("failed to begin recording command buffer!");
-    }
-
-    // Begin render pass for off-screen rendering
-    VkRenderPassBeginInfo renderPassInfo{};
-    renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-    renderPassInfo.renderPass = renderPass;
-    renderPassInfo.framebuffer = framebuffer;
-    renderPassInfo.renderArea.offset = { 0, 0 };
-    renderPassInfo.renderArea.extent = extent;
-
-    // Different clear color for off-screen to distinguish
-    VkClearValue clearColor = { {{0.1f, 0.1f, 0.1f, 1.0f}} };
     renderPassInfo.clearValueCount = 1;
     renderPassInfo.pClearValues = &clearColor;
 
@@ -153,7 +90,23 @@ void VulkanCommandBuffer::RecordOffScreenCommandBuffer(VkCommandBuffer commandBu
     }
 }
 
-VkCommandBuffer VulkanCommandBuffer::BeginSingleTimeCommands() {
+void VulkanCommandBuffer::RecordCommandBuffer(VkCommandBuffer commandBuffer, VkFramebuffer framebuffer,
+    VkRenderPass renderPass, const VkExtent2D& extent,
+    VkPipeline pipeline, VkPipelineLayout /*pipelineLayout*/) const {
+
+    VkClearValue clearColor = { {{0.0f, 0.0f, 0.0f, 1.0f}} };
+    RecordCommandBufferInternal(commandBuffer, framebuffer, renderPass, extent, pipeline, clearColor);
+}
+
+void VulkanCommandBuffer::RecordOffScreenCommandBuffer(VkCommandBuffer commandBuffer, VkFramebuffer framebuffer,
+    VkRenderPass renderPass, const VkExtent2D& extent,
+    VkPipeline pipeline, VkPipelineLayout /*pipelineLayout*/) const {
+
+    VkClearValue clearColor = { {{0.1f, 0.1f, 0.1f, 1.0f}} };
+    RecordCommandBufferInternal(commandBuffer, framebuffer, renderPass, extent, pipeline, clearColor);
+}
+
+VkCommandBuffer VulkanCommandBuffer::BeginSingleTimeCommands() const {
     VkCommandBufferAllocateInfo allocInfo{};
     allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
     allocInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
@@ -172,7 +125,7 @@ VkCommandBuffer VulkanCommandBuffer::BeginSingleTimeCommands() {
     return commandBuffer;
 }
 
-void VulkanCommandBuffer::EndSingleTimeCommands(VkCommandBuffer commandBuffer, VkQueue queue) {
+void VulkanCommandBuffer::EndSingleTimeCommands(VkCommandBuffer commandBuffer, VkQueue queue) const {
     vkEndCommandBuffer(commandBuffer);
 
     VkSubmitInfo submitInfo{};

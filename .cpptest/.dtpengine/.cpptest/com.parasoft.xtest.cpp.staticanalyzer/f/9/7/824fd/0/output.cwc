@@ -1,79 +1,9 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.cpp
-<c>STL-37-DOWNGRADED
-<b>The 'queueFamilyIndices' array should not be used
-<l>42
-<k>14
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.cpp
-<c>CODSTA-CPP-105
-<b>The '~VulkanSwapChain' function should be defined with =default
-<l>16
-<k>18
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'swapChainSupport' as const
-<l>20
-<k>29
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'surfaceFormat' as const
-<l>22
-<k>24
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'presentMode' as const
-<l>23
-<k>22
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'extent' as const
-<l>24
-<k>16
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.cpp
 <c>OPT-01
 <b>Variable "queueFamilyIndices" should be declared as locally as possible
-<l>42
-<k>14
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'imageView' as const
-<l>98
-<k>15
+<l>41
+<k>27
 <s>false
 <N>
 <f>
@@ -119,101 +49,11 @@
 <f>
 <L>0
 <->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.cpp
-<c>CODSTA-CPP-54
-<b>Member function 'chooseSwapSurfaceFormat' should be declared as const
-<l>133
-<k>37
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.cpp
-<c>CODSTA-CPP-54
-<b>Member function 'chooseSwapPresentMode' should be declared as const
-<l>143
-<k>35
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.cpp
-<c>CODSTA-CPP-54
-<b>Member function 'chooseSwapExtent' should be declared as const
-<l>152
-<k>29
-<s>false
-<N>
-<f>
-<L>0
-<->
 <F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
 <c>CODSTA-MCPP-23
 <b>Class 'VulkanSwapChain' should be final
 <l>16
 <k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.cpp
-<c>CODSTA-45
-<b>The parameter 'device' hides a member variable declared in class 'VulkanSwapChain'
-<l>7
-<k>43
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.cpp
-<c>CODSTA-45
-<b>The parameter 'physicalDevice' hides a member variable declared in class 'VulkanSwapChain'
-<l>7
-<k>68
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.cpp
-<c>CODSTA-45
-<b>The parameter 'surface' hides a member variable declared in class 'VulkanSwapChain'
-<l>7
-<k>97
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.cpp
-<c>CODSTA-45
-<b>The parameter 'window' hides a member variable declared in class 'VulkanSwapChain'
-<l>7
-<k>118
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.cpp
-<c>CODSTA-45
-<b>The parameter 'device' hides a member variable declared in class 'VulkanSwapChain'
-<l>109
-<k>81
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.cpp
-<c>CODSTA-45
-<b>The parameter 'surface' hides a member variable declared in class 'VulkanSwapChain'
-<l>109
-<k>102
 <s>false
 <N>
 <f>
@@ -249,21 +89,11 @@
 <f>
 <L>0
 <->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
-<c>CODSTA-CPP-105
-<b>The '~VulkanSwapChain' function should be defined with =default
-<l>19
-<k>5
-<s>false
-<N>
-<f>
-<L>0
-<->
 <F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.cpp
 <c>OPT-01
 <b>Variable "queueFamilyIndices" should be declared as locally as possible
-<l>42
-<k>14
+<l>41
+<k>27
 <s>false
 <N>
 <f>
@@ -330,10 +160,20 @@
 <L>0
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
-<c>OPT-33
-<b>Returned value from function 'GetQueueFamilies' is passed by value
+<c>OPT-13
+<b>Members 'cachedQueueFamilies' of class 'VulkanDevice' are declared in suboptimal order for memory layout
+<l>18
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetQueueFamilies' returns handles to member data: 'cachedQueueFamilies'
 <l>37
-<k>24
+<k>58
 <s>false
 <N>
 <f>
@@ -342,7 +182,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
 <c>OPT-33
 <b>Returned value from function 'findQueueFamilies' is passed by value
-<l>47
+<l>49
 <k>24
 <s>false
 <N>

@@ -139098,8 +139098,8 @@ H 89 C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
 K o
 I VKAPI_ATTR
 F 89
-L 29
-S 29
+L 31
+S 31
 f 5
 l 41
 EOR
@@ -139107,8 +139107,8 @@ EOR
 K o
 I VKAPI_CALL
 F 89
-L 29
-S 29
+L 31
+S 31
 f 5
 l 42
 EOR
@@ -139118,8 +139118,8 @@ H 90 C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.cpp
 K o
 I VK_NULL_HANDLE
 F 90
-L 32
-S 32
+L 30
+S 30
 f 4
 l 43
 EOR
@@ -139127,8 +139127,17 @@ EOR
 K o
 I VK_TRUE
 F 90
-L 61
-S 61
+L 58
+S 58
+f 4
+l 135
+EOR
+
+K o
+I VK_TRUE
+F 90
+L 58
+S 58
 f 4
 l 135
 EOR
@@ -139136,8 +139145,8 @@ EOR
 K o
 I VK_FALSE
 F 90
-L 61
-S 61
+L 58
+S 58
 f 4
 l 129
 EOR
@@ -139145,8 +139154,17 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 90
-L 88
-S 88
+L 85
+S 85
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 90
+L 87
+S 87
 f 4
 l 43
 EOR
@@ -139163,17 +139181,8 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 90
-L 93
-S 93
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 90
-L 94
-S 94
+L 91
+S 91
 f 4
 l 43
 EOR

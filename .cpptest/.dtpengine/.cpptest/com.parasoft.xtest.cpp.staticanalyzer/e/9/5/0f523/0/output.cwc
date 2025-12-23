@@ -49,71 +49,11 @@
 <f>
 <L>0
 <->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanUtils.h
-<c>OPT-33
-<b>Returned value from function 'GetRequiredExtensions' is passed by value
-<l>27
-<k>30
-<s>false
-<N>
-<f>
-<L>0
-<->
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
 <c>OPT-13
 <b>Members 'extent' of structure 'GraphicsPipelineConfig' are declared in suboptimal order for memory layout
 <l>10
 <k>8
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
-<c>CODSTA-MCPP-23
-<b>Class 'VulkanShader' should be final
-<l>8
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
-<c>MRM-49
-<b>Class 'VulkanShader' shall declare a copy assignment operator
-<l>8
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
-<c>MRM-49
-<b>Class 'VulkanShader' shall declare a copy constructor
-<l>8
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
-<c>CODSTA-CPP-04
-<b>Constructor 'VulkanShader' allowing conversion should be made explicit
-<l>10
-<k>5
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanShader.h
-<c>OPT-33
-<b>Returned value from function 'readFile' is passed by value
-<l>25
-<k>30
 <s>false
 <N>
 <f>
