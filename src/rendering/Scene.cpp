@@ -269,18 +269,21 @@ ParticleSystem* Scene::GetOrCreateSystem(const ParticleProps& props) {
     return ptr;
 }
 
-void Scene::AddFire(const glm::vec3& position, float scale, bool createSmoke) {
+int Scene::AddFire(const glm::vec3& position, float scale, bool createSmoke) {
     ParticleProps fire = ParticleLibrary::GetFireProps();
     fire.position = position;
-    // Apply scale to size
     fire.sizeBegin *= scale;
     fire.sizeEnd *= scale;
 
-    GetOrCreateSystem(fire)->AddEmitter(fire, 300.0f);
+    int id = GetOrCreateSystem(fire)->AddEmitter(fire, 300.0f);
 
     if (createSmoke) {
+        // Note: We are currently only tracking the fire ID. 
+        // To track smoke, you would need a separate ID or handle in SceneObject.
         AddSmoke(position + glm::vec3(0.0f, 2.0f * scale, 0.0f), scale);
     }
+
+    return id;
 }
 
 void Scene::AddSmoke(const glm::vec3& position, float scale) {
@@ -561,8 +564,7 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunIntensity) {
 
                 // Spawn Fire (using object position)
                 glm::vec3 pos = glm::vec3(obj->transform[3]);
-                AddFire(pos, 1.5f, true);
-                // TODO: Store the ID/pointer of this fire effect to stop it later
+                obj->fireEmitterId = AddFire(pos, 1.5f, true);
             }
             break;
         }
@@ -574,6 +576,13 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunIntensity) {
             // --- TURN TO DUST ---
             if (obj->burnTimer >= obj->maxBurnDuration) {
                 obj->state = ObjectState::BURNT;
+
+                if (obj->fireEmitterId != -1) {
+                    // We look up the fire system again using the standard props
+                    GetOrCreateSystem(ParticleLibrary::GetFireProps())->StopEmitter(obj->fireEmitterId);
+                    obj->fireEmitterId = -1;
+                }
+
                 obj->regrowTimer = 0.0f;
                 obj->burnFactor = 0.0f;
 
@@ -588,10 +597,13 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunIntensity) {
                 // 3. Swap Texture
                 obj->texturePath = sootTexturePath;
 
+
+
                 // 4. Shrink visual
                 glm::vec3 pos = glm::vec3(obj->transform[3]);
                 obj->transform = glm::translate(glm::mat4(1.0f), pos);
-                obj->transform = glm::scale(obj->transform, glm::vec3(0.3f)); // Pile of ash size
+                obj->transform = glm::scale(obj->transform, glm::vec3(0.003f)); // Pile of ash size
+
             }
             break;
         }

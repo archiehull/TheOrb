@@ -83,12 +83,12 @@ void Application::SetupScene() {
     scene->SetObjectCastsShadow("BasePedestal", false);
     scene->SetObjectLayerMask("BasePedestal", SceneLayers::OUTSIDE);
 
-    // High frequency cacti (small)
-    scene->RegisterProceduralObject("models/cactus.obj", "textures/cactus.jpg", 7.0f, glm::vec3(0.01f), glm::vec3(0.02f), glm::vec3(-90.0f, 0.0f, 0.0f));
-    // Medium frequency dead trees
-    scene->RegisterProceduralObject("models/DeadTree.obj", "textures/bark.jpg", 5.0f, glm::vec3(0.1f), glm::vec3(0.2f));
-    // Low frequency large trees
-    scene->RegisterProceduralObject("models/DeadTree.obj", "textures/bark.jpg", 4.0f, glm::vec3(0.25f), glm::vec3(0.35f));
+	// High frequency cacti
+    scene->RegisterProceduralObject("models/cactus.obj", "textures/cactus.jpg", 7.0f, glm::vec3(0.01f), glm::vec3(0.02f), glm::vec3(-90.0f, 0.0f, 0.0f), true);
+	// Medium frequency dead trees
+    scene->RegisterProceduralObject("models/DeadTree.obj", "textures/bark.jpg", 5.0f, glm::vec3(0.1f), glm::vec3(0.2f), glm::vec3(0.0f), true);
+	// Low frequency dead trees (larger)
+    scene->RegisterProceduralObject("models/DeadTree.obj", "textures/bark.jpg", 4.0f, glm::vec3(0.25f), glm::vec3(0.35f), glm::vec3(0.0f), true);
     scene->GenerateProceduralObjects(50, orbRadius - 20, deltaY, terrainHeightScale, terrainNoiseFreq);
 
     // sun must be called first
@@ -121,9 +121,6 @@ void Application::SetupScene() {
     scene->SetObjectShadingMode("FogShell", 4);
     scene->SetObjectCastsShadow("FogShell", false);
     scene->SetObjectLayerMask("FogShell", 0x1 | 0x2);
-
-    scene->AddFire(glm::vec3(0.0f, 0.5f + deltaY, 0.0f), 1.0f, true);   // Fire + Smoke
-    scene->AddFire(glm::vec3(-25.0f, 0.5f + deltaY, 0.0f), 1.0f, true);
 
     // Add Snow
     scene->AddSnow();

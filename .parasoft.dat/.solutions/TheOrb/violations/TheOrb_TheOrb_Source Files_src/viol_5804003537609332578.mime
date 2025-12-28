@@ -8,4 +8,4 @@ StorageVersion: v1
 --yIEedzdhFqcHpbuXKJXThfoQTx7V5p
 
 <?xml version='1.0' encoding='UTF-8'?><ResultInfo resultId="ICodingStandardsViolation" ownerId="com.parasoft.xtest.checkers.api.standards" violKeys="null"><StdViol msg="Returned value from function 'findQueueFamilies' is passed by value" ln="94" sev="5" auth="a" rule="OPT-33" tool="c++test" cat="OPT" lang="cpp" locType="sr" config="3" hash="963923733" locStartln="94" locStartPos="33" locEndLn="94" locEndPos="34" locFile="TheOrb/TheOrb/Source Files/src/vulkan/VulkanDevice.cpp"/></ResultInfo>
---yIEedzdhFqcHpbuXKJXThfoQTx7V5p
+--yIEedzdhFqcHpbuXKJXThfoQTx7V5p--

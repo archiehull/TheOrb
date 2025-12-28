@@ -34,6 +34,7 @@ layout(push_constant) uniform PushConstantObject {
     int shadingMode;
     int receiveShadows;
     int layerMask;
+    float burnFactor;
 } pco;
 
 layout(set = 0, binding = 1) uniform sampler2D shadowMap;
@@ -175,5 +176,12 @@ void main() {
         }
     }
 
-    outColor = vec4(lighting * texColor.rgb, texColor.a);
+    vec3 sootColor = vec3(0.05, 0.05, 0.05); // Dark gray/black
+    vec3 finalColor = lighting * texColor.rgb;
+    
+    if (pco.burnFactor > 0.0) {
+        finalColor = mix(finalColor, sootColor, pco.burnFactor * 0.9); // Mix up to 90% soot
+    }
+
+    outColor = vec4(finalColor, texColor.a);
 }

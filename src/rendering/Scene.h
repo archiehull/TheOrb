@@ -67,6 +67,8 @@ struct SceneObject {
     ObjectState state = ObjectState::NORMAL;
     bool isFlammable = false;
 
+    int fireEmitterId = -1;
+
     // Thermodynamics
     float currentTemp = 0.0f;
     float ignitionThreshold = 100.0f;
@@ -137,7 +139,7 @@ public:
     void GenerateProceduralObjects(int count, float terrainRadius, float deltaY, float heightScale, float noiseFreq);
 
     // Particle Methods
-    void AddFire(const glm::vec3& position, float scale, bool createSmoke);
+    int AddFire(const glm::vec3& position, float scale, bool createSmoke);
     void AddSmoke(const glm::vec3& position, float scale);
     void AddRain();
     void AddSnow();

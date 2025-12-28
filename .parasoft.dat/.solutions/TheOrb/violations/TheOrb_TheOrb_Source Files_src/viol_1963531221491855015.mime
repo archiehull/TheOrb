@@ -8,4 +8,4 @@ StorageVersion: v1
 --Y15zZZ2XzflVCNTrqOdVpDhSfO1Zmh0fZw
 
 <?xml version='1.0' encoding='UTF-8'?><ResultInfo resultId="ICodingStandardsViolation" ownerId="com.parasoft.xtest.checkers.api.standards" violKeys="null"><StdViol msg="Function 'Cleanup' is not inlined" ln="171" sev="4" auth="a" rule="OPT-24" tool="c++test" cat="OPT" lang="cpp" locType="sr" config="3" hash="1322777822" locStartln="171" locStartPos="14" locEndLn="171" locEndPos="15" locFile="TheOrb/TheOrb/Source Files/src/rendering/Texture.cpp"/></ResultInfo>
---Y15zZZ2XzflVCNTrqOdVpDhSfO1Zmh0fZw
+--Y15zZZ2XzflVCNTrqOdVpDhSfO1Zmh0fZw--

@@ -526,6 +526,7 @@ void Renderer::DrawSceneObjects(VkCommandBuffer cmd, const Scene& scene, VkPipel
         pco.shadingMode = obj->shadingMode;
         pco.receiveShadows = obj->receiveShadows ? 1 : 0;
         pco.layerMask = obj->layerMask;
+        pco.burnFactor = obj->burnFactor;
         vkCmdPushConstants(cmd, layout, VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(PushConstantObject), &pco);
 
         if (bindTextures) {

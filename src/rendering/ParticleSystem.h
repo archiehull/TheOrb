@@ -45,7 +45,8 @@ public:
     void Draw(VkCommandBuffer cmd, VkDescriptorSet globalDescriptorSet, uint32_t currentFrame);
 
     void Emit(const ParticleProps& props);
-    void AddEmitter(const ParticleProps& props, float particlesPerSecond);
+    int AddEmitter(const ParticleProps& props, float particlesPerSecond);
+    void StopEmitter(int emitterId);
 
     std::string GetTexturePath() const { return texture ? texturePath : ""; }
 
@@ -78,10 +79,13 @@ private:
     };
 
     struct ParticleEmitter {
+        int id;
         ParticleProps props;
         float particlesPerSecond = 0.0f;
         float timeSinceLastEmit = 0.0f;
     };
+
+    int nextEmitterId = 0;
 
     // Device handles first for compact layout
     VkDevice device;

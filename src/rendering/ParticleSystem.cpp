@@ -116,12 +116,24 @@ void ParticleSystem::Emit(const ParticleProps& props) {
     }
 }
 
-void ParticleSystem::AddEmitter(const ParticleProps& props, float particlesPerSecond) {
+int ParticleSystem::AddEmitter(const ParticleProps& props, float particlesPerSecond) {
     ParticleEmitter emitter;
+    emitter.id = nextEmitterId++; // Assign and increment
     emitter.props = props;
     emitter.particlesPerSecond = particlesPerSecond;
     emitter.timeSinceLastEmit = 0.0f;
     emitters.push_back(emitter);
+
+    return emitter.id;
+}
+
+void ParticleSystem::StopEmitter(int emitterId) {
+    // Remove emitter with matching ID using erase-remove idiom
+    emitters.erase(
+        std::remove_if(emitters.begin(), emitters.end(),
+            [emitterId](const ParticleEmitter& e) { return e.id == emitterId; }),
+        emitters.end()
+    );
 }
 
 void ParticleSystem::Update(float dt) {
