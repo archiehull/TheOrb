@@ -19,6 +19,14 @@ struct OrbitData {
     float currentAngle = 0.0f; // Internal state: current angle (in radians)
 };
 
+enum class ObjectState {
+    NORMAL,
+    HEATING,
+    BURNING,
+    BURNT,
+    REGROWING
+};
+
 namespace SceneLayers {
     // Bit 0: Objects inside the crystal ball (Terrain, Trees)
     constexpr int INSIDE = 1 << 0;  // Value: 1
@@ -40,21 +48,44 @@ struct SceneLight {
 
 struct SceneObject {
     std::string name;
-    std::unique_ptr<Geometry> geometry;
+    std::shared_ptr<Geometry> geometry;
+    std::shared_ptr<Geometry> storedOriginalGeometry = nullptr;
+
     glm::mat4 transform = glm::mat4(1.0f);
     bool visible = true;
-    std::string texturePath;
-    int shadingMode = 1; // 0=Gouraud, 1=Phong (Default)
 
+    std::string originalTexturePath;
+    std::string texturePath;
+
+    int shadingMode = 1; // 0=Gouraud, 1=Phong (Default)
     bool castsShadow = true;
     bool receiveShadows = true;
 
     OrbitData orbitData;
-
     int layerMask = SceneLayers::INSIDE;
 
-    explicit SceneObject(std::unique_ptr<Geometry> geo, const std::string& texPath = "", const std::string& objName = "")
-        : name(objName), geometry(std::move(geo)), texturePath(texPath) {
+    ObjectState state = ObjectState::NORMAL;
+    bool isFlammable = false;
+
+    // Thermodynamics
+    float currentTemp = 0.0f;
+    float ignitionThreshold = 100.0f;
+    float heatingRate = 40.0f;        // Faster heating
+    float coolingRate = 10.0f;
+
+    // Timers
+    float burnTimer = 0.0f;
+    float maxBurnDuration = 3.0f;
+
+    float regrowTimer = 0.0f;
+    float dustDuration = 10.0f;
+
+    // Visuals
+    float burnFactor = 0.0f;          // Passed to shader (0.0 to 1.0)
+    int fireParticleSystemIndex = -1; // To track attached fire particles
+
+    explicit SceneObject(std::shared_ptr<Geometry> geo, const std::string& texPath = "", const std::string& objName = "")
+        : name(objName), geometry(std::move(geo)), texturePath(texPath), originalTexturePath(texPath) {
     }
 };
 
@@ -65,6 +96,7 @@ struct ProceduralObjectConfig {
     glm::vec3 minScale;
     glm::vec3 maxScale;
     glm::vec3 baseRotation;
+    bool isFlammable = false;
 };
 
 class Scene final {
@@ -83,8 +115,10 @@ public:
     void AddCube(const std::string& name, const glm::vec3& position = glm::vec3(0.0f), const glm::vec3& scale = glm::vec3(1.0f), const std::string& texturePath = "");
     void AddGrid(const std::string& name, int rows, int cols, float cellSize = 0.1f, const glm::vec3& position = glm::vec3(0.0f), const std::string& texturePath = "");
     void AddSphere(const std::string& name, int stacks = 16, int slices = 32, float radius = 0.5f, const glm::vec3& position = glm::vec3(0.0f), const std::string& texturePath = "");
-    void AddModel(const std::string& name, const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale, const std::string& modelPath, const std::string& texturePath);
     void AddGeometry(const std::string& name, std::unique_ptr<Geometry> geometry, const glm::vec3& position = glm::vec3(0.0f));
+
+    void AddModel(const std::string& name, const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale, const std::string& modelPath, const std::string& texturePath, bool isFlammable = false);
+
 
     void AddLight(const std::string& name, const glm::vec3& position, const glm::vec3& color, float intensity, int type);
 
@@ -99,7 +133,7 @@ public:
         VkDescriptorSetLayout layout, uint32_t framesInFlightArg);
 
     // Procedural Generation API
-    void RegisterProceduralObject(const std::string& modelPath, const std::string& texturePath, float frequency, const glm::vec3& minScale, const glm::vec3& maxScale, const glm::vec3& baseRotation = glm::vec3(0.0f));
+    void RegisterProceduralObject(const std::string& modelPath, const std::string& texturePath, float frequency, const glm::vec3& minScale, const glm::vec3& maxScale, const glm::vec3& baseRotation = glm::vec3(0.0f), bool isFlammable = false);
     void GenerateProceduralObjects(int count, float terrainRadius, float deltaY, float heightScale, float noiseFreq);
 
     // Particle Methods
@@ -108,6 +142,8 @@ public:
     void AddRain();
     void AddSnow();
     void AddDust();
+
+    void UpdateThermodynamics(float deltaTime, float sunIntensity);
 
     // Accessors for Renderer
     const std::vector<std::unique_ptr<ParticleSystem>>& GetParticleSystems() const { return particleSystems; }
@@ -136,7 +172,7 @@ public:
     void Cleanup() { Clear(); }
 
 private:
-    void AddObjectInternal(const std::string& name, std::unique_ptr<Geometry> geometry, const glm::vec3& position, const std::string& texturePath);
+    void AddObjectInternal(const std::string& name, std::unique_ptr<Geometry> geometry, const glm::vec3& position, const std::string& texturePath, bool isFlammable);
 
     glm::vec3 InitializeOrbit(OrbitData& data, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad) const;
 
@@ -157,4 +193,7 @@ private:
     uint32_t framesInFlight = 2;
 
     std::vector<std::unique_ptr<ParticleSystem>> particleSystems;
+
+    std::shared_ptr<Geometry> dustGeometryPrototype;
+    std::string sootTexturePath = "textures/soot.jpg";
 };

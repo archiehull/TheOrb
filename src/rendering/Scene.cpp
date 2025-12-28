@@ -22,9 +22,11 @@ static void UpdateShadingMode(SceneObject* obj) {
     }
 }
 
-void Scene::AddObjectInternal(const std::string& name, std::unique_ptr<Geometry> geometry, const glm::vec3& position, const std::string& texturePath) {
-    auto obj = std::make_unique<SceneObject>(std::move(geometry), texturePath, name);
+void Scene::AddObjectInternal(const std::string& name, std::unique_ptr<Geometry> geometry, const glm::vec3& position, const std::string& texturePath, bool isFlammable) {
+    std::shared_ptr<Geometry> sharedGeo = std::move(geometry);
+    auto obj = std::make_unique<SceneObject>(sharedGeo, texturePath, name);
     obj->transform = glm::translate(glm::mat4(1.0f), position);
+    obj->isFlammable = isFlammable;
     UpdateShadingMode(obj.get());
     objects.push_back(std::move(obj));
 }
@@ -44,18 +46,26 @@ float Scene::RadiusAdjustment(const float radius, const float deltaY) const {
 
 Scene::Scene(VkDevice vkDevice, VkPhysicalDevice physDevice)
     : device(vkDevice), physicalDevice(physDevice) {
+    try {
+        auto dustGeo = OBJLoader::Load(device, physicalDevice, "models/dust.obj");
+        dustGeometryPrototype = std::shared_ptr<Geometry>(std::move(dustGeo));
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Failed to load dust prototype: " << e.what() << std::endl;
+    }
 }
 
 // Destructor implementation removed (now = default in header)
 
-void Scene::RegisterProceduralObject(const std::string& modelPath, const std::string& texturePath, float frequency, const glm::vec3& minScale, const glm::vec3& maxScale, const glm::vec3& baseRotation) {
+void Scene::RegisterProceduralObject(const std::string& modelPath, const std::string& texturePath, float frequency, const glm::vec3& minScale, const glm::vec3& maxScale, const glm::vec3& baseRotation, bool isFlammable) {
     ProceduralObjectConfig config;
     config.modelPath = modelPath;
     config.texturePath = texturePath;
     config.frequency = frequency;
     config.minScale = minScale;
     config.maxScale = maxScale;
-    config.baseRotation = baseRotation; // Store the correction
+    config.baseRotation = baseRotation;
+    config.isFlammable = isFlammable;
     proceduralRegistry.push_back(config);
 }
 
@@ -106,7 +116,7 @@ void Scene::GenerateProceduralObjects(int count, float terrainRadius, float delt
         // 5. Spawn Object (with dummy rotation initially)
         const std::string name = "ProcObj_" + std::to_string(i);
         // We pass 0 rotation here because we will manually overwrite the matrix below
-        AddModel(name, glm::vec3(x, y, z), glm::vec3(0.0f), scale, config.modelPath, config.texturePath);
+        AddModel(name, glm::vec3(x, y, z), glm::vec3(0.0f), scale, config.modelPath, config.texturePath, config.isFlammable);
 
         // 6. Overwrite Transform with Correct Rotation Order
         if (!objects.empty()) {
@@ -140,19 +150,19 @@ void Scene::GenerateProceduralObjects(int count, float terrainRadius, float delt
 
 
 void Scene::AddTerrain(const std::string& name, float radius, int rings, int segments, float heightScale, float noiseFreq, const glm::vec3& position, const std::string& texturePath) {
-    AddObjectInternal(name, GeometryGenerator::CreateTerrain(device, physicalDevice, radius - 1, rings, segments, heightScale, noiseFreq), position, texturePath);
+    AddObjectInternal(name, GeometryGenerator::CreateTerrain(device, physicalDevice, radius - 1, rings, segments, heightScale, noiseFreq), position, texturePath, false);
 }
 
 void Scene::AddBowl(const std::string& name, float radius, int slices, int stacks, const glm::vec3& position, const std::string& texturePath) {
-    AddObjectInternal(name, GeometryGenerator::CreateBowl(device, physicalDevice, radius, slices, stacks), position, texturePath);
+    AddObjectInternal(name, GeometryGenerator::CreateBowl(device, physicalDevice, radius, slices, stacks), position, texturePath, false);
 }
 
 void Scene::AddPedestal(const std::string& name, float topRadius, float baseWidth, float height, const glm::vec3& position, const std::string& texturePath) {
-    AddObjectInternal(name, GeometryGenerator::CreatePedestal(device, physicalDevice, topRadius, baseWidth, height, 512, 512), position, texturePath);
+    AddObjectInternal(name, GeometryGenerator::CreatePedestal(device, physicalDevice, topRadius, baseWidth, height, 512, 512), position, texturePath, false);
 }
 
 void Scene::AddCube(const std::string& name, const glm::vec3& position, const glm::vec3& scale, const std::string& texturePath) {
-    AddObjectInternal(name, GeometryGenerator::CreateCube(device, physicalDevice), position, texturePath);
+    AddObjectInternal(name, GeometryGenerator::CreateCube(device, physicalDevice), position, texturePath, false);
 
     if (!objects.empty()) {
         glm::mat4 t = glm::translate(glm::mat4(1.0f), position);
@@ -163,22 +173,24 @@ void Scene::AddCube(const std::string& name, const glm::vec3& position, const gl
 }
 
 void Scene::AddGrid(const std::string& name, int rows, int cols, float cellSize, const glm::vec3& position, const std::string& texturePath) {
-    AddObjectInternal(name, GeometryGenerator::CreateGrid(device, physicalDevice, rows, cols, cellSize), position, texturePath);
+    AddObjectInternal(name, GeometryGenerator::CreateGrid(device, physicalDevice, rows, cols, cellSize), position, texturePath, false);
 }
 
 void Scene::AddSphere(const std::string& name, int stacks, int slices, float radius, const glm::vec3& position, const std::string& texturePath) {
-    AddObjectInternal(name, GeometryGenerator::CreateSphere(device, physicalDevice, stacks, slices, radius), position, texturePath);
+    AddObjectInternal(name, GeometryGenerator::CreateSphere(device, physicalDevice, stacks, slices, radius), position, texturePath, false);
 }
 
 void Scene::AddGeometry(const std::string& name, std::unique_ptr<Geometry> geometry, const glm::vec3& position) {
-    AddObjectInternal(name, std::move(geometry), position, "");
+    AddObjectInternal(name, std::move(geometry), position, "", false);
 }
 
-void Scene::AddModel(const std::string& name, const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale, const std::string& modelPath, const std::string& texturePath) {
+void Scene::AddModel(const std::string& name, const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale, const std::string& modelPath, const std::string& texturePath, bool isFlammable) {
     try {
         auto geometry = OBJLoader::Load(device, physicalDevice, modelPath);
 
-        auto obj = std::make_unique<SceneObject>(std::move(geometry), texturePath, name);
+        // Explicit shared_ptr conversion
+        std::shared_ptr<Geometry> sharedGeo = std::move(geometry);
+        auto obj = std::make_unique<SceneObject>(sharedGeo, texturePath, name);
 
         glm::mat4 transform = glm::mat4(1.0f);
         transform = glm::translate(transform, position);
@@ -188,6 +200,8 @@ void Scene::AddModel(const std::string& name, const glm::vec3& position, const g
         transform = glm::scale(transform, scale);
 
         obj->transform = transform;
+        obj->isFlammable = isFlammable;
+
         UpdateShadingMode(obj.get());
 
         objects.push_back(std::move(obj));
@@ -408,6 +422,15 @@ void Scene::Update(float deltaTime) {
         }
     }
 
+    float sunIntensity = 0.0f;
+    if (!m_SceneLights.empty()) {
+        // Calculate intensity based on Sun Height (Light 0)
+        // If Y > 0 (Day), intensity increases up to 1.0
+        float sunHeight = m_SceneLights[0].vulkanLight.position.y;
+        sunIntensity = std::clamp(sunHeight / 50.0f, 0.0f, 1.0f);
+    }
+    UpdateThermodynamics(deltaTime, sunIntensity);
+
     for (const auto& sys : particleSystems) {
         sys->Update(deltaTime);
     }
@@ -500,5 +523,123 @@ void Scene::SetObjectShadingMode(const std::string& name, int mode) {
 
     if (it != objects.end()) {
         (*it)->shadingMode = mode;
+    }
+}
+
+void Scene::UpdateThermodynamics(float deltaTime, float sunIntensity) {
+    // 1. Determine Sun Position (Assuming Light 0 is Sun)
+    bool globalSunlight = false;
+    if (!m_SceneLights.empty()) {
+        // Simple check: Is the sun above the horizon?
+        globalSunlight = m_SceneLights[0].vulkanLight.position.y > 0.0f;
+    }
+
+    for (auto& obj : objects) {
+        if (!obj->isFlammable) continue;
+
+        switch (obj->state) {
+        case ObjectState::NORMAL:
+        case ObjectState::HEATING: {
+            // If sun is up and intense enough
+            bool inSun = globalSunlight && (sunIntensity > 0.2f);
+
+            if (inSun) {
+                obj->state = ObjectState::HEATING;
+                obj->currentTemp += obj->heatingRate * sunIntensity * deltaTime;
+            }
+            else {
+                obj->state = ObjectState::NORMAL;
+                obj->currentTemp -= obj->coolingRate * deltaTime;
+            }
+
+            obj->currentTemp = glm::max(0.0f, obj->currentTemp);
+
+            // --- IGNITION ---
+            if (obj->currentTemp >= obj->ignitionThreshold) {
+                obj->state = ObjectState::BURNING;
+                obj->burnTimer = 0.0f;
+
+                // Spawn Fire (using object position)
+                glm::vec3 pos = glm::vec3(obj->transform[3]);
+                AddFire(pos, 1.5f, true);
+                // TODO: Store the ID/pointer of this fire effect to stop it later
+            }
+            break;
+        }
+
+        case ObjectState::BURNING: {
+            obj->burnTimer += deltaTime;
+            obj->burnFactor = glm::clamp(obj->burnTimer / obj->maxBurnDuration, 0.0f, 1.0f);
+
+            // --- TURN TO DUST ---
+            if (obj->burnTimer >= obj->maxBurnDuration) {
+                obj->state = ObjectState::BURNT;
+                obj->regrowTimer = 0.0f;
+                obj->burnFactor = 0.0f;
+
+                // 1. Save Original Geometry (Shared Pointer copy, cheap)
+                obj->storedOriginalGeometry = obj->geometry;
+
+                // 2. Assign Dust Geometry (Shared Pointer copy, cheap)
+                if (dustGeometryPrototype) {
+                    obj->geometry = dustGeometryPrototype;
+                }
+
+                // 3. Swap Texture
+                obj->texturePath = sootTexturePath;
+
+                // 4. Shrink visual
+                glm::vec3 pos = glm::vec3(obj->transform[3]);
+                obj->transform = glm::translate(glm::mat4(1.0f), pos);
+                obj->transform = glm::scale(obj->transform, glm::vec3(0.3f)); // Pile of ash size
+            }
+            break;
+        }
+
+        case ObjectState::BURNT: {
+            obj->regrowTimer += deltaTime;
+
+            // --- START REGROWTH ---
+            // Condition: Time passed AND it's daytime
+            if (obj->regrowTimer >= obj->dustDuration && globalSunlight) {
+                obj->state = ObjectState::REGROWING;
+
+                // Restore Geometry Immediately
+                if (obj->storedOriginalGeometry) {
+                    obj->geometry = obj->storedOriginalGeometry;
+                    obj->storedOriginalGeometry = nullptr; // Release reference
+                }
+
+                // Restore Texture
+                obj->texturePath = obj->originalTexturePath;
+
+                // Reset Temp
+                obj->currentTemp = 0.0f;
+            }
+            break;
+        }
+
+        case ObjectState::REGROWING: {
+            // Animate Scaling Up
+            // We extract the current scale from the matrix (approximate)
+            float currentScale = glm::length(glm::vec3(obj->transform[0]));
+            float targetScale = 1.0f; // Assuming original was 1.0f
+
+            float growthSpeed = 0.5f * deltaTime;
+            float newScale = currentScale + growthSpeed;
+
+            if (newScale >= targetScale) {
+                newScale = targetScale;
+                obj->state = ObjectState::NORMAL;
+                obj->burnFactor = 0.0f;
+            }
+
+            // Apply Scale
+            glm::vec3 pos = glm::vec3(obj->transform[3]);
+            obj->transform = glm::translate(glm::mat4(1.0f), pos);
+            obj->transform = glm::scale(obj->transform, glm::vec3(newScale));
+            break;
+        }
+        }
     }
 }
