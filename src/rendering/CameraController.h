@@ -4,6 +4,8 @@
 #include <memory>
 #include <map>
 
+class Scene;
+
 class CameraController final {
 public:
     CameraController();
@@ -13,11 +15,7 @@ public:
     CameraController(const CameraController&) = delete;
     CameraController& operator=(const CameraController&) = delete;
 
-    // Movable
-    //CameraController(CameraController&&) noexcept;
-    //CameraController& operator=(CameraController&&) noexcept;
-
-    void Update(float deltaTime);
+    void Update(float deltaTime, const Scene& scene);
 
     // Marked const to avoid exposing non-const accessors (resolves CODSTA-CPP.54)
     inline Camera* GetActiveCamera() const { return activeCamera; }
@@ -43,5 +41,6 @@ private:
     bool keyShift = false;
 
     void SetupCameras();
-    void UpdateFreeRoamCamera(float deltaTime);
+    void UpdateFreeRoamCamera(float deltaTime, const Scene& scene);
+    void ClampCameraPosition(glm::vec3& position, const Scene& scene, const glm::vec3& previousPosition);
 };

@@ -1,5 +1,8 @@
 #include "CameraController.h"
+#include "Scene.h"
 #include <GLFW/glfw3.h>
+#include <algorithm> // For std::max
+#include <iostream>
 
 CameraController::CameraController()
     : activeCamera(nullptr)
@@ -42,21 +45,16 @@ void CameraController::SwitchCamera(CameraType type) {
     }
 }
 
-void CameraController::Update(float deltaTime) {
+void CameraController::Update(float deltaTime, const Scene& scene) {
     if (activeCameraType == CameraType::FREE_ROAM) {
-        UpdateFreeRoamCamera(deltaTime);
+        UpdateFreeRoamCamera(deltaTime, scene);
     }
-    // Fixed cameras don't need updates
 }
 
-void CameraController::UpdateFreeRoamCamera(float deltaTime) {
-    // TODO: Clamp movement when near terrain or objects
-
+void CameraController::UpdateFreeRoamCamera(float deltaTime, const Scene& scene) {
     if (!activeCamera) return;
 
-    // Compute exclusive (swapped) input mapping so one key set can't trigger both move and rotate.
-    // Default (no CTRL): Group A (WASD) = movement, Group B (IJKL + Arrows) = rotation.
-    // With CTRL held: groups swap roles (WASD = rotation, IJKL+Arrows = movement).
+    // --- INPUT MAPPING ---
     const bool groupA_forward = keyW;
     const bool groupA_backward = keyS;
     const bool groupA_left = keyA;
@@ -66,30 +64,27 @@ void CameraController::UpdateFreeRoamCamera(float deltaTime) {
     const bool groupB_left = keyJ || keyLeft;
     const bool groupB_right = keyL || keyRight;
 
-    // Effective movement flags
+    // Effective movement flags (Swappable with CTRL)
     const bool moveForward = keyCtrl ? groupB_forward : groupA_forward;
     const bool moveBackward = keyCtrl ? groupB_backward : groupA_backward;
     const bool moveLeft = keyCtrl ? groupB_left : groupA_left;
     const bool moveRight = keyCtrl ? groupB_right : groupA_right;
-
-    // Vertical movement (Q/E) remain movement in both modes.
     const bool moveDown = keyQ;
     const bool moveUp = keyE;
 
-    // Effective rotation flags (pitch = look up/down, yaw = look left/right)
-    const bool rotatePitchUp = keyCtrl ? groupA_forward : groupB_forward;  // Look up
-    const bool rotatePitchDown = keyCtrl ? groupA_backward : groupB_backward; // Look down
-    const bool rotateYawLeft = keyCtrl ? groupA_left : groupB_left;     // Look left
-    const bool rotateYawRight = keyCtrl ? groupA_right : groupB_right;    // Look right
+    // Effective rotation flags
+    const bool rotatePitchUp = keyCtrl ? groupA_forward : groupB_forward;
+    const bool rotatePitchDown = keyCtrl ? groupA_backward : groupB_backward;
+    const bool rotateYawLeft = keyCtrl ? groupA_left : groupB_left;
+    const bool rotateYawRight = keyCtrl ? groupA_right : groupB_right;
 
-    // Movement and rotation multipliers adjusted by SHIFT
-    const float shiftMultiplier = keyShift ? 3.0f : 1.0f; // movement multiplier
-    const float rotationMultiplier = keyShift ? 3.0f : 1.0f; // rotation multiplier
-
+    const float shiftMultiplier = keyShift ? 3.0f : 1.0f;
     const float moveDelta = deltaTime * shiftMultiplier;
-    const float rotateDelta = deltaTime * rotationMultiplier;
+    const float rotateDelta = deltaTime * shiftMultiplier; // Applied rotation speed
 
-    // Apply movement (exclusive)
+    glm::vec3 oldPos = activeCamera->GetPosition();
+
+    // --- 1. APPLY MOVEMENT ---
     if (moveForward)  activeCamera->MoveForward(moveDelta);
     if (moveBackward) activeCamera->MoveBackward(moveDelta);
     if (moveLeft)     activeCamera->MoveLeft(moveDelta);
@@ -97,7 +92,13 @@ void CameraController::UpdateFreeRoamCamera(float deltaTime) {
     if (moveDown)     activeCamera->MoveDown(moveDelta);
     if (moveUp)       activeCamera->MoveUp(moveDelta);
 
-    // Apply rotation (exclusive) -- now affected by SHIFT multiplier
+    // --- 2. APPLY COLLISIONS ---
+    // Retrieve the new candidate position, clamp it, and set it back.
+    glm::vec3 currentPos = activeCamera->GetPosition();
+    ClampCameraPosition(currentPos, scene, oldPos);
+    activeCamera->SetPosition(currentPos);
+
+    // --- 3. APPLY ROTATION ---
     if (rotatePitchUp)   activeCamera->RotatePitch(rotateDelta);
     if (rotatePitchDown) activeCamera->RotatePitch(-rotateDelta);
     if (rotateYawLeft)   activeCamera->RotateYaw(-rotateDelta);
@@ -105,7 +106,6 @@ void CameraController::UpdateFreeRoamCamera(float deltaTime) {
 }
 
 void CameraController::OnKeyPress(int key, bool pressed) {
-    // Movement keys
     if (key == GLFW_KEY_W) keyW = pressed;
     if (key == GLFW_KEY_A) keyA = pressed;
     if (key == GLFW_KEY_S) keyS = pressed;
@@ -113,23 +113,85 @@ void CameraController::OnKeyPress(int key, bool pressed) {
     if (key == GLFW_KEY_Q) keyQ = pressed;
     if (key == GLFW_KEY_E) keyE = pressed;
 
-    // Rotation / alternate movement keys (IJKL)
     if (key == GLFW_KEY_I) keyI = pressed;
     if (key == GLFW_KEY_J) keyJ = pressed;
     if (key == GLFW_KEY_K) keyK = pressed;
     if (key == GLFW_KEY_L) keyL = pressed;
 
-    // Arrow keys handled separately so they can participate in swap
     if (key == GLFW_KEY_UP) keyUp = pressed;
     if (key == GLFW_KEY_LEFT) keyLeft = pressed;
     if (key == GLFW_KEY_DOWN) keyDown = pressed;
     if (key == GLFW_KEY_RIGHT) keyRight = pressed;
 
-    // Modifiers
-    if (key == GLFW_KEY_LEFT_CONTROL || key == GLFW_KEY_RIGHT_CONTROL) {
-        keyCtrl = pressed;
+    if (key == GLFW_KEY_LEFT_CONTROL || key == GLFW_KEY_RIGHT_CONTROL) keyCtrl = pressed;
+    if (key == GLFW_KEY_LEFT_SHIFT || key == GLFW_KEY_RIGHT_SHIFT) keyShift = pressed;
+}
+
+void CameraController::ClampCameraPosition(glm::vec3& pos, const Scene& scene, const glm::vec3& prevPos) {
+    const float COLLISION_BUFFER = 1.7f;
+
+    // --- 1. DYNAMIC TERRAIN COLLISION ---
+    const auto& terrain = scene.GetTerrainConfig();
+    if (terrain.exists) {
+        // 1. Calculate Local Coordinates
+        float localX = pos.x - terrain.position.x;
+        float localZ = pos.z - terrain.position.z;
+        float distFromCenter = glm::length(glm::vec2(localX, localZ));
+
+        // 2. Sample Height
+        float rawNoiseHeight = GeometryGenerator::GetTerrainHeight(
+            localX, localZ,
+            terrain.radius,
+            terrain.heightScale,
+            terrain.noiseFreq
+        );
+
+        // 3. Convert to World Height
+        float worldFloorY = rawNoiseHeight + terrain.position.y;
+        float clampHeight = worldFloorY + COLLISION_BUFFER;
+
+        if (distFromCenter < terrain.radius) {
+            if (pos.y < clampHeight) {
+                pos.y = clampHeight;
+            }
+        }
     }
-    if (key == GLFW_KEY_LEFT_SHIFT || key == GLFW_KEY_RIGHT_SHIFT) {
-        keyShift = pressed;
+
+    // --- 2. DYNAMIC OBJECT COLLISION ---
+    for (const auto& obj : scene.GetObjects()) {
+        if (!obj->hasCollision) continue;
+
+        glm::vec3 objPos = glm::vec3(obj->transform[3]);
+        float objTop = objPos.y + obj->collisionHeight;
+        float bufferedTop = objTop + COLLISION_BUFFER;
+
+        // Check horizontal distance first (Infinite cylinder check)
+        float distXZ = glm::distance(glm::vec2(pos.x, pos.z), glm::vec2(objPos.x, objPos.z));
+        float minSeparation = obj->collisionRadius + COLLISION_BUFFER;
+
+        // Only process if we are horizontally intersecting
+        if (distXZ < minSeparation) {
+
+            // Check Vertical State
+            bool isInsideVertical = (pos.y > objPos.y) && (pos.y < bufferedTop);
+            bool wasAbove = (prevPos.y >= bufferedTop);
+
+            if (isInsideVertical) {
+                if (wasAbove) {
+                    // CASE A: LANDING
+                    pos.y = bufferedTop;
+                }
+                else {
+                    // CASE B: WALL HIT
+                    glm::vec2 dir = glm::vec2(pos.x, pos.z) - glm::vec2(objPos.x, objPos.z);
+                    if (glm::length(dir) < 0.001f) dir = glm::vec2(1.0f, 0.0f);
+                    else dir = glm::normalize(dir);
+
+                    glm::vec2 corrected = glm::vec2(objPos.x, objPos.z) + dir * minSeparation;
+                    pos.x = corrected.x;
+                    pos.z = corrected.y;
+                }
+            }
+        }
     }
 }

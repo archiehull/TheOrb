@@ -79,9 +79,12 @@ void Application::SetupScene() {
     const float adjustedRadius = scene->RadiusAdjustment(orbRadius, deltaY);
 
     scene->AddTerrain("GroundGrid", adjustedRadius, 512, 512, 3.5f, 0.02f, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), "textures/desert2.jpg");
+
     scene->AddPedestal("BasePedestal", adjustedRadius, orbRadius * 2.3, 100.0f, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), "textures/mahogany.jpg");
     scene->SetObjectCastsShadow("BasePedestal", false);
     scene->SetObjectLayerMask("BasePedestal", SceneLayers::OUTSIDE);
+    scene->SetObjectCollision("BasePedestal", false);
+
 
 	// High frequency cacti
     scene->RegisterProceduralObject("models/cactus.obj", "textures/cactus.jpg", 7.0f, glm::vec3(0.01f), glm::vec3(0.02f), glm::vec3(-90.0f, 0.0f, 0.0f), true);
@@ -99,6 +102,7 @@ void Application::SetupScene() {
     scene->SetLightOrbit(SUN_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, baseOrbitSpeed, glm::vec3(0.0f, 0.0f, 1.0f), 0.0f);
     scene->SetObjectLayerMask(SUN_NAME, SceneLayers::ALL);
     scene->SetLightLayerMask(SUN_NAME, SceneLayers::ALL);
+    scene->SetObjectCollision(SUN_NAME, false);
 
     scene->AddSphere(MOON_NAME, 16, 32, 2.0f, glm::vec3(0.0f), "textures/moon.jpg");
     scene->AddLight(MOON_NAME, glm::vec3(0.0f), glm::vec3(0.1f, 0.1f, 0.3f), 1.5f, 0);
@@ -107,20 +111,24 @@ void Application::SetupScene() {
     scene->SetLightOrbit(MOON_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, baseOrbitSpeed, glm::vec3(0.0f, 0.0f, 1.0f), glm::pi<float>());
     scene->SetObjectLayerMask(MOON_NAME, SceneLayers::ALL);
     scene->SetLightLayerMask(MOON_NAME, SceneLayers::ALL);
+    scene->SetObjectCollision(MOON_NAME, false);
 
     scene->AddSphere("PedestalLightSphere", 16, 32, 5.0f, glm::vec3(200.0f, 0.0f, 200.0f));
     scene->AddLight("PedestalLight", glm::vec3(200.0f, 0.0f, 200.0f), glm::vec3(1.0f, 0.5f, 0.2f), 5.0f, 0);
     scene->SetLightLayerMask("PedestalLight", SceneLayers::OUTSIDE);
     scene->SetObjectLayerMask("PedestalLightSphere", SceneLayers::OUTSIDE);
+    scene->SetObjectCollision("PedestalLightSphere", false);
 
     scene->AddSphere("CrystalBall", 32, 64, orbRadius, glm::vec3(0.0f, 0.0f, 0.0f), "");
     scene->SetObjectShadingMode("CrystalBall", 3);
     scene->SetObjectCastsShadow("CrystalBall", false);
+    scene->SetObjectCollision("CrystalBall", false);
 
     scene->AddSphere("FogShell", 32, 64, orbRadius + 1, glm::vec3(0.0f, 0.0f, 0.0f), "");
     scene->SetObjectShadingMode("FogShell", 4);
     scene->SetObjectCastsShadow("FogShell", false);
     scene->SetObjectLayerMask("FogShell", 0x1 | 0x2);
+    scene->SetObjectCollision("FogShell", false);
 
     // Add Snow
     scene->AddSnow();
@@ -169,8 +177,9 @@ void Application::MainLoop() {
             RecreateSwapChain();
         }
 
-        cameraController->Update(deltaTime);
         scene->Update(deltaTime * timeScale);
+        cameraController->Update(deltaTime, *scene);
+
 
         // Get camera matrices
         Camera* const activeCamera = cameraController->GetActiveCamera();

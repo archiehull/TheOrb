@@ -46,6 +46,14 @@ struct SceneLight {
     int layerMask = SceneLayers::INSIDE;
 };
 
+struct TerrainConfig {
+    bool exists = false;
+    float radius = 100.0f;
+    float heightScale = 1.0f;
+    float noiseFreq = 0.01f;
+    glm::vec3 position = glm::vec3(0.0f);
+};
+
 struct SceneObject {
     std::string name;
     std::shared_ptr<Geometry> geometry;
@@ -87,6 +95,11 @@ struct SceneObject {
     // Visuals
     float burnFactor = 0.0f;          // Passed to shader (0.0 to 1.0)
     int fireParticleSystemIndex = -1; // To track attached fire particles
+
+    // Collisions
+    bool hasCollision = true;       // On by default
+    float collisionRadius = 2.0f;   // Approximate width (Cylinder/Sphere radius)
+    float collisionHeight = 5.0f;   // Approximate height (Cylinder height)
 
     explicit SceneObject(std::shared_ptr<Geometry> geo, const std::string& texPath = "", const std::string& objName = "")
         : name(objName), geometry(std::move(geo)), texturePath(texPath), originalTexturePath(texPath) {
@@ -136,6 +149,10 @@ public:
         GraphicsPipeline* additivePipeline, GraphicsPipeline* alphaPipeline,
         VkDescriptorSetLayout layout, uint32_t framesInFlightArg);
 
+    const TerrainConfig& GetTerrainConfig() const { return m_TerrainConfig; }
+    void SetObjectCollision(const std::string& name, bool enabled);
+    void SetObjectCollisionSize(const std::string& name, float radius, float height);
+
     // Procedural Generation API
     void RegisterProceduralObject(const std::string& modelPath, const std::string& texturePath, float frequency, const glm::vec3& minScale, const glm::vec3& maxScale, const glm::vec3& baseRotation = glm::vec3(0.0f), bool isFlammable = false);
     void GenerateProceduralObjects(int count, float terrainRadius, float deltaY, float heightScale, float noiseFreq);
@@ -181,11 +198,13 @@ private:
 
     glm::vec3 InitializeOrbit(OrbitData& data, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad) const;
 
+    TerrainConfig m_TerrainConfig;
     std::vector<SceneLight> m_SceneLights;
-    VkDevice device;
-    VkPhysicalDevice physicalDevice;
     std::vector<std::unique_ptr<SceneObject>> objects;
     std::vector<ProceduralObjectConfig> proceduralRegistry;
+
+    VkDevice device;
+    VkPhysicalDevice physicalDevice;
 
     ParticleSystem* GetOrCreateSystem(const ParticleProps& props);
 

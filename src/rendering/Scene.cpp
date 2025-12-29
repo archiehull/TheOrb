@@ -151,6 +151,19 @@ void Scene::GenerateProceduralObjects(int count, float terrainRadius, float delt
 
 void Scene::AddTerrain(const std::string& name, float radius, int rings, int segments, float heightScale, float noiseFreq, const glm::vec3& position, const std::string& texturePath) {
     AddObjectInternal(name, GeometryGenerator::CreateTerrain(device, physicalDevice, radius - 1, rings, segments, heightScale, noiseFreq), position, texturePath, false);
+
+    // DISABLE generic cylinder collision for the Terrain object itself 
+    // (We will use the Math-based height check instead)
+    if (!objects.empty()) {
+        objects.back()->hasCollision = false;
+    }
+
+    // STORE params for the Camera Controller
+    m_TerrainConfig.exists = true;
+    m_TerrainConfig.radius = radius;
+    m_TerrainConfig.heightScale = heightScale;
+    m_TerrainConfig.noiseFreq = noiseFreq;
+    m_TerrainConfig.position = position;
 }
 
 void Scene::AddBowl(const std::string& name, float radius, int slices, int stacks, const glm::vec3& position, const std::string& texturePath) {
@@ -159,6 +172,14 @@ void Scene::AddBowl(const std::string& name, float radius, int slices, int stack
 
 void Scene::AddPedestal(const std::string& name, float topRadius, float baseWidth, float height, const glm::vec3& position, const std::string& texturePath) {
     AddObjectInternal(name, GeometryGenerator::CreatePedestal(device, physicalDevice, topRadius, baseWidth, height, 512, 512), position, texturePath, false);
+
+    if (!objects.empty()) {
+        auto& obj = objects.back();
+        // Use the wider base for collision to prevent clipping
+        obj->collisionRadius = std::max(topRadius, baseWidth);
+        obj->collisionHeight = height;
+        obj->hasCollision = true;
+    }
 }
 
 void Scene::AddCube(const std::string& name, const glm::vec3& position, const glm::vec3& scale, const std::string& texturePath) {
@@ -228,6 +249,21 @@ void Scene::AddLight(const std::string& name, const glm::vec3& position, const g
     newSceneLight.layerMask = SceneLayers::INSIDE;
 
     m_SceneLights.push_back(newSceneLight);
+}
+
+void Scene::SetObjectCollision(const std::string& name, bool enabled) {
+    auto it = std::find_if(objects.begin(), objects.end(), [&](const auto& obj) { return obj->name == name; });
+    if (it != objects.end()) {
+        (*it)->hasCollision = enabled;
+    }
+}
+
+void Scene::SetObjectCollisionSize(const std::string& name, float radius, float height) {
+    auto it = std::find_if(objects.begin(), objects.end(), [&](const auto& obj) { return obj->name == name; });
+    if (it != objects.end()) {
+        (*it)->collisionRadius = radius;
+        (*it)->collisionHeight = height;
+    }
 }
 
 void Scene::SetupParticleSystem(VkCommandPool commandPoolArg, VkQueue graphicsQueueArg,
