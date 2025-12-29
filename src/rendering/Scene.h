@@ -153,6 +153,7 @@ public:
     const std::vector<std::unique_ptr<ParticleSystem>>& GetParticleSystems() const { return particleSystems; }
 
     void Update(float deltaTime);
+    void ResetEnvironment();
 
     // Changed return type to non-const to allow Move Semantics (Fix OPT.33)
     std::vector<Light> GetLights() const;

@@ -41,9 +41,9 @@ private:
     std::chrono::time_point<std::chrono::high_resolution_clock> lastFrameTime;
 
     float deltaTime = 0.0f;
-    float dayNightSpeed = 1.0f;
-    uint32_t currentFrame = 0;
+    float timeScale = 1.0f;
 
+    uint32_t currentFrame = 0;
     bool framebufferResized = false;
 
     static constexpr int MAX_FRAMES_IN_FLIGHT = 2;

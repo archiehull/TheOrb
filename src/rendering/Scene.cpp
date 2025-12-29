@@ -733,3 +733,61 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunIntensity) {
         }
     }
 }
+
+void Scene::ResetEnvironment() {
+    // 1. Reset Lights (Sun/Moon orbits)
+    for (auto& light : m_SceneLights) {
+        if (light.orbitData.isOrbiting) {
+            light.orbitData.currentAngle = light.orbitData.initialAngle;
+            // Recalculate position immediately
+            glm::quat rotation = glm::angleAxis(light.orbitData.currentAngle, light.orbitData.axis);
+            glm::vec3 offset = rotation * glm::vec3(light.orbitData.radius, 0.0f, 0.0f);
+            light.vulkanLight.position = light.orbitData.center + offset;
+        }
+    }
+
+    // 2. Reset Objects
+    for (auto& obj : objects) {
+        // A. Reset Orbit
+        if (obj->orbitData.isOrbiting) {
+            obj->orbitData.currentAngle = obj->orbitData.initialAngle;
+            glm::quat rotation = glm::angleAxis(obj->orbitData.currentAngle, obj->orbitData.axis);
+            glm::vec3 offset = rotation * glm::vec3(obj->orbitData.radius, 0.0f, 0.0f);
+            obj->transform[3] = glm::vec4(obj->orbitData.center + offset, 1.0f);
+        }
+
+        // B. Reset Thermodynamics / Visual State
+        if (obj->isFlammable) {
+            // Stop any active particles
+            if (obj->fireEmitterId != -1) {
+                GetOrCreateSystem(ParticleLibrary::GetFireProps())->StopEmitter(obj->fireEmitterId);
+                obj->fireEmitterId = -1;
+            }
+            if (obj->smokeEmitterId != -1) {
+                GetOrCreateSystem(ParticleLibrary::GetSmokeProps())->StopEmitter(obj->smokeEmitterId);
+                obj->smokeEmitterId = -1;
+            }
+
+            // Restore Geometry if it was swapped (Burnt state)
+            if (obj->storedOriginalGeometry) {
+                obj->geometry = obj->storedOriginalGeometry;
+                obj->storedOriginalGeometry = nullptr;
+                obj->transform = obj->storedOriginalTransform; // Restore original scale/transform
+            }
+            else if (obj->state == ObjectState::REGROWING) {
+                // If it was regrowing, it might be using original geometry but scaled down
+                obj->transform = obj->storedOriginalTransform;
+            }
+
+            // Restore Texture
+            obj->texturePath = obj->originalTexturePath;
+
+            // Reset Variables
+            obj->state = ObjectState::NORMAL;
+            obj->currentTemp = 0.0f;
+            obj->burnTimer = 0.0f;
+            obj->regrowTimer = 0.0f;
+            obj->burnFactor = 0.0f;
+        }
+    }
+}

@@ -67,10 +67,10 @@ static const char* SUN_NAME = "Sun";
 static const char* MOON_NAME = "Moon";
 
 void Application::SetupScene() {
-    const float orbitRadius = 275.0f;
-    const float startSpeed = 0.1f;
-    dayNightSpeed = startSpeed;
+    const float dayDuration = 60.0f;
+    const float baseOrbitSpeed = glm::two_pi<float>() / dayDuration;
 
+    const float orbitRadius = 275.0f;
     const float deltaY = -75.0f;
     const float orbRadius = 150.0f;
     const float terrainHeightScale = 3.5f;
@@ -95,16 +95,16 @@ void Application::SetupScene() {
     scene->AddSphere(SUN_NAME, 16, 32, 5.0f, glm::vec3(0.0f), "textures/sun.png");
     scene->AddLight(SUN_NAME, glm::vec3(0.0f), glm::vec3(1.0f, 0.9f, 0.8f), 1.0f, 0);
     scene->SetObjectCastsShadow(SUN_NAME, false);
-    scene->SetObjectOrbit(SUN_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), 0.0f);
-    scene->SetLightOrbit(SUN_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), 0.0f);
+    scene->SetObjectOrbit(SUN_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, baseOrbitSpeed, glm::vec3(0.0f, 0.0f, 1.0f), 0.0f);
+    scene->SetLightOrbit(SUN_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, baseOrbitSpeed, glm::vec3(0.0f, 0.0f, 1.0f), 0.0f);
     scene->SetObjectLayerMask(SUN_NAME, SceneLayers::ALL);
     scene->SetLightLayerMask(SUN_NAME, SceneLayers::ALL);
 
     scene->AddSphere(MOON_NAME, 16, 32, 2.0f, glm::vec3(0.0f), "textures/moon.jpg");
     scene->AddLight(MOON_NAME, glm::vec3(0.0f), glm::vec3(0.1f, 0.1f, 0.3f), 1.5f, 0);
     scene->SetObjectCastsShadow(MOON_NAME, false);
-    scene->SetObjectOrbit(MOON_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), glm::pi<float>());
-    scene->SetLightOrbit(MOON_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, startSpeed, glm::vec3(0.0f, 0.0f, 1.0f), glm::pi<float>());
+    scene->SetObjectOrbit(MOON_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, baseOrbitSpeed, glm::vec3(0.0f, 0.0f, 1.0f), glm::pi<float>());
+    scene->SetLightOrbit(MOON_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, baseOrbitSpeed, glm::vec3(0.0f, 0.0f, 1.0f), glm::pi<float>());
     scene->SetObjectLayerMask(MOON_NAME, SceneLayers::ALL);
     scene->SetLightLayerMask(MOON_NAME, SceneLayers::ALL);
 
@@ -170,7 +170,7 @@ void Application::MainLoop() {
         }
 
         cameraController->Update(deltaTime);
-        scene->Update(deltaTime);
+        scene->Update(deltaTime * timeScale);
 
         // Get camera matrices
         Camera* const activeCamera = cameraController->GetActiveCamera();
@@ -209,24 +209,22 @@ void Application::ProcessInput() {
         glfwSetWindowShouldClose(window->GetGLFWWindow(), true);
     }
 
-    bool speedChanged = false;
-    const float speedChangeRate = 1.2f; // How fast the speed adjusts
+    const float scaleChangeRate = 2.0f;
 
     if (glfwGetKey(window->GetGLFWWindow(), GLFW_KEY_RIGHT_BRACKET) == GLFW_PRESS) {
-        dayNightSpeed += speedChangeRate * deltaTime;
-        speedChanged = true;
+        timeScale += scaleChangeRate * deltaTime;
+        //std::cout << "Time Scale: " << timeScale << "x" << std::endl;
     }
     if (glfwGetKey(window->GetGLFWWindow(), GLFW_KEY_LEFT_BRACKET) == GLFW_PRESS) {
-        dayNightSpeed -= speedChangeRate * deltaTime;
-        speedChanged = true;
+        timeScale -= scaleChangeRate * deltaTime;
+        if (timeScale < 0.1f) timeScale = 0.1f; // Minimum speed
+        //std::cout << "Time Scale: " << timeScale << "x" << std::endl;
     }
 
-    if (speedChanged) {
-        // Apply new speed to both Sun and Moon (Mesh + Light)
-        scene->SetOrbitSpeed(SUN_NAME, dayNightSpeed);
-        scene->SetOrbitSpeed(MOON_NAME, dayNightSpeed);
-
-        //std::cout << "Orbit Speed: " << dayNightSpeed << std::endl; // Optional debug
+    if (glfwGetKey(window->GetGLFWWindow(), GLFW_KEY_R) == GLFW_PRESS) {
+        timeScale = 1.0f; // Reset speed
+        scene->ResetEnvironment();
+        //std::cout << "Environment Reset." << std::endl;
     }
 }
 
