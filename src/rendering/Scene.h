@@ -69,6 +69,7 @@ struct SceneObject {
     bool isFlammable = false;
 
     int fireEmitterId = -1;
+    int smokeEmitterId = -1;
 
     // Thermodynamics
     float currentTemp = 0.0f;
@@ -78,7 +79,7 @@ struct SceneObject {
 
     // Timers
     float burnTimer = 0.0f;
-    float maxBurnDuration = 3.0f;
+    float maxBurnDuration = 10.0f;
 
     float regrowTimer = 0.0f;
     float dustDuration = 10.0f;
@@ -140,8 +141,8 @@ public:
     void GenerateProceduralObjects(int count, float terrainRadius, float deltaY, float heightScale, float noiseFreq);
 
     // Particle Methods
-    int AddFire(const glm::vec3& position, float scale, bool createSmoke);
-    void AddSmoke(const glm::vec3& position, float scale);
+    int AddFire(const glm::vec3& position, float scale);
+    int AddSmoke(const glm::vec3& position, float scale);
     void AddRain();
     void AddSnow();
     void AddDust();

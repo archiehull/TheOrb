@@ -47,6 +47,7 @@ public:
     void Emit(const ParticleProps& props);
     int AddEmitter(const ParticleProps& props, float particlesPerSecond);
     void StopEmitter(int emitterId);
+    void UpdateEmitter(int emitterId, const ParticleProps& props, float particlesPerSecond);
 
     std::string GetTexturePath() const { return texture ? texturePath : ""; }
 

@@ -269,29 +269,20 @@ ParticleSystem* Scene::GetOrCreateSystem(const ParticleProps& props) {
     return ptr;
 }
 
-int Scene::AddFire(const glm::vec3& position, float scale, bool createSmoke) {
+int Scene::AddFire(const glm::vec3& position, float scale) {
     ParticleProps fire = ParticleLibrary::GetFireProps();
     fire.position = position;
     fire.sizeBegin *= scale;
     fire.sizeEnd *= scale;
-
-    int id = GetOrCreateSystem(fire)->AddEmitter(fire, 300.0f);
-
-    if (createSmoke) {
-        // Note: We are currently only tracking the fire ID. 
-        // To track smoke, you would need a separate ID or handle in SceneObject.
-        AddSmoke(position + glm::vec3(0.0f, 2.0f * scale, 0.0f), scale);
-    }
-
-    return id;
+    return GetOrCreateSystem(fire)->AddEmitter(fire, 300.0f);
 }
 
-void Scene::AddSmoke(const glm::vec3& position, float scale) {
+int Scene::AddSmoke(const glm::vec3& position, float scale) {
     ParticleProps smoke = ParticleLibrary::GetSmokeProps();
     smoke.position = position;
     smoke.sizeBegin *= scale;
     smoke.sizeEnd *= scale;
-    GetOrCreateSystem(smoke)->AddEmitter(smoke, 100.0f);
+    return GetOrCreateSystem(smoke)->AddEmitter(smoke, 100.0f);
 }
 
 void Scene::AddRain() {
@@ -562,9 +553,13 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunIntensity) {
                 obj->state = ObjectState::BURNING;
                 obj->burnTimer = 0.0f;
 
-                // Spawn Fire (using object position)
+                // Spawn Fire (Start small at base)
                 glm::vec3 pos = glm::vec3(obj->transform[3]);
-                obj->fireEmitterId = AddFire(pos, 1.5f, true);
+                float initialScale = 0.1f;
+                obj->fireEmitterId = AddFire(pos, initialScale);
+
+                // Spawn Smoke (Start small, attach to object)
+                obj->smokeEmitterId = AddSmoke(pos, initialScale);
             }
             break;
         }
@@ -573,24 +568,101 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunIntensity) {
             obj->burnTimer += deltaTime;
             obj->burnFactor = glm::clamp(obj->burnTimer / obj->maxBurnDuration, 0.0f, 1.0f);
 
+            // GROWTH LOGIC: Slower growth over first 60% of burn duration
+            float growDuration = obj->maxBurnDuration * 0.6f;
+            float growth = glm::clamp(obj->burnTimer / growDuration, 0.0f, 1.0f);
+
+            // Assume object height is roughly 2.0 units (standard tree/bush size in this scene)
+            float maxFireHeight = 3.0f;
+            float currentFireHeight = 0.2f + (maxFireHeight - 0.2f) * growth;
+
+            glm::vec3 basePos = glm::vec3(obj->transform[3]);
+
+            // Update Fire Emitter (Growing Column)
+            if (obj->fireEmitterId != -1) {
+                ParticleProps fireProps = ParticleLibrary::GetFireProps();
+
+                // We want the fire to "grow up" from the base.
+                fireProps.position = basePos;
+                fireProps.position.y += currentFireHeight * 0.5f;
+
+                // Stretch the emitter box vertically
+                fireProps.positionVariation.x = 0.3f; // Thin width
+                fireProps.positionVariation.z = 0.3f;
+                fireProps.positionVariation.y = currentFireHeight * 0.5f; // Extents from center
+
+                // Scale particles slightly
+                float particleScale = 1.0f + growth * 0.5f;
+                fireProps.sizeBegin *= particleScale;
+                fireProps.sizeEnd *= particleScale;
+
+                // Ramp up rate
+                float rate = 50.0f + (300.0f * growth);
+                GetOrCreateSystem(fireProps)->UpdateEmitter(obj->fireEmitterId, fireProps, rate);
+            }
+
+            // Update Smoke Emitter (Follow Top of Fire)
+            if (obj->smokeEmitterId != -1) {
+                ParticleProps smokeProps = ParticleLibrary::GetSmokeProps();
+
+                // Smoke spawns at the TOP of the fire column
+                smokeProps.position = basePos;
+                smokeProps.position.y += currentFireHeight;
+
+                // Smoke grows larger as fire gets bigger
+                float smokeScale = 1.0f + growth * 2.0f;
+                smokeProps.sizeBegin *= smokeScale;
+                smokeProps.sizeEnd *= smokeScale;
+
+                // CHANGE: Increased velocity variation (X/Z) so smoke plumes/disperses outward more
+                smokeProps.velocityVariation = glm::vec3(2.0f, 1.0f, 2.0f);
+
+                // CHANGE: Increased Lifetime and Vertical Velocity to allow smoke to rise high
+                // This prevents the "bunching up" effect
+                smokeProps.lifeTime = 8.0f;
+                smokeProps.velocity.y = 3.0f;
+
+                float rate = 20.0f + (80.0f * growth);
+                GetOrCreateSystem(smokeProps)->UpdateEmitter(obj->smokeEmitterId, smokeProps, rate);
+            }
+
             // --- TURN TO DUST ---
             if (obj->burnTimer >= obj->maxBurnDuration) {
                 obj->state = ObjectState::BURNT;
 
                 if (obj->fireEmitterId != -1) {
-                    // We look up the fire system again using the standard props
                     GetOrCreateSystem(ParticleLibrary::GetFireProps())->StopEmitter(obj->fireEmitterId);
                     obj->fireEmitterId = -1;
+                }
+
+                // KEEP SMOKE for smoldering (Dust pile)
+                if (obj->smokeEmitterId != -1) {
+                    ParticleProps dustSmoke = ParticleLibrary::GetSmokeProps();
+                    dustSmoke.position = basePos; // Back to ground
+
+                    // Keep smoke very small
+                    dustSmoke.sizeBegin *= 0.1f;
+                    dustSmoke.sizeEnd *= 0.2f;
+
+                    // CHANGE: Reduced lifetime and vertical velocity so it stays low
+                    dustSmoke.lifeTime = 1.0f; // Die quickly
+                    dustSmoke.velocity.y = 0.5f; // Rise slowly
+
+                    // Keep constrained position for compactness
+                    dustSmoke.positionVariation = glm::vec3(0.1f, 0.0f, 0.1f);
+                    dustSmoke.velocityVariation = glm::vec3(0.2f, 0.2f, 0.2f);
+
+                    GetOrCreateSystem(dustSmoke)->UpdateEmitter(obj->smokeEmitterId, dustSmoke, 30.0f);
                 }
 
                 obj->regrowTimer = 0.0f;
                 obj->burnFactor = 0.0f;
 
-                // 1. Save Original Geometry (Shared Pointer copy, cheap)
+                // 1. Save Original Geometry 
                 obj->storedOriginalGeometry = obj->geometry;
                 obj->storedOriginalTransform = obj->transform;
 
-                // 2. Assign Dust Geometry (Shared Pointer copy, cheap)
+                // 2. Assign Dust Geometry 
                 if (dustGeometryPrototype) {
                     obj->geometry = dustGeometryPrototype;
                 }
@@ -598,13 +670,9 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunIntensity) {
                 // 3. Swap Texture
                 obj->texturePath = sootTexturePath;
 
-
-
                 // 4. Shrink visual
-                glm::vec3 pos = glm::vec3(obj->transform[3]);
-                obj->transform = glm::translate(glm::mat4(1.0f), pos);
+                obj->transform = glm::translate(glm::mat4(1.0f), basePos);
                 obj->transform = glm::scale(obj->transform, glm::vec3(0.003f)); // Pile of ash size
-
             }
             break;
         }
@@ -612,15 +680,26 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunIntensity) {
         case ObjectState::BURNT: {
             obj->regrowTimer += deltaTime;
 
+            // Stop smoldering after 5 seconds
+            if (obj->regrowTimer > 5.0f && obj->smokeEmitterId != -1) {
+                GetOrCreateSystem(ParticleLibrary::GetSmokeProps())->StopEmitter(obj->smokeEmitterId);
+                obj->smokeEmitterId = -1;
+            }
+
             // --- START REGROWTH ---
             // Condition: Time passed AND it's daytime
             if (obj->regrowTimer >= obj->dustDuration && globalSunlight) {
                 obj->state = ObjectState::REGROWING;
 
+                if (obj->smokeEmitterId != -1) {
+                    GetOrCreateSystem(ParticleLibrary::GetSmokeProps())->StopEmitter(obj->smokeEmitterId);
+                    obj->smokeEmitterId = -1;
+                }
+
                 // Restore Geometry Immediately
                 if (obj->storedOriginalGeometry) {
                     obj->geometry = obj->storedOriginalGeometry;
-                    obj->storedOriginalGeometry = nullptr; // Release reference
+                    obj->storedOriginalGeometry = nullptr;
                 }
 
                 // Restore Texture
@@ -633,26 +712,21 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunIntensity) {
         }
 
         case ObjectState::REGROWING: {
-            // Use regrowTimer as an accumulator for the animation
             obj->regrowTimer += deltaTime;
 
-            const float growthDuration = 2.0f; // Time in seconds to fully grow back
+            const float growthDuration = 2.0f;
             float t = glm::clamp(obj->regrowTimer / growthDuration, 0.0f, 1.0f);
 
-            // Smoothstep for nicer animation (optional)
-            t = t * t * (3.0f - 2.0f * t); 
+            t = t * t * (3.0f - 2.0f * t);
 
-            // Interpolate scale: 0.003 (dust) -> 1.0 (original relative scale)
             float currentScale = glm::mix(0.003f, 1.0f, t);
 
-            // Apply scaling to the stored ORIGINAL transform
-            // This preserves the original rotation and base scale of the object
             obj->transform = glm::scale(obj->storedOriginalTransform, glm::vec3(currentScale));
 
             if (t >= 1.0f) {
                 obj->state = ObjectState::NORMAL;
                 obj->burnFactor = 0.0f;
-                obj->regrowTimer = 0.0f; // Clean up
+                obj->regrowTimer = 0.0f;
             }
             break;
         }
