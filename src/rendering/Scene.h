@@ -51,6 +51,7 @@ struct SceneObject {
     std::shared_ptr<Geometry> geometry;
     std::shared_ptr<Geometry> storedOriginalGeometry = nullptr;
 
+    glm::mat4 storedOriginalTransform = glm::mat4(1.0f);
     glm::mat4 transform = glm::mat4(1.0f);
     bool visible = true;
 

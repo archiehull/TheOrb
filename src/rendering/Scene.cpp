@@ -588,6 +588,7 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunIntensity) {
 
                 // 1. Save Original Geometry (Shared Pointer copy, cheap)
                 obj->storedOriginalGeometry = obj->geometry;
+                obj->storedOriginalTransform = obj->transform;
 
                 // 2. Assign Dust Geometry (Shared Pointer copy, cheap)
                 if (dustGeometryPrototype) {
@@ -632,24 +633,27 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunIntensity) {
         }
 
         case ObjectState::REGROWING: {
-            // Animate Scaling Up
-            // We extract the current scale from the matrix (approximate)
-            float currentScale = glm::length(glm::vec3(obj->transform[0]));
-            float targetScale = 1.0f; // Assuming original was 1.0f
+            // Use regrowTimer as an accumulator for the animation
+            obj->regrowTimer += deltaTime;
 
-            float growthSpeed = 0.5f * deltaTime;
-            float newScale = currentScale + growthSpeed;
+            const float growthDuration = 2.0f; // Time in seconds to fully grow back
+            float t = glm::clamp(obj->regrowTimer / growthDuration, 0.0f, 1.0f);
 
-            if (newScale >= targetScale) {
-                newScale = targetScale;
+            // Smoothstep for nicer animation (optional)
+            t = t * t * (3.0f - 2.0f * t); 
+
+            // Interpolate scale: 0.003 (dust) -> 1.0 (original relative scale)
+            float currentScale = glm::mix(0.003f, 1.0f, t);
+
+            // Apply scaling to the stored ORIGINAL transform
+            // This preserves the original rotation and base scale of the object
+            obj->transform = glm::scale(obj->storedOriginalTransform, glm::vec3(currentScale));
+
+            if (t >= 1.0f) {
                 obj->state = ObjectState::NORMAL;
                 obj->burnFactor = 0.0f;
+                obj->regrowTimer = 0.0f; // Clean up
             }
-
-            // Apply Scale
-            glm::vec3 pos = glm::vec3(obj->transform[3]);
-            obj->transform = glm::translate(glm::mat4(1.0f), pos);
-            obj->transform = glm::scale(obj->transform, glm::vec3(newScale));
             break;
         }
         }
