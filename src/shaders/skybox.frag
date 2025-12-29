@@ -1,7 +1,7 @@
 #version 450
 
 // Must define MAX_LIGHTS and Light struct to match UBO layout exactly
-#define MAX_LIGHTS 32
+#define MAX_LIGHTS 512
 
 struct Light {
     vec3 position;

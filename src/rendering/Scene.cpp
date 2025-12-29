@@ -232,10 +232,10 @@ void Scene::AddModel(const std::string& name, const glm::vec3& position, const g
     }
 }
 
-void Scene::AddLight(const std::string& name, const glm::vec3& position, const glm::vec3& color, float intensity, int type) {
+int Scene::AddLight(const std::string& name, const glm::vec3& position, const glm::vec3& color, float intensity, int type) {
     if (m_SceneLights.size() >= MAX_LIGHTS) {
         std::cerr << "Warning: Maximum number of lights (" << MAX_LIGHTS << ") reached. Light not added." << std::endl;
-        return;
+        return -1;
     }
 
     SceneLight newSceneLight{};
@@ -243,12 +243,15 @@ void Scene::AddLight(const std::string& name, const glm::vec3& position, const g
     newSceneLight.vulkanLight.position = position;
     newSceneLight.vulkanLight.color = color;
     newSceneLight.vulkanLight.intensity = intensity;
-    newSceneLight.vulkanLight.type = type;
+    newSceneLight.vulkanLight.type = type; // We will use Type 1 for Point Lights
 
     newSceneLight.vulkanLight.layerMask = SceneLayers::INSIDE;
     newSceneLight.layerMask = SceneLayers::INSIDE;
 
     m_SceneLights.push_back(newSceneLight);
+
+    // Return the index of the newly added light
+    return static_cast<int>(m_SceneLights.size() - 1);
 }
 
 void Scene::SetObjectCollision(const std::string& name, bool enabled) {
@@ -662,6 +665,31 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunIntensity) {
                 GetOrCreateSystem(smokeProps)->UpdateEmitter(obj->smokeEmitterId, smokeProps, rate);
             }
 
+            glm::vec3 firePos = glm::vec3(obj->transform[3]);
+            firePos.y += currentFireHeight * 0.5f; // Move light up with fire
+
+            // 1. Create Light if missing
+            if (obj->fireLightIndex == -1) {
+                // Color: Orange-Red (1.0, 0.5, 0.1)
+                // Intensity: 0 initially
+                // Type: 1 (Point Light)
+                obj->fireLightIndex = AddLight(obj->name + "_FireLight", firePos, glm::vec3(1.0f, 0.5f, 0.1f), 0.0f, 1);
+            }
+
+            // 2. Update Light (Position & Flicker)
+            if (obj->fireLightIndex != -1 && obj->fireLightIndex < m_SceneLights.size()) {
+                // Procedural Flicker using sin waves on burnTimer
+                float t = obj->burnTimer;
+                float flicker = 1.0f + 0.3f * std::sin(t * 15.0f) + 0.15f * std::sin(t * 37.0f);
+
+                // Base intensity grows with fire size
+                float targetIntensity = 0.01f * growth;
+
+                SceneLight& light = m_SceneLights[obj->fireLightIndex];
+                light.vulkanLight.position = firePos;
+                light.vulkanLight.intensity = std::max(0.0f, targetIntensity * flicker);
+            }
+
             // --- TURN TO DUST ---
             if (obj->burnTimer >= obj->maxBurnDuration) {
                 obj->state = ObjectState::BURNT;
@@ -689,6 +717,10 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunIntensity) {
                     dustSmoke.velocityVariation = glm::vec3(0.2f, 0.2f, 0.2f);
 
                     GetOrCreateSystem(dustSmoke)->UpdateEmitter(obj->smokeEmitterId, dustSmoke, 30.0f);
+                }
+
+                if (obj->fireLightIndex != -1 && obj->fireLightIndex < m_SceneLights.size()) {
+                    m_SceneLights[obj->fireLightIndex].vulkanLight.intensity = 0.0f;
                 }
 
                 obj->regrowTimer = 0.0f;

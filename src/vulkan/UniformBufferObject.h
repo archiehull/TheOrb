@@ -3,7 +3,7 @@
 
 #include <glm/glm.hpp>
 
-constexpr int MAX_LIGHTS = 32;
+constexpr int MAX_LIGHTS = 512;
 
 struct Light
 {

@@ -1,6 +1,6 @@
 #version 450
 
-#define MAX_LIGHTS 32
+#define MAX_LIGHTS 512
 
 struct Light {
     vec3 position;
@@ -154,9 +154,28 @@ void main() {
                 continue;
             }   
 
-            float ambientStrength = 0.1;
-            vec3 ambient = ambientStrength * ubo.lights[i].color * ubo.lights[i].intensity;
+            float distance = length(ubo.lights[i].position - fragPos);
+            float attenuation = 1.0;
 
+            if (ubo.lights[i].type == 1) {
+            // Use stricter factors (Linear 0.7, Quadratic 1.8) for a range of ~7-10 units
+            attenuation = 1.0 / (1.0 + 4.7 * distance + 8.8 * distance * distance);
+            } 
+            // Keep your existing math for the Sun (Type 0) or other lights
+            else {
+                attenuation = 1.0 / (1.0 + 0.1 * distance + 0.01 * distance * distance);
+            }
+
+            // --- CHANGE 2: Remove Ambient for Point Lights ---
+            // Fire emits light, but doesn't raise the "ambient" base level of the world.
+            // Only let the Sun (Type 0) add ambient light.
+            vec3 ambient = vec3(0.0);
+            if (ubo.lights[i].type == 0) {
+                 float ambientStrength = 0.1;
+                 ambient = ambientStrength * ubo.lights[i].color * ubo.lights[i].intensity;
+            }
+
+            // [Calculate Diffuse and Specular as normal...]
             vec3 lightDir = normalize(ubo.lights[i].position - fragPos);
             float diff = max(dot(normal, lightDir), 0.0);
             vec3 diffuse = diff * ubo.lights[i].color * ubo.lights[i].intensity;
@@ -165,14 +184,15 @@ void main() {
             vec3 reflectDir = reflect(-lightDir, normal);
             float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
             vec3 specular = specularStrength * spec * ubo.lights[i].color * ubo.lights[i].intensity;
-            
+
             float lightShadow = 0.0;
-            // Only Light 0 (Sun) casts shadows in this setup
+            // Only Light 0 (Sun) casts shadows
             if (i == 0) {
                 lightShadow = shadow;
             }
 
-            lighting += (ambient + (1.0 - lightShadow) * (diffuse + specular));
+            // Apply attenuation to the light components
+            lighting += (ambient + (1.0 - lightShadow) * (diffuse + specular)) * attenuation;
         }
     }
 
@@ -182,6 +202,7 @@ void main() {
     if (pco.burnFactor > 0.0) {
         finalColor = mix(finalColor, sootColor, pco.burnFactor * 0.9); // Mix up to 90% soot
     }
+
 
     outColor = vec4(finalColor, texColor.a);
 }

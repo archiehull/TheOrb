@@ -78,6 +78,7 @@ struct SceneObject {
 
     int fireEmitterId = -1;
     int smokeEmitterId = -1;
+    int fireLightIndex = -1;
 
     // Thermodynamics
     float currentTemp = 0.0f;
@@ -136,8 +137,7 @@ public:
 
     void AddModel(const std::string& name, const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale, const std::string& modelPath, const std::string& texturePath, bool isFlammable = false);
 
-
-    void AddLight(const std::string& name, const glm::vec3& position, const glm::vec3& color, float intensity, int type);
+    int AddLight(const std::string& name, const glm::vec3& position, const glm::vec3& color, float intensity, int type);
 
     void SetObjectOrbit(const std::string& name, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad = 0.0f);
     void SetLightOrbit(const std::string& name, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad = 0.0f);
