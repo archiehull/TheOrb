@@ -207,6 +207,10 @@ public:
     void SetObjectReceivesShadows(const std::string& name, bool receives);
     void SetObjectShadingMode(const std::string& name, int mode);
 
+    void SetSeasonConfig(float duration, float summerTemp, float winterTemp, float dayNightDiff);
+    void SetSunHeatBonus(float bonus); // NEW: Controls the +60C thermal bonus
+    void ClearProceduralRegistry();
+
     void Cleanup() { Clear(); }
 
 private:
@@ -214,9 +218,15 @@ private:
 
     glm::vec3 InitializeOrbit(OrbitData& data, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad) const;
 
+    float m_SeasonDuration = 60.0f;
+    float m_SummerTemp = 50.0f;
+    float m_WinterTemp = -5.0f;
+    float m_DayNightDiff = 35.0f;
+
+    float m_SunHeatBonus = 60.0f; // Default matches your original hardcoded value
+
     Season m_CurrentSeason = Season::SUMMER;
     float m_SeasonTimer = 0.0f;
-    const float m_SeasonDuration = 60.0f; // Duration of one season in seconds
     float m_WeatherIntensity = 0.0f;      // The calculated "Ambient Temperature"
 
     int globalShadingMode = 1; // 1 = Phong (Default), 0 = Gouraud

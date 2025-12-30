@@ -368,7 +368,7 @@ void Scene::Ignite(SceneObject* obj) {
     if (!obj || !obj->isFlammable) return;
     if (obj->state == ObjectState::BURNING || obj->state == ObjectState::BURNT) return;
 
-    std::cout << "Igniting object: " << obj->name << std::endl;
+    //std::cout << "Igniting object: " << obj->name << std::endl;
 
     obj->state = ObjectState::BURNING;
     obj->burnTimer = 0.0f;
@@ -493,13 +493,28 @@ void Scene::SetOrbitSpeed(const std::string& name, float speedRadPerSec) {
     }
 }
 
+void Scene::SetSeasonConfig(float duration, float summerTemp, float winterTemp, float dayNightDiff) {
+    m_SeasonDuration = duration;
+    m_SummerTemp = summerTemp;
+    m_WinterTemp = winterTemp;
+    m_DayNightDiff = dayNightDiff;
+}
+
+void Scene::SetSunHeatBonus(float bonus) {
+    m_SunHeatBonus = bonus;
+}
+
+void Scene::ClearProceduralRegistry() {
+    proceduralRegistry.clear();
+}
+
 void Scene::Update(float deltaTime) {
     // 1. Update Season Cycle
     m_SeasonTimer += deltaTime;
     if (m_SeasonTimer >= m_SeasonDuration) {
         m_SeasonTimer = 0.0f;
         m_CurrentSeason = static_cast<Season>((static_cast<int>(m_CurrentSeason) + 1) % 4);
-        std::cout << "Season Changed to: " << GetSeasonName() << std::endl;
+        //std::cout << "Season Changed to: " << GetSeasonName() << std::endl;
     }
 
     // 2. Calculate Weather
@@ -510,29 +525,24 @@ void Scene::Update(float deltaTime) {
     }
 
     float seasonBaseTemp = 0.0f;
-    float dayNightVariation = 0.0f;
+    float dayNightVariation = m_DayNightDiff; // Use variable
     glm::vec3 targetSunColor = glm::vec3(1.0f);
 
     switch (m_CurrentSeason) {
     case Season::SUMMER:
-        // AGGRESSIVE: Base 50C, Day Variation 35C -> Peak Ambient 85C
-        seasonBaseTemp = 50.0f;
-        dayNightVariation = 35.0f;
+        seasonBaseTemp = m_SummerTemp;
         targetSunColor = glm::vec3(1.0f, 0.95f, 0.8f);
         break;
     case Season::AUTUMN:
-        seasonBaseTemp = 20.0f;
-        dayNightVariation = 15.0f;
+        seasonBaseTemp = (m_SummerTemp + m_WinterTemp) * 0.5f; // Interpolate
         targetSunColor = glm::vec3(1.0f, 0.85f, 0.7f);
         break;
     case Season::WINTER:
-        seasonBaseTemp = -5.0f;
-        dayNightVariation = 10.0f;
+        seasonBaseTemp = m_WinterTemp;
         targetSunColor = glm::vec3(0.75f, 0.85f, 1.0f);
         break;
     case Season::SPRING:
-        seasonBaseTemp = 20.0f;
-        dayNightVariation = 15.0f;
+        seasonBaseTemp = (m_SummerTemp + m_WinterTemp) * 0.5f;
         targetSunColor = glm::vec3(1.0f, 0.98f, 0.9f);
         break;
     }
@@ -695,9 +705,7 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunHeight) {
             // 3. Massive Sun Bonus (+60C)
             // If base is 50C + 60C = 110C, well above threshold
             if (sunHeight > 0.1f) {
-                float sunIntensity = 60.0f;
-
-                targetTemp += sunIntensity * sunHeight;
+                targetTemp += m_SunHeatBonus * sunHeight;
             }
 
             // STABLE MATH: Interpolate towards target (never overshoots)

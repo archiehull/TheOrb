@@ -3,24 +3,36 @@
   "WorkspaceRootPath": "C:\\Users\\a\\Desktop\\TheOrb\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\core\\Application.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\core\\Application.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\CameraController.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\rendering\\CameraController.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\CameraController.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\rendering\\CameraController.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\core\\Config.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\core\\Config.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\core\\Application.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\core\\Application.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\core\\Config.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\core\\Config.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Scene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\rendering\\Scene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Scene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\rendering\\Scene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Scene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\rendering\\Scene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\core\\Application.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\core\\Application.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\CameraController.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\rendering\\CameraController.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -72,10 +84,6 @@
     },
     {
       "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\VULKANSDK\\1.4.313.2\\INCLUDE\\GLM\\GTX\\COMPONENT_WISE.HPP||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\core\\Application.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\core\\Application.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\ParticleSystem.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -172,7 +180,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -180,33 +188,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "skybox.frag",
-              "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\shaders\\skybox.frag",
-              "RelativeDocumentMoniker": "src\\shaders\\skybox.frag",
-              "ToolTip": "C:\\Users\\a\\Desktop\\TheOrb\\src\\shaders\\skybox.frag",
-              "RelativeToolTip": "src\\shaders\\skybox.frag",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-12-11T20:28:23.839Z",
+              "DocumentIndex": 2,
+              "Title": "Config.cpp",
+              "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\core\\Config.cpp",
+              "RelativeDocumentMoniker": "src\\core\\Config.cpp",
+              "ToolTip": "C:\\Users\\a\\Desktop\\TheOrb\\src\\core\\Config.cpp",
+              "RelativeToolTip": "src\\core\\Config.cpp",
+              "ViewState": "AgIAACUAAAAAAAAAAAAQwEgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-12-30T20:27:04.74Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "shadow.vert",
-              "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\shaders\\shadow.vert",
-              "RelativeDocumentMoniker": "src\\shaders\\shadow.vert",
-              "ToolTip": "C:\\Users\\a\\Desktop\\TheOrb\\src\\shaders\\shadow.vert",
-              "RelativeToolTip": "src\\shaders\\shadow.vert",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-12-11T16:37:52.331Z",
+              "DocumentIndex": 3,
+              "Title": "Config.h",
+              "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\core\\Config.h",
+              "RelativeDocumentMoniker": "src\\core\\Config.h",
+              "ToolTip": "C:\\Users\\a\\Desktop\\TheOrb\\src\\core\\Config.h",
+              "RelativeToolTip": "src\\core\\Config.h",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAQwEEAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-12-30T20:26:39.432Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 16,
               "Title": "Renderer.cpp",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Renderer.cpp",
               "RelativeDocumentMoniker": "src\\rendering\\Renderer.cpp",
@@ -219,7 +227,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 14,
               "Title": "shadow.frag",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\shaders\\shadow.frag",
               "RelativeDocumentMoniker": "src\\shaders\\shadow.frag",
@@ -232,7 +240,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "shader.frag",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\shaders\\shader.frag",
               "RelativeDocumentMoniker": "src\\shaders\\shader.frag",
@@ -245,13 +253,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "Application.cpp",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\core\\Application.cpp",
               "RelativeDocumentMoniker": "src\\core\\Application.cpp",
               "ToolTip": "C:\\Users\\a\\Desktop\\TheOrb\\src\\core\\Application.cpp",
               "RelativeToolTip": "src\\core\\Application.cpp",
-              "ViewState": "AgIAAOsAAAAAAAAAAAAQwA8BAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAGkAAAAAAAAAAAAQwHgAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-12-28T18:17:59.196Z",
               "EditorCaption": ""
@@ -264,27 +272,27 @@
               "RelativeDocumentMoniker": "src\\rendering\\Scene.h",
               "ToolTip": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Scene.h",
               "RelativeToolTip": "src\\rendering\\Scene.h",
-              "ViewState": "AgIAAJoAAAAAAAAAAAAQwK8AAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAAHAAAAAAAAAAAAAAwOQAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-12-07T18:48:44.452Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "CameraController.cpp",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\CameraController.cpp",
               "RelativeDocumentMoniker": "src\\rendering\\CameraController.cpp",
               "ToolTip": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\CameraController.cpp",
               "RelativeToolTip": "src\\rendering\\CameraController.cpp",
-              "ViewState": "AgIAAI8AAAAAAAAAAAAQwAMBAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAlwEcAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-12-07T19:52:26.11Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 9,
               "Title": "Camera.cpp",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Camera.cpp",
               "RelativeDocumentMoniker": "src\\rendering\\Camera.cpp",
@@ -297,7 +305,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "Camera.h",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Camera.h",
               "RelativeDocumentMoniker": "src\\rendering\\Camera.h",
@@ -310,12 +318,64 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
+              "Title": "Scene.cpp",
+              "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Scene.cpp",
+              "RelativeDocumentMoniker": "src\\rendering\\Scene.cpp",
+              "ToolTip": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Scene.cpp",
+              "RelativeToolTip": "src\\rendering\\Scene.cpp",
+              "ViewState": "AgIAALQCAAAAAAAAAAAlwMQCAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-12-07T18:48:37.107Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Application.h",
+              "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\core\\Application.h",
+              "RelativeDocumentMoniker": "src\\core\\Application.h",
+              "ToolTip": "C:\\Users\\a\\Desktop\\TheOrb\\src\\core\\Application.h",
+              "RelativeToolTip": "src\\core\\Application.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACsAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-12-05T17:07:27.484Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "shadow.vert",
+              "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\shaders\\shadow.vert",
+              "RelativeDocumentMoniker": "src\\shaders\\shadow.vert",
+              "ToolTip": "C:\\Users\\a\\Desktop\\TheOrb\\src\\shaders\\shadow.vert",
+              "RelativeToolTip": "src\\shaders\\shadow.vert",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-12-11T16:37:52.331Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "skybox.frag",
+              "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\shaders\\skybox.frag",
+              "RelativeDocumentMoniker": "src\\shaders\\skybox.frag",
+              "ToolTip": "C:\\Users\\a\\Desktop\\TheOrb\\src\\shaders\\skybox.frag",
+              "RelativeToolTip": "src\\shaders\\skybox.frag",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-12-11T20:28:23.839Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "CameraController.h",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\CameraController.h",
               "RelativeDocumentMoniker": "src\\rendering\\CameraController.h",
-              "ToolTip": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\CameraController.h*",
-              "RelativeToolTip": "src\\rendering\\CameraController.h*",
+              "ToolTip": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\CameraController.h",
+              "RelativeToolTip": "src\\rendering\\CameraController.h",
               "ViewState": "AgIAABYAAAAAAAAAAAAQwDkAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-12-07T19:52:42.082Z",
@@ -323,20 +383,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Scene.cpp",
-              "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Scene.cpp",
-              "RelativeDocumentMoniker": "src\\rendering\\Scene.cpp",
-              "ToolTip": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Scene.cpp",
-              "RelativeToolTip": "src\\rendering\\Scene.cpp",
-              "ViewState": "AgIAAGMBAAAAAAAAAAAQwIABAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-12-07T18:48:37.107Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 15,
               "Title": "UniformBufferObject.h",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\vulkan\\UniformBufferObject.h",
               "RelativeDocumentMoniker": "src\\vulkan\\UniformBufferObject.h",
@@ -349,7 +396,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 11,
               "Title": "shader.vert",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\shaders\\shader.vert",
               "RelativeDocumentMoniker": "src\\shaders\\shader.vert",
@@ -362,7 +409,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 18,
               "Title": "GeometryGenerator.cpp",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\geometry\\GeometryGenerator.cpp",
               "RelativeDocumentMoniker": "src\\geometry\\GeometryGenerator.cpp",
@@ -375,7 +422,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 13,
               "Title": "Texture.cpp",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Texture.cpp",
               "RelativeDocumentMoniker": "src\\rendering\\Texture.cpp",
@@ -388,7 +435,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 19,
               "Title": "Cubemap.cpp",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Cubemap.cpp",
               "RelativeDocumentMoniker": "src\\rendering\\Cubemap.cpp",
@@ -401,20 +448,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "Application.h",
-              "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\core\\Application.h",
-              "RelativeDocumentMoniker": "src\\core\\Application.h",
-              "ToolTip": "C:\\Users\\a\\Desktop\\TheOrb\\src\\core\\Application.h",
-              "RelativeToolTip": "src\\core\\Application.h",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAACwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-12-05T17:07:27.484Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 22,
               "Title": "ParticleSystem.h",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\ParticleSystem.h",
               "RelativeDocumentMoniker": "src\\rendering\\ParticleSystem.h",
@@ -427,7 +461,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 29,
               "Title": "ShadowPass.cpp",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\ShadowPass.cpp",
               "RelativeDocumentMoniker": "src\\rendering\\ShadowPass.cpp",
@@ -440,7 +474,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 20,
               "Title": "component_wise.hpp",
               "DocumentMoniker": "C:\\VulkanSDK\\1.4.313.2\\Include\\glm\\gtx\\component_wise.hpp",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\VulkanSDK\\1.4.313.2\\Include\\glm\\gtx\\component_wise.hpp",
@@ -453,7 +487,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 28,
               "Title": "Geometry.h",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\geometry\\Geometry.h",
               "RelativeDocumentMoniker": "src\\geometry\\Geometry.h",
@@ -466,7 +500,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 26,
               "Title": "SkyboxPass.cpp",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\SkyboxPass.cpp",
               "RelativeDocumentMoniker": "src\\rendering\\SkyboxPass.cpp",
@@ -479,7 +513,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 27,
               "Title": "Renderer.h",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Renderer.h",
               "RelativeDocumentMoniker": "src\\rendering\\Renderer.h",
@@ -492,7 +526,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 21,
               "Title": "ParticleSystem.cpp",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\ParticleSystem.cpp",
               "RelativeDocumentMoniker": "src\\rendering\\ParticleSystem.cpp",
@@ -505,7 +539,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 30,
               "Title": "ShadowPass.h",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\ShadowPass.h",
               "RelativeDocumentMoniker": "src\\rendering\\ShadowPass.h",
@@ -518,7 +552,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 31,
               "Title": "VulkanBuffer.cpp",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\vulkan\\VulkanBuffer.cpp",
               "RelativeDocumentMoniker": "src\\vulkan\\VulkanBuffer.cpp",
@@ -531,7 +565,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 23,
               "Title": "PushConstantObject.h",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\vulkan\\PushConstantObject.h",
               "RelativeDocumentMoniker": "src\\vulkan\\PushConstantObject.h",
@@ -544,7 +578,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 25,
               "Title": "Texture.h",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Texture.h",
               "RelativeDocumentMoniker": "src\\rendering\\Texture.h",
@@ -557,7 +591,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 24,
               "Title": "VulkanDevice.cpp",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\vulkan\\VulkanDevice.cpp",
               "RelativeDocumentMoniker": "src\\vulkan\\VulkanDevice.cpp",
@@ -570,7 +604,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 32,
               "Title": "Geometry.cpp",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\geometry\\Geometry.cpp",
               "RelativeDocumentMoniker": "src\\geometry\\Geometry.cpp",
@@ -583,7 +617,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 33,
               "Title": "OBJLoader.h",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\geometry\\OBJLoader.h",
               "RelativeDocumentMoniker": "src\\geometry\\OBJLoader.h",
@@ -596,7 +630,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 34,
               "Title": "OBJLoader.cpp",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\geometry\\OBJLoader.cpp",
               "RelativeDocumentMoniker": "src\\geometry\\OBJLoader.cpp",
@@ -609,7 +643,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 35,
               "Title": "GraphicsPipeline.cpp",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\GraphicsPipeline.cpp",
               "RelativeDocumentMoniker": "src\\rendering\\GraphicsPipeline.cpp",
@@ -622,7 +656,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 36,
               "Title": "SkyboxPass.h",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\SkyboxPass.h",
               "RelativeDocumentMoniker": "src\\rendering\\SkyboxPass.h",
@@ -635,7 +669,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 37,
               "Title": "GeometryGenerator.h",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\geometry\\GeometryGenerator.h",
               "RelativeDocumentMoniker": "src\\geometry\\GeometryGenerator.h",
@@ -648,7 +682,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 39,
               "Title": "Vertex.h",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\vulkan\\Vertex.h",
               "RelativeDocumentMoniker": "src\\vulkan\\Vertex.h",
@@ -661,7 +695,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 38,
               "Title": "Window.h",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\core\\Window.h",
               "RelativeDocumentMoniker": "src\\core\\Window.h",
@@ -674,7 +708,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 40,
               "Title": "Cubemap.h",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Cubemap.h",
               "RelativeDocumentMoniker": "src\\rendering\\Cubemap.h",
@@ -687,7 +721,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 41,
               "Title": "skybox.vert",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\shaders\\skybox.vert",
               "RelativeDocumentMoniker": "src\\shaders\\skybox.vert",
@@ -700,7 +734,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 42,
               "Title": "vector",
               "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.44.35207\\include\\vector",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Enterprise\\VC\\Tools\\MSVC\\14.44.35207\\include\\vector",

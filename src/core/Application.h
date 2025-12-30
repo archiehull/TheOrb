@@ -7,6 +7,7 @@
 #include "../rendering/Renderer.h"
 #include "../rendering/Scene.h"
 #include "../rendering/CameraController.h"
+#include "Config.h"
 
 #include <memory>
 #include <chrono>
@@ -39,6 +40,8 @@ private:
     std::unique_ptr<CameraController> cameraController;
 
     std::chrono::time_point<std::chrono::high_resolution_clock> lastFrameTime;
+
+    AppConfig config;
 
     float deltaTime = 0.0f;
     float timeScale = 1.0f;

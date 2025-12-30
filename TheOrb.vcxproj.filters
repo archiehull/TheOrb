@@ -114,6 +114,9 @@
     <ClCompile Include="src\rendering\ParticleLibrary.cpp">
       <Filter>Source Files\src\rendering</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\Config.cpp">
+      <Filter>Source Files\src\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\Window.h">
@@ -202,6 +205,9 @@
     </ClInclude>
     <ClInclude Include="src\rendering\ParticleLibrary.h">
       <Filter>Source Files\src\rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\Config.h">
+      <Filter>Source Files\src\core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

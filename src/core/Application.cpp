@@ -1,11 +1,13 @@
 #include "Application.h"
 #include "../rendering/ParticleLibrary.h"
 #include <iostream>
+#include <iomanip>
 
+Application::Application() {
 
-Application::Application()
-    : window(std::make_unique<Window>(800, 600, "TheOrb"))
-{
+    config = ConfigLoader::Load("config.txt");
+    window = std::make_unique<Window>(config.windowWidth, config.windowHeight, "TheOrb");
+
     glfwSetWindowUserPointer(window->GetGLFWWindow(), this);
     glfwSetKeyCallback(window->GetGLFWWindow(), KeyCallback);
     glfwSetFramebufferSizeCallback(window->GetGLFWWindow(), FramebufferResizeCallback);
@@ -66,8 +68,16 @@ static const char* SUN_NAME = "Sun";
 static const char* MOON_NAME = "Moon";
 
 void Application::SetupScene() {
-    const float dayDuration = 60.0f;
+    const float dayDuration = config.seasons.durationSeconds;
     const float baseOrbitSpeed = glm::two_pi<float>() / dayDuration;
+
+    scene->SetSeasonConfig(
+        config.seasons.durationSeconds,
+        config.seasons.summerBaseTemp,
+        config.seasons.winterBaseTemp,
+        config.seasons.dayNightTempDiff
+    );
+    scene->SetSunHeatBonus(config.sunHeatBonus);
 
     const float orbitRadius = 275.0f;
     const float deltaY = -75.0f;
@@ -77,27 +87,49 @@ void Application::SetupScene() {
 
     const float adjustedRadius = scene->RadiusAdjustment(orbRadius, deltaY);
 
-    scene->AddTerrain("GroundGrid", adjustedRadius, 512, 512, 3.5f, 0.02f, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), "textures/desert2.jpg");
+    scene->AddTerrain("GroundGrid", adjustedRadius, 512, 512, config.terrainHeightScale, config.terrainNoiseFreq, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), "textures/desert2.jpg");
 
     scene->AddPedestal("BasePedestal", adjustedRadius, orbRadius * 2.3, 100.0f, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), "textures/mahogany.jpg");
     scene->SetObjectCastsShadow("BasePedestal", false);
     scene->SetObjectLayerMask("BasePedestal", SceneLayers::OUTSIDE);
     scene->SetObjectCollision("BasePedestal", false);
 
+    scene->ClearProceduralRegistry();
 
-    // High frequency cacti
-    scene->RegisterProceduralObject("models/cactus.obj", "textures/cactus.jpg", 7.0f, glm::vec3(0.01f), glm::vec3(0.02f), glm::vec3(-90.0f, 0.0f, 0.0f), true);
-    // Medium frequency dead trees
-    scene->RegisterProceduralObject("models/DeadTree.obj", "textures/bark.jpg", 5.0f, glm::vec3(0.1f), glm::vec3(0.2f), glm::vec3(0.0f), true);
-    // Low frequency dead trees (larger)
-    scene->RegisterProceduralObject("models/DeadTree.obj", "textures/bark.jpg", 4.0f, glm::vec3(0.25f), glm::vec3(0.35f), glm::vec3(0.0f), true);
-    scene->GenerateProceduralObjects(50, orbRadius - 20, deltaY, terrainHeightScale, terrainNoiseFreq);
+    if (config.proceduralPlants.empty()) {
+        // High frequency cacti
+        scene->RegisterProceduralObject("models/cactus.obj", "textures/cactus.jpg", 7.0f, glm::vec3(0.01f), glm::vec3(0.02f), glm::vec3(-90.0f, 0.0f, 0.0f), true);
+        // Medium frequency dead trees
+        scene->RegisterProceduralObject("models/DeadTree.obj", "textures/bark.jpg", 5.0f, glm::vec3(0.1f), glm::vec3(0.2f), glm::vec3(0.0f), true);
+        // Low frequency dead trees (larger)
+        scene->RegisterProceduralObject("models/DeadTree.obj", "textures/bark.jpg", 4.0f, glm::vec3(0.25f), glm::vec3(0.35f), glm::vec3(0.0f), true);
+    }
+    else {
+        for (const auto& plant : config.proceduralPlants) {
+            scene->RegisterProceduralObject(
+                plant.modelPath,
+                plant.texturePath,
+                plant.frequency,
+                plant.minScale,
+                plant.maxScale,
+                plant.baseRotation,
+                plant.isFlammable
+            );
+        }
+    }
+
+    scene->GenerateProceduralObjects(75, orbRadius - 20, deltaY, terrainHeightScale, terrainNoiseFreq);
+
+    for (const auto& obj : config.staticObjects) {
+        scene->AddModel(obj.name, obj.position, obj.rotation, obj.scale, obj.modelPath, obj.texturePath, obj.isFlammable);
+    }
+
 
     scene->AddSphere(SUN_NAME, 16, 32, 5.0f, glm::vec3(0.0f), "textures/sun.png");
     scene->AddLight(SUN_NAME, glm::vec3(0.0f), glm::vec3(1.0f, 0.9f, 0.8f), 1.0f, 0);
     scene->SetObjectCastsShadow(SUN_NAME, false);
-    scene->SetObjectOrbit(SUN_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, baseOrbitSpeed, glm::vec3(0.0f, 0.0f, 1.0f), 0.0f);
-    scene->SetLightOrbit(SUN_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, baseOrbitSpeed, glm::vec3(0.0f, 0.0f, 1.0f), 0.0f);
+    scene->SetObjectOrbit(SUN_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), config.sunOrbit.radius, config.sunOrbit.speed, config.sunOrbit.axis, config.sunOrbit.initialAngle);
+    scene->SetLightOrbit(SUN_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), config.sunOrbit.radius, config.sunOrbit.speed, config.sunOrbit.axis, config.sunOrbit.initialAngle);
     scene->SetObjectLayerMask(SUN_NAME, SceneLayers::ALL);
     scene->SetLightLayerMask(SUN_NAME, SceneLayers::ALL);
     scene->SetObjectCollision(SUN_NAME, false);
@@ -105,8 +137,8 @@ void Application::SetupScene() {
     scene->AddSphere(MOON_NAME, 16, 32, 2.0f, glm::vec3(0.0f), "textures/moon.jpg");
     scene->AddLight(MOON_NAME, glm::vec3(0.0f), glm::vec3(0.1f, 0.1f, 0.3f), 1.5f, 0);
     scene->SetObjectCastsShadow(MOON_NAME, false);
-    scene->SetObjectOrbit(MOON_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, baseOrbitSpeed, glm::vec3(0.0f, 0.0f, 1.0f), glm::pi<float>());
-    scene->SetLightOrbit(MOON_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), orbitRadius, baseOrbitSpeed, glm::vec3(0.0f, 0.0f, 1.0f), glm::pi<float>());
+    scene->SetObjectOrbit(MOON_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), config.moonOrbit.radius, config.moonOrbit.speed, config.moonOrbit.axis, config.moonOrbit.initialAngle);
+    scene->SetLightOrbit(MOON_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), config.moonOrbit.radius, config.moonOrbit.speed, config.moonOrbit.axis, config.moonOrbit.initialAngle);
     scene->SetObjectLayerMask(MOON_NAME, SceneLayers::ALL);
     scene->SetLightLayerMask(MOON_NAME, SceneLayers::ALL);
     scene->SetObjectCollision(MOON_NAME, false);
@@ -171,6 +203,14 @@ void Application::MainLoop() {
         cameraController->Update(deltaTime, *scene);
 
         Camera* const activeCamera = cameraController->GetActiveCamera();
+
+        //// Print camera position every frame
+        //if (activeCamera) {
+        //    const glm::vec3 pos = activeCamera->GetPosition();
+        //    std::cout << std::fixed << std::setprecision(3)
+        //        << "Camera Position: (" << pos.x << ", " << pos.y << ", " << pos.z << ")\n";
+        //}
+
         const glm::mat4 viewMatrix = activeCamera->GetViewMatrix();
         const glm::mat4 projMatrix = activeCamera->GetProjectionMatrix(
             vulkanSwapChain->GetExtent().width / static_cast<float>(vulkanSwapChain->GetExtent().height)

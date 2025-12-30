@@ -59,7 +59,7 @@ void CameraController::SwitchCamera(CameraType type, const Scene& scene) {
             orbitRadius = 15.0f;
             orbitYaw = 0.0f;
             orbitPitch = 20.0f;
-            std::cout << "Orbiting Cactus: " << orbitTargetObject->name << std::endl;
+            //std::cout << "Orbiting Cactus: " << orbitTargetObject->name << std::endl;
         }
         else {
             std::cout << "No cactus found to orbit!" << std::endl;
@@ -69,7 +69,7 @@ void CameraController::SwitchCamera(CameraType type, const Scene& scene) {
     else if (type == CameraType::FREE_ROAM) {
         // Reset to new default position
         auto* cam = cameras[CameraType::FREE_ROAM].get();
-        cam->SetPosition(glm::vec3(0.0f, -75.0f, 0.0f));
+        cam->SetPosition(glm::vec3(85.0f, -65.0f, 35.0f));
         cam->SetTarget(glm::vec3(0.0f, -75.0f, 10.0f));
     }
     else if (type == CameraType::BIRDS_EYE) {
