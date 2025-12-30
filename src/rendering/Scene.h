@@ -184,7 +184,9 @@ public:
     void Update(float deltaTime);
     void ResetEnvironment();
 
-    // Changed return type to non-const to allow Move Semantics (Fix OPT.33)
+    // Shading Toggle
+    void ToggleGlobalShadingMode();
+
     std::vector<Light> GetLights() const;
 
     // Scene management
@@ -214,6 +216,8 @@ private:
     float m_SeasonTimer = 0.0f;
     const float m_SeasonDuration = 60.0f; // Duration of one season in seconds
     float m_WeatherIntensity = 0.0f;      // The calculated "Ambient Temperature"
+
+    int globalShadingMode = 1; // 1 = Phong (Default), 0 = Gouraud
 
     TerrainConfig m_TerrainConfig;
     std::vector<SceneLight> m_SceneLights;

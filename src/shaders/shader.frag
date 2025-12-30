@@ -57,7 +57,6 @@ float ShadowCalculation(vec4 fragPosLightSpace) {
     float bias = max(0.0005 * (1.0 - dot(normal, lightDir)), 0.0001);
     float shadow = 0.0;
     vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
-    
     for(int x = -1; x <= 1; ++x) {
         for(int y = -1; y <= 1; ++y) {
             float pcfDepth = texture(shadowMap, projCoords.xy + vec2(x, y) * texelSize).r;
@@ -136,10 +135,10 @@ void main() {
     }
 
     if (pco.shadingMode == 0) {
-        // Gouraud
+        // Gouraud (calculated in vertex shader)
         lighting = fragGouraudColor * (1.0 - shadow) + fragOtherLightColor;
     } else {
-        // Phong
+        // Phong (calculated per-pixel)
         vec3 normal = normalize(fragNormal);
         vec3 viewDir = normalize(ubo.viewPos - fragPos);
 
@@ -154,21 +153,16 @@ void main() {
 
             if (ubo.lights[i].type == 1) {
                 // --- FIRE / POINT LIGHT ---
-                // FIX: Use extreme quadratic falloff (45.0) to confine light to a small radius.
-                // This prevents 20+ fires from summing up to white on the terrain.
+                // Extreme falloff to contain the fire light
                 attenuation = 1.0 / (1.0 + 15.0 * distance + 45.0 * distance * distance);
-                
-                // FIX: Reduce specular for fires so ground doesn't look like wet plastic
-                specularStrength = 0.05; 
+                specularStrength = 0.05;
             } 
             else {
-                // --- SUN / GLOBAL ---
-                attenuation = 1.0 / (1.0 + 0.1 * distance + 0.01 * distance * distance);
+                // --- SUN (Type 0) ---
+                attenuation = 1.0;
                 specularStrength = 0.5;
             }
 
-            // Only Sun (Type 0) adds Ambient Light.
-            // Fire (Type 1) must be pure additive diffuse/specular.
             vec3 ambient = vec3(0.0);
             if (ubo.lights[i].type == 0) {
                  float ambientStrength = 0.1;
@@ -197,7 +191,6 @@ void main() {
 
     vec3 sootColor = vec3(0.05, 0.05, 0.05);
     vec3 finalColor = lighting * texColor.rgb;
-    
     if (pco.burnFactor > 0.0) {
         finalColor = mix(finalColor, sootColor, pco.burnFactor * 0.9);
     }

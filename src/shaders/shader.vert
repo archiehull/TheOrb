@@ -7,7 +7,7 @@ struct Light {
     vec3 color;
     float intensity;
     int type;
-    int layerMask;  
+    int layerMask;
     float padding;
 };
 
@@ -18,7 +18,7 @@ layout(set = 0, binding = 0) uniform UniformBufferObject {
     mat4 lightSpaceMatrix;
     Light lights[MAX_LIGHTS];
     int numLights;
-    float dayNightFactor; // 0.0 = Night, 1.0 = Day
+    float dayNightFactor; 
 } ubo;
 
 layout(push_constant) uniform PushConstantObject {
@@ -44,7 +44,7 @@ layout(location = 6) out vec3 fragOtherLightColor;
 void main() {
     vec4 worldPos = pco.model * vec4(inPosition, 1.0);
     gl_Position = ubo.proj * ubo.view * worldPos;
-    
+
     fragColor = inColor;
     fragUV = inTexCoord;
     
@@ -60,18 +60,38 @@ void main() {
     vec3 sunColor = vec3(0.0);
     vec3 otherColor = vec3(0.0);
 
-    // GOURAUD SHADING CALCULATION
+    // --- GOURAUD SHADING CALCULATION ---
+    // (Calculated per-vertex for performance)
     if (pco.shadingMode == 0) {
         vec3 viewDir = normalize(ubo.viewPos - fragPos);
 
         for(int i = 0; i < ubo.numLights; i++) {
+            // Skip lights that don't affect this object's layer
             if ((ubo.lights[i].layerMask & pco.layerMask) == 0) {
                 continue;
             }
 
-            // Ambient
-            float ambientStrength = 0.1;
-            vec3 ambient = ambientStrength * ubo.lights[i].color * ubo.lights[i].intensity;
+            float distance = length(ubo.lights[i].position - fragPos);
+            float attenuation = 1.0;
+            float specularStrength = 0.5;
+
+            if (ubo.lights[i].type == 1) {
+                // --- FIRE / POINT LIGHT ---
+                // Apply the same extreme falloff as the Fragment Shader
+                attenuation = 1.0 / (1.0 + 15.0 * distance + 45.0 * distance * distance);
+                specularStrength = 0.05; // Reduced specular for fire
+            } 
+            else {
+                // --- SUN (Type 0) ---
+                attenuation = 1.0;
+            }
+
+            // Ambient (Only Sun adds ambient)
+            vec3 ambient = vec3(0.0);
+            if (ubo.lights[i].type == 0) {
+                 float ambientStrength = 0.1;
+                 ambient = ambientStrength * ubo.lights[i].color * ubo.lights[i].intensity;
+            }
 
             // Diffuse
             vec3 lightDir = normalize(ubo.lights[i].position - fragPos);
@@ -79,14 +99,14 @@ void main() {
             vec3 diffuse = diff * ubo.lights[i].color * ubo.lights[i].intensity;
 
             // Specular
-            float specularStrength = 0.5;
             vec3 reflectDir = reflect(-lightDir, normal);
             float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
             vec3 specular = specularStrength * spec * ubo.lights[i].color * ubo.lights[i].intensity;
 
-            vec3 result = ambient + diffuse + specular;
+            // Apply attenuation to Diffuse + Specular only
+            vec3 result = ambient + (diffuse + specular) * attenuation;
 
-            // Separate Sun (0) from Moon (1+)
+            // Sort into Sun (0) vs Other (1+) buckets
             if (i == 0) {
                 sunColor += result;
             } else {

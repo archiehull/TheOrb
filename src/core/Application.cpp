@@ -86,11 +86,11 @@ void Application::SetupScene() {
     scene->SetObjectCollision("BasePedestal", false);
 
 
-	// High frequency cacti
+    // High frequency cacti
     scene->RegisterProceduralObject("models/cactus.obj", "textures/cactus.jpg", 7.0f, glm::vec3(0.01f), glm::vec3(0.02f), glm::vec3(-90.0f, 0.0f, 0.0f), true);
-	// Medium frequency dead trees
+    // Medium frequency dead trees
     scene->RegisterProceduralObject("models/DeadTree.obj", "textures/bark.jpg", 5.0f, glm::vec3(0.1f), glm::vec3(0.2f), glm::vec3(0.0f), true);
-	// Low frequency dead trees (larger)
+    // Low frequency dead trees (larger)
     scene->RegisterProceduralObject("models/DeadTree.obj", "textures/bark.jpg", 4.0f, glm::vec3(0.25f), glm::vec3(0.35f), glm::vec3(0.0f), true);
     scene->GenerateProceduralObjects(50, orbRadius - 20, deltaY, terrainHeightScale, terrainNoiseFreq);
 
@@ -253,6 +253,10 @@ void Application::KeyCallback(GLFWwindow* glfwWindow, int key, int scancode, int
         else if (key == GLFW_KEY_F3) {
             app->cameraController->SwitchCamera(CameraType::ORBIT);
             std::cout << "Switched to Orbit Camera (F3)" << std::endl;
+        }
+        // Shading Toggle
+        else if (key == GLFW_KEY_Y) {
+            app->scene->ToggleGlobalShadingMode();
         }
 
         // Forward key press to camera controller

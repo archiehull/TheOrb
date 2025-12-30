@@ -8,18 +8,17 @@
 #include <algorithm>
 #include <random>
 
-static void UpdateShadingMode(SceneObject* obj) {
-    if (!obj || !obj->geometry) return;
+void Scene::ToggleGlobalShadingMode() {
+    globalShadingMode = (globalShadingMode == 1) ? 0 : 1;
 
-    const size_t HIGH_POLY_THRESHOLD = 500;
-    const size_t vertexCount = obj->geometry->GetVertices().size();
-
-    if (vertexCount > HIGH_POLY_THRESHOLD) {
-        obj->shadingMode = 0; // Gouraud
+    // Update all existing objects, preserving special modes (>=2)
+	// 0 = Gouraud, 1 = Phong
+    for (auto& obj : objects) {
+        if (obj->shadingMode == 0 || obj->shadingMode == 1) {
+            obj->shadingMode = globalShadingMode;
+        }
     }
-    else {
-        obj->shadingMode = 1; // Phong
-    }
+    std::cout << "Shading Mode Toggled: " << (globalShadingMode == 1 ? "Phong" : "Gouraud") << std::endl;
 }
 
 void Scene::AddObjectInternal(const std::string& name, std::unique_ptr<Geometry> geometry, const glm::vec3& position, const std::string& texturePath, bool isFlammable) {
@@ -27,7 +26,10 @@ void Scene::AddObjectInternal(const std::string& name, std::unique_ptr<Geometry>
     auto obj = std::make_unique<SceneObject>(sharedGeo, texturePath, name);
     obj->transform = glm::translate(glm::mat4(1.0f), position);
     obj->isFlammable = isFlammable;
-    UpdateShadingMode(obj.get());
+
+    // Use the global default instead of poly count check
+    obj->shadingMode = globalShadingMode;
+
     objects.push_back(std::move(obj));
 }
 
@@ -198,7 +200,8 @@ void Scene::AddCube(const std::string& name, const glm::vec3& position, const gl
         glm::mat4 t = glm::translate(glm::mat4(1.0f), position);
         t = glm::scale(t, scale);
         objects.back()->transform = t;
-        UpdateShadingMode(objects.back().get());
+        // Logic removed: UpdateShadingMode(objects.back().get());
+        // Since AddObjectInternal already sets the global default, we are good.
     }
 }
 
@@ -232,7 +235,7 @@ void Scene::AddModel(const std::string& name, const glm::vec3& position, const g
         obj->transform = transform;
         obj->isFlammable = isFlammable;
 
-        UpdateShadingMode(obj.get());
+        obj->shadingMode = globalShadingMode; // Use global setting
 
         objects.push_back(std::move(obj));
     }
@@ -774,7 +777,9 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunHeight) {
             if (obj->fireLightIndex != -1 && obj->fireLightIndex < m_SceneLights.size()) {
                 float t = obj->burnTimer;
                 float flicker = 1.0f + 0.3f * std::sin(t * 15.0f) + 0.15f * std::sin(t * 37.0f);
-                float targetIntensity = 0.05f * growth;
+
+                float targetIntensity = 50.05f * growth; // flame_intensity
+
                 m_SceneLights[obj->fireLightIndex].vulkanLight.position = lightPos;
                 m_SceneLights[obj->fireLightIndex].vulkanLight.intensity = targetIntensity * flicker;
             }
