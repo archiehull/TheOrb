@@ -130,6 +130,8 @@ void Application::SetupScene() {
     scene->SetObjectLayerMask("FogShell", 0x1 | 0x2);
     scene->SetObjectCollision("FogShell", false);
 
+    scene->AddCampfire("Campfire1", glm::vec3(20.0f, 0.0f + deltaY, 20.0f), 1.0f);
+
     // Add Snow
     scene->AddSnow();
 }

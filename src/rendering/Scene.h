@@ -158,6 +158,8 @@ public:
     void GenerateProceduralObjects(int count, float terrainRadius, float deltaY, float heightScale, float noiseFreq);
 
     // Particle Methods
+    void AddCampfire(const std::string& name, const glm::vec3& position, float scale);
+
     int AddFire(const glm::vec3& position, float scale);
     int AddSmoke(const glm::vec3& position, float scale);
     void AddRain();

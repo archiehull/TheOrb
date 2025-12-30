@@ -308,6 +308,34 @@ ParticleSystem* Scene::GetOrCreateSystem(const ParticleProps& props) {
     return ptr;
 }
 
+void Scene::AddCampfire(const std::string& name, const glm::vec3& position, float scale) {
+    // 1. Add Fire Particles
+    // (Returns emitter ID, but we ignore it for a static campfire)
+    AddFire(position, scale);
+
+    // 2. Add Smoke Particles
+    // We offset the smoke slightly upwards so it rises from the top of the flames
+    glm::vec3 smokePos = position;
+    smokePos.y += 1.5f * scale;
+    AddSmoke(smokePos, scale);
+
+    // 3. Add Point Light
+    // Position: Center of the flame
+    glm::vec3 lightPos = position;
+    lightPos.y += 0.5f * scale;
+
+    // Color: Warm Orange (R=1.0, G=0.5, B=0.1)
+    glm::vec3 lightColor = glm::vec3(1.0f, 0.5f, 0.1f);
+
+    // Intensity: 
+    // We use a base of 2.0, scaled by the fire size. 
+    // Since we fixed the attenuation shader, this will look bright but contained.
+    float intensity = 1.0f * scale;
+
+    // Type 1 = Point Light (Fire)
+    AddLight(name + "_Light", lightPos, lightColor, intensity, 1);
+}
+
 int Scene::AddFire(const glm::vec3& position, float scale) {
     ParticleProps fire = ParticleLibrary::GetFireProps();
     fire.position = position;
