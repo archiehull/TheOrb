@@ -127,7 +127,7 @@ void Scene::GenerateProceduralObjects(int count, float terrainRadius, float delt
         if (!objects.empty()) {
             auto& obj = objects.back();
 
-            // NEW: Assign unique thermal response if the object is flammable
+            // Assign unique thermal response if the object is flammable
             if (config.isFlammable) {
                 obj->thermalResponse = distThermal(gen);
             }
@@ -387,7 +387,7 @@ void Scene::Ignite(SceneObject* obj) {
 void Scene::AddRain() {
     ParticleProps rain = ParticleLibrary::GetRainProps();
     // Global effect: Emitter covers a large area high up
-    rain.position = glm::vec3(0.0f, 40.0f, 0.0f);
+    rain.position = glm::vec3(0.0f, 40.0f -75.0f, 0.0f);
     // Huge variance in X and Z to cover the map
     rain.velocityVariation.x = 80.0f; // Width
     rain.velocityVariation.z = 80.0f; // Depth
@@ -400,7 +400,7 @@ void Scene::AddRain() {
 
 void Scene::AddSnow() {
     ParticleProps snow = ParticleLibrary::GetSnowProps();
-    snow.position = glm::vec3(0.0f, 50.0f, 0.0f);
+    snow.position = glm::vec3(0.0f, 50.0f-75.0f, 0.0f);
 
     // CHANGE: Use Position Variation for area spawning, rather than Velocity Variation
     // This allows them to spawn over a wide area but fall straight down gently
@@ -691,10 +691,10 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunHeight) {
     for (auto& obj : objects) {
         if (!obj->isFlammable) continue;
 
-        // CHANGED: Use the object's unique thermal response instead of a hardcoded value
+        // Use the object's unique thermal response
         float responseSpeed = obj->thermalResponse;
 
-        // 2. Lower threshold to guarantee ignition during "hot" moments
+        // Lower threshold to guarantee ignition during "hot" moments
         float effectiveIgnitionThreshold = 100.0f;
 
         switch (obj->state) {
@@ -702,23 +702,15 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunHeight) {
         case ObjectState::HEATING: {
             float targetTemp = m_WeatherIntensity;
 
-            // 3. Massive Sun Bonus (+60C)
-            // If base is 50C + 60C = 110C, well above threshold
+            // Massive Sun Bonus (+60C) if sun is high
             if (sunHeight > 0.1f) {
                 targetTemp += m_SunHeatBonus * sunHeight;
             }
 
-            // STABLE MATH: Interpolate towards target (never overshoots)
+            // STABLE MATH: Interpolate towards target
             float changeRate = responseSpeed * deltaTime;
             float lerpFactor = glm::clamp(changeRate, 0.0f, 1.0f);
             obj->currentTemp = glm::mix(obj->currentTemp, targetTemp, lerpFactor);
-
-            // Debug Print (helps you verify temps are rising)
-            if (shouldPrint && obj->name == "ProcObj_0") {
-                /* std::cout << "Temp: " << obj->currentTemp
-                      << " | Target: " << targetTemp
-                      << " | Thresh: " << effectiveIgnitionThreshold << std::endl;*/
-            }
 
             // Visual State Update
             if (obj->currentTemp > 45.0f) {
@@ -736,7 +728,6 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunHeight) {
                 float ignitionChancePerSecond = 0.05f + (excessHeat * 0.005f);
 
                 if (chance(gen) < (ignitionChancePerSecond * deltaTime)) {
-                    //std::cout << "IGNITION: " << obj->name << std::endl;
                     obj->state = ObjectState::BURNING;
                     obj->burnTimer = 0.0f;
 
@@ -805,9 +796,7 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunHeight) {
             if (obj->fireLightIndex != -1 && obj->fireLightIndex < m_SceneLights.size()) {
                 float t = obj->burnTimer;
                 float flicker = 1.0f + 0.3f * std::sin(t * 15.0f) + 0.15f * std::sin(t * 37.0f);
-
-                float targetIntensity = 50.05f * growth; // flame_intensity
-
+                float targetIntensity = 50.05f * growth;
                 m_SceneLights[obj->fireLightIndex].vulkanLight.position = lightPos;
                 m_SceneLights[obj->fireLightIndex].vulkanLight.intensity = targetIntensity * flicker;
             }
@@ -863,19 +852,23 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunHeight) {
             float lerpFactor = glm::clamp(changeRate, 0.0f, 1.0f);
             obj->currentTemp = glm::mix(obj->currentTemp, m_WeatherIntensity, lerpFactor);
 
-            obj->regrowTimer += deltaTime;
+            // --- Dynamic Growth Logic ---
+            // Standard rate at 25C. Colder = Slower. Below 10C = No Growth.
+            float growthMultiplier = 0.0f;
+            if (m_WeatherIntensity > 10.0f) {
+                growthMultiplier = (m_WeatherIntensity - 10.0f) / 15.0f;
+            }
+            obj->regrowTimer += deltaTime * growthMultiplier;
 
-            // Stop smoldering after 5s
+            // Stop smoldering after 5s (biological/active time)
             if (obj->state == ObjectState::BURNT && obj->regrowTimer > 5.0f && obj->smokeEmitterId != -1) {
                 GetOrCreateSystem(ParticleLibrary::GetSmokeProps())->StopEmitter(obj->smokeEmitterId);
                 obj->smokeEmitterId = -1;
             }
 
             if (obj->state == ObjectState::BURNT) {
-                // Only regrow if weather is warm (> 10C)
-                bool isWarmWeather = m_WeatherIntensity > 10.0f;
-
-                if (obj->regrowTimer >= obj->dustDuration && isWarmWeather) {
+                // --- Short wait (5s) for ash to settle ---
+                if (obj->regrowTimer >= 10.0f) {
                     obj->state = ObjectState::REGROWING;
                     obj->regrowTimer = 0.0f;
 
@@ -890,10 +883,11 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunHeight) {
                 }
             }
             else if (obj->state == ObjectState::REGROWING) {
-                // Pop-up animation
-                const float growthTime = 2.0f;
+                // --- Gradual Growth takes 0.75 of a day ---
+                float growthTime = m_SeasonDuration * 0.75f;
+
                 float t = glm::clamp(obj->regrowTimer / growthTime, 0.0f, 1.0f);
-                t = t * t * (3.0f - 2.0f * t); // Smoothstep
+                t = t * t * (3.0f - 2.0f * t); // Smoothstep curve
 
                 float currentScale = glm::mix(0.003f, 1.0f, t);
                 obj->transform = glm::scale(obj->storedOriginalTransform, glm::vec3(currentScale));

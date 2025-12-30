@@ -160,7 +160,8 @@ void Application::SetupScene() {
     scene->SetObjectLayerMask("FogShell", 0x1 | 0x2);
     scene->SetObjectCollision("FogShell", false);
 
-    scene->AddSnow();
+    //scene->AddSnow();
+    scene->AddRain();
 }
 
 void Application::RecreateSwapChain() {
