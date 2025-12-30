@@ -462,7 +462,60 @@ void Scene::SetOrbitSpeed(const std::string& name, float speedRadPerSec) {
 }
 
 void Scene::Update(float deltaTime) {
+    // 1. Update Season Cycle
+    m_SeasonTimer += deltaTime;
+    if (m_SeasonTimer >= m_SeasonDuration) {
+        m_SeasonTimer = 0.0f;
+        m_CurrentSeason = static_cast<Season>((static_cast<int>(m_CurrentSeason) + 1) % 4);
+        std::cout << "Season Changed to: " << GetSeasonName() << std::endl;
+    }
 
+    // 2. Calculate Weather
+    float sunHeight = 0.0f;
+    if (!m_SceneLights.empty()) {
+        float rawHeight = m_SceneLights[0].vulkanLight.position.y / 275.0f;
+        sunHeight = std::clamp(rawHeight, -1.0f, 1.0f);
+    }
+
+    float seasonBaseTemp = 0.0f;
+    float dayNightVariation = 0.0f;
+    glm::vec3 targetSunColor = glm::vec3(1.0f);
+
+    switch (m_CurrentSeason) {
+    case Season::SUMMER:
+        // AGGRESSIVE: Base 50C, Day Variation 35C -> Peak Ambient 85C
+        seasonBaseTemp = 50.0f;
+        dayNightVariation = 35.0f;
+        targetSunColor = glm::vec3(1.0f, 0.95f, 0.8f);
+        break;
+    case Season::AUTUMN:
+        seasonBaseTemp = 20.0f;
+        dayNightVariation = 15.0f;
+        targetSunColor = glm::vec3(1.0f, 0.85f, 0.7f);
+        break;
+    case Season::WINTER:
+        seasonBaseTemp = -5.0f;
+        dayNightVariation = 10.0f;
+        targetSunColor = glm::vec3(0.75f, 0.85f, 1.0f);
+        break;
+    case Season::SPRING:
+        seasonBaseTemp = 20.0f;
+        dayNightVariation = 15.0f;
+        targetSunColor = glm::vec3(1.0f, 0.98f, 0.9f);
+        break;
+    }
+
+    m_WeatherIntensity = seasonBaseTemp + (sunHeight * dayNightVariation);
+
+    // 3. Sun Tint
+    auto sunIt = std::find_if(m_SceneLights.begin(), m_SceneLights.end(),
+        [](const SceneLight& l) { return l.name == "Sun"; });
+
+    if (sunIt != m_SceneLights.end()) {
+        sunIt->vulkanLight.color = glm::mix(sunIt->vulkanLight.color, targetSunColor, deltaTime * 0.8f);
+    }
+
+    // 4. Update Orbits
     auto CalculateNewPos = [&](OrbitData& data) -> glm::vec3 {
         data.currentAngle += data.speed * deltaTime;
         glm::quat rotation = glm::angleAxis(data.currentAngle, data.axis);
@@ -483,15 +536,10 @@ void Scene::Update(float deltaTime) {
         }
     }
 
-    float sunIntensity = 0.0f;
-    if (!m_SceneLights.empty()) {
-        // Calculate intensity based on Sun Height (Light 0)
-        // If Y > 0 (Day), intensity increases up to 1.0
-        float sunHeight = m_SceneLights[0].vulkanLight.position.y;
-        sunIntensity = std::clamp(sunHeight / 50.0f, 0.0f, 1.0f);
-    }
-    UpdateThermodynamics(deltaTime, sunIntensity);
+    // 5. Update Thermodynamics
+    UpdateThermodynamics(deltaTime, sunHeight);
 
+    // 6. Update Particles
     for (const auto& sys : particleSystems) {
         sys->Update(deltaTime);
     }
@@ -587,105 +635,117 @@ void Scene::SetObjectShadingMode(const std::string& name, int mode) {
     }
 }
 
-void Scene::UpdateThermodynamics(float deltaTime, float sunIntensity) {
-    // 1. Determine Sun Position (Assuming Light 0 is Sun)
-    bool globalSunlight = false;
-    if (!m_SceneLights.empty()) {
-        // Simple check: Is the sun above the horizon?
-        globalSunlight = m_SceneLights[0].vulkanLight.position.y > 0.0f;
-    }
+void Scene::UpdateThermodynamics(float deltaTime, float sunHeight) {
+    static std::random_device rd;
+    static std::mt19937 gen(rd());
+    std::uniform_real_distribution<float> chance(0.0f, 1.0f);
+
+    // Debug Timer: Prints temp of the first procedural object once per second
+    static float printTimer = 0.0f;
+    printTimer += deltaTime;
+    bool shouldPrint = (printTimer > 1.0f);
+    if (shouldPrint) printTimer = 0.0f;
 
     for (auto& obj : objects) {
         if (!obj->isFlammable) continue;
 
+        // AGGRESSIVE TUNING:
+        // 1. Fast response so they heat up before the sun sets
+        float responseSpeed = 20.0f;
+
+        // 2. Lower threshold to guarantee ignition during "hot" moments
+        float effectiveIgnitionThreshold = 80.0f;
+
         switch (obj->state) {
         case ObjectState::NORMAL:
         case ObjectState::HEATING: {
-            // If sun is up and intense enough
-            bool inSun = globalSunlight && (sunIntensity > 0.2f);
+            float targetTemp = m_WeatherIntensity;
 
-            if (inSun) {
+            // 3. Massive Sun Bonus (+60C)
+            // If base is 50C + 60C = 110C, well above threshold
+            if (sunHeight > 0.1f) {
+                targetTemp += 60.0f * sunHeight;
+            }
+
+            // STABLE MATH: Interpolate towards target (never overshoots)
+            float changeRate = responseSpeed * deltaTime;
+            float lerpFactor = glm::clamp(changeRate, 0.0f, 1.0f);
+            obj->currentTemp = glm::mix(obj->currentTemp, targetTemp, lerpFactor);
+
+            // Debug Print (helps you verify temps are rising)
+            if (shouldPrint && obj->name == "ProcObj_0") {
+              /*  std::cout << "Temp: " << obj->currentTemp
+                    << " | Target: " << targetTemp
+                    << " | Thresh: " << effectiveIgnitionThreshold << std::endl;*/
+            }
+
+            // Visual State Update
+            if (obj->currentTemp > 45.0f) {
                 obj->state = ObjectState::HEATING;
-                obj->currentTemp += obj->heatingRate * sunIntensity * deltaTime;
             }
             else {
                 obj->state = ObjectState::NORMAL;
-                obj->currentTemp -= obj->coolingRate * deltaTime;
             }
 
-            obj->currentTemp = glm::max(0.0f, obj->currentTemp);
+            // IGNITION CHECK
+            if (obj->currentTemp >= effectiveIgnitionThreshold) {
+                float excessHeat = obj->currentTemp - effectiveIgnitionThreshold;
 
-            // --- IGNITION ---
-            if (obj->currentTemp >= obj->ignitionThreshold) {
-                obj->state = ObjectState::BURNING;
-                obj->burnTimer = 0.0f;
+                // High Chance: 20% base + 5% per degree of excess heat
+                float ignitionChancePerSecond = 0.20f + (excessHeat * 0.05f);
 
-                // Spawn Fire (Start small at base)
-                glm::vec3 pos = glm::vec3(obj->transform[3]);
-                float initialScale = 0.1f;
-                obj->fireEmitterId = AddFire(pos, initialScale);
+                if (chance(gen) < (ignitionChancePerSecond * deltaTime)) {
+                    //std::cout << "IGNITION: " << obj->name << std::endl;
+                    obj->state = ObjectState::BURNING;
+                    obj->burnTimer = 0.0f;
 
-                // Spawn Smoke (Start small, attach to object)
-                obj->smokeEmitterId = AddSmoke(pos, initialScale);
+                    // Spawn Initial Particles
+                    glm::vec3 pos = glm::vec3(obj->transform[3]);
+                    obj->fireEmitterId = AddFire(pos, 0.1f);
+                    obj->smokeEmitterId = AddSmoke(pos, 0.1f);
+                }
             }
             break;
         }
 
         case ObjectState::BURNING: {
+            // Self-Heating: Fire generates its own heat
+            obj->currentTemp += obj->selfHeatingRate * deltaTime;
             obj->burnTimer += deltaTime;
+
+            // Calculate Growth Factors
+            float growth = glm::clamp(obj->burnTimer / (obj->maxBurnDuration * 0.6f), 0.0f, 1.0f);
             obj->burnFactor = glm::clamp(obj->burnTimer / obj->maxBurnDuration, 0.0f, 1.0f);
 
-            // GROWTH LOGIC: Slower growth over first 60% of burn duration
-            float growDuration = obj->maxBurnDuration * 0.6f;
-            float growth = glm::clamp(obj->burnTimer / growDuration, 0.0f, 1.0f);
-
-            // Assume object height is roughly 2.0 units (standard tree/bush size in this scene)
+            // Fire Height Calculation
             float maxFireHeight = 3.0f;
             float currentFireHeight = 0.2f + (maxFireHeight - 0.2f) * growth;
-
             glm::vec3 basePos = glm::vec3(obj->transform[3]);
 
-            // Update Fire Emitter (Growing Column)
+            // Update Fire Particles
             if (obj->fireEmitterId != -1) {
                 ParticleProps fireProps = ParticleLibrary::GetFireProps();
-
-                // We want the fire to "grow up" from the base.
                 fireProps.position = basePos;
                 fireProps.position.y += currentFireHeight * 0.5f;
+                fireProps.positionVariation = glm::vec3(0.3f, currentFireHeight * 0.4f, 0.3f);
 
-                // Stretch the emitter box vertically
-                fireProps.positionVariation.x = 0.3f; // Thin width
-                fireProps.positionVariation.z = 0.3f;
-                fireProps.positionVariation.y = currentFireHeight * 0.5f; // Extents from center
-
-                // Scale particles slightly
                 float particleScale = 1.0f + growth * 0.5f;
                 fireProps.sizeBegin *= particleScale;
                 fireProps.sizeEnd *= particleScale;
 
-                // Ramp up rate
                 float rate = 50.0f + (300.0f * growth);
                 GetOrCreateSystem(fireProps)->UpdateEmitter(obj->fireEmitterId, fireProps, rate);
             }
 
-            // Update Smoke Emitter (Follow Top of Fire)
+            // Update Smoke Particles
             if (obj->smokeEmitterId != -1) {
                 ParticleProps smokeProps = ParticleLibrary::GetSmokeProps();
-
-                // Smoke spawns at the TOP of the fire column
                 smokeProps.position = basePos;
                 smokeProps.position.y += currentFireHeight;
 
-                // Smoke grows larger as fire gets bigger
                 float smokeScale = 1.0f + growth * 2.0f;
                 smokeProps.sizeBegin *= smokeScale;
                 smokeProps.sizeEnd *= smokeScale;
-
-                // CHANGE: Increased velocity variation (X/Z) so smoke plumes/disperses outward more
-                smokeProps.velocityVariation = glm::vec3(2.0f, 1.0f, 2.0f);
-
-                // CHANGE: Increased Lifetime and Vertical Velocity to allow smoke to rise high
-                // This prevents the "bunching up" effect
                 smokeProps.lifeTime = 8.0f;
                 smokeProps.velocity.y = 3.0f;
 
@@ -693,141 +753,127 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunIntensity) {
                 GetOrCreateSystem(smokeProps)->UpdateEmitter(obj->smokeEmitterId, smokeProps, rate);
             }
 
-            glm::vec3 firePos = glm::vec3(obj->transform[3]);
-            firePos.y += currentFireHeight * 0.5f; // Move light up with fire
+            // Update Fire Light
+            glm::vec3 lightPos = basePos;
+            lightPos.y += currentFireHeight * 0.5f;
 
-            // 1. Create Light if missing
             if (obj->fireLightIndex == -1) {
-                // Color: Orange-Red (1.0, 0.5, 0.1)
-                // Intensity: 0 initially
-                // Type: 1 (Point Light)
-                obj->fireLightIndex = AddLight(obj->name + "_FireLight", firePos, glm::vec3(1.0f, 0.5f, 0.1f), 0.0f, 1);
+                obj->fireLightIndex = AddLight(obj->name + "_Fire", lightPos, glm::vec3(1.0f, 0.5f, 0.1f), 0.0f, 1);
             }
 
-            // 2. Update Light (Position & Flicker)
             if (obj->fireLightIndex != -1 && obj->fireLightIndex < m_SceneLights.size()) {
-                // Procedural Flicker using sin waves on burnTimer
                 float t = obj->burnTimer;
                 float flicker = 1.0f + 0.3f * std::sin(t * 15.0f) + 0.15f * std::sin(t * 37.0f);
-
-                // Base intensity grows with fire size
-                float targetIntensity = 0.01f * growth;
-
-                SceneLight& light = m_SceneLights[obj->fireLightIndex];
-                light.vulkanLight.position = firePos;
-                light.vulkanLight.intensity = std::max(0.0f, targetIntensity * flicker);
+                float targetIntensity = 0.05f * growth;
+                m_SceneLights[obj->fireLightIndex].vulkanLight.position = lightPos;
+                m_SceneLights[obj->fireLightIndex].vulkanLight.intensity = targetIntensity * flicker;
             }
 
-            // --- TURN TO DUST ---
+            // Transition to Burnt (Ash)
             if (obj->burnTimer >= obj->maxBurnDuration) {
                 obj->state = ObjectState::BURNT;
 
+                // Stop Fire
                 if (obj->fireEmitterId != -1) {
                     GetOrCreateSystem(ParticleLibrary::GetFireProps())->StopEmitter(obj->fireEmitterId);
                     obj->fireEmitterId = -1;
                 }
-
-                // KEEP SMOKE for smoldering (Dust pile)
-                if (obj->smokeEmitterId != -1) {
-                    ParticleProps dustSmoke = ParticleLibrary::GetSmokeProps();
-                    dustSmoke.position = basePos; // Back to ground
-
-                    // Keep smoke very small
-                    dustSmoke.sizeBegin *= 0.1f;
-                    dustSmoke.sizeEnd *= 0.2f;
-
-                    // CHANGE: Reduced lifetime and vertical velocity so it stays low
-                    dustSmoke.lifeTime = 1.0f; // Die quickly
-                    dustSmoke.velocity.y = 0.5f; // Rise slowly
-
-                    // Keep constrained position for compactness
-                    dustSmoke.positionVariation = glm::vec3(0.1f, 0.0f, 0.1f);
-                    dustSmoke.velocityVariation = glm::vec3(0.2f, 0.2f, 0.2f);
-
-                    GetOrCreateSystem(dustSmoke)->UpdateEmitter(obj->smokeEmitterId, dustSmoke, 30.0f);
-                }
-
+                // Stop Light
                 if (obj->fireLightIndex != -1 && obj->fireLightIndex < m_SceneLights.size()) {
                     m_SceneLights[obj->fireLightIndex].vulkanLight.intensity = 0.0f;
                 }
+                // Switch Smoke to Smoldering
+                if (obj->smokeEmitterId != -1) {
+                    ParticleProps smolder = ParticleLibrary::GetSmokeProps();
+                    smolder.position = basePos;
+                    smolder.sizeBegin *= 0.1f;
+                    smolder.sizeEnd *= 0.2f;
+                    smolder.lifeTime = 1.5f;
+                    smolder.velocity.y = 0.5f;
+                    smolder.positionVariation = glm::vec3(0.1f);
+                    GetOrCreateSystem(smolder)->UpdateEmitter(obj->smokeEmitterId, smolder, 20.0f);
+                }
 
-                obj->regrowTimer = 0.0f;
-                obj->burnFactor = 0.0f;
-
-                // 1. Save Original Geometry 
+                // Swap Geometry
                 obj->storedOriginalGeometry = obj->geometry;
                 obj->storedOriginalTransform = obj->transform;
 
-                // 2. Assign Dust Geometry 
                 if (dustGeometryPrototype) {
                     obj->geometry = dustGeometryPrototype;
                 }
-
-                // 3. Swap Texture
                 obj->texturePath = sootTexturePath;
 
-                // 4. Shrink visual
+                // Shrink
                 obj->transform = glm::translate(glm::mat4(1.0f), basePos);
-                obj->transform = glm::scale(obj->transform, glm::vec3(0.003f)); // Pile of ash size
+                obj->transform = glm::scale(obj->transform, glm::vec3(0.003f));
+
+                obj->regrowTimer = 0.0f;
+                obj->burnFactor = 0.0f;
             }
             break;
         }
 
-        case ObjectState::BURNT: {
+        case ObjectState::BURNT:
+        case ObjectState::REGROWING: {
+            // Stable Cooling towards ambient
+            float changeRate = 0.5f * deltaTime;
+            float lerpFactor = glm::clamp(changeRate, 0.0f, 1.0f);
+            obj->currentTemp = glm::mix(obj->currentTemp, m_WeatherIntensity, lerpFactor);
+
             obj->regrowTimer += deltaTime;
 
-            // Stop smoldering after 5 seconds
-            if (obj->regrowTimer > 5.0f && obj->smokeEmitterId != -1) {
+            // Stop smoldering after 5s
+            if (obj->state == ObjectState::BURNT && obj->regrowTimer > 5.0f && obj->smokeEmitterId != -1) {
                 GetOrCreateSystem(ParticleLibrary::GetSmokeProps())->StopEmitter(obj->smokeEmitterId);
                 obj->smokeEmitterId = -1;
             }
 
-            // --- START REGROWTH ---
-            // Condition: Time passed AND it's daytime
-            if (obj->regrowTimer >= obj->dustDuration && globalSunlight) {
-                obj->state = ObjectState::REGROWING;
+            if (obj->state == ObjectState::BURNT) {
+                // Only regrow if weather is warm (> 10C)
+                bool isWarmWeather = m_WeatherIntensity > 10.0f;
 
-                if (obj->smokeEmitterId != -1) {
-                    GetOrCreateSystem(ParticleLibrary::GetSmokeProps())->StopEmitter(obj->smokeEmitterId);
-                    obj->smokeEmitterId = -1;
+                if (obj->regrowTimer >= obj->dustDuration && isWarmWeather) {
+                    obj->state = ObjectState::REGROWING;
+                    obj->regrowTimer = 0.0f;
+
+                    // Reset temp immediately so it doesn't loop back to burning
+                    obj->currentTemp = m_WeatherIntensity;
+
+                    if (obj->storedOriginalGeometry) {
+                        obj->geometry = obj->storedOriginalGeometry;
+                        obj->storedOriginalGeometry = nullptr;
+                    }
+                    obj->texturePath = obj->originalTexturePath;
                 }
-
-                // Restore Geometry Immediately
-                if (obj->storedOriginalGeometry) {
-                    obj->geometry = obj->storedOriginalGeometry;
-                    obj->storedOriginalGeometry = nullptr;
-                }
-
-                // Restore Texture
-                obj->texturePath = obj->originalTexturePath;
-
-                // Reset Temp
-                obj->currentTemp = 0.0f;
             }
-            break;
-        }
+            else if (obj->state == ObjectState::REGROWING) {
+                // Pop-up animation
+                const float growthTime = 2.0f;
+                float t = glm::clamp(obj->regrowTimer / growthTime, 0.0f, 1.0f);
+                t = t * t * (3.0f - 2.0f * t); // Smoothstep
 
-        case ObjectState::REGROWING: {
-            obj->regrowTimer += deltaTime;
+                float currentScale = glm::mix(0.003f, 1.0f, t);
+                obj->transform = glm::scale(obj->storedOriginalTransform, glm::vec3(currentScale));
 
-            const float growthDuration = 2.0f;
-            float t = glm::clamp(obj->regrowTimer / growthDuration, 0.0f, 1.0f);
-
-            t = t * t * (3.0f - 2.0f * t);
-
-            float currentScale = glm::mix(0.003f, 1.0f, t);
-
-            obj->transform = glm::scale(obj->storedOriginalTransform, glm::vec3(currentScale));
-
-            if (t >= 1.0f) {
-                obj->state = ObjectState::NORMAL;
-                obj->burnFactor = 0.0f;
-                obj->regrowTimer = 0.0f;
+                if (t >= 1.0f) {
+                    obj->state = ObjectState::NORMAL;
+                    obj->currentTemp = m_WeatherIntensity;
+                }
             }
             break;
         }
         }
     }
+}
+
+std::string Scene::GetSeasonName() const {
+    switch (m_CurrentSeason) {
+    case Season::SUMMER: return "Summer";
+    case Season::AUTUMN: return "Autumn";
+    case Season::WINTER: return "Winter";
+    case Season::SPRING: return "Spring";
+    }
+    return "Unknown";
 }
 
 void Scene::ResetEnvironment() {

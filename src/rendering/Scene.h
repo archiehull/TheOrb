@@ -39,6 +39,13 @@ namespace SceneLayers {
     constexpr int ALL = INSIDE | OUTSIDE;
 }
 
+enum class Season {
+    SUMMER,
+    AUTUMN,
+    WINTER,
+    SPRING
+};
+
 struct SceneLight {
     std::string name;
     Light vulkanLight;
@@ -81,10 +88,10 @@ struct SceneObject {
     int fireLightIndex = -1;
 
     // Thermodynamics
-    float currentTemp = 0.0f;
+    float currentTemp = 20.0f;      // Starts at standard ambient temp
     float ignitionThreshold = 100.0f;
-    float heatingRate = 40.0f;        // Faster heating
-    float coolingRate = 10.0f;
+    float thermalResponse = 5.0f;   // How fast it adjusts to ambient temp (replaces simple heating/cooling rates)
+    float selfHeatingRate = 15.0f;  // How much temp rises per second when ALREADY burning
 
     // Timers
     float burnTimer = 0.0f;
@@ -168,6 +175,9 @@ public:
 
     void UpdateThermodynamics(float deltaTime, float sunIntensity);
 
+    float GetWeatherIntensity() const { return m_WeatherIntensity; }
+    std::string GetSeasonName() const;
+
     // Accessors for Renderer
     const std::vector<std::unique_ptr<ParticleSystem>>& GetParticleSystems() const { return particleSystems; }
 
@@ -199,6 +209,11 @@ private:
     void AddObjectInternal(const std::string& name, std::unique_ptr<Geometry> geometry, const glm::vec3& position, const std::string& texturePath, bool isFlammable);
 
     glm::vec3 InitializeOrbit(OrbitData& data, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad) const;
+
+    Season m_CurrentSeason = Season::SUMMER;
+    float m_SeasonTimer = 0.0f;
+    const float m_SeasonDuration = 60.0f; // Duration of one season in seconds
+    float m_WeatherIntensity = 0.0f;      // The calculated "Ambient Temperature"
 
     TerrainConfig m_TerrainConfig;
     std::vector<SceneLight> m_SceneLights;

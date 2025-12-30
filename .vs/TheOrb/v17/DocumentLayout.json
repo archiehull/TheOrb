@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\a\\Desktop\\TheOrb\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\core\\Application.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\core\\Application.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\shaders\\shader.frag||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\shaders\\shader.frag||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Scene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\rendering\\Scene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Scene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\rendering\\Scene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\core\\Application.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\core\\Application.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\shaders\\shader.frag||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\shaders\\shader.frag||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Scene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\rendering\\Scene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\shaders\\shader.vert||{8B382828-6202-11D1-8870-0000F87579D2}",
@@ -172,7 +172,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 11,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Bookmark",
@@ -212,7 +212,7 @@
               "RelativeDocumentMoniker": "src\\rendering\\Scene.cpp",
               "ToolTip": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Scene.cpp",
               "RelativeToolTip": "src\\rendering\\Scene.cpp",
-              "ViewState": "AgIAADABAAAAAAAAAAAlwEwBAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAADMBAAAAAAAAAAAlwP4CAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-12-07T18:48:37.107Z",
               "EditorCaption": ""
@@ -297,39 +297,39 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "shader.frag",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\shaders\\shader.frag",
               "RelativeDocumentMoniker": "src\\shaders\\shader.frag",
-              "ToolTip": "C:\\Users\\a\\Desktop\\TheOrb\\src\\shaders\\shader.frag",
-              "RelativeToolTip": "src\\shaders\\shader.frag",
-              "ViewState": "AgIAAJAAAAAAAAAAAAAAAKEAAAAoAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\a\\Desktop\\TheOrb\\src\\shaders\\shader.frag*",
+              "RelativeToolTip": "src\\shaders\\shader.frag*",
+              "ViewState": "AgIAAIoAAAAAAAAAAAAwwJ0AAABTAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
               "WhenOpened": "2025-12-28T18:08:39.435Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "Application.cpp",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\core\\Application.cpp",
               "RelativeDocumentMoniker": "src\\core\\Application.cpp",
               "ToolTip": "C:\\Users\\a\\Desktop\\TheOrb\\src\\core\\Application.cpp",
               "RelativeToolTip": "src\\core\\Application.cpp",
-              "ViewState": "AgIAAGkAAAAAAAAAAAAAAIQAAAAWAAAAAAAAAA==",
+              "ViewState": "AgIAAFAAAAAAAAAAAAAlwGIAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-12-28T18:17:59.196Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Scene.h",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Scene.h",
               "RelativeDocumentMoniker": "src\\rendering\\Scene.h",
               "ToolTip": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Scene.h",
               "RelativeToolTip": "src\\rendering\\Scene.h",
-              "ViewState": "AgIAAI4AAAAAAAAAAAAlwKAAAABWAAAAAAAAAA==",
+              "ViewState": "AgIAAMYAAAAAAAAAAAAAANMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-12-07T18:48:44.452Z",
               "EditorCaption": ""

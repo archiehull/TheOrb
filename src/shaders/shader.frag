@@ -26,7 +26,7 @@ layout(set = 0, binding = 0) uniform UniformBufferObject {
     mat4 lightSpaceMatrix;
     Light lights[MAX_LIGHTS];
     int numLights;
-    float dayNightFactor; // Ensure this matches C++ UBO
+    float dayNightFactor; 
 } ubo;
 
 layout(push_constant) uniform PushConstantObject {
@@ -38,9 +38,9 @@ layout(push_constant) uniform PushConstantObject {
 } pco;
 
 layout(set = 0, binding = 1) uniform sampler2D shadowMap;
-layout(set = 0, binding = 2) uniform sampler2D refractionSampler; 
-
+layout(set = 0, binding = 2) uniform sampler2D refractionSampler;
 layout(set = 1, binding = 0) uniform sampler2D texSampler;
+
 layout(location = 0) out vec4 outColor;
 
 float ShadowCalculation(vec4 fragPosLightSpace) {
@@ -50,15 +50,14 @@ float ShadowCalculation(vec4 fragPosLightSpace) {
 
     if(projCoords.z > 1.0 || projCoords.z < 0.0) return 0.0;
     if(projCoords.x < 0.0 || projCoords.x > 1.0 || projCoords.y < 0.0 || projCoords.y > 1.0) return 0.0;
-    
+
     vec3 normal = normalize(fragNormal);
     vec3 lightDir = normalize(ubo.lights[0].position - fragPos);
     
-    // Bias: Prevent shadow acne
-    float bias = max(0.0005 * (1.0 - dot(normal, lightDir)), 0.0001); 
-
+    float bias = max(0.0005 * (1.0 - dot(normal, lightDir)), 0.0001);
     float shadow = 0.0;
     vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
+    
     for(int x = -1; x <= 1; ++x) {
         for(int y = -1; y <= 1; ++y) {
             float pcfDepth = texture(shadowMap, projCoords.xy + vec2(x, y) * texelSize).r;
@@ -71,14 +70,13 @@ float ShadowCalculation(vec4 fragPosLightSpace) {
 }
 
 void main() {
-    // --- 1. SCREEN-SPACE REFRACTION MODE (Mode 3: Inner Sphere) ---
+    // --- 1. SCREEN-SPACE REFRACTION MODE ---
     if (pco.shadingMode == 3) {
         vec3 I = normalize(fragPos - ubo.viewPos);
         vec3 N = normalize(fragNormal);
         
         vec2 viewportSize = vec2(textureSize(refractionSampler, 0));
         vec2 screenUV = gl_FragCoord.xy / viewportSize;
-
         vec2 distortion = N.xy * 0.40;
         vec2 refractedUV = screenUV + distortion;
 
@@ -98,7 +96,7 @@ void main() {
         return;
     }
 
-    // --- 2. DARK GLOSS SHELL (Mode 4: Outer Sphere) ---
+    // --- 2. DARK GLOSS SHELL ---
     if (pco.shadingMode == 4) {
         vec3 I = normalize(fragPos - ubo.viewPos);
         vec3 N = normalize(fragNormal);
@@ -116,24 +114,20 @@ void main() {
         return;
     }
 
-    // --- STANDARD LIGHTING (Modes 0 & 1) ---
+    // --- STANDARD LIGHTING ---
     vec4 texColor = texture(texSampler, fragUV);
     vec3 lighting = vec3(0.0);
 
     float shadow = ShadowCalculation(fragPosLightSpace);
 
-    // --- NEW LOGIC: Fade shadows at low sun angles ---
-    // Start fading when Sun Y < 30.0, fully gone by Y = -10.0
+    // Fade shadows at low sun angles
     if (ubo.numLights > 0) {
         float sunHeight = ubo.lights[0].position.y;
         float fadeStart = 100.0;
-        float fadeEnd = 15.0; // Stop shadows while sun is still somewhat up
+        float fadeEnd = 15.0; 
         
         float shadowFade = clamp((sunHeight - fadeEnd) / (fadeStart - fadeEnd), 0.0, 1.0);
-        
-        // Smooth transition
         shadowFade = shadowFade * shadowFade * (3.0 - 2.0 * shadowFade);
-        
         shadow *= shadowFade;
     }
 
@@ -156,53 +150,57 @@ void main() {
 
             float distance = length(ubo.lights[i].position - fragPos);
             float attenuation = 1.0;
+            float specularStrength = 0.5;
 
             if (ubo.lights[i].type == 1) {
-            // Use stricter factors (Linear 0.7, Quadratic 1.8) for a range of ~7-10 units
-            attenuation = 1.0 / (1.0 + 4.7 * distance + 8.8 * distance * distance);
+                // --- FIRE / POINT LIGHT ---
+                // FIX: Use extreme quadratic falloff (45.0) to confine light to a small radius.
+                // This prevents 20+ fires from summing up to white on the terrain.
+                attenuation = 1.0 / (1.0 + 15.0 * distance + 45.0 * distance * distance);
+                
+                // FIX: Reduce specular for fires so ground doesn't look like wet plastic
+                specularStrength = 0.05; 
             } 
-            // Keep your existing math for the Sun (Type 0) or other lights
             else {
+                // --- SUN / GLOBAL ---
                 attenuation = 1.0 / (1.0 + 0.1 * distance + 0.01 * distance * distance);
+                specularStrength = 0.5;
             }
 
-            // --- CHANGE 2: Remove Ambient for Point Lights ---
-            // Fire emits light, but doesn't raise the "ambient" base level of the world.
-            // Only let the Sun (Type 0) add ambient light.
+            // Only Sun (Type 0) adds Ambient Light.
+            // Fire (Type 1) must be pure additive diffuse/specular.
             vec3 ambient = vec3(0.0);
             if (ubo.lights[i].type == 0) {
                  float ambientStrength = 0.1;
                  ambient = ambientStrength * ubo.lights[i].color * ubo.lights[i].intensity;
             }
 
-            // [Calculate Diffuse and Specular as normal...]
+            // Diffuse
             vec3 lightDir = normalize(ubo.lights[i].position - fragPos);
             float diff = max(dot(normal, lightDir), 0.0);
             vec3 diffuse = diff * ubo.lights[i].color * ubo.lights[i].intensity;
 
-            float specularStrength = 0.5;
+            // Specular
             vec3 reflectDir = reflect(-lightDir, normal);
             float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
             vec3 specular = specularStrength * spec * ubo.lights[i].color * ubo.lights[i].intensity;
 
+            // Shadows (Sun only)
             float lightShadow = 0.0;
-            // Only Light 0 (Sun) casts shadows
             if (i == 0) {
                 lightShadow = shadow;
             }
 
-            // Apply attenuation to the light components
             lighting += (ambient + (1.0 - lightShadow) * (diffuse + specular)) * attenuation;
         }
     }
 
-    vec3 sootColor = vec3(0.05, 0.05, 0.05); // Dark gray/black
+    vec3 sootColor = vec3(0.05, 0.05, 0.05);
     vec3 finalColor = lighting * texColor.rgb;
     
     if (pco.burnFactor > 0.0) {
-        finalColor = mix(finalColor, sootColor, pco.burnFactor * 0.9); // Mix up to 90% soot
+        finalColor = mix(finalColor, sootColor, pco.burnFactor * 0.9);
     }
-
 
     outColor = vec4(finalColor, texColor.a);
 }
