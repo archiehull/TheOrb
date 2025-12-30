@@ -83,6 +83,9 @@ void Scene::GenerateProceduralObjects(int count, float terrainRadius, float delt
     std::uniform_real_distribution<float> distScale(0.0f, 1.0f);
     std::uniform_real_distribution<float> distRot(0.0f, 360.0f);
 
+    // Random distribution for thermal response
+    std::uniform_real_distribution<float> distThermal(0.5f, 10.0f);
+
     for (int i = 0; i < count; i++) {
         // 1. Pick Position
         const float r = std::sqrt(distScale(gen)) * (terrainRadius * 0.9f);
@@ -118,9 +121,15 @@ void Scene::GenerateProceduralObjects(int count, float terrainRadius, float delt
         // We pass 0 rotation here because we will manually overwrite the matrix below
         AddModel(name, glm::vec3(x, y, z), glm::vec3(0.0f), scale, config.modelPath, config.texturePath, config.isFlammable);
 
-        // 6. Overwrite Transform with Correct Rotation Order
+        // 6. Overwrite Transform with Correct Rotation Order & Assign Thermal Stats
         if (!objects.empty()) {
-            const auto& obj = objects.back();
+            auto& obj = objects.back();
+
+            // NEW: Assign unique thermal response if the object is flammable
+            if (config.isFlammable) {
+                obj->thermalResponse = distThermal(gen);
+            }
+
             glm::mat4 m = glm::mat4(1.0f);
 
             // A. Translate to position
@@ -649,12 +658,11 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunHeight) {
     for (auto& obj : objects) {
         if (!obj->isFlammable) continue;
 
-        // AGGRESSIVE TUNING:
-        // 1. Fast response so they heat up before the sun sets
-        float responseSpeed = 20.0f;
+        // CHANGED: Use the object's unique thermal response instead of a hardcoded value
+        float responseSpeed = obj->thermalResponse;
 
         // 2. Lower threshold to guarantee ignition during "hot" moments
-        float effectiveIgnitionThreshold = 80.0f;
+        float effectiveIgnitionThreshold = 100.0f;
 
         switch (obj->state) {
         case ObjectState::NORMAL:
@@ -664,7 +672,9 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunHeight) {
             // 3. Massive Sun Bonus (+60C)
             // If base is 50C + 60C = 110C, well above threshold
             if (sunHeight > 0.1f) {
-                targetTemp += 60.0f * sunHeight;
+                float sunIntensity = 60.0f;
+
+                targetTemp += sunIntensity * sunHeight;
             }
 
             // STABLE MATH: Interpolate towards target (never overshoots)
@@ -674,9 +684,9 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunHeight) {
 
             // Debug Print (helps you verify temps are rising)
             if (shouldPrint && obj->name == "ProcObj_0") {
-              /*  std::cout << "Temp: " << obj->currentTemp
-                    << " | Target: " << targetTemp
-                    << " | Thresh: " << effectiveIgnitionThreshold << std::endl;*/
+                /* std::cout << "Temp: " << obj->currentTemp
+                      << " | Target: " << targetTemp
+                      << " | Thresh: " << effectiveIgnitionThreshold << std::endl;*/
             }
 
             // Visual State Update
@@ -691,8 +701,8 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunHeight) {
             if (obj->currentTemp >= effectiveIgnitionThreshold) {
                 float excessHeat = obj->currentTemp - effectiveIgnitionThreshold;
 
-                // High Chance: 20% base + 5% per degree of excess heat
-                float ignitionChancePerSecond = 0.20f + (excessHeat * 0.05f);
+                // High Chance: % base + 5% per degree of excess heat
+                float ignitionChancePerSecond = 0.05f + (excessHeat * 0.005f);
 
                 if (chance(gen) < (ignitionChancePerSecond * deltaTime)) {
                     //std::cout << "IGNITION: " << obj->name << std::endl;

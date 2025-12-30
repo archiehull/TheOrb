@@ -60,7 +60,7 @@ bool Texture::LoadFromFile(const std::string& filepath) {
     bool manualAlloc = false;
 
     if (!pixels) {
-        const std::string defaultTexturePath = "textures/default.jpg";
+        const std::string defaultTexturePath = "textures/default.png";
         std::cerr << "Warning: Failed to load texture '" << filepath << "'. Attempting default texture '" << defaultTexturePath << "'.\n";
         pixels = stbi_load(defaultTexturePath.c_str(), &texWidth, &texHeight, &texChannels, STBI_rgb_alpha);
         if (!pixels) {
