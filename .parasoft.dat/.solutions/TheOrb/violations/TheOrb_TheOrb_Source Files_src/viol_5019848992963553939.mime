@@ -1,0 +1,11 @@
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary=xYD3R3zdREH9tBKXAVG0jHOx8qMixCKUu
+StorageVersion: v1
+
+--xYD3R3zdREH9tBKXAVG0jHOx8qMixCKUu
+
+<?xml version='1.0' encoding='UTF-8'?><ResultsList path="TheOrb/TheOrb/Source Files/src/rendering/Texture.cpp"><VersionInfos><StorageInfo ownerId="com.parasoft.xtest.checkers.api.execution" resultId="IExecutionViolation" ver="2"/><StorageInfo ownerId="com.parasoft.xtest.checkers.api.execution" resultId="InsureViolation" ver="3"/><StorageInfo ownerId="com.parasoft.xtest.checkers.api.scope" resultId="IScopeProjectInfo" ver="3"/><StorageInfo ownerId="com.parasoft.xtest.checkers.api.standards" resultId="IMetricsViolation" ver="2"/><StorageInfo ownerId="com.parasoft.xtest.checkers.api.standards" resultId="IDupCodeViolation" ver="2"/><StorageInfo ownerId="com.parasoft.xtest.checkers.api.standards" resultId="IFlowAnalysisViolation" ver="2"/><StorageInfo ownerId="com.parasoft.xtest.checkers.api.standards" resultId="ICodingStandardsViolation" ver="2"/><StorageInfo ownerId="com.parasoft.xtest.checkers.api.generation" resultId="IGenerationInfo" ver="2"/><StorageInfo ownerId="com.parasoft.xtest.checkers.api.generation" resultId="IGenerationProjectInfo" ver="2"/></VersionInfos></ResultsList>
+--xYD3R3zdREH9tBKXAVG0jHOx8qMixCKUu
+
+<?xml version='1.0' encoding='UTF-8'?><ResultInfo resultId="ICodingStandardsViolation" ownerId="com.parasoft.xtest.checkers.api.standards" violKeys="null"><StdViol msg="Function 'Cleanup' is not inlined" ln="171" sev="4" auth="a" rule="OPT-24" tool="c++test" cat="OPT" lang="cpp" locType="sr" config="3" hash="-870333658" locStartln="171" locStartPos="14" locEndLn="171" locEndPos="15" locFile="TheOrb/TheOrb/Source Files/src/rendering/Texture.cpp"/></ResultInfo>
+--xYD3R3zdREH9tBKXAVG0jHOx8qMixCKUu

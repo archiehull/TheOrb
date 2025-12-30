@@ -48,13 +48,7 @@ float Scene::RadiusAdjustment(const float radius, const float deltaY) const {
 
 Scene::Scene(VkDevice vkDevice, VkPhysicalDevice physDevice)
     : device(vkDevice), physicalDevice(physDevice) {
-    try {
-        auto dustGeo = OBJLoader::Load(device, physicalDevice, "models/dust.obj");
-        dustGeometryPrototype = std::shared_ptr<Geometry>(std::move(dustGeo));
-    }
-    catch (const std::exception& e) {
-        std::cerr << "Failed to load dust prototype: " << e.what() << std::endl;
-    }
+
 }
 
 // Destructor implementation removed (now = default in header)
@@ -461,6 +455,43 @@ void Scene::AddDust() {
     sys->AddEmitter(dust, 200.0f);
 }
 
+void Scene::SpawnDustCloud() {
+    if (m_DustActive) return;
+
+    std::cout << "Spawning Dust Cloud!" << std::endl;
+
+    m_DustActive = true;
+    m_DustPosition = glm::vec3(0.0f, -70.0f, 0.0f);
+
+    // Pick Random Direction
+    static std::random_device rd;
+    static std::mt19937 gen(rd());
+    std::uniform_real_distribution<float> distAngle(0.0f, glm::two_pi<float>());
+
+    float angle = distAngle(gen);
+    m_DustDirection = glm::vec3(cos(angle), 0.0f, sin(angle));
+
+    ParticleProps dust = ParticleLibrary::GetDustStormProps();
+
+    // We only need to override position/movement, not visuals!
+    dust.position = m_DustPosition;
+
+    auto* sys = GetOrCreateSystem(dust);
+    sys->SetSimulationBounds(glm::vec3(0.0f), 200.0f);
+    m_DustEmitterId = sys->AddEmitter(dust, 750.0f);
+}
+
+void Scene::StopDust() {
+    if (m_DustActive && m_DustEmitterId != -1) {
+        GetOrCreateSystem(ParticleLibrary::GetDustStormProps())->StopEmitter(m_DustEmitterId);
+        m_DustEmitterId = -1;
+        m_DustActive = false;
+
+        // Reset rain timer so it doesn't immediately respawn
+        m_TimeSinceLastRain = 0.0f;
+    }
+}
+
 glm::vec3 Scene::InitializeOrbit(OrbitData& data, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad) const {
     data.isOrbiting = true;
     data.center = center;
@@ -562,6 +593,40 @@ void Scene::ClearProceduralRegistry() {
 
 void Scene::Update(float deltaTime) {
     if (m_IsPrecipitating) {
+        m_TimeSinceLastRain = 0.0f;
+        StopDust(); // Rain clears the dust
+    }
+    else {
+        // Count up only if it's NOT raining
+        m_TimeSinceLastRain += deltaTime;
+
+        // Auto-Spawn Condition
+        if (!m_DustActive && m_TimeSinceLastRain >= 60.0f) {
+            SpawnDustCloud();
+        }
+    }
+
+    if (m_DustActive) {
+        float speed = 15.0f; // Speed of the cloud
+        m_DustPosition += m_DustDirection * speed * deltaTime;
+
+        // Update Emitter Position
+        if (m_DustEmitterId != -1) {
+            ParticleProps props = ParticleLibrary::GetDustStormProps();
+
+            // Only update spatial properties
+            props.position = m_DustPosition;
+
+            GetOrCreateSystem(props)->UpdateEmitter(m_DustEmitterId, props, 500.0f);
+        }
+
+        // Despawn if it travels too far (e.g., 200 units from center)
+        if (glm::length(m_DustPosition) > 150.0f) {
+            StopDust();
+        }
+    }
+
+    if (m_IsPrecipitating) {
         // Keep resetting the timer while it's raining/snowing
         m_PostRainFireSuppressionTimer = 15.0f;
     }
@@ -569,6 +634,8 @@ void Scene::Update(float deltaTime) {
         // Count down when weather is clear
         m_PostRainFireSuppressionTimer -= deltaTime;
     }
+
+    
 
     // 1. Update Season Cycle
     m_SeasonTimer += deltaTime;
@@ -606,7 +673,7 @@ void Scene::Update(float deltaTime) {
         }
         else {
             // Clear Sky duration
-            m_WeatherDuration = 45.0f + (randomVal * 45.0f);
+            m_WeatherDuration = 55.0f + (randomVal * 45.0f);
             StopPrecipitation();
         }
     }
@@ -1111,4 +1178,7 @@ void Scene::ResetEnvironment() {
     m_IsPrecipitating = false;
     m_WeatherTimer = 0.0f;
     m_WeatherDuration = 15.0f; // Reset to a short delay before first weather
+
+    StopDust();
+    m_TimeSinceLastRain = 0.0f;
 }

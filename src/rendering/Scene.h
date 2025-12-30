@@ -172,6 +172,7 @@ public:
     void AddRain();
     void AddSnow();
     void AddDust();
+    void SpawnDustCloud();
 
     void Ignite(SceneObject* obj);
 
@@ -243,6 +244,15 @@ private:
     float m_PostRainFireSuppressionTimer = 0.0f;
 
     void StopPrecipitation();
+
+    bool m_DustActive = false;
+    int m_DustEmitterId = -1;
+    glm::vec3 m_DustPosition = glm::vec3(0.0f);
+    glm::vec3 m_DustDirection = glm::vec3(0.0f);
+
+    float m_TimeSinceLastRain = 0.0f;
+
+    void StopDust();
 
     int globalShadingMode = 1; // 1 = Phong (Default), 0 = Gouraud
 

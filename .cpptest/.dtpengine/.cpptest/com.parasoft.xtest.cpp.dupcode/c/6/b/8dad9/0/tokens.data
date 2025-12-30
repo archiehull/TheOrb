@@ -1052,7 +1052,7 @@ T|c=18|::
 I|c=20|94
 I|c=27:s_X=1:e_X=1|defaultTexturePath
 T|c=46|=
-T|c=48:sl=1|"textures/default.jpg"
+T|c=48:sl=1|"textures/default.png"
 T|c=70:e_B=1:e_V=1|;
 SL||64
 I|c=9:s_a=1:s_W=1|2

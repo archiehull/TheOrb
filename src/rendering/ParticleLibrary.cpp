@@ -112,4 +112,26 @@ namespace ParticleLibrary {
         return props;
     }
 
+    const ParticleProps& GetDustStormProps() {
+        static const ParticleProps props = []() {
+            ParticleProps p = CreateProps(
+                glm::vec3(0.0f, 0.0f, 0.0f),         // Velocity (Scene overrides this based on direction)
+                glm::vec3(5.0f),                     // Velocity Variation
+                glm::vec4(0.7f, 0.6f, 0.4f, 0.8f),   // Color Begin (Darker Sand)
+                glm::vec4(0.7f, 0.6f, 0.4f, 0.0f),   // Color End
+                2.5f,                                // Size Begin (Huge)
+                3.0f,                               // Size End
+                1.25f,                                // Size Variation
+                3.0f,                                // Lifetime
+                "textures/kenney_particle-pack/transparent/smoke_02.png",
+                false                                // Is Additive? No (Alpha blend for dust)
+            );
+
+            p.positionVariation = glm::vec3(4.0f, 2.0f, 4.0f);
+
+            return p;
+            }(); 
+        return props;
+    }
+
 } // namespace ParticleLibrary

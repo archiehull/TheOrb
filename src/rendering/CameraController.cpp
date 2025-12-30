@@ -139,17 +139,17 @@ void CameraController::UpdateFreeRoamCamera(float deltaTime, const Scene& scene)
     const bool groupA_backward = keyS;
     const bool groupA_left = keyA;
     const bool groupA_right = keyD;
-    const bool groupB_forward = keyI || keyUp;
-    const bool groupB_backward = keyK || keyDown;
-    const bool groupB_left = keyJ || keyLeft;
-    const bool groupB_right = keyL || keyRight;
+    const bool groupB_forward = keyUp;
+    const bool groupB_backward = keyDown;
+    const bool groupB_left = keyLeft;
+    const bool groupB_right = keyRight;
 
     const bool moveForward = keyCtrl ? groupB_forward : groupA_forward;
     const bool moveBackward = keyCtrl ? groupB_backward : groupA_backward;
     const bool moveLeft = keyCtrl ? groupB_left : groupA_left;
     const bool moveRight = keyCtrl ? groupB_right : groupA_right;
-    const bool moveDown = keyQ;
-    const bool moveUp = keyE;
+    const bool moveDown = keyQ; // incl pagedwn
+	const bool moveUp = keyE; // incl pageup
 
     const bool rotatePitchUp = keyCtrl ? groupA_forward : groupB_forward;
     const bool rotatePitchDown = keyCtrl ? groupA_backward : groupB_backward;

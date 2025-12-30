@@ -1,8 +1,18 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.cpp
+<c>CODSTA-CPP-53
+<b>Declare local variable 'it' as const
+<l>140
+<k>10
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.cpp
 <c>OPT-33
 <b>Returned value from function 'GetBindingDescriptions' is passed by value
-<l>246
+<l>268
 <k>64
 <s>false
 <N>
@@ -12,7 +22,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.cpp
 <c>OPT-33
 <b>Returned value from function 'GetAttributeDescriptions' is passed by value
-<l>262
+<l>284
 <k>66
 <s>false
 <N>
@@ -31,7 +41,7 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
 <c>OPT-13
-<b>Members 'descriptorPool, descriptorSet, pipeline, textureLayout' of class 'ParticleSystem' are declared in suboptimal order for memory layout
+<b>Members 'descriptorPool, descriptorSet, device, physicalDevice, pipeline, textureLayout' of class 'ParticleSystem' are declared in suboptimal order for memory layout
 <l>25
 <k>7
 <s>false
@@ -52,7 +62,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
 <c>OPT-33
 <b>Returned value from function 'GetBindingDescriptions' is passed by value
-<l>63
+<l>65
 <k>59
 <s>false
 <N>
@@ -62,8 +72,18 @@
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
 <c>OPT-33
 <b>Returned value from function 'GetAttributeDescriptions' is passed by value
-<l>64
+<l>66
 <k>61
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>OPT-13
+<b>Members 'props' of structure 'ParticleEmitter' are declared in suboptimal order for memory layout
+<l>82
+<k>12
 <s>false
 <N>
 <f>

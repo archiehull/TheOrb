@@ -4,11 +4,13 @@
       <Locations>
       <Loc fsPath="C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.cpp" loc="TheOrb/TheOrb/Source Files/src/geometry/GeometryGenerator.cpp" projPath="TheOrb/TheOrb" project="TheOrb"/>
       <Loc fsPath="C:\Users\a\Desktop\TheOrb\src\geometry\OBJLoader.cpp" loc="TheOrb/TheOrb/Source Files/src/geometry/OBJLoader.cpp" projPath="TheOrb/TheOrb" project="TheOrb"/>
+      <Loc fsPath="C:\Users\a\Desktop\TheOrb\src\rendering\CameraController.cpp" loc="TheOrb/TheOrb/Source Files/src/rendering/CameraController.cpp" projPath="TheOrb/TheOrb" project="TheOrb"/>
       <Loc fsPath="C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp" loc="TheOrb/TheOrb/Source Files/src/rendering/Scene.cpp" projPath="TheOrb/TheOrb" project="TheOrb"/>
       <Loc fsPath="C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h" loc="TheOrb/TheOrb/Source Files/src/vulkan/VulkanRenderPass.h" projPath="TheOrb/TheOrb" project="TheOrb"/>
       <Loc fsPath="C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h" loc="TheOrb/TheOrb/Source Files/src/rendering/Camera.h" projPath="TheOrb/TheOrb" project="TheOrb"/>
       <Loc fsPath="C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h" loc="TheOrb/TheOrb/Source Files/src/vulkan/VulkanDescriptorSet.h" projPath="TheOrb/TheOrb" project="TheOrb"/>
       <Loc fsPath="C:\Users\a\Desktop\TheOrb\src\rendering\SkyboxPass.cpp" loc="TheOrb/TheOrb/Source Files/src/rendering/SkyboxPass.cpp" projPath="TheOrb/TheOrb" project="TheOrb"/>
+      <Loc fsPath="C:\Users\a\Desktop\TheOrb\src\core\Config.cpp" loc="TheOrb/TheOrb/Source Files/src/core/Config.cpp" projPath="TheOrb/TheOrb" project="TheOrb"/>
       <Loc fsPath="C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.cpp" loc="TheOrb/TheOrb/Source Files/src/vulkan/VulkanDevice.cpp" projPath="TheOrb/TheOrb" project="TheOrb"/>
       <Loc fsPath="C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.cpp" loc="TheOrb/TheOrb/Source Files/src/vulkan/VulkanSwapChain.cpp" projPath="TheOrb/TheOrb" project="TheOrb"/>
       <Loc fsPath="C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h" loc="TheOrb/TheOrb/Source Files/src/vulkan/VulkanSyncObjects.h" projPath="TheOrb/TheOrb" project="TheOrb"/>
@@ -28,6 +30,8 @@
       <Loc fsPath="C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h" loc="TheOrb/TheOrb/Source Files/src/rendering/Scene.h" projPath="TheOrb/TheOrb" project="TheOrb"/>
       <Loc fsPath="C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h" loc="TheOrb/TheOrb/Source Files/src/vulkan/VulkanSwapChain.h" projPath="TheOrb/TheOrb" project="TheOrb"/>
       <Loc fsPath="C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h" loc="TheOrb/TheOrb/Source Files/src/geometry/GeometryGenerator.h" projPath="TheOrb/TheOrb" project="TheOrb"/>
+      <Loc fsPath="C:\Users\a\Desktop\TheOrb\src\core\Application.cpp" loc="TheOrb/TheOrb/Source Files/src/core/Application.cpp" projPath="TheOrb/TheOrb" project="TheOrb"/>
+      <Loc fsPath="C:\Users\a\Desktop\TheOrb\src\core\Config.h" loc="TheOrb/TheOrb/Source Files/src/core/Config.h" projPath="TheOrb/TheOrb" project="TheOrb"/>
       <Loc fsPath="C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h" loc="TheOrb/TheOrb/Source Files/src/geometry/Geometry.h" projPath="TheOrb/TheOrb" project="TheOrb"/>
    </Locations>
    </mergePnt>

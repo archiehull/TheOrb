@@ -8,4 +8,5 @@ namespace ParticleLibrary {
     const ParticleProps& GetRainProps();
     const ParticleProps& GetSnowProps();
     const ParticleProps& GetDustProps();
+    const ParticleProps& GetDustStormProps();
 }

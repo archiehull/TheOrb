@@ -1,0 +1,50 @@
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Config.cpp
+<c>OPT-33
+<b>Returned value from function 'Load' is passed by value
+<l>6
+<k>25
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Config.h
+<c>OPT-13
+<b>Members 'baseRotation, maxScale, minScale' of structure 'ProceduralPlantConfig' are declared in suboptimal order for memory layout
+<l>7
+<k>8
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Config.h
+<c>OPT-13
+<b>Members 'moonOrbit, proceduralPlants, seasons, staticObjects, sunOrbit' of structure 'AppConfig' are declared in suboptimal order for memory layout
+<l>41
+<k>8
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Config.h
+<c>CODSTA-MCPP-23
+<b>Class 'ConfigLoader' should be final
+<l>63
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\core\Config.h
+<c>OPT-33
+<b>Returned value from function 'Load' is passed by value
+<l>65
+<k>22
+<s>false
+<N>
+<f>
+<L>0
