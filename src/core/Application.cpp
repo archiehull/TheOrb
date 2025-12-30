@@ -233,15 +233,32 @@ void Application::KeyCallback(GLFWwindow* glfwWindow, int key, int scancode, int
     if (action == GLFW_PRESS) {
         if (key == GLFW_KEY_F1) {
             app->cameraController->SwitchCamera(CameraType::BIRDS_EYE, *app->scene);
-            std::cout << "Switched to Static Camera (F1)" << std::endl;
+            //std::cout << "Switched to Static Camera (F1)" << std::endl;
         }
         else if (key == GLFW_KEY_F2) {
             app->cameraController->SwitchCamera(CameraType::FREE_ROAM, *app->scene);
-            std::cout << "Switched to Free Roam Camera (F2)" << std::endl;
+            //std::cout << "Switched to Free Roam Camera (F2)" << std::endl;
         }
         else if (key == GLFW_KEY_F3) {
             app->cameraController->SwitchCamera(CameraType::ORBIT, *app->scene);
-            std::cout << "Switched to Cactus Orbit Camera (F3)" << std::endl;
+            //std::cout << "Switched to Cactus Orbit Camera (F3)" << std::endl;
+        }
+        // NEW: F4 Ignite Logic
+        else if (key == GLFW_KEY_F4) {
+            // 1. Ensure we are in Orbit Mode
+            if (app->cameraController->GetActiveCameraType() != CameraType::ORBIT) {
+                app->cameraController->SwitchCamera(CameraType::ORBIT, *app->scene);
+                //std::cout << "Switched to Cactus Orbit Camera (Auto)" << std::endl;
+            }
+
+            // 2. Get and Ignite the target
+            SceneObject* target = app->cameraController->GetOrbitTarget();
+            if (target) {
+                app->scene->Ignite(target);
+            }
+            else {
+                std::cout << "No target to ignite!" << std::endl;
+            }
         }
         else if (key == GLFW_KEY_Y) {
             app->scene->ToggleGlobalShadingMode();

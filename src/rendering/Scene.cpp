@@ -364,6 +364,26 @@ int Scene::AddSmoke(const glm::vec3& position, float scale) {
     return GetOrCreateSystem(smoke)->AddEmitter(smoke, 100.0f);
 }
 
+void Scene::Ignite(SceneObject* obj) {
+    if (!obj || !obj->isFlammable) return;
+    if (obj->state == ObjectState::BURNING || obj->state == ObjectState::BURNT) return;
+
+    std::cout << "Igniting object: " << obj->name << std::endl;
+
+    obj->state = ObjectState::BURNING;
+    obj->burnTimer = 0.0f;
+    obj->currentTemp = obj->ignitionThreshold + 50.0f; // Jumpstart temp to keep it burning
+
+    // Spawn initial particles immediately so we don't wait for the next frame
+    glm::vec3 pos = glm::vec3(obj->transform[3]);
+    if (obj->fireEmitterId == -1) {
+        obj->fireEmitterId = AddFire(pos, 0.1f);
+    }
+    if (obj->smokeEmitterId == -1) {
+        obj->smokeEmitterId = AddSmoke(pos, 0.1f);
+    }
+}
+
 void Scene::AddRain() {
     ParticleProps rain = ParticleLibrary::GetRainProps();
     // Global effect: Emitter covers a large area high up

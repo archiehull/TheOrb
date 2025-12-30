@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\a\\Desktop\\TheOrb\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\rendering\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\core\\Application.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\core\\Application.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -13,10 +17,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\CameraController.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\rendering\\CameraController.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\rendering\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Camera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -172,7 +172,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Bookmark",
@@ -245,13 +245,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Application.cpp",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\core\\Application.cpp",
               "RelativeDocumentMoniker": "src\\core\\Application.cpp",
-              "ToolTip": "C:\\Users\\a\\Desktop\\TheOrb\\src\\core\\Application.cpp*",
-              "RelativeToolTip": "src\\core\\Application.cpp*",
-              "ViewState": "AgIAAM4AAAAAAAAAAAAQwDYBAAABAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\a\\Desktop\\TheOrb\\src\\core\\Application.cpp",
+              "RelativeToolTip": "src\\core\\Application.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-12-28T18:17:59.196Z",
               "EditorCaption": ""
@@ -271,13 +271,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "CameraController.cpp",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\CameraController.cpp",
               "RelativeDocumentMoniker": "src\\rendering\\CameraController.cpp",
               "ToolTip": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\CameraController.cpp",
               "RelativeToolTip": "src\\rendering\\CameraController.cpp",
-              "ViewState": "AgIAAPcAAAAAAAAAAAAQwBoBAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAMwAAAAAAAAAAAAQwAQBAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-12-07T19:52:26.11Z",
               "EditorCaption": ""
@@ -297,25 +297,25 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "Camera.h",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Camera.h",
               "RelativeDocumentMoniker": "src\\rendering\\Camera.h",
               "ToolTip": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Camera.h",
               "RelativeToolTip": "src\\rendering\\Camera.h",
-              "ViewState": "AgIAACYAAAAAAAAAAAAQwC4AAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-12-07T19:51:11.5Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "CameraController.h",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\CameraController.h",
               "RelativeDocumentMoniker": "src\\rendering\\CameraController.h",
-              "ToolTip": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\CameraController.h*",
-              "RelativeToolTip": "src\\rendering\\CameraController.h*",
+              "ToolTip": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\CameraController.h",
+              "RelativeToolTip": "src\\rendering\\CameraController.h",
               "ViewState": "AgIAABMAAAAAAAAAAAAQwDYAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-12-07T19:52:42.082Z",

@@ -8,7 +8,7 @@
 
 CameraController::CameraController()
     : activeCamera(nullptr)
-    , activeCameraType(CameraType::BIRDS_EYE) // CHANGE: Default to Static/F1
+    , activeCameraType(CameraType::BIRDS_EYE)
 {
     SetupCameras();
     // Default pointer set to Birds Eye to match activeCameraType
@@ -18,7 +18,6 @@ CameraController::CameraController()
 void CameraController::SetupCameras() {
     // 1. FREE ROAM Camera (F2) - Inside the Orb
     auto freeRoamCam = std::make_unique<Camera>();
-    // CHANGE: Start at 0, -75, 0
     freeRoamCam->SetPosition(glm::vec3(0.0f, -75.0f, 0.0f));
     freeRoamCam->SetTarget(glm::vec3(0.0f, -75.0f, 10.0f)); // Look forward locally
     freeRoamCam->SetMoveSpeed(50.0f);
@@ -44,7 +43,7 @@ void CameraController::SwitchCamera(CameraType type, const Scene& scene) {
     // Logic for initializing specific modes
     if (type == CameraType::ORBIT) {
         // Find a random cactus
-        std::vector<const SceneObject*> cacti;
+        std::vector<SceneObject*> cacti;
         for (const auto& obj : scene.GetObjects()) {
             if (obj->texturePath.find("cactus") != std::string::npos) {
                 cacti.push_back(obj.get());
@@ -68,7 +67,7 @@ void CameraController::SwitchCamera(CameraType type, const Scene& scene) {
         }
     }
     else if (type == CameraType::FREE_ROAM) {
-        // CHANGE: Reset to new default position
+        // Reset to new default position
         auto* cam = cameras[CameraType::FREE_ROAM].get();
         cam->SetPosition(glm::vec3(0.0f, -75.0f, 0.0f));
         cam->SetTarget(glm::vec3(0.0f, -75.0f, 10.0f));

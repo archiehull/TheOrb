@@ -25,6 +25,9 @@ public:
     // Updated to take Scene reference for finding objects (e.g. Cacti)
     void SwitchCamera(CameraType type, const Scene& scene);
 
+    // NEW: Getter for the current orbit target (for F4 Ignition)
+    SceneObject* GetOrbitTarget() const { return orbitTargetObject; }
+
     // Input handling
     void OnKeyPress(int key, bool pressed);
     inline void OnKeyRelease(int key) { OnKeyPress(key, false); }
@@ -43,7 +46,7 @@ private:
     bool keyShift = false;
 
     // Orbit Camera State
-    const SceneObject* orbitTargetObject = nullptr;
+    SceneObject* orbitTargetObject = nullptr; // Changed from const to mutable
     float orbitRadius = 15.0f;
     float orbitYaw = 0.0f;
     float orbitPitch = 20.0f;

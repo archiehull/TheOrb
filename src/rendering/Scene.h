@@ -173,6 +173,8 @@ public:
     void AddSnow();
     void AddDust();
 
+    void Ignite(SceneObject* obj);
+
     void UpdateThermodynamics(float deltaTime, float sunIntensity);
 
     float GetWeatherIntensity() const { return m_WeatherIntensity; }
