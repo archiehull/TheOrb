@@ -66,32 +66,32 @@ namespace ParticleLibrary {
 
     const ParticleProps& GetRainProps() {
         static const ParticleProps props = CreateProps(
-            glm::vec3(0.0f, -25.0f, 0.0f),      // Velocity
+            glm::vec3(0.0f, -30.0f, 0.0f),      // Velocity (Faster fall)
             glm::vec3(0.2f, 2.0f, 0.2f),        // Velocity Variation
-            glm::vec4(0.7f, 0.8f, 1.0f, 0.8f),  // Color Begin
-            glm::vec4(0.7f, 0.8f, 1.0f, 0.6f),  // Color End
-            0.15f,                              // Size Begin
-            0.15f,                              // Size End
+            glm::vec4(0.0f, 0.3f, 1.0f, 1.0f),  // Color Begin
+            glm::vec4(0.0f, 0.3f, 1.0f, 0.6f),  // Color End
+            0.20f,                              // Size Begin (Increased from 0.15)
+            0.20f,                              // Size End   (Increased from 0.15)
             0.05f,                              // Size Variation
-            2.0f,                               // Lifetime
-            "textures/kenney_particle-pack/transparent/circle_05.png", // Texture
-            true                                // Is Additive
+            4.0f,                               // Lifetime
+            "textures/kenney_particle-pack/transparent/circle_05.png",
+            true
         );
         return props;
     }
 
     const ParticleProps& GetSnowProps() {
         static const ParticleProps props = CreateProps(
-            glm::vec3(0.0f, -0.5f, 0.0f),       // Velocity
+            glm::vec3(0.0f, -2.5f, 0.0f),       // Velocity
             glm::vec3(1.5f, 0.2f, 1.5f),        // Velocity Variation
-            glm::vec4(1.0f, 1.0f, 1.0f, 0.9f),  // Color Begin
-            glm::vec4(1.0f, 1.0f, 1.0f, 0.4f),  // Color End
-            0.6f,                               // Size Begin
-            0.6f,                               // Size End
-            0.2f,                               // Size Variation
+            glm::vec4(1.0f, 1.0f, 1.0f, 1.0f),  // Color Begin (Max opacity)
+            glm::vec4(1.0f, 1.0f, 1.0f, 0.8f),  // Color End   (Higher fade)
+            1.2f,                               // Size Begin (Doubled from 0.6)
+            1.2f,                               // Size End   (Doubled from 0.6)
+            0.4f,                               // Size Variation
             12.0f,                              // Lifetime
-            "textures/kenney_particle-pack/transparent/star_01.png", // Texture
-            true                                // Is Additive
+            "textures/kenney_particle-pack/transparent/star_01.png",
+            true
         );
         return props;
     }

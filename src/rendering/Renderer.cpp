@@ -652,6 +652,10 @@ void Renderer::RecordCommandBuffer(VkCommandBuffer cmd, uint32_t imageIndex,
         const float t = (sunY - lower) / (upper - lower);
         factor = std::max(0.0f, std::min(t, 1.0f));
     }
+    if (scene.IsPrecipitating()) {
+        factor *= 0.75f;
+    }
+
     ubo.dayNightFactor = factor;
 
     UpdateUniformBuffer(currentFrame, ubo);

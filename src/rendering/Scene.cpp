@@ -310,7 +310,7 @@ ParticleSystem* Scene::GetOrCreateSystem(const ParticleProps& props) {
     }
 
     // Create new system
-    auto newSys = std::make_unique<ParticleSystem>(device, physicalDevice, commandPool, graphicsQueue, 2000, framesInFlight);
+    auto newSys = std::make_unique<ParticleSystem>(device, physicalDevice, commandPool, graphicsQueue, 10000, framesInFlight);
 
     GraphicsPipeline* const pipeline = props.isAdditive ? particlePipelineAdditive : particlePipelineAlpha;
     newSys->Initialize(particleDescriptorLayout, pipeline, props.texturePath, props.isAdditive);
@@ -384,35 +384,68 @@ void Scene::Ignite(SceneObject* obj) {
     }
 }
 
-void Scene::AddRain() {
-    ParticleProps rain = ParticleLibrary::GetRainProps();
-    // Global effect: Emitter covers a large area high up
-    rain.position = glm::vec3(0.0f, 40.0f -75.0f, 0.0f);
-    // Huge variance in X and Z to cover the map
-    rain.velocityVariation.x = 80.0f; // Width
-    rain.velocityVariation.z = 80.0f; // Depth
+void Scene::ToggleWeather() {
+    m_IsPrecipitating = !m_IsPrecipitating;
 
-    // Set bounds for rain (matches CrystalBall radius)
+    // Reset the timer so the new state lasts for the full duration
+    m_WeatherTimer = 0.0f;
+
+    if (m_IsPrecipitating) {
+        // Turn ON: Check season to decide between Rain or Snow
+        if (m_CurrentSeason == Season::WINTER) {
+            AddSnow();
+        }
+        else {
+            AddRain();
+        }
+        std::cout << "Weather Toggled: Precipitation ON" << std::endl;
+    }
+    else {
+        // Turn OFF
+        StopPrecipitation();
+        std::cout << "Weather Toggled: Clear Skies" << std::endl;
+    }
+}
+
+void Scene::AddRain() {
+    if (m_RainEmitterId != -1) return; // Already raining
+
+    ParticleProps rain = ParticleLibrary::GetRainProps();
+    rain.position = glm::vec3(0.0f, -50.0f, 0.0f);
+    rain.positionVariation = glm::vec3(60.0f, 0.0f, 60.0f);
+    rain.velocityVariation = glm::vec3(1.0f, 2.0f, 1.0f);
+
     auto* const sys = GetOrCreateSystem(rain);
     sys->SetSimulationBounds(glm::vec3(0.0f), 150.0f);
-    sys->AddEmitter(rain, 1000.0f); // Heavy rain
+
+    // Store the ID
+    m_RainEmitterId = sys->AddEmitter(rain, 4000.0f);
 }
 
 void Scene::AddSnow() {
+    if (m_SnowEmitterId != -1) return; // Already snowing
+
     ParticleProps snow = ParticleLibrary::GetSnowProps();
-    snow.position = glm::vec3(0.0f, 50.0f-75.0f, 0.0f);
-
-    // CHANGE: Use Position Variation for area spawning, rather than Velocity Variation
-    // This allows them to spawn over a wide area but fall straight down gently
+    snow.position = glm::vec3(0.0f, -50.0f, 0.0f);
     snow.positionVariation = glm::vec3(100.0f, 0.0f, 100.0f);
-
-    // CHANGE: Reduced velocity variation for gentle drift
     snow.velocityVariation = glm::vec3(1.0f, 0.2f, 1.0f);
 
-    // Set bounds for snow (matches CrystalBall radius)
     auto* const sys = GetOrCreateSystem(snow);
     sys->SetSimulationBounds(glm::vec3(0.0f), 150.0f);
-    sys->AddEmitter(snow, 500.0f);
+
+    // Store the ID
+    m_SnowEmitterId = sys->AddEmitter(snow, 750.0f);
+}
+
+void Scene::StopPrecipitation() {
+    if (m_RainEmitterId != -1) {
+        GetOrCreateSystem(ParticleLibrary::GetRainProps())->StopEmitter(m_RainEmitterId);
+        m_RainEmitterId = -1;
+    }
+    if (m_SnowEmitterId != -1) {
+        GetOrCreateSystem(ParticleLibrary::GetSnowProps())->StopEmitter(m_SnowEmitterId);
+        m_SnowEmitterId = -1;
+    }
 }
 
 void Scene::AddDust() {
@@ -499,6 +532,25 @@ void Scene::SetSeasonConfig(float duration, float summerTemp, float winterTemp, 
     m_WinterTemp = winterTemp;
     m_DayNightDiff = dayNightDiff;
 }
+void Scene::NextSeason() {
+    m_SeasonTimer = 0.0f; // Reset timer so the new season lasts its full duration
+    m_CurrentSeason = static_cast<Season>((static_cast<int>(m_CurrentSeason) + 1) % 4);
+
+    // If it is currently precipitating, we need to ensure the type matches the new season
+    if (m_IsPrecipitating) {
+        StopPrecipitation(); // Stop current particles (e.g. Rain)
+
+        if (m_CurrentSeason == Season::WINTER) {
+            AddSnow();
+        }
+        else {
+            AddRain();
+        }
+    }
+
+    std::cout << "Manual Season Change: " << GetSeasonName() << std::endl;
+}
+
 
 void Scene::SetSunHeatBonus(float bonus) {
     m_SunHeatBonus = bonus;
@@ -509,12 +561,54 @@ void Scene::ClearProceduralRegistry() {
 }
 
 void Scene::Update(float deltaTime) {
+    if (m_IsPrecipitating) {
+        // Keep resetting the timer while it's raining/snowing
+        m_PostRainFireSuppressionTimer = 15.0f;
+    }
+    else if (m_PostRainFireSuppressionTimer > 0.0f) {
+        // Count down when weather is clear
+        m_PostRainFireSuppressionTimer -= deltaTime;
+    }
+
     // 1. Update Season Cycle
     m_SeasonTimer += deltaTime;
+    bool seasonChanged = false;
+
     if (m_SeasonTimer >= m_SeasonDuration) {
         m_SeasonTimer = 0.0f;
         m_CurrentSeason = static_cast<Season>((static_cast<int>(m_CurrentSeason) + 1) % 4);
+		seasonChanged = true;
         //std::cout << "Season Changed to: " << GetSeasonName() << std::endl;
+    }
+
+    if (seasonChanged && m_IsPrecipitating) {
+        StopPrecipitation();
+        if (m_CurrentSeason == Season::WINTER) AddSnow();
+        else AddRain();
+    }
+
+    m_WeatherTimer += deltaTime;
+    if (m_WeatherTimer >= m_WeatherDuration) {
+        m_WeatherTimer = 0.0f;
+        m_IsPrecipitating = !m_IsPrecipitating; // Toggle State
+
+        // Randomize Duration
+        // Use a static random generator or simple rand()
+        float randomVal = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+
+        if (m_IsPrecipitating) {
+
+            m_WeatherDuration = 20.0f + (randomVal * 20.0f);
+
+
+            if (m_CurrentSeason == Season::WINTER) AddSnow();
+            else AddRain();
+        }
+        else {
+            // Clear Sky duration
+            m_WeatherDuration = 45.0f + (randomVal * 45.0f);
+            StopPrecipitation();
+        }
     }
 
     // 2. Calculate Weather
@@ -548,6 +642,13 @@ void Scene::Update(float deltaTime) {
     }
 
     m_WeatherIntensity = seasonBaseTemp + (sunHeight * dayNightVariation);
+
+    if (m_IsPrecipitating) {
+        // Dark Blue-Grey for storm ambiance
+        targetSunColor = glm::vec3(0.4f, 0.45f, 0.55f);
+        // Reduce temp slightly during rain/snow
+        m_WeatherIntensity -= 10.0f;
+    }
 
     // 3. Sun Tint
     auto sunIt = std::find_if(m_SceneLights.begin(), m_SceneLights.end(),
@@ -707,6 +808,12 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunHeight) {
                 targetTemp += m_SunHeatBonus * sunHeight;
             }
 
+            // --- Cooling Effect ---
+            // If raining/snowing, apply a strong cooling modifier
+            if (m_IsPrecipitating) {
+                targetTemp -= 40.0f;
+            }
+
             // STABLE MATH: Interpolate towards target
             float changeRate = responseSpeed * deltaTime;
             float lerpFactor = glm::clamp(changeRate, 0.0f, 1.0f);
@@ -721,7 +828,9 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunHeight) {
             }
 
             // IGNITION CHECK
-            if (obj->currentTemp >= effectiveIgnitionThreshold) {
+            // -- Block Ignition ---
+            // Only allow ignition if it is NOT precipitating
+            if (!m_IsPrecipitating && m_PostRainFireSuppressionTimer <= 0.0f && obj->currentTemp >= effectiveIgnitionThreshold) {
                 float excessHeat = obj->currentTemp - effectiveIgnitionThreshold;
 
                 // High Chance: % base + 5% per degree of excess heat
@@ -741,6 +850,32 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunHeight) {
         }
 
         case ObjectState::BURNING: {
+            // --- Extinguish Fire ---
+            if (m_IsPrecipitating) {
+                // 1. Stop Particles
+                if (obj->fireEmitterId != -1) {
+                    GetOrCreateSystem(ParticleLibrary::GetFireProps())->StopEmitter(obj->fireEmitterId);
+                    obj->fireEmitterId = -1;
+                }
+                if (obj->smokeEmitterId != -1) {
+                    GetOrCreateSystem(ParticleLibrary::GetSmokeProps())->StopEmitter(obj->smokeEmitterId);
+                    obj->smokeEmitterId = -1;
+                }
+
+                // 2. Extinguish Light
+                if (obj->fireLightIndex != -1 && obj->fireLightIndex < m_SceneLights.size()) {
+                    m_SceneLights[obj->fireLightIndex].vulkanLight.intensity = 0.0f;
+                }
+
+                // 3. Reset State (Saved!)
+                obj->state = ObjectState::NORMAL;
+                obj->currentTemp = m_WeatherIntensity; // Rapid cooling to ambient
+                obj->burnTimer = 0.0f;
+
+                // Break out of the switch so we don't process the burning logic below
+                break;
+            }
+
             // Self-Heating: Fire generates its own heat
             obj->currentTemp += obj->selfHeatingRate * deltaTime;
             obj->burnTimer += deltaTime;
@@ -946,6 +1081,9 @@ void Scene::ResetEnvironment() {
                 GetOrCreateSystem(ParticleLibrary::GetSmokeProps())->StopEmitter(obj->smokeEmitterId);
                 obj->smokeEmitterId = -1;
             }
+            if (obj->fireLightIndex != -1 && obj->fireLightIndex < m_SceneLights.size()) {
+                m_SceneLights[obj->fireLightIndex].vulkanLight.intensity = 0.0f;
+            }
 
             // Restore Geometry if it was swapped (Burnt state)
             if (obj->storedOriginalGeometry) {
@@ -969,4 +1107,8 @@ void Scene::ResetEnvironment() {
             obj->burnFactor = 0.0f;
         }
     }
+    StopPrecipitation();
+    m_IsPrecipitating = false;
+    m_WeatherTimer = 0.0f;
+    m_WeatherDuration = 15.0f; // Reset to a short delay before first weather
 }

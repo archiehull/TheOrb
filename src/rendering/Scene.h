@@ -208,7 +208,12 @@ public:
     void SetObjectShadingMode(const std::string& name, int mode);
 
     void SetSeasonConfig(float duration, float summerTemp, float winterTemp, float dayNightDiff);
-    void SetSunHeatBonus(float bonus); // NEW: Controls the +60C thermal bonus
+    void SetSunHeatBonus(float bonus); // Controls the +60C thermal bonus
+
+    void ToggleWeather();
+    bool IsPrecipitating() const { return m_IsPrecipitating; }
+    void NextSeason();
+
     void ClearProceduralRegistry();
 
     void Cleanup() { Clear(); }
@@ -228,6 +233,16 @@ private:
     Season m_CurrentSeason = Season::SUMMER;
     float m_SeasonTimer = 0.0f;
     float m_WeatherIntensity = 0.0f;      // The calculated "Ambient Temperature"
+
+    int m_RainEmitterId = -1;
+    int m_SnowEmitterId = -1;
+
+    bool m_IsPrecipitating = false;
+    float m_WeatherTimer = 0.0f;
+    float m_WeatherDuration = 10.0f; // Seconds until next weather change
+    float m_PostRainFireSuppressionTimer = 0.0f;
+
+    void StopPrecipitation();
 
     int globalShadingMode = 1; // 1 = Phong (Default), 0 = Gouraud
 

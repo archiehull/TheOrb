@@ -161,7 +161,7 @@ void Application::SetupScene() {
     scene->SetObjectCollision("FogShell", false);
 
     //scene->AddSnow();
-    scene->AddRain();
+    //scene->AddRain();
 }
 
 void Application::RecreateSwapChain() {
@@ -303,6 +303,12 @@ void Application::KeyCallback(GLFWwindow* glfwWindow, int key, int scancode, int
         }
         else if (key == GLFW_KEY_Y) {
             app->scene->ToggleGlobalShadingMode();
+        }
+        else if (key == GLFW_KEY_U) {
+            app->scene->ToggleWeather();
+        }
+        else if (key == GLFW_KEY_I) {
+            app->scene->NextSeason();
         }
 
         app->cameraController->OnKeyPress(key, true);
