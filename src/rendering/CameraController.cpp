@@ -1,60 +1,141 @@
 #include "CameraController.h"
 #include "Scene.h"
 #include <GLFW/glfw3.h>
-#include <algorithm> // For std::max
+#include <algorithm>
 #include <iostream>
+#include <vector>
+#include <random>
 
 CameraController::CameraController()
     : activeCamera(nullptr)
-    , activeCameraType(CameraType::FREE_ROAM)
+    , activeCameraType(CameraType::BIRDS_EYE) // CHANGE: Default to Static/F1
 {
     SetupCameras();
-    SwitchCamera(CameraType::FREE_ROAM);
+    // Default pointer set to Birds Eye to match activeCameraType
+    activeCamera = cameras[CameraType::BIRDS_EYE].get();
 }
 
 void CameraController::SetupCameras() {
-    // FREE ROAM Camera
+    // 1. FREE ROAM Camera (F2) - Inside the Orb
     auto freeRoamCam = std::make_unique<Camera>();
-    // SCALED UP: Move back and up
-    freeRoamCam->SetPosition(glm::vec3(0.0f, 60.0f, 300.0f));
-    freeRoamCam->SetTarget(glm::vec3(0.0f, 40.0f, 0.0f));
-    freeRoamCam->SetMoveSpeed(50.0f); // Faster default
+    // CHANGE: Start at 0, -75, 0
+    freeRoamCam->SetPosition(glm::vec3(0.0f, -75.0f, 0.0f));
+    freeRoamCam->SetTarget(glm::vec3(0.0f, -75.0f, 10.0f)); // Look forward locally
+    freeRoamCam->SetMoveSpeed(50.0f);
     freeRoamCam->SetRotateSpeed(35.0f);
     cameras[CameraType::FREE_ROAM] = std::move(freeRoamCam);
 
-    // BIRDS EYE Camera
-    auto birdsEyeCam = std::make_unique<Camera>();
-    // SCALED UP: High up
-    birdsEyeCam->SetPosition(glm::vec3(0.0f, 350.0f, 0.0f));
-    birdsEyeCam->SetTarget(glm::vec3(0.0f, 0.0f, 0.0f));
-    birdsEyeCam->SetUp(glm::vec3(0.0f, 0.0f, -1.0f));
-    birdsEyeCam->SetMoveSpeed(100.0f);
-    cameras[CameraType::BIRDS_EYE] = std::move(birdsEyeCam);
+    // 2. STATIC Camera (F1) - Outer View
+    auto staticCam = std::make_unique<Camera>();
+    staticCam->SetPosition(glm::vec3(0.0f, 60.0f, 350.0f));
+    staticCam->SetTarget(glm::vec3(0.0f, 0.0f, 0.0f));
+    cameras[CameraType::BIRDS_EYE] = std::move(staticCam);
 
-    // ORBIT Camera
+    // 3. ORBIT Camera (F3) - Cactus Focus
     auto orbitCam = std::make_unique<Camera>();
-    orbitCam->SetPosition(glm::vec3(150.0f, 0.0f, 0.0f)); // Further out
+    orbitCam->SetPosition(glm::vec3(20.0f, 10.0f, 20.0f));
     orbitCam->SetTarget(glm::vec3(0.0f, 0.0f, 0.0f));
     cameras[CameraType::ORBIT] = std::move(orbitCam);
 }
 
-void CameraController::SwitchCamera(CameraType type) {
-    if (cameras.find(type) != cameras.end()) {
-        activeCameraType = type;
-        activeCamera = cameras[type].get();
+void CameraController::SwitchCamera(CameraType type, const Scene& scene) {
+    if (cameras.find(type) == cameras.end()) return;
+
+    // Logic for initializing specific modes
+    if (type == CameraType::ORBIT) {
+        // Find a random cactus
+        std::vector<const SceneObject*> cacti;
+        for (const auto& obj : scene.GetObjects()) {
+            if (obj->texturePath.find("cactus") != std::string::npos) {
+                cacti.push_back(obj.get());
+            }
+        }
+
+        if (!cacti.empty()) {
+            static std::random_device rd;
+            static std::mt19937 gen(rd());
+            std::uniform_int_distribution<> dis(0, static_cast<int>(cacti.size()) - 1);
+
+            orbitTargetObject = cacti[dis(gen)];
+            orbitRadius = 15.0f;
+            orbitYaw = 0.0f;
+            orbitPitch = 20.0f;
+            std::cout << "Orbiting Cactus: " << orbitTargetObject->name << std::endl;
+        }
+        else {
+            std::cout << "No cactus found to orbit!" << std::endl;
+            type = CameraType::FREE_ROAM;
+        }
     }
+    else if (type == CameraType::FREE_ROAM) {
+        // CHANGE: Reset to new default position
+        auto* cam = cameras[CameraType::FREE_ROAM].get();
+        cam->SetPosition(glm::vec3(0.0f, -75.0f, 0.0f));
+        cam->SetTarget(glm::vec3(0.0f, -75.0f, 10.0f));
+    }
+    else if (type == CameraType::BIRDS_EYE) {
+        auto* cam = cameras[CameraType::BIRDS_EYE].get();
+        cam->SetPosition(glm::vec3(0.0f, 60.0f, 350.0f));
+        cam->SetTarget(glm::vec3(0.0f, 0.0f, 0.0f));
+    }
+
+    activeCameraType = type;
+    activeCamera = cameras[type].get();
 }
 
 void CameraController::Update(float deltaTime, const Scene& scene) {
-    if (activeCameraType == CameraType::FREE_ROAM) {
+    if (!activeCamera) return;
+
+    switch (activeCameraType) {
+    case CameraType::FREE_ROAM:
         UpdateFreeRoamCamera(deltaTime, scene);
+        break;
+    case CameraType::ORBIT:
+        UpdateOrbitCamera(deltaTime, scene);
+        break;
+    case CameraType::BIRDS_EYE:
+        break;
     }
 }
 
-void CameraController::UpdateFreeRoamCamera(float deltaTime, const Scene& scene) {
-    if (!activeCamera) return;
+void CameraController::UpdateOrbitCamera(float deltaTime, const Scene& scene) {
+    if (!orbitTargetObject) return;
 
-    // --- INPUT MAPPING ---
+    const float rotateSpeed = 50.0f;
+    const float zoomSpeed = 20.0f;
+
+    if (keyA || keyLeft)  orbitYaw -= rotateSpeed * deltaTime;
+    if (keyD || keyRight) orbitYaw += rotateSpeed * deltaTime;
+    if (keyW || keyUp)    orbitPitch += rotateSpeed * deltaTime;
+    if (keyS || keyDown)  orbitPitch -= rotateSpeed * deltaTime;
+
+    if (keyQ) orbitRadius -= zoomSpeed * deltaTime;
+    if (keyE) orbitRadius += zoomSpeed * deltaTime;
+
+    orbitPitch = std::clamp(orbitPitch, -10.0f, 89.0f);
+    orbitRadius = std::clamp(orbitRadius, 5.0f, 50.0f);
+
+    glm::vec3 targetPos = glm::vec3(orbitTargetObject->transform[3]);
+    targetPos.y += 3.0f;
+
+    float radYaw = glm::radians(orbitYaw);
+    float radPitch = glm::radians(orbitPitch);
+
+    glm::vec3 offset;
+    offset.x = orbitRadius * cos(radPitch) * sin(radYaw);
+    offset.y = orbitRadius * sin(radPitch);
+    offset.z = orbitRadius * cos(radPitch) * cos(radYaw);
+
+    glm::vec3 newPos = targetPos + offset;
+    glm::vec3 oldPos = activeCamera->GetPosition();
+
+    ClampCameraPosition(newPos, scene, oldPos);
+
+    activeCamera->SetPosition(newPos);
+    activeCamera->SetTarget(targetPos);
+}
+
+void CameraController::UpdateFreeRoamCamera(float deltaTime, const Scene& scene) {
     const bool groupA_forward = keyW;
     const bool groupA_backward = keyS;
     const bool groupA_left = keyA;
@@ -64,7 +145,6 @@ void CameraController::UpdateFreeRoamCamera(float deltaTime, const Scene& scene)
     const bool groupB_left = keyJ || keyLeft;
     const bool groupB_right = keyL || keyRight;
 
-    // Effective movement flags (Swappable with CTRL)
     const bool moveForward = keyCtrl ? groupB_forward : groupA_forward;
     const bool moveBackward = keyCtrl ? groupB_backward : groupA_backward;
     const bool moveLeft = keyCtrl ? groupB_left : groupA_left;
@@ -72,7 +152,6 @@ void CameraController::UpdateFreeRoamCamera(float deltaTime, const Scene& scene)
     const bool moveDown = keyQ;
     const bool moveUp = keyE;
 
-    // Effective rotation flags
     const bool rotatePitchUp = keyCtrl ? groupA_forward : groupB_forward;
     const bool rotatePitchDown = keyCtrl ? groupA_backward : groupB_backward;
     const bool rotateYawLeft = keyCtrl ? groupA_left : groupB_left;
@@ -80,11 +159,10 @@ void CameraController::UpdateFreeRoamCamera(float deltaTime, const Scene& scene)
 
     const float shiftMultiplier = keyShift ? 3.0f : 1.0f;
     const float moveDelta = deltaTime * shiftMultiplier;
-    const float rotateDelta = deltaTime * shiftMultiplier; // Applied rotation speed
+    const float rotateDelta = deltaTime * shiftMultiplier;
 
     glm::vec3 oldPos = activeCamera->GetPosition();
 
-    // --- 1. APPLY MOVEMENT ---
     if (moveForward)  activeCamera->MoveForward(moveDelta);
     if (moveBackward) activeCamera->MoveBackward(moveDelta);
     if (moveLeft)     activeCamera->MoveLeft(moveDelta);
@@ -92,13 +170,10 @@ void CameraController::UpdateFreeRoamCamera(float deltaTime, const Scene& scene)
     if (moveDown)     activeCamera->MoveDown(moveDelta);
     if (moveUp)       activeCamera->MoveUp(moveDelta);
 
-    // --- 2. APPLY COLLISIONS ---
-    // Retrieve the new candidate position, clamp it, and set it back.
     glm::vec3 currentPos = activeCamera->GetPosition();
     ClampCameraPosition(currentPos, scene, oldPos);
     activeCamera->SetPosition(currentPos);
 
-    // --- 3. APPLY ROTATION ---
     if (rotatePitchUp)   activeCamera->RotatePitch(rotateDelta);
     if (rotatePitchDown) activeCamera->RotatePitch(-rotateDelta);
     if (rotateYawLeft)   activeCamera->RotateYaw(-rotateDelta);
@@ -130,15 +205,12 @@ void CameraController::OnKeyPress(int key, bool pressed) {
 void CameraController::ClampCameraPosition(glm::vec3& pos, const Scene& scene, const glm::vec3& prevPos) {
     const float COLLISION_BUFFER = 1.7f;
 
-    // --- 1. DYNAMIC TERRAIN COLLISION ---
     const auto& terrain = scene.GetTerrainConfig();
     if (terrain.exists) {
-        // 1. Calculate Local Coordinates
         float localX = pos.x - terrain.position.x;
         float localZ = pos.z - terrain.position.z;
         float distFromCenter = glm::length(glm::vec2(localX, localZ));
 
-        // 2. Sample Height
         float rawNoiseHeight = GeometryGenerator::GetTerrainHeight(
             localX, localZ,
             terrain.radius,
@@ -146,7 +218,6 @@ void CameraController::ClampCameraPosition(glm::vec3& pos, const Scene& scene, c
             terrain.noiseFreq
         );
 
-        // 3. Convert to World Height
         float worldFloorY = rawNoiseHeight + terrain.position.y;
         float clampHeight = worldFloorY + COLLISION_BUFFER;
 
@@ -157,7 +228,6 @@ void CameraController::ClampCameraPosition(glm::vec3& pos, const Scene& scene, c
         }
     }
 
-    // --- 2. DYNAMIC OBJECT COLLISION ---
     for (const auto& obj : scene.GetObjects()) {
         if (!obj->hasCollision) continue;
 
@@ -165,24 +235,18 @@ void CameraController::ClampCameraPosition(glm::vec3& pos, const Scene& scene, c
         float objTop = objPos.y + obj->collisionHeight;
         float bufferedTop = objTop + COLLISION_BUFFER;
 
-        // Check horizontal distance first (Infinite cylinder check)
         float distXZ = glm::distance(glm::vec2(pos.x, pos.z), glm::vec2(objPos.x, objPos.z));
         float minSeparation = obj->collisionRadius + COLLISION_BUFFER;
 
-        // Only process if we are horizontally intersecting
         if (distXZ < minSeparation) {
-
-            // Check Vertical State
             bool isInsideVertical = (pos.y > objPos.y) && (pos.y < bufferedTop);
             bool wasAbove = (prevPos.y >= bufferedTop);
 
             if (isInsideVertical) {
                 if (wasAbove) {
-                    // CASE A: LANDING
                     pos.y = bufferedTop;
                 }
                 else {
-                    // CASE B: WALL HIT
                     glm::vec2 dir = glm::vec2(pos.x, pos.z) - glm::vec2(objPos.x, objPos.z);
                     if (glm::length(dir) < 0.001f) dir = glm::vec2(1.0f, 0.0f);
                     else dir = glm::normalize(dir);

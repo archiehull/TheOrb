@@ -3,8 +3,10 @@
 #include "Camera.h"
 #include <memory>
 #include <map>
+#include <vector>
 
 class Scene;
+struct SceneObject;
 
 class CameraController final {
 public:
@@ -17,11 +19,11 @@ public:
 
     void Update(float deltaTime, const Scene& scene);
 
-    // Marked const to avoid exposing non-const accessors (resolves CODSTA-CPP.54)
     inline Camera* GetActiveCamera() const { return activeCamera; }
     CameraType GetActiveCameraType() const { return activeCameraType; }
 
-    void SwitchCamera(CameraType type);
+    // Updated to take Scene reference for finding objects (e.g. Cacti)
+    void SwitchCamera(CameraType type, const Scene& scene);
 
     // Input handling
     void OnKeyPress(int key, bool pressed);
@@ -32,7 +34,7 @@ private:
     Camera* activeCamera = nullptr;
     CameraType activeCameraType = CameraType::FREE_ROAM;
 
-    // Key states for free roam camera
+    // Key states
     bool keyW = false, keyA = false, keyS = false, keyD = false;
     bool keyI = false, keyJ = false, keyK = false, keyL = false;
     bool keyQ = false, keyE = false;
@@ -40,7 +42,14 @@ private:
     bool keyCtrl = false;
     bool keyShift = false;
 
+    // Orbit Camera State
+    const SceneObject* orbitTargetObject = nullptr;
+    float orbitRadius = 15.0f;
+    float orbitYaw = 0.0f;
+    float orbitPitch = 20.0f;
+
     void SetupCameras();
     void UpdateFreeRoamCamera(float deltaTime, const Scene& scene);
+    void UpdateOrbitCamera(float deltaTime, const Scene& scene);
     void ClampCameraPosition(glm::vec3& position, const Scene& scene, const glm::vec3& previousPosition);
 };
