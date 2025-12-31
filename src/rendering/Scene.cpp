@@ -48,13 +48,18 @@ float Scene::RadiusAdjustment(const float radius, const float deltaY) const {
 
 Scene::Scene(VkDevice vkDevice, VkPhysicalDevice physDevice)
     : device(vkDevice), physicalDevice(physDevice) {
-	// Load Ash Pile for shared use in burning objects
+}
+
+void Scene::Initialize() {
+    // Load Ash Pile for shared use in burning objects
     try {
         auto dustGeo = OBJLoader::Load(device, physicalDevice, "models/dust.obj");
         dustGeometryPrototype = std::shared_ptr<Geometry>(std::move(dustGeo));
     }
     catch (const std::exception& e) {
-        std::cerr << "Failed to load dust prototype: " << e.what() << std::endl;
+        // Wrap the error and pass it up to the Application.
+        // We do NOT use std::cerr here.
+        throw std::runtime_error(std::string("Warning: Failed to load dust prototype: ") + e.what());
     }
 }
 

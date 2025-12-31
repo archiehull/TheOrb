@@ -21,7 +21,7 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\core\Config.h
 <c>OPT-13
-<b>Members 'moonOrbit, proceduralPlants, seasons, staticObjects, sunOrbit' of structure 'AppConfig' are declared in suboptimal order for memory layout
+<b>Members 'moonCACTI, proceduralPlants, seasons, staticObjects, sunCACTI' of structure 'AppConfig' are declared in suboptimal order for memory layout
 <l>41
 <k>8
 <s>false

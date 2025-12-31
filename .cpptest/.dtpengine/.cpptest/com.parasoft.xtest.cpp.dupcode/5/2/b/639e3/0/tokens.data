@@ -7,13 +7,13 @@ T|c=6|class
 I|c=12|CameraType
 T|c=23|{
 SL||8
+I|c=5|OUTSIDE_STATIC
+T|c=19|,
+SL||9
 I|c=5|FREE_ROAM
 T|c=14|,
-SL||9
-I|c=5|BIRDS_EYE
-T|c=14|,
 SL||10
-I|c=5|ORBIT
+I|c=5|CACTI
 SL||11
 T|c=1|}
 T|c=2:e_B=1|;

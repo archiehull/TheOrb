@@ -135,6 +135,8 @@ public:
     Scene(const Scene&) = delete;
     Scene& operator=(const Scene&) = delete;
 
+    void Initialize();
+
     float RadiusAdjustment(const float radius, const float deltaY) const;
 
     void AddTerrain(const std::string& name, float radius, int rings, int segments, float heightScale, float noiseFreq, const glm::vec3& position, const std::string& texturePath);

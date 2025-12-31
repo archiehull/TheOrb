@@ -92,6 +92,13 @@ void Application::InitVulkan() {
         vulkanDevice->GetPhysicalDevice()
     );
 
+    try {
+        scene->Initialize();
+    }
+    catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+    }
+
     renderer->SetupSceneParticles(*scene);
 
     cameraController = std::make_unique<CameraController>();

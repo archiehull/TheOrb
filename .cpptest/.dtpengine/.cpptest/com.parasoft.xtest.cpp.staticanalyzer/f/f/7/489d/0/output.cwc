@@ -1,7 +1,57 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.cpp
+<c>CODSTA-CPP-53
+<b>Declare local variable 'angle' as const
+<l>110
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.cpp
+<c>CODSTA-CPP-53
+<b>Declare local variable 'x' as const
+<l>111
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.cpp
+<c>CODSTA-CPP-53
+<b>Declare local variable 'z' as const
+<l>112
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.cpp
+<c>CODSTA-CPP-53
+<b>Declare local variable 'u' as const
+<l>113
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.cpp
+<c>CODSTA-CPP-53
+<b>Declare local variable 'v' as const
+<l>114
+<k>15
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.cpp
 <c>OPT-33
-<b>Returned value from function 'CreateBowl' is passed by value
+<b>Returned value from function 'CreateDisk' is passed by value
 <l>100
 <k>46
 <s>false
@@ -11,8 +61,18 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.cpp
 <c>OPT-33
+<b>Returned value from function 'CreateBowl' is passed by value
+<l>128
+<k>46
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.cpp
+<c>OPT-33
 <b>Returned value from function 'CreatePedestal' is passed by value
-<l>134
+<l>162
 <k>46
 <s>false
 <N>
@@ -22,7 +82,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.cpp
 <c>OPT-33
 <b>Returned value from function 'CreateTerrain' is passed by value
-<l>192
+<l>220
 <k>46
 <s>false
 <N>
@@ -32,7 +92,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.cpp
 <c>OPT-33
 <b>Returned value from function 'CreateCube' is passed by value
-<l>260
+<l>288
 <k>46
 <s>false
 <N>
@@ -42,7 +102,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.cpp
 <c>OPT-33
 <b>Returned value from function 'CreateGrid' is passed by value
-<l>309
+<l>337
 <k>46
 <s>false
 <N>
@@ -52,7 +112,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.cpp
 <c>OPT-33
 <b>Returned value from function 'CreateSphere' is passed by value
-<l>346
+<l>374
 <k>46
 <s>false
 <N>
@@ -113,6 +173,16 @@
 <c>OPT-33
 <b>Returned value from function 'CreatePedestal' is passed by value
 <l>31
+<k>38
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>OPT-33
+<b>Returned value from function 'CreateDisk' is passed by value
+<l>34
 <k>38
 <s>false
 <N>

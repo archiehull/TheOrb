@@ -127,7 +127,7 @@ T|c=1:e_A=1|}
 T|c=2:e_B=1|;
 SL||34
 T|c=1:s_B=1|struct
-I|c=8|OrbitConfig
+I|c=8|CACTIConfig
 T|c=20:s_A=1|{
 SL||35
 I|c=5:s_B=1|7
@@ -189,11 +189,11 @@ I|c=18|seasons
 T|c=25:e_B=1|;
 SL||48
 I|c=5:s_B=1|23
-I|c=17|sunOrbit
+I|c=17|sunCACTI
 T|c=25:e_B=1|;
 SL||49
 I|c=5:s_B=1|23
-I|c=17|moonOrbit
+I|c=17|moonCACTI
 T|c=26:e_B=1|;
 SL||52
 T|c=5:s_B=1|float
@@ -454,7 +454,7 @@ T|c=14:s_F=1:s_?=1|if
 T|c=17|(
 I|c=18:s_Z=1:s_?=1:e_Z=1|54
 T|c=22|==
-T|c=25:e_?=1:sl=1|"SunOrbit"
+T|c=25:e_?=1:sl=1|"SunCACTI"
 T|c=35|)
 T|c=37:s_E=1:s_?=1|{
 SL||33
@@ -511,7 +511,7 @@ T|c=14:s_F=1:s_?=1|if
 T|c=17|(
 I|c=18:s_Z=1:s_?=1:e_Z=1|54
 T|c=22|==
-T|c=25:e_?=1:sl=1|"MoonOrbit"
+T|c=25:e_?=1:sl=1|"MoonCACTI"
 T|c=36|)
 T|c=38:s_E=1:s_?=1|{
 SL||37
