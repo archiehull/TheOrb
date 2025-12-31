@@ -8,40 +8,42 @@
 
 CameraController::CameraController()
     : activeCamera(nullptr)
-    , activeCameraType(CameraType::BIRDS_EYE)
+    , activeCameraType(CameraType::FREE_ROAM)
 {
     SetupCameras();
     // Default pointer set to Birds Eye to match activeCameraType
-    activeCamera = cameras[CameraType::BIRDS_EYE].get();
+    activeCamera = cameras[CameraType::FREE_ROAM].get();
 }
 
 void CameraController::SetupCameras() {
+	// camera movement and rotation speed
+
     // 1. FREE ROAM Camera (F2) - Inside the Orb
     auto freeRoamCam = std::make_unique<Camera>();
     freeRoamCam->SetPosition(glm::vec3(0.0f, -75.0f, 0.0f));
     freeRoamCam->SetTarget(glm::vec3(0.0f, -75.0f, 10.0f)); // Look forward locally
-    freeRoamCam->SetMoveSpeed(50.0f);
-    freeRoamCam->SetRotateSpeed(35.0f);
-    cameras[CameraType::FREE_ROAM] = std::move(freeRoamCam);
+    freeRoamCam->SetMoveSpeed(35.0f);
+    freeRoamCam->SetRotateSpeed(45.0f);
+    cameras[CameraType::OUTSIDE_STATIC] = std::move(freeRoamCam);
 
     // 2. STATIC Camera (F1) - Outer View
     auto staticCam = std::make_unique<Camera>();
     staticCam->SetPosition(glm::vec3(0.0f, 60.0f, 350.0f));
     staticCam->SetTarget(glm::vec3(0.0f, 0.0f, 0.0f));
-    cameras[CameraType::BIRDS_EYE] = std::move(staticCam);
+    cameras[CameraType::FREE_ROAM] = std::move(staticCam);
 
-    // 3. ORBIT Camera (F3) - Cactus Focus
-    auto orbitCam = std::make_unique<Camera>();
-    orbitCam->SetPosition(glm::vec3(20.0f, 10.0f, 20.0f));
-    orbitCam->SetTarget(glm::vec3(0.0f, 0.0f, 0.0f));
-    cameras[CameraType::ORBIT] = std::move(orbitCam);
+    // 3. CACTI Camera (F3) - Cactus Focus
+    auto CACTICam = std::make_unique<Camera>();
+    CACTICam->SetPosition(glm::vec3(20.0f, 10.0f, 20.0f));
+    CACTICam->SetTarget(glm::vec3(0.0f, 0.0f, 0.0f));
+    cameras[CameraType::CACTI] = std::move(CACTICam);
 }
 
 void CameraController::SwitchCamera(CameraType type, const Scene& scene) {
     if (cameras.find(type) == cameras.end()) return;
 
     // Logic for initializing specific modes
-    if (type == CameraType::ORBIT) {
+    if (type == CameraType::CACTI) {
         // Find a random cactus
         std::vector<SceneObject*> cacti;
         for (const auto& obj : scene.GetObjects()) {
@@ -55,25 +57,25 @@ void CameraController::SwitchCamera(CameraType type, const Scene& scene) {
             static std::mt19937 gen(rd());
             std::uniform_int_distribution<> dis(0, static_cast<int>(cacti.size()) - 1);
 
-            orbitTargetObject = cacti[dis(gen)];
-            orbitRadius = 15.0f;
-            orbitYaw = 0.0f;
-            orbitPitch = 20.0f;
-            //std::cout << "Orbiting Cactus: " << orbitTargetObject->name << std::endl;
+            CACTITargetObject = cacti[dis(gen)];
+            CACTIRadius = 15.0f;
+            CACTIYaw = 0.0f;
+            CACTIPitch = 20.0f;
+            //std::cout << "CACTIing Cactus: " << CACTITargetObject->name << std::endl;
         }
         else {
-            std::cout << "No cactus found to orbit!" << std::endl;
-            type = CameraType::FREE_ROAM;
+            std::cout << "No cactus found to CACTI!" << std::endl;
+            type = CameraType::OUTSIDE_STATIC;
         }
     }
-    else if (type == CameraType::FREE_ROAM) {
+    else if (type == CameraType::OUTSIDE_STATIC) {
         // Reset to new default position
-        auto* cam = cameras[CameraType::FREE_ROAM].get();
+        auto* cam = cameras[CameraType::OUTSIDE_STATIC].get();
         cam->SetPosition(glm::vec3(85.0f, -65.0f, 35.0f));
         cam->SetTarget(glm::vec3(0.0f, -75.0f, 10.0f));
     }
-    else if (type == CameraType::BIRDS_EYE) {
-        auto* cam = cameras[CameraType::BIRDS_EYE].get();
+    else if (type == CameraType::FREE_ROAM) {
+        auto* cam = cameras[CameraType::FREE_ROAM].get();
         cam->SetPosition(glm::vec3(0.0f, 60.0f, 350.0f));
         cam->SetTarget(glm::vec3(0.0f, 0.0f, 0.0f));
     }
@@ -86,44 +88,44 @@ void CameraController::Update(float deltaTime, const Scene& scene) {
     if (!activeCamera) return;
 
     switch (activeCameraType) {
-    case CameraType::FREE_ROAM:
+    case CameraType::OUTSIDE_STATIC:
         UpdateFreeRoamCamera(deltaTime, scene);
         break;
-    case CameraType::ORBIT:
-        UpdateOrbitCamera(deltaTime, scene);
+    case CameraType::CACTI:
+        UpdateCACTICamera(deltaTime, scene);
         break;
-    case CameraType::BIRDS_EYE:
+    case CameraType::FREE_ROAM:
         break;
     }
 }
 
-void CameraController::UpdateOrbitCamera(float deltaTime, const Scene& scene) {
-    if (!orbitTargetObject) return;
+void CameraController::UpdateCACTICamera(float deltaTime, const Scene& scene) {
+    if (!CACTITargetObject) return;
 
     const float rotateSpeed = 50.0f;
     const float zoomSpeed = 20.0f;
 
-    if (keyA || keyLeft)  orbitYaw -= rotateSpeed * deltaTime;
-    if (keyD || keyRight) orbitYaw += rotateSpeed * deltaTime;
-    if (keyW || keyUp)    orbitPitch += rotateSpeed * deltaTime;
-    if (keyS || keyDown)  orbitPitch -= rotateSpeed * deltaTime;
+    if (keyA || keyLeft)  CACTIYaw -= rotateSpeed * deltaTime;
+    if (keyD || keyRight) CACTIYaw += rotateSpeed * deltaTime;
+    if (keyW || keyUp)    CACTIPitch += rotateSpeed * deltaTime;
+    if (keyS || keyDown)  CACTIPitch -= rotateSpeed * deltaTime;
 
-    if (keyQ) orbitRadius -= zoomSpeed * deltaTime;
-    if (keyE) orbitRadius += zoomSpeed * deltaTime;
+    if (keyQ) CACTIRadius -= zoomSpeed * deltaTime;
+    if (keyE) CACTIRadius += zoomSpeed * deltaTime;
 
-    orbitPitch = std::clamp(orbitPitch, -10.0f, 89.0f);
-    orbitRadius = std::clamp(orbitRadius, 5.0f, 50.0f);
+    CACTIPitch = std::clamp(CACTIPitch, -10.0f, 89.0f);
+    CACTIRadius = std::clamp(CACTIRadius, 5.0f, 50.0f);
 
-    glm::vec3 targetPos = glm::vec3(orbitTargetObject->transform[3]);
+    glm::vec3 targetPos = glm::vec3(CACTITargetObject->transform[3]);
     targetPos.y += 3.0f;
 
-    float radYaw = glm::radians(orbitYaw);
-    float radPitch = glm::radians(orbitPitch);
+    float radYaw = glm::radians(CACTIYaw);
+    float radPitch = glm::radians(CACTIPitch);
 
     glm::vec3 offset;
-    offset.x = orbitRadius * cos(radPitch) * sin(radYaw);
-    offset.y = orbitRadius * sin(radPitch);
-    offset.z = orbitRadius * cos(radPitch) * cos(radYaw);
+    offset.x = CACTIRadius * cos(radPitch) * sin(radYaw);
+    offset.y = CACTIRadius * sin(radPitch);
+    offset.z = CACTIRadius * cos(radPitch) * cos(radYaw);
 
     glm::vec3 newPos = targetPos + offset;
     glm::vec3 oldPos = activeCamera->GetPosition();
@@ -148,8 +150,8 @@ void CameraController::UpdateFreeRoamCamera(float deltaTime, const Scene& scene)
     const bool moveBackward = keyCtrl ? groupB_backward : groupA_backward;
     const bool moveLeft = keyCtrl ? groupB_left : groupA_left;
     const bool moveRight = keyCtrl ? groupB_right : groupA_right;
-    const bool moveDown = keyQ; // incl pagedwn
-	const bool moveUp = keyE; // incl pageup
+    const bool moveUp = keyQ; // incl pagedwn
+    const bool moveDown = keyE; // incl pageup
 
     const bool rotatePitchUp = keyCtrl ? groupA_forward : groupB_forward;
     const bool rotatePitchDown = keyCtrl ? groupA_backward : groupB_backward;
@@ -184,13 +186,16 @@ void CameraController::OnKeyPress(int key, bool pressed) {
     if (key == GLFW_KEY_A) keyA = pressed;
     if (key == GLFW_KEY_S) keyS = pressed;
     if (key == GLFW_KEY_D) keyD = pressed;
-    if (key == GLFW_KEY_Q) keyQ = pressed;
-    if (key == GLFW_KEY_E) keyE = pressed;
 
-    if (key == GLFW_KEY_I) keyI = pressed;
-    if (key == GLFW_KEY_J) keyJ = pressed;
-    if (key == GLFW_KEY_K) keyK = pressed;
-    if (key == GLFW_KEY_L) keyL = pressed;
+    // Map PageDown to Q (Down) and PageUp to E (Up)
+    if (key == GLFW_KEY_Q || key == GLFW_KEY_PAGE_UP) keyQ = pressed;
+    if (key == GLFW_KEY_E || key == GLFW_KEY_PAGE_DOWN) keyE = pressed;
+
+    // IJKL bindings removed for movement
+    // if (key == GLFW_KEY_I) keyI = pressed;
+    // if (key == GLFW_KEY_J) keyJ = pressed;
+    // if (key == GLFW_KEY_K) keyK = pressed;
+    // if (key == GLFW_KEY_L) keyL = pressed;
 
     if (key == GLFW_KEY_UP) keyUp = pressed;
     if (key == GLFW_KEY_LEFT) keyLeft = pressed;

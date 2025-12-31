@@ -31,7 +31,7 @@ struct SeasonConfig {
     float dayNightTempDiff = 35.0f;
 };
 
-struct OrbitConfig {
+struct CACTIConfig {
     glm::vec3 axis = glm::vec3(0.0f, 0.0f, 1.0f);
     float speed = 0.1f;
     float radius = 275.0f;
@@ -45,8 +45,8 @@ struct AppConfig {
 
     // Environment
     SeasonConfig seasons;
-    OrbitConfig sunOrbit;
-    OrbitConfig moonOrbit;
+    CACTIConfig sunCACTI;
+    CACTIConfig moonCACTI;
 
     // Thermodynamics
     float sunHeatBonus = 60.0f;

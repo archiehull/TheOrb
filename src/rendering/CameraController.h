@@ -25,8 +25,8 @@ public:
     // Updated to take Scene reference for finding objects (e.g. Cacti)
     void SwitchCamera(CameraType type, const Scene& scene);
 
-    // NEW: Getter for the current orbit target (for F4 Ignition)
-    SceneObject* GetOrbitTarget() const { return orbitTargetObject; }
+    // NEW: Getter for the current CACTI target (for F4 Ignition)
+    SceneObject* GetCACTITarget() const { return CACTITargetObject; }
 
     // Input handling
     void OnKeyPress(int key, bool pressed);
@@ -35,7 +35,7 @@ public:
 private:
     std::map<CameraType, std::unique_ptr<Camera>> cameras;
     Camera* activeCamera = nullptr;
-    CameraType activeCameraType = CameraType::FREE_ROAM;
+    CameraType activeCameraType = CameraType::OUTSIDE_STATIC;
 
     // Key states
     bool keyW = false, keyA = false, keyS = false, keyD = false;
@@ -45,14 +45,14 @@ private:
     bool keyCtrl = false;
     bool keyShift = false;
 
-    // Orbit Camera State
-    SceneObject* orbitTargetObject = nullptr; // Changed from const to mutable
-    float orbitRadius = 15.0f;
-    float orbitYaw = 0.0f;
-    float orbitPitch = 20.0f;
+    // CACTI Camera State
+    SceneObject* CACTITargetObject = nullptr; // Changed from const to mutable
+    float CACTIRadius = 15.0f;
+    float CACTIYaw = 0.0f;
+    float CACTIPitch = 20.0f;
 
     void SetupCameras();
     void UpdateFreeRoamCamera(float deltaTime, const Scene& scene);
-    void UpdateOrbitCamera(float deltaTime, const Scene& scene);
+    void UpdateCACTICamera(float deltaTime, const Scene& scene);
     void ClampCameraPosition(glm::vec3& position, const Scene& scene, const glm::vec3& previousPosition);
 };
