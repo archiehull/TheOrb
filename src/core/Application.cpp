@@ -313,6 +313,9 @@ void Application::KeyCallback(GLFWwindow* glfwWindow, int key, int scancode, int
         else if (key == GLFW_KEY_K) {
             app->scene->SpawnDustCloud();
         }
+        else if (key == GLFW_KEY_O) {
+            app->scene->ToggleSimpleShadows();
+        }
 
         app->cameraController->OnKeyPress(key, true);
     }

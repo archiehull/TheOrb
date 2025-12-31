@@ -78,8 +78,6 @@ void Scene::GenerateProceduralObjects(int count, float terrainRadius, float delt
     std::uniform_real_distribution<float> distFreq(0.0f, totalFreq);
     std::uniform_real_distribution<float> distScale(0.0f, 1.0f);
     std::uniform_real_distribution<float> distRot(0.0f, 360.0f);
-
-    // Random distribution for thermal response
     std::uniform_real_distribution<float> distThermal(0.5f, 10.0f);
 
     for (int i = 0; i < count; i++) {
@@ -112,18 +110,25 @@ void Scene::GenerateProceduralObjects(int count, float terrainRadius, float delt
         scale.y = glm::mix(config.minScale.y, config.maxScale.y, distScale(gen));
         scale.z = glm::mix(config.minScale.z, config.maxScale.z, distScale(gen));
 
-        // 5. Spawn Object (with dummy rotation initially)
+        // 5. Spawn Object
         const std::string name = "ProcObj_" + std::to_string(i);
-        // We pass 0 rotation here because we will manually overwrite the matrix below
         AddModel(name, glm::vec3(x, y, z), glm::vec3(0.0f), scale, config.modelPath, config.texturePath, config.isFlammable);
 
-        // 6. Overwrite Transform with Correct Rotation Order & Assign Thermal Stats
+        // [FIX] Capture the main object pointer NOW, before adding the shadow
+        SceneObject* mainObj = nullptr;
         if (!objects.empty()) {
-            auto& obj = objects.back();
+            mainObj = objects.back().get();
+        }
 
+        // Add Simple Shadow
+        float shadowRadius = std::max(scale.x, scale.z) * 1.5f;
+        AddSimpleShadow(name, shadowRadius);
+
+        // 6. Overwrite Transform on the MAIN OBJECT (not objects.back(), which is the shadow)
+        if (mainObj) {
             // Assign unique thermal response if the object is flammable
             if (config.isFlammable) {
-                obj->thermalResponse = distThermal(gen);
+                mainObj->thermalResponse = distThermal(gen);
             }
 
             glm::mat4 m = glm::mat4(1.0f);
@@ -132,12 +137,10 @@ void Scene::GenerateProceduralObjects(int count, float terrainRadius, float delt
             m = glm::translate(m, glm::vec3(x, y, z));
 
             // B. Apply World Yaw (Random Rotation around Y)
-            // This spins the object "in place" relative to the world, keeping it upright
             const float randomYaw = distRot(gen);
             m = glm::rotate(m, glm::radians(randomYaw), glm::vec3(0.0f, 1.0f, 0.0f));
 
             // C. Apply Base Rotation Correction (e.g. Stand up the cactus)
-            // This applies to the model's local axes
             if (glm::length(config.baseRotation) > 0.001f) {
                 m = glm::rotate(m, glm::radians(config.baseRotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
                 m = glm::rotate(m, glm::radians(config.baseRotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -147,7 +150,7 @@ void Scene::GenerateProceduralObjects(int count, float terrainRadius, float delt
             // D. Scale
             m = glm::scale(m, scale);
 
-            obj->transform = m;
+            mainObj->transform = m;
         }
     }
 }
@@ -238,6 +241,145 @@ void Scene::AddModel(const std::string& name, const glm::vec3& position, const g
     }
 }
 
+void Scene::AddSimpleShadow(const std::string& objectName, float radius) {
+    auto it = std::find_if(objects.begin(), objects.end(),
+        [&](const std::unique_ptr<SceneObject>& obj) { return obj->name == objectName; });
+
+    if (it == objects.end()) return;
+    SceneObject* targetObj = it->get();
+
+    // Create Disk Geometry
+    auto diskGeo = GeometryGenerator::CreateDisk(device, physicalDevice, radius, 16);
+
+    // Create Shadow Object
+    std::string shadowName = objectName + "_Shadow";
+    auto shadowObj = std::make_unique<SceneObject>(std::move(diskGeo), "textures/shadow.jpg", shadowName);
+
+    // Configure Properties
+    shadowObj->castsShadow = false;
+    shadowObj->receiveShadows = false;
+    shadowObj->shadingMode = 0;
+    shadowObj->isFlammable = false;
+    shadowObj->hasCollision = false;
+
+    // Force it to be black using the burn factor
+    shadowObj->burnFactor = 1.0f;
+
+    // Initially hidden
+    shadowObj->visible = false;
+
+    objects.push_back(std::move(shadowObj));
+    targetObj->simpleShadowId = static_cast<int>(objects.size() - 1);
+}
+
+void Scene::ToggleSimpleShadows() {
+    m_UseSimpleShadows = !m_UseSimpleShadows;
+
+    for (auto& obj : objects) {
+        // Find objects that HAVE a simple shadow
+        if (obj->simpleShadowId != -1 && obj->simpleShadowId < objects.size()) {
+            SceneObject* shadow = objects[obj->simpleShadowId].get();
+
+            if (m_UseSimpleShadows) {
+                // SIMPLE MODE: Hide normal shadow, Show simple shadow
+                obj->castsShadow = false;
+                shadow->visible = obj->visible;
+            }
+            else {
+                // NORMAL MODE: Show normal shadow, Hide simple shadow
+                obj->castsShadow = true;
+                shadow->visible = false;
+            }
+        }
+    }
+    std::cout << "Shadow Mode: " << (m_UseSimpleShadows ? "Simple" : "Normal") << std::endl;
+}
+
+void Scene::UpdateSimpleShadows() {
+    if (!m_UseSimpleShadows) return;
+
+    // 1. Find Dominant Light (Sun/Moon)
+    glm::vec3 lightPos = glm::vec3(0.0f, 100.0f, 0.0f);
+    bool foundLight = false;
+
+    // Try Sun
+    for (const auto& light : m_SceneLights) {
+        if (light.name == "Sun" && light.vulkanLight.position.y > -20.0f) {
+            lightPos = light.vulkanLight.position;
+            foundLight = true;
+            break;
+        }
+    }
+    // Try Moon if Sun is down
+    if (!foundLight) {
+        for (const auto& light : m_SceneLights) {
+            if (light.name == "Moon" && light.vulkanLight.position.y > 0.0f) {
+                lightPos = light.vulkanLight.position;
+                foundLight = true;
+                break;
+            }
+        }
+    }
+
+    // 2. Update Transforms
+    for (auto& obj : objects) {
+        if (obj->simpleShadowId != -1 && obj->simpleShadowId < objects.size()) {
+            SceneObject* shadow = objects[obj->simpleShadowId].get();
+
+            // Only update if visible
+            if (!shadow->visible) continue;
+
+            glm::vec3 basePos = glm::vec3(obj->transform[3]);
+            // Increased bias to clear terrain noise/z-fighting
+            basePos.y += 0.15f;
+
+            // Calculate Vector from Light to Object (Shadow Direction)
+            glm::vec3 rawLightDir = basePos - lightPos;
+            glm::vec3 lightDir3D = glm::normalize(rawLightDir);
+
+            // Flatten direction for ground movement
+            glm::vec3 flatDir = glm::vec3(lightDir3D.x, 0.0f, lightDir3D.z);
+            if (glm::length(flatDir) > 0.001f) {
+                flatDir = glm::normalize(flatDir);
+            }
+            else {
+                flatDir = glm::vec3(0.0f, 0.0f, 1.0f); // Default if light is perfectly overhead
+            }
+
+            // Calculate Yaw (Rotation around Y)
+            float angle = std::atan2(flatDir.x, flatDir.z);
+
+            // Calculate Stretch based on light height (Dot Product)
+            float dotY = std::abs(lightDir3D.y);
+            float stretch = 1.0f + (1.0f - dotY) * 8.0f; // Increased max stretch for drama
+            stretch = std::clamp(stretch, 1.0f, 12.0f);
+
+            // Calculate Offset to Anchor the Shadow
+            // The procedural objects use a shadow radius of ~1.5x their scale.
+            float parentScale = glm::length(glm::vec3(obj->transform[0]));
+            float shadowRadius = parentScale * 1.5f;
+
+            // Shift the center of the shadow in the direction of the lightDir.
+            // Shifting by R * (S - 1) keeps the 'back' edge at -R fixed.
+            float shiftAmount = shadowRadius * (stretch - 1.0f);
+
+            // Apply shift to position
+            glm::vec3 finalPos = basePos + (flatDir * shiftAmount);
+
+            // Construct Transform
+            glm::mat4 m = glm::mat4(1.0f);
+            m = glm::translate(m, finalPos);
+            m = glm::rotate(m, angle, glm::vec3(0.0f, 1.0f, 0.0f));
+            m = glm::scale(m, glm::vec3(1.0f, 1.0f, stretch));
+
+            shadow->transform = m;
+
+            // Sync visibility (in case parent was hidden)
+            shadow->visible = obj->visible;
+        }
+    }
+}
+
 int Scene::AddLight(const std::string& name, const glm::vec3& position, const glm::vec3& color, float intensity, int type) {
     if (m_SceneLights.size() >= MAX_LIGHTS) {
         std::cerr << "Warning: Maximum number of lights (" << MAX_LIGHTS << ") reached. Light not added." << std::endl;
@@ -315,30 +457,14 @@ ParticleSystem* Scene::GetOrCreateSystem(const ParticleProps& props) {
 }
 
 void Scene::AddCampfire(const std::string& name, const glm::vec3& position, float scale) {
-    // 1. Add Fire Particles
-    // (Returns emitter ID, but we ignore it for a static campfire)
     AddFire(position, scale);
-
-    // 2. Add Smoke Particles
-    // We offset the smoke slightly upwards so it rises from the top of the flames
     glm::vec3 smokePos = position;
     smokePos.y += 1.5f * scale;
     AddSmoke(smokePos, scale);
-
-    // 3. Add Point Light
-    // Position: Center of the flame
     glm::vec3 lightPos = position;
     lightPos.y += 0.5f * scale;
-
-    // Color: Warm Orange (R=1.0, G=0.5, B=0.1)
     glm::vec3 lightColor = glm::vec3(1.0f, 0.5f, 0.1f);
-
-    // Intensity: 
-    // We use a base of 2.0, scaled by the fire size. 
-    // Since we fixed the attenuation shader, this will look bright but contained.
     float intensity = 1.0f * scale;
-
-    // Type 1 = Point Light (Fire)
     AddLight(name + "_Light", lightPos, lightColor, intensity, 1);
 }
 
@@ -748,6 +874,8 @@ void Scene::Update(float deltaTime) {
 
     // 5. Update Thermodynamics
     UpdateThermodynamics(deltaTime, sunHeight);
+
+    UpdateSimpleShadows();
 
     // 6. Update Particles
     for (const auto& sys : particleSystems) {

@@ -103,6 +103,8 @@ struct SceneObject {
     // Visuals
     float burnFactor = 0.0f;          // Passed to shader (0.0 to 1.0)
     int fireParticleSystemIndex = -1; // To track attached fire particles
+    int simpleShadowId = -1;
+
 
     // Collisions
     bool hasCollision = true;       // On by default
@@ -190,6 +192,10 @@ public:
     // Shading Toggle
     void ToggleGlobalShadingMode();
 
+    void AddSimpleShadow(const std::string& objectName, float radius);
+    void ToggleSimpleShadows();
+    bool IsUsingSimpleShadows() const { return m_UseSimpleShadows; }
+
     std::vector<Light> GetLights() const;
 
     // Scene management
@@ -255,6 +261,9 @@ private:
     void StopDust();
 
     int globalShadingMode = 1; // 1 = Phong (Default), 0 = Gouraud
+
+    void UpdateSimpleShadows();
+    bool m_UseSimpleShadows = false; // Default to Normal Shadows
 
     TerrainConfig m_TerrainConfig;
     std::vector<SceneLight> m_SceneLights;

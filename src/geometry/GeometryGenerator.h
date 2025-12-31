@@ -31,6 +31,8 @@ public:
     static std::unique_ptr<Geometry> CreatePedestal(VkDevice device, VkPhysicalDevice physicalDevice,
         float topRadius, float baseWidth, float height, int slices, int stacks);
 
+    static std::unique_ptr<Geometry> CreateDisk(VkDevice device, VkPhysicalDevice physicalDevice, float radius, int slices);
+
 private:
     static glm::vec3 GenerateColor(int index, int total);
     static void GenerateGridIndices(Geometry* geometry, int slices, int stacks);

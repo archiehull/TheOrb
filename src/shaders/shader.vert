@@ -26,6 +26,7 @@ layout(push_constant) uniform PushConstantObject {
     int shadingMode;
     int receiveShadows; 
     int layerMask;      
+    float burnFactor;
 } pco;
 
 layout(location = 0) in vec3 inPosition;

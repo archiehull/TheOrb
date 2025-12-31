@@ -8,4 +8,4 @@ StorageVersion: v1
 --edZETCXrIdfzUWRc8guXRs3kSzuUEPJRHy5PB8
 
 <?xml version='1.0' encoding='UTF-8'?><ResultInfo resultId="ICodingStandardsViolation" ownerId="com.parasoft.xtest.checkers.api.standards" violKeys="null"><StdViol msg="Returned value from function 'GetSkyboxFaces' is passed by value" ln="21" sev="5" auth="a" rule="OPT-33" tool="c++test" cat="OPT" lang="cpp" locType="sr" config="3" hash="-1965936351" locStartln="21" locStartPos="37" locEndLn="21" locEndPos="38" locFile="TheOrb/TheOrb/Source Files/src/rendering/SkyboxPass.cpp"/></ResultInfo>
---edZETCXrIdfzUWRc8guXRs3kSzuUEPJRHy5PB8
+--edZETCXrIdfzUWRc8guXRs3kSzuUEPJRHy5PB8--

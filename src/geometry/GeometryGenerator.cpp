@@ -97,6 +97,34 @@ float GeometryGenerator::GetTerrainHeight(float x, float z, float radius, float 
     return y;
 }
 
+std::unique_ptr<Geometry> GeometryGenerator::CreateDisk(VkDevice device, VkPhysicalDevice physicalDevice, float radius, int slices) {
+    auto geometry = std::make_unique<Geometry>(device, physicalDevice);
+    geometry->ReserveVertices(slices + 2);
+    geometry->ReserveIndices(slices * 3);
+
+    // Center
+    geometry->AddVertex({ glm::vec3(0.0f), glm::vec3(0.0f), glm::vec2(0.5f), glm::vec3(0.0f, 1.0f, 0.0f) });
+
+    // Rim
+    for (int i = 0; i <= slices; ++i) {
+        float angle = (static_cast<float>(i) / slices) * 2.0f * PI;
+        float x = radius * cos(angle);
+        float z = radius * sin(angle);
+        float u = 0.5f + 0.5f * cos(angle);
+        float v = 0.5f + 0.5f * sin(angle);
+        geometry->AddVertex({ glm::vec3(x, 0.0f, z), glm::vec3(1.0f), glm::vec2(u, v), glm::vec3(0.0f, 1.0f, 0.0f) });
+    }
+
+    for (int i = 1; i <= slices; ++i) {
+        geometry->AddIndex(0);
+        geometry->AddIndex(i + 1);
+        geometry->AddIndex(i);
+    }
+
+    geometry->CreateBuffers();
+    return geometry;
+}
+
 std::unique_ptr<Geometry> GeometryGenerator::CreateBowl(VkDevice device, VkPhysicalDevice physicalDevice, float radius, int slices, int stacks) {
     auto geometry = std::make_unique<Geometry>(device, physicalDevice);
 
