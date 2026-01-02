@@ -56,6 +56,7 @@ struct AppConfig {
     float terrainNoiseFreq = 0.02f;
 
     // Objects
+    int proceduralObjectCount = 75;
     std::vector<ProceduralPlantConfig> proceduralPlants;
     std::vector<StaticObjectConfig> staticObjects;
 };

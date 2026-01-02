@@ -9,6 +9,9 @@ SunHeatBonus 40.0
 # Terrain
 TerrainParams 3.5 0.02
 
+# Procedural Generation
+ProceduralObjectCount 75
+
 # Orbits: Axis(x y z) Radius Speed InitialAngle
 # Sun (Starts at 0 rads)
 SunOrbit 0.0 0.0 1.0 275.0 0.1047 0.0
@@ -26,4 +29,3 @@ ProceduralPlant models/DeadTree.obj textures/bark.jpg 5.0 0.1 0.1 0.1 0.2 0.2 0.
 
 # 3. Large Dead Tree
 ProceduralPlant models/DeadTree.obj textures/bark.jpg 4.0 0.25 0.25 0.25 0.35 0.35 0.35 0.0 0.0 0.0 1
-

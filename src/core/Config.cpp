@@ -43,6 +43,9 @@ AppConfig ConfigLoader::Load(const std::string& filepath) {
         else if (key == "TerrainParams") {
             ss >> config.terrainHeightScale >> config.terrainNoiseFreq;
         }
+        else if (key == "ProceduralObjectCount") {
+            ss >> config.proceduralObjectCount;
+        }
         else if (key == "ProceduralPlant") {
             ProceduralPlantConfig plant;
             std::string flammableStr;

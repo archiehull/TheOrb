@@ -42,9 +42,9 @@ void Application::Run() {
 
  [R]               Reset Environment
 
- [T]               Slow Time
- [T] + [Shift]       Speed Up Time
- [T] + [Ctrl]        Normal Time
+ [T]               Speed Up Time
+ [T] + [Shift]     Slow Down Time
+ [T] + [Ctrl]      Normal Time
  [Esc]             Exit Application
 --------------------------------------------------
 )";
@@ -158,7 +158,7 @@ void Application::SetupScene() {
         }
     }
 
-    scene->GenerateProceduralObjects(75, orbRadius - 20, deltaY, terrainHeightScale, terrainNoiseFreq);
+    scene->GenerateProceduralObjects(config.proceduralObjectCount, orbRadius - 20, deltaY, terrainHeightScale, terrainNoiseFreq);
 
     for (const auto& obj : config.staticObjects) {
         scene->AddModel(obj.name, obj.position, obj.rotation, obj.scale, obj.modelPath, obj.texturePath, obj.isFlammable);
@@ -294,11 +294,11 @@ void Application::ProcessInput() {
             timeScale = 1.0f;
         }
         else if (shiftPressed) {
-            timeScale += scaleChangeRate * deltaTime;
-        }
-        else {
             timeScale -= scaleChangeRate * deltaTime;
             if (timeScale < 0.1f) timeScale = 0.1f;
+        }
+        else {
+            timeScale += scaleChangeRate * deltaTime;
         }
     }
 

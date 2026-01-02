@@ -126,14 +126,14 @@ void Scene::GenerateProceduralObjects(int count, float terrainRadius, float delt
         const std::string name = "ProcObj_" + std::to_string(i);
         AddModel(name, glm::vec3(x, y, z), glm::vec3(0.0f), scale, config.modelPath, config.texturePath, config.isFlammable);
 
-        // [FIX] Capture the main object pointer NOW, before adding the shadow
+        // Capture the main object pointer NOW, before adding the shadow
         SceneObject* mainObj = nullptr;
         if (!objects.empty()) {
             mainObj = objects.back().get();
         }
 
         // Add Simple Shadow
-        float shadowRadius = std::max(scale.x, scale.z) * 1.5f;
+        float shadowRadius = std::max(std::max(scale.x, scale.z) * 1.5f, 0.5f);
         AddSimpleShadow(name, shadowRadius);
 
         // 6. Overwrite Transform on the MAIN OBJECT (not objects.back(), which is the shadow)
@@ -310,84 +310,77 @@ void Scene::ToggleSimpleShadows() {
 void Scene::UpdateSimpleShadows() {
     if (!m_UseSimpleShadows) return;
 
-    // 1. Find Dominant Light (Sun/Moon)
+    // 1. Find Dominant Light (Sun)
     glm::vec3 lightPos = glm::vec3(0.0f, 100.0f, 0.0f);
-    bool foundLight = false;
+    bool sunIsUp = false;
 
-    // Try Sun
     for (const auto& light : m_SceneLights) {
+        // We consider the sun "Up" if it's slightly above the horizon (-20.0f)
         if (light.name == "Sun" && light.vulkanLight.position.y > -20.0f) {
             lightPos = light.vulkanLight.position;
-            foundLight = true;
+            sunIsUp = true;
             break;
         }
     }
-    // Try Moon if Sun is down
-    if (!foundLight) {
-        for (const auto& light : m_SceneLights) {
-            if (light.name == "Moon" && light.vulkanLight.position.y > 0.0f) {
-                lightPos = light.vulkanLight.position;
-                foundLight = true;
-                break;
-            }
-        }
-    }
 
-    // 2. Update Transforms
+    // 2. Iterate ALL objects and enforce state
     for (auto& obj : objects) {
-        if (obj->simpleShadowId != -1 && obj->simpleShadowId < objects.size()) {
-            SceneObject* shadow = objects[obj->simpleShadowId].get();
+        // Skip if this object doesn't have a shadow
+        if (obj->simpleShadowId == -1 || obj->simpleShadowId >= objects.size()) {
+            continue;
+        }
 
-            // Only update if visible
-            if (!shadow->visible) continue;
+        SceneObject* shadow = objects[obj->simpleShadowId].get();
 
+        if (sunIsUp && obj->visible) {
+
+            // --- Calculate Shadow Transform ---
             glm::vec3 basePos = glm::vec3(obj->transform[3]);
-            // Increased bias to clear terrain noise/z-fighting
-            basePos.y += 0.15f;
+            basePos.y += 0.15f; // Bias to sit above terrain
 
-            // Calculate Vector from Light to Object (Shadow Direction)
+            // Direction from Object to Light (pointing UP towards light)
             glm::vec3 rawLightDir = basePos - lightPos;
-            glm::vec3 lightDir3D = glm::normalize(rawLightDir);
+            glm::vec3 lightDir3D = glm::normalize(basePos - lightPos);
 
-            // Flatten direction for ground movement
+            // Flatten direction onto the XZ plane
             glm::vec3 flatDir = glm::vec3(lightDir3D.x, 0.0f, lightDir3D.z);
             if (glm::length(flatDir) > 0.001f) {
                 flatDir = glm::normalize(flatDir);
             }
             else {
-                flatDir = glm::vec3(0.0f, 0.0f, 1.0f); // Default if light is perfectly overhead
+                flatDir = glm::vec3(0.0f, 0.0f, 1.0f);
             }
 
-            // Calculate Yaw (Rotation around Y)
+            // Rotation (Yaw)
             float angle = std::atan2(flatDir.x, flatDir.z);
 
-            // Calculate Stretch based on light height (Dot Product)
+            // Stretch (based on how low the sun is)
+            // lightDir3D.y is negative if light is above. 
+            // We use abs() to get the vertical component magnitude.
             float dotY = std::abs(lightDir3D.y);
-            float stretch = 1.0f + (1.0f - dotY) * 8.0f; // Increased max stretch for drama
+            float stretch = 1.0f + (1.0f - dotY) * 8.0f;
             stretch = std::clamp(stretch, 1.0f, 12.0f);
 
-            // Calculate Offset to Anchor the Shadow
-            // The procedural objects use a shadow radius of ~1.5x their scale.
+            // --- Radius Fix (Applied Here) ---
             float parentScale = glm::length(glm::vec3(obj->transform[0]));
-            float shadowRadius = parentScale * 1.5f;
+            float shadowRadius = std::max(parentScale * 1.5f, 0.5f);
 
-            // Shift the center of the shadow in the direction of the lightDir.
-            // Shifting by R * (S - 1) keeps the 'back' edge at -R fixed.
+            // Shift Center to anchor the back edge
             float shiftAmount = shadowRadius * (stretch - 1.0f);
-
-            // Apply shift to position
             glm::vec3 finalPos = basePos + (flatDir * shiftAmount);
 
-            // Construct Transform
+            // Update Transform
             glm::mat4 m = glm::mat4(1.0f);
             m = glm::translate(m, finalPos);
             m = glm::rotate(m, angle, glm::vec3(0.0f, 1.0f, 0.0f));
             m = glm::scale(m, glm::vec3(1.0f, 1.0f, stretch));
 
             shadow->transform = m;
-
-            // Sync visibility (in case parent was hidden)
-            shadow->visible = obj->visible;
+            shadow->visible = true; // FORCE VISIBLE
+        }
+        else {
+            // If Sun is down OR Parent is hidden, hide shadow
+            shadow->visible = false;
         }
     }
 }
