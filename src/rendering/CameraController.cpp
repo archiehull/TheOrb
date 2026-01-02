@@ -68,7 +68,7 @@ void CameraController::SwitchCamera(CameraType type, const Scene& scene) {
             OrbitRadius = 15.0f;
             OrbitYaw = 0.0f;
             OrbitPitch = 20.0f;
-            //std::cout << "Orbiting Cactus: " << OrbitTargetObject->name << std::endl;
+            std::cout << "Orbiting Cactus: " << OrbitTargetObject->name << std::endl;
         }
         else {
             std::cout << "No cactus found to Orbit!" << std::endl;
@@ -80,6 +80,7 @@ void CameraController::SwitchCamera(CameraType type, const Scene& scene) {
         auto* cam = cameras[CameraType::FREE_ROAM].get();
         cam->SetPosition(glm::vec3(85.0f, -65.0f, 35.0f));
         cam->SetTarget(glm::vec3(0.0f, -75.0f, 10.0f));
+		std::cout << "Switched to Free Roam Camera." << std::endl;
     }
     else if (type == CameraType::OUTSIDE_ORB) {
         // Initialize orbital parameters for Outside View
@@ -87,6 +88,7 @@ void CameraController::SwitchCamera(CameraType type, const Scene& scene) {
         OrbitRadius = 350.0f;
         OrbitYaw = 0.0f;
         OrbitPitch = 20.0f;
+		std::cout << "Switched to Outside Orbital Camera." << std::endl;
     }
 
     activeCameraType = type;

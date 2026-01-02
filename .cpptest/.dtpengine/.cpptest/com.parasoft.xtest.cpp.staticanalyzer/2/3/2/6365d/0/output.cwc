@@ -12,7 +12,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>OPT-02
 <b>Local variable 'baseOrbitSpeed' declared but not used
-<l>112
+<l>111
 <k>17
 <s>false
 <N>
@@ -22,7 +22,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>OPT-02
 <b>Local variable 'OrbitRadius' declared but not used
-<l>122
+<l>121
 <k>17
 <s>false
 <N>
@@ -32,7 +32,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>CODSTA-CPP-53
 <b>Declare local variable 'shiftPressed' as const
-<l>287
+<l>286
 <k>10
 <s>false
 <N>
@@ -42,7 +42,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>CODSTA-CPP-53
 <b>Declare local variable 'ctrlPressed' as const
-<l>289
+<l>288
 <k>10
 <s>false
 <N>
@@ -52,7 +52,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>OPT-01
 <b>Variable "scaleChangeRate" should be declared as locally as possible
-<l>285
+<l>284
 <k>17
 <s>false
 <N>
@@ -62,7 +62,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>CODSTA-CPP-53
 <b>Declare local variable 'target' as const
-<l>337
+<l>336
 <k>26
 <s>false
 <N>
@@ -92,7 +92,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>OPT-02
 <b>Local variable 'baseOrbitSpeed' declared but not used
-<l>112
+<l>111
 <k>17
 <s>false
 <N>
@@ -102,7 +102,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>OPT-02
 <b>Local variable 'OrbitRadius' declared but not used
-<l>122
+<l>121
 <k>17
 <s>false
 <N>
@@ -112,7 +112,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>OPT-01
 <b>Variable "scaleChangeRate" should be declared as locally as possible
-<l>285
+<l>284
 <k>17
 <s>false
 <N>

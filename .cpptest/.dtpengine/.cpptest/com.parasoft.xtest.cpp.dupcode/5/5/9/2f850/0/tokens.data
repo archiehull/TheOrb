@@ -7272,11 +7272,11 @@ T|c=6|class
 I|c=12|CameraType
 T|c=23|{
 SL||8
-I|c=5|OUTSIDE_STATIC
-T|c=19|,
-SL||9
 I|c=5|FREE_ROAM
 T|c=14|,
+SL||9
+I|c=5|OUTSIDE_ORB
+T|c=16|,
 SL||10
 I|c=5|CACTI
 SL||11
@@ -8531,7 +8531,7 @@ T|c=33|=
 I|c=35|686
 T|c=45|::
 I|c=47|687
-T|c=61:e_B=1|;
+T|c=56:e_B=1|;
 SL||41
 T|c=5:s_B=1|bool
 I|c=10|keyW

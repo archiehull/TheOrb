@@ -12,8 +12,8 @@ void Scene::ToggleGlobalShadingMode() {
     globalShadingMode = (globalShadingMode == 1) ? 0 : 1;
 
     // Update all existing objects, preserving special modes (>=2)
-	// 0 = Gouraud, 1 = Phong
-    for (auto& obj : objects) {
+    // 0 = Gouraud, 1 = Phong
+    for (const auto& obj : objects) {
         if (obj->shadingMode == 0 || obj->shadingMode == 1) {
             obj->shadingMode = globalShadingMode;
         }
@@ -133,7 +133,7 @@ void Scene::GenerateProceduralObjects(int count, float terrainRadius, float delt
         }
 
         // Add Simple Shadow
-        float shadowRadius = std::max(std::max(scale.x, scale.z) * 1.5f, 0.5f);
+        const float shadowRadius = std::max(std::max(scale.x, scale.z) * 1.5f, 0.5f);
         AddSimpleShadow(name, shadowRadius);
 
         // 6. Overwrite Transform on the MAIN OBJECT (not objects.back(), which is the shadow)
@@ -175,7 +175,8 @@ void Scene::AddTerrain(const std::string& name, float radius, int rings, int seg
     // DISABLE generic cylinder collision for the Terrain object itself 
     // (We will use the Math-based height check instead)
     if (!objects.empty()) {
-        objects.back()->hasCollision = false;
+        const auto& obj = objects.back();
+        obj->hasCollision = false;
     }
 
     // STORE params for the Camera Controller
@@ -194,7 +195,7 @@ void Scene::AddPedestal(const std::string& name, float topRadius, float baseWidt
     AddObjectInternal(name, GeometryGenerator::CreatePedestal(device, physicalDevice, topRadius, baseWidth, height, 512, 512), position, texturePath, false);
 
     if (!objects.empty()) {
-        auto& obj = objects.back();
+        const auto& obj = objects.back();
         // Use the wider base for collision to prevent clipping
         obj->collisionRadius = std::max(topRadius, baseWidth);
         obj->collisionHeight = height;
@@ -254,11 +255,11 @@ void Scene::AddModel(const std::string& name, const glm::vec3& position, const g
 }
 
 void Scene::AddSimpleShadow(const std::string& objectName, float radius) {
-    auto it = std::find_if(objects.begin(), objects.end(),
+    const auto it = std::find_if(objects.begin(), objects.end(),
         [&](const std::unique_ptr<SceneObject>& obj) { return obj->name == objectName; });
 
     if (it == objects.end()) return;
-    SceneObject* targetObj = it->get();
+    SceneObject* const targetObj = it->get();
 
     // Create Disk Geometry
     auto diskGeo = GeometryGenerator::CreateDisk(device, physicalDevice, radius, 16);
@@ -287,10 +288,10 @@ void Scene::AddSimpleShadow(const std::string& objectName, float radius) {
 void Scene::ToggleSimpleShadows() {
     m_UseSimpleShadows = !m_UseSimpleShadows;
 
-    for (auto& obj : objects) {
+    for (const auto& obj : objects) {
         // Find objects that HAVE a simple shadow
         if (obj->simpleShadowId != -1 && obj->simpleShadowId < objects.size()) {
-            SceneObject* shadow = objects[obj->simpleShadowId].get();
+            SceneObject* const shadow = objects[obj->simpleShadowId].get();
 
             if (m_UseSimpleShadows) {
                 // SIMPLE MODE: Hide normal shadow, Show simple shadow
@@ -324,23 +325,21 @@ void Scene::UpdateSimpleShadows() {
     }
 
     // 2. Iterate ALL objects and enforce state
-    for (auto& obj : objects) {
+    for (const auto& obj : objects) {
         // Skip if this object doesn't have a shadow
         if (obj->simpleShadowId == -1 || obj->simpleShadowId >= objects.size()) {
             continue;
         }
 
-        SceneObject* shadow = objects[obj->simpleShadowId].get();
+        SceneObject* const shadow = objects[obj->simpleShadowId].get();
 
         if (sunIsUp && obj->visible) {
 
             // --- Calculate Shadow Transform ---
-            glm::vec3 basePos = glm::vec3(obj->transform[3]);
-            basePos.y += 0.15f; // Bias to sit above terrain
-
+            // Bias to sit above terrain
             // Direction from Object to Light (pointing UP towards light)
-            glm::vec3 rawLightDir = basePos - lightPos;
-            glm::vec3 lightDir3D = glm::normalize(basePos - lightPos);
+            const glm::vec3 rawLightDir = glm::vec3(obj->transform[3]) + glm::vec3(0.0f, 0.15f, 0.0f) - lightPos;
+            const glm::vec3 lightDir3D = glm::normalize(rawLightDir);
 
             // Flatten direction onto the XZ plane
             glm::vec3 flatDir = glm::vec3(lightDir3D.x, 0.0f, lightDir3D.z);
@@ -352,22 +351,22 @@ void Scene::UpdateSimpleShadows() {
             }
 
             // Rotation (Yaw)
-            float angle = std::atan2(flatDir.x, flatDir.z);
+            const float angle = std::atan2(flatDir.x, flatDir.z);
 
             // Stretch (based on how low the sun is)
             // lightDir3D.y is negative if light is above. 
             // We use abs() to get the vertical component magnitude.
-            float dotY = std::abs(lightDir3D.y);
+            const float dotY = std::abs(lightDir3D.y);
             float stretch = 1.0f + (1.0f - dotY) * 8.0f;
             stretch = std::clamp(stretch, 1.0f, 12.0f);
 
             // --- Radius Fix (Applied Here) ---
-            float parentScale = glm::length(glm::vec3(obj->transform[0]));
-            float shadowRadius = std::max(parentScale * 1.5f, 0.5f);
+            const float parentScale = glm::length(glm::vec3(obj->transform[0]));
+            const float shadowRadius = std::max(parentScale * 1.5f, 0.5f);
 
             // Shift Center to anchor the back edge
-            float shiftAmount = shadowRadius * (stretch - 1.0f);
-            glm::vec3 finalPos = basePos + (flatDir * shiftAmount);
+            const float shiftAmount = shadowRadius * (stretch - 1.0f);
+            const glm::vec3 finalPos = glm::vec3(obj->transform[3]) + glm::vec3(0.0f, 0.15f, 0.0f) + (flatDir * shiftAmount);
 
             // Update Transform
             glm::mat4 m = glm::mat4(1.0f);
@@ -408,14 +407,14 @@ int Scene::AddLight(const std::string& name, const glm::vec3& position, const gl
 }
 
 void Scene::SetObjectCollision(const std::string& name, bool enabled) {
-    auto it = std::find_if(objects.begin(), objects.end(), [&](const auto& obj) { return obj->name == name; });
+    const auto it = std::find_if(objects.begin(), objects.end(), [&](const auto& obj) { return obj->name == name; });
     if (it != objects.end()) {
         (*it)->hasCollision = enabled;
     }
 }
 
 void Scene::SetObjectCollisionSize(const std::string& name, float radius, float height) {
-    auto it = std::find_if(objects.begin(), objects.end(), [&](const auto& obj) { return obj->name == name; });
+    const auto it = std::find_if(objects.begin(), objects.end(), [&](const auto& obj) { return obj->name == name; });
     if (it != objects.end()) {
         (*it)->collisionRadius = radius;
         (*it)->collisionHeight = height;
@@ -468,8 +467,8 @@ void Scene::AddCampfire(const std::string& name, const glm::vec3& position, floa
     AddSmoke(smokePos, scale);
     glm::vec3 lightPos = position;
     lightPos.y += 0.5f * scale;
-    glm::vec3 lightColor = glm::vec3(1.0f, 0.5f, 0.1f);
-    float intensity = 1.0f * scale;
+    const glm::vec3 lightColor = glm::vec3(1.0f, 0.5f, 0.1f);
+    const float intensity = 1.0f * scale;
     AddLight(name + "_Light", lightPos, lightColor, intensity, 1);
 }
 
@@ -500,7 +499,7 @@ void Scene::Ignite(SceneObject* obj) {
     obj->currentTemp = obj->ignitionThreshold + 50.0f; // Jumpstart temp to keep it burning
 
     // Spawn initial particles immediately so we don't wait for the next frame
-    glm::vec3 pos = glm::vec3(obj->transform[3]);
+    const glm::vec3 pos = glm::vec3(obj->transform[3]);
     if (obj->fireEmitterId == -1) {
         obj->fireEmitterId = AddFire(pos, 0.1f);
     }
@@ -599,7 +598,7 @@ void Scene::SpawnDustCloud() {
     static std::mt19937 gen(rd());
     std::uniform_real_distribution<float> distAngle(0.0f, glm::two_pi<float>());
 
-    float angle = distAngle(gen);
+    const float angle = distAngle(gen);
     m_DustDirection = glm::vec3(cos(angle), 0.0f, sin(angle));
 
     ParticleProps dust = ParticleLibrary::GetDustStormProps();
@@ -633,8 +632,8 @@ glm::vec3 Scene::InitializeOrbit(OrbitData& data, const glm::vec3& center, float
     data.initialAngle = initialAngleRad;
     data.currentAngle = initialAngleRad;
 
-    const glm::quat rot = glm::angleAxis(data.initialAngle, data.axis);
-    const glm::vec3 offset = rot * glm::vec3(data.radius, 0.0f, 0.0f);
+    const glm::quat rotation = glm::angleAxis(data.initialAngle, data.axis);
+    const glm::vec3 offset = rotation * glm::vec3(data.radius, 0.0f, 0.0f);
     return data.center + offset;
 }
 
@@ -738,7 +737,7 @@ void Scene::Update(float deltaTime) {
     }
 
     if (m_DustActive) {
-        float speed = 15.0f; // Speed of the cloud
+        const float speed = 15.0f; // Speed of the cloud
         m_DustPosition += m_DustDirection * speed * deltaTime;
 
         // Update Emitter Position
@@ -766,7 +765,7 @@ void Scene::Update(float deltaTime) {
         m_PostRainFireSuppressionTimer -= deltaTime;
     }
 
-    
+
 
     // 1. Update Season Cycle
     m_SeasonTimer += deltaTime;
@@ -775,7 +774,7 @@ void Scene::Update(float deltaTime) {
     if (m_SeasonTimer >= m_SeasonDuration) {
         m_SeasonTimer = 0.0f;
         m_CurrentSeason = static_cast<Season>((static_cast<int>(m_CurrentSeason) + 1) % 4);
-		seasonChanged = true;
+        seasonChanged = true;
         //std::cout << "Season Changed to: " << GetSeasonName() << std::endl;
     }
 
@@ -792,7 +791,7 @@ void Scene::Update(float deltaTime) {
 
         // Check if we are currently clear (meaning the NEXT state would be rain)
         if (!m_IsPrecipitating) {
-            auto sunIt = std::find_if(m_SceneLights.begin(), m_SceneLights.end(),
+            const auto sunIt = std::find_if(m_SceneLights.begin(), m_SceneLights.end(),
                 [](const SceneLight& l) { return l.name == "Sun"; });
 
             if (sunIt != m_SceneLights.end()) {
@@ -818,7 +817,7 @@ void Scene::Update(float deltaTime) {
 
         // Randomize Duration
         // Use a static random generator or simple rand()
-        float randomVal = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+        const float randomVal = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
 
         if (m_IsPrecipitating) {
 
@@ -838,12 +837,12 @@ void Scene::Update(float deltaTime) {
     // 2. Calculate Weather
     float sunHeight = 0.0f;
     if (!m_SceneLights.empty()) {
-        float rawHeight = m_SceneLights[0].vulkanLight.position.y / 275.0f;
+        const float rawHeight = m_SceneLights[0].vulkanLight.position.y / 275.0f;
         sunHeight = std::clamp(rawHeight, -1.0f, 1.0f);
     }
 
     float seasonBaseTemp = 0.0f;
-    float dayNightVariation = m_DayNightDiff; // Use variable
+    const float dayNightVariation = m_DayNightDiff; // Use variable
     glm::vec3 targetSunColor = glm::vec3(1.0f);
 
     switch (m_CurrentSeason) {
@@ -875,7 +874,7 @@ void Scene::Update(float deltaTime) {
     }
 
     // 3. Sun Tint
-    auto sunIt = std::find_if(m_SceneLights.begin(), m_SceneLights.end(),
+    const auto sunIt = std::find_if(m_SceneLights.begin(), m_SceneLights.end(),
         [](const SceneLight& l) { return l.name == "Sun"; });
 
     if (sunIt != m_SceneLights.end()) {
@@ -885,8 +884,8 @@ void Scene::Update(float deltaTime) {
     // 4. Update Orbits
     auto CalculateNewPos = [&](OrbitData& data) -> glm::vec3 {
         data.currentAngle += data.speed * deltaTime;
-        glm::quat rotation = glm::angleAxis(data.currentAngle, data.axis);
-        glm::vec3 offset = rotation * glm::vec3(data.radius, 0.0f, 0.0f);
+        const glm::quat rotation = glm::angleAxis(data.currentAngle, data.axis);
+        const glm::vec3 offset = rotation * glm::vec3(data.radius, 0.0f, 0.0f);
         return data.center + offset;
         };
 
@@ -1004,6 +1003,22 @@ void Scene::SetObjectShadingMode(const std::string& name, int mode) {
     }
 }
 
+void Scene::StopObjectFire(SceneObject* obj) {
+    if (!obj) return;
+
+    if (obj->fireEmitterId != -1) {
+        GetOrCreateSystem(ParticleLibrary::GetFireProps())->StopEmitter(obj->fireEmitterId);
+        obj->fireEmitterId = -1;
+    }
+    if (obj->smokeEmitterId != -1) {
+        GetOrCreateSystem(ParticleLibrary::GetSmokeProps())->StopEmitter(obj->smokeEmitterId);
+        obj->smokeEmitterId = -1;
+    }
+    if (obj->fireLightIndex != -1 && obj->fireLightIndex < m_SceneLights.size()) {
+        m_SceneLights[obj->fireLightIndex].vulkanLight.intensity = 0.0f;
+    }
+}
+
 void Scene::UpdateThermodynamics(float deltaTime, float sunHeight) {
     static std::random_device rd;
     static std::mt19937 gen(rd());
@@ -1012,21 +1027,20 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunHeight) {
     // Debug Timer: Prints temp of the first procedural object once per second
     static float printTimer = 0.0f;
     printTimer += deltaTime;
-    bool shouldPrint = (printTimer > 1.0f);
+    const bool shouldPrint = (printTimer > 1.0f);
     if (shouldPrint) printTimer = 0.0f;
 
     for (auto& obj : objects) {
         if (!obj->isFlammable) continue;
 
-        // Use the object's unique thermal response
-        float responseSpeed = obj->thermalResponse;
-
-        // Lower threshold to guarantee ignition during "hot" moments
-        float effectiveIgnitionThreshold = 100.0f;
-
         switch (obj->state) {
         case ObjectState::NORMAL:
         case ObjectState::HEATING: {
+            // Use the object's unique thermal response
+            const float responseSpeed = obj->thermalResponse;
+            // Lower threshold to guarantee ignition during "hot" moments
+            const float effectiveIgnitionThreshold = 100.0f;
+
             float targetTemp = m_WeatherIntensity;
 
             // Massive Sun Bonus (+60C) if sun is high
@@ -1041,8 +1055,8 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunHeight) {
             }
 
             // STABLE MATH: Interpolate towards target
-            float changeRate = responseSpeed * deltaTime;
-            float lerpFactor = glm::clamp(changeRate, 0.0f, 1.0f);
+            const float changeRate = responseSpeed * deltaTime;
+            const float lerpFactor = glm::clamp(changeRate, 0.0f, 1.0f);
             obj->currentTemp = glm::mix(obj->currentTemp, targetTemp, lerpFactor);
 
             // Visual State Update
@@ -1057,17 +1071,17 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunHeight) {
             // -- Block Ignition ---
             // Only allow ignition if it is NOT precipitating
             if (!m_IsPrecipitating && m_PostRainFireSuppressionTimer <= 0.0f && obj->currentTemp >= effectiveIgnitionThreshold) {
-                float excessHeat = obj->currentTemp - effectiveIgnitionThreshold;
+                const float excessHeat = obj->currentTemp - effectiveIgnitionThreshold;
 
                 // High Chance: % base + 5% per degree of excess heat
-                float ignitionChancePerSecond = 0.05f + (excessHeat * 0.005f);
+                const float ignitionChancePerSecond = 0.05f + (excessHeat * 0.005f);
 
                 if (chance(gen) < (ignitionChancePerSecond * deltaTime)) {
                     obj->state = ObjectState::BURNING;
                     obj->burnTimer = 0.0f;
 
                     // Spawn Initial Particles
-                    glm::vec3 pos = glm::vec3(obj->transform[3]);
+                    const glm::vec3 pos = glm::vec3(obj->transform[3]);
                     obj->fireEmitterId = AddFire(pos, 0.1f);
                     obj->smokeEmitterId = AddSmoke(pos, 0.1f);
                 }
@@ -1078,20 +1092,7 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunHeight) {
         case ObjectState::BURNING: {
             // --- Extinguish Fire ---
             if (m_IsPrecipitating) {
-                // 1. Stop Particles
-                if (obj->fireEmitterId != -1) {
-                    GetOrCreateSystem(ParticleLibrary::GetFireProps())->StopEmitter(obj->fireEmitterId);
-                    obj->fireEmitterId = -1;
-                }
-                if (obj->smokeEmitterId != -1) {
-                    GetOrCreateSystem(ParticleLibrary::GetSmokeProps())->StopEmitter(obj->smokeEmitterId);
-                    obj->smokeEmitterId = -1;
-                }
-
-                // 2. Extinguish Light
-                if (obj->fireLightIndex != -1 && obj->fireLightIndex < m_SceneLights.size()) {
-                    m_SceneLights[obj->fireLightIndex].vulkanLight.intensity = 0.0f;
-                }
+                StopObjectFire(obj.get());
 
                 // 3. Reset State (Saved!)
                 obj->state = ObjectState::NORMAL;
@@ -1107,13 +1108,13 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunHeight) {
             obj->burnTimer += deltaTime;
 
             // Calculate Growth Factors
-            float growth = glm::clamp(obj->burnTimer / (obj->maxBurnDuration * 0.6f), 0.0f, 1.0f);
+            const float growth = glm::clamp(obj->burnTimer / (obj->maxBurnDuration * 0.6f), 0.0f, 1.0f);
             obj->burnFactor = glm::clamp(obj->burnTimer / obj->maxBurnDuration, 0.0f, 1.0f);
 
             // Fire Height Calculation
-            float maxFireHeight = 3.0f;
-            float currentFireHeight = 0.2f + (maxFireHeight - 0.2f) * growth;
-            glm::vec3 basePos = glm::vec3(obj->transform[3]);
+            const float maxFireHeight = 3.0f;
+            const float currentFireHeight = 0.2f + (maxFireHeight - 0.2f) * growth;
+            const glm::vec3 basePos = glm::vec3(obj->transform[3]);
 
             // Update Fire Particles
             if (obj->fireEmitterId != -1) {
@@ -1122,11 +1123,11 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunHeight) {
                 fireProps.position.y += currentFireHeight * 0.5f;
                 fireProps.positionVariation = glm::vec3(0.3f, currentFireHeight * 0.4f, 0.3f);
 
-                float particleScale = 1.0f + growth * 0.5f;
+                const float particleScale = 1.0f + growth * 0.5f;
                 fireProps.sizeBegin *= particleScale;
                 fireProps.sizeEnd *= particleScale;
 
-                float rate = 50.0f + (300.0f * growth);
+                const float rate = 50.0f + (300.0f * growth);
                 GetOrCreateSystem(fireProps)->UpdateEmitter(obj->fireEmitterId, fireProps, rate);
             }
 
@@ -1136,13 +1137,13 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunHeight) {
                 smokeProps.position = basePos;
                 smokeProps.position.y += currentFireHeight;
 
-                float smokeScale = 1.0f + growth * 2.0f;
+                const float smokeScale = 1.0f + growth * 2.0f;
                 smokeProps.sizeBegin *= smokeScale;
                 smokeProps.sizeEnd *= smokeScale;
                 smokeProps.lifeTime = 8.0f;
                 smokeProps.velocity.y = 3.0f;
 
-                float rate = 20.0f + (80.0f * growth);
+                const float rate = 20.0f + (80.0f * growth);
                 GetOrCreateSystem(smokeProps)->UpdateEmitter(obj->smokeEmitterId, smokeProps, rate);
             }
 
@@ -1155,9 +1156,9 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunHeight) {
             }
 
             if (obj->fireLightIndex != -1 && obj->fireLightIndex < m_SceneLights.size()) {
-                float t = obj->burnTimer;
-                float flicker = 1.0f + 0.3f * std::sin(t * 15.0f) + 0.15f * std::sin(t * 37.0f);
-                float targetIntensity = 50.05f * growth;
+                const float t = obj->burnTimer;
+                const float flicker = 1.0f + 0.3f * std::sin(t * 15.0f) + 0.15f * std::sin(t * 37.0f);
+                const float targetIntensity = 50.05f * growth;
                 m_SceneLights[obj->fireLightIndex].vulkanLight.position = lightPos;
                 m_SceneLights[obj->fireLightIndex].vulkanLight.intensity = targetIntensity * flicker;
             }
@@ -1209,8 +1210,8 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunHeight) {
         case ObjectState::BURNT:
         case ObjectState::REGROWING: {
             // Stable Cooling towards ambient
-            float changeRate = 0.5f * deltaTime;
-            float lerpFactor = glm::clamp(changeRate, 0.0f, 1.0f);
+            const float changeRate = 0.5f * deltaTime;
+            const float lerpFactor = glm::clamp(changeRate, 0.0f, 1.0f);
             obj->currentTemp = glm::mix(obj->currentTemp, m_WeatherIntensity, lerpFactor);
 
             // --- Dynamic Growth Logic ---
@@ -1245,12 +1246,12 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunHeight) {
             }
             else if (obj->state == ObjectState::REGROWING) {
                 // --- Gradual Growth takes 0.75 of a day ---
-                float growthTime = m_SeasonDuration * 0.75f;
+                const float growthTime = m_SeasonDuration * 0.75f;
 
                 float t = glm::clamp(obj->regrowTimer / growthTime, 0.0f, 1.0f);
                 t = t * t * (3.0f - 2.0f * t); // Smoothstep curve
 
-                float currentScale = glm::mix(0.003f, 1.0f, t);
+                const float currentScale = glm::mix(0.003f, 1.0f, t);
                 obj->transform = glm::scale(obj->storedOriginalTransform, glm::vec3(currentScale));
 
                 if (t >= 1.0f) {
@@ -1280,8 +1281,8 @@ void Scene::ResetEnvironment() {
         if (light.OrbitData.isOrbiting) {
             light.OrbitData.currentAngle = light.OrbitData.initialAngle;
             // Recalculate position immediately
-            glm::quat rotation = glm::angleAxis(light.OrbitData.currentAngle, light.OrbitData.axis);
-            glm::vec3 offset = rotation * glm::vec3(light.OrbitData.radius, 0.0f, 0.0f);
+            const glm::quat rotation = glm::angleAxis(light.OrbitData.currentAngle, light.OrbitData.axis);
+            const glm::vec3 offset = rotation * glm::vec3(light.OrbitData.radius, 0.0f, 0.0f);
             light.vulkanLight.position = light.OrbitData.center + offset;
         }
     }
@@ -1291,25 +1292,14 @@ void Scene::ResetEnvironment() {
         // A. Reset Orbit
         if (obj->OrbitData.isOrbiting) {
             obj->OrbitData.currentAngle = obj->OrbitData.initialAngle;
-            glm::quat rotation = glm::angleAxis(obj->OrbitData.currentAngle, obj->OrbitData.axis);
-            glm::vec3 offset = rotation * glm::vec3(obj->OrbitData.radius, 0.0f, 0.0f);
+            const glm::quat rotation = glm::angleAxis(obj->OrbitData.currentAngle, obj->OrbitData.axis);
+            const glm::vec3 offset = rotation * glm::vec3(obj->OrbitData.radius, 0.0f, 0.0f);
             obj->transform[3] = glm::vec4(obj->OrbitData.center + offset, 1.0f);
         }
 
         // B. Reset Thermodynamics / Visual State
         if (obj->isFlammable) {
-            // Stop any active particles
-            if (obj->fireEmitterId != -1) {
-                GetOrCreateSystem(ParticleLibrary::GetFireProps())->StopEmitter(obj->fireEmitterId);
-                obj->fireEmitterId = -1;
-            }
-            if (obj->smokeEmitterId != -1) {
-                GetOrCreateSystem(ParticleLibrary::GetSmokeProps())->StopEmitter(obj->smokeEmitterId);
-                obj->smokeEmitterId = -1;
-            }
-            if (obj->fireLightIndex != -1 && obj->fireLightIndex < m_SceneLights.size()) {
-                m_SceneLights[obj->fireLightIndex].vulkanLight.intensity = 0.0f;
-            }
+            StopObjectFire(obj.get());
 
             // Restore Geometry if it was swapped (Burnt state)
             if (obj->storedOriginalGeometry) {

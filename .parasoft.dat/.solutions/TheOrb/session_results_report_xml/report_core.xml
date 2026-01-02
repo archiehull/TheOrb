@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<ResultsSession buildId="Default Project-2026-01-02" date="01/02/26 15:22:07" endTime="1970-01-01T00:00:00+00:00" machine="DESKTOP-GBA7TGV" project="Default Project" tag="700120 rule set 2024" time="2026-01-02T15:22:07+00:00" toolName="C++test" toolVer="2025.1.0.20250523B2782" user="a">
+<ResultsSession buildId="Default Project-2026-01-02" date="01/02/26 16:24:53" endTime="1970-01-01T00:00:00+00:00" machine="DESKTOP-GBA7TGV" project="Default Project" tag="700120 rule set 2024" time="2026-01-02T16:24:53+00:00" toolName="C++test" toolVer="2025.1.0.20250523B2782" user="a">
    <TestParameters cmdLn="C++test: -config c++test.user://700120 rule set 2024 "/>
    <TestConfig machine="DESKTOP-GBA7TGV" name="700120 rule set 2024" pseudoUrl="c++test.user://700120 rule set 2024" user="a"/>
    <Authors>
@@ -20,12 +20,12 @@
    <mergePnt id="executedTestsDetails"/>
    <Scope>
       <ProjectInformations>
-         <ScopeProjectInfo fltFiles="58" fltLns="8164" project="TheOrb/TheOrb" totFiles="58" totLns="8164"/>
+         <ScopeProjectInfo fltFiles="58" fltLns="8190" project="TheOrb/TheOrb" totFiles="58" totLns="8190"/>
       </ProjectInformations>
    </Scope>
-   <CodingStandards ownerId="com.parasoft.xtest.checkers.api.standards" time="0:00:33">
+   <CodingStandards ownerId="com.parasoft.xtest.checkers.api.standards" time="0:00:45">
       <Projects>
-         <Project bdCheckedFiles="0" bdTotalFiles="0" checkedFiles="58" checkedLns="8164" name="TheOrb" qfixErrs="0" suppErrs="0" totErrs="180" totFiles="58" totLns="8164"/>
+         <Project bdCheckedFiles="0" bdTotalFiles="0" checkedFiles="58" checkedLns="8190" name="TheOrb" qfixErrs="0" suppErrs="0" totErrs="183" totFiles="58" totLns="8190"/>
       </Projects>
       <Rules>
          <RulesList>
@@ -144,7 +144,7 @@
                <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="CODSTA-CPP" desc="Declare local variable as const whenever possible" id="CODSTA-CPP-53" sev="3">
-               <Stats authTot="88;" total="88"/>
+               <Stats authTot="87;" total="87"/>
             </Rule>
             <Rule cat="CODSTA-CPP" desc="Member functions shall be declared const whenever possible" id="CODSTA-CPP-54" sev="3">
                <Stats authTot="1;" total="1"/>
@@ -237,7 +237,7 @@
                <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="INIT" desc="Prefer initialization to assignment in constructors" id="INIT-14" sev="5">
-               <Stats authTot="2;" total="2"/>
+               <Stats authTot="6;" total="6"/>
             </Rule>
             <Rule cat="MISRA" desc="All automatic variables shall have been assigned a value before being used" id="MISRA-030" sev="3">
                <Stats authTot="0;" total="0"/>
@@ -579,7 +579,7 @@
                   <Category desc="UNKNOWN" name="CODSTA-CPP-06" total="1">
                      <Stats authTot="16;" total="16"/>
                   </Category>
-                  <Stats authTot="89;" total="89"/>
+                  <Stats authTot="88;" total="88"/>
                </Category>
                <Category desc="Coding Conventions for Modern C++" name="CODSTA-MCPP" total="82">
                   <Stats authTot="1;" total="1"/>
@@ -590,7 +590,7 @@
                <Stats authTot="0;" total="0"/>
             </Category>
             <Category desc="Initialization" name="INIT" total="25">
-               <Stats authTot="3;" total="3"/>
+               <Stats authTot="7;" total="7"/>
             </Category>
             <Category desc="MISRA C 1998" name="MISRA" total="62">
                <Stats authTot="0;" total="0"/>
@@ -643,13 +643,13 @@
          </CategoriesList>
          <SeverityList>
             <Severity id="3">
-               <Stats authTot="99;" total="99"/>
+               <Stats authTot="98;" total="98"/>
             </Severity>
             <Severity id="4">
                <Stats authTot="6;" total="6"/>
             </Severity>
             <Severity id="5">
-               <Stats authTot="75;" total="75"/>
+               <Stats authTot="79;" total="79"/>
             </Severity>
          </SeverityList>
       </Rules>
