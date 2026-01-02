@@ -30,16 +30,6 @@
 <L>0
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\core\Config.h
-<c>CODSTA-MCPP-23
-<b>Class 'ConfigLoader' should be final
-<l>64
-<k>7
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Config.h
 <c>OPT-33
 <b>Returned value from function 'Load' is passed by value
 <l>66

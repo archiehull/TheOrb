@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<ResultsSession buildId="Default Project-2026-01-02" date="01/02/26 16:24:53" endTime="1970-01-01T00:00:00+00:00" machine="DESKTOP-GBA7TGV" project="Default Project" tag="700120 rule set 2024" time="2026-01-02T16:24:53+00:00" toolName="C++test" toolVer="2025.1.0.20250523B2782" user="a">
+<ResultsSession buildId="Default Project-2026-01-02" date="01/02/26 16:51:41" endTime="1970-01-01T00:00:00+00:00" machine="DESKTOP-GBA7TGV" project="Default Project" tag="700120 rule set 2024" time="2026-01-02T16:51:41+00:00" toolName="C++test" toolVer="2025.1.0.20250523B2782" user="a">
    <TestParameters cmdLn="C++test: -config c++test.user://700120 rule set 2024 "/>
    <TestConfig machine="DESKTOP-GBA7TGV" name="700120 rule set 2024" pseudoUrl="c++test.user://700120 rule set 2024" user="a"/>
    <Authors>
@@ -20,12 +20,12 @@
    <mergePnt id="executedTestsDetails"/>
    <Scope>
       <ProjectInformations>
-         <ScopeProjectInfo fltFiles="58" fltLns="8190" project="TheOrb/TheOrb" totFiles="58" totLns="8190"/>
+         <ScopeProjectInfo fltFiles="58" fltLns="8187" project="TheOrb/TheOrb" totFiles="58" totLns="8187"/>
       </ProjectInformations>
    </Scope>
-   <CodingStandards ownerId="com.parasoft.xtest.checkers.api.standards" time="0:00:45">
+   <CodingStandards ownerId="com.parasoft.xtest.checkers.api.standards" time="0:00:35">
       <Projects>
-         <Project bdCheckedFiles="0" bdTotalFiles="0" checkedFiles="58" checkedLns="8190" name="TheOrb" qfixErrs="0" suppErrs="0" totErrs="183" totFiles="58" totLns="8190"/>
+         <Project bdCheckedFiles="0" bdTotalFiles="0" checkedFiles="58" checkedLns="8187" name="TheOrb" qfixErrs="0" suppErrs="0" totErrs="85" totFiles="58" totLns="8187"/>
       </Projects>
       <Rules>
          <RulesList>
@@ -33,13 +33,13 @@
                <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="CDD" desc="Avoid code duplication" id="CDD-DUPC" sev="3">
-               <Stats authTot="1;" total="1"/>
+               <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="CDD" desc="Avoid duplication of #include directives" id="CDD-DUPI" sev="3">
                <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="CDD" desc="Avoid string literal duplication" id="CDD-DUPS" sev="3">
-               <Stats authTot="1;" total="1"/>
+               <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="CODSTA" desc="Local variables should not use the same names as member variables" id="CODSTA-44" sev="1">
                <Stats authTot="0;" total="0"/>
@@ -144,10 +144,10 @@
                <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="CODSTA-CPP" desc="Declare local variable as const whenever possible" id="CODSTA-CPP-53" sev="3">
-               <Stats authTot="87;" total="87"/>
+               <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="CODSTA-CPP" desc="Member functions shall be declared const whenever possible" id="CODSTA-CPP-54" sev="3">
-               <Stats authTot="1;" total="1"/>
+               <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="CODSTA-CPP" desc="Literal zero (0) shall not be used as the null-pointer-constant" id="CODSTA-CPP-63" sev="3">
                <Stats authTot="0;" total="0"/>
@@ -195,7 +195,7 @@
                <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="CODSTA-MCPP" desc="If a public destructor of a class is non-virtual, then the class should be declared final" id="CODSTA-MCPP-23" sev="3">
-               <Stats authTot="1;" total="1"/>
+               <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="CODSTA-MCPP" desc="Consider using 'std::unique_ptr' instead of 'std::shared_ptr' for local objects" id="CODSTA-MCPP-30" sev="3">
                <Stats authTot="0;" total="0"/>
@@ -228,7 +228,7 @@
                <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="INIT" desc="List members in an initialization list in the order in which they are declared" id="INIT-10" sev="3">
-               <Stats authTot="1;" total="1"/>
+               <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="INIT" desc="Avoid initialization order problems across translation units by replacing non-local static objects with local static objects" id="INIT-12" sev="3">
                <Stats authTot="0;" total="0"/>
@@ -465,7 +465,7 @@
                <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="OPT" desc="Declare variables as locally as possible" id="OPT-01" sev="3">
-               <Stats authTot="6;" total="6"/>
+               <Stats authTot="0;" total="0"/>
             </Rule>
             <Rule cat="OPT" desc="Prefer &quot;a @= b&quot; than &quot;a = a @ b&quot;, where &quot;@&quot; is +, -, *, /, %" id="OPT-07" sev="3">
                <Stats authTot="0;" total="0"/>
@@ -572,17 +572,17 @@
          </RulesList>
          <CategoriesList>
             <Category desc="Code Duplication Detection" name="CDD" total="4">
-               <Stats authTot="2;" total="2"/>
+               <Stats authTot="0;" total="0"/>
             </Category>
             <Category desc="Coding Conventions" name="CODSTA" total="570">
                <Category desc="Coding Conventions for C++" name="CODSTA-CPP" total="136">
                   <Category desc="UNKNOWN" name="CODSTA-CPP-06" total="1">
                      <Stats authTot="16;" total="16"/>
                   </Category>
-                  <Stats authTot="88;" total="88"/>
+                  <Stats authTot="0;" total="0"/>
                </Category>
                <Category desc="Coding Conventions for Modern C++" name="CODSTA-MCPP" total="82">
-                  <Stats authTot="1;" total="1"/>
+                  <Stats authTot="0;" total="0"/>
                </Category>
                <Stats authTot="0;" total="0"/>
             </Category>
@@ -590,7 +590,7 @@
                <Stats authTot="0;" total="0"/>
             </Category>
             <Category desc="Initialization" name="INIT" total="25">
-               <Stats authTot="7;" total="7"/>
+               <Stats authTot="6;" total="6"/>
             </Category>
             <Category desc="MISRA C 1998" name="MISRA" total="62">
                <Stats authTot="0;" total="0"/>
@@ -617,7 +617,7 @@
                <Category desc="UNKNOWN" name="OPT-13" total="1">
                   <Stats authTot="22;" total="22"/>
                </Category>
-               <Stats authTot="46;" total="46"/>
+               <Stats authTot="40;" total="40"/>
             </Category>
             <Category desc="Possible Bugs" name="PB" total="90">
                <Stats authTot="0;" total="0"/>
@@ -642,9 +642,6 @@
             </Category>
          </CategoriesList>
          <SeverityList>
-            <Severity id="3">
-               <Stats authTot="98;" total="98"/>
-            </Severity>
             <Severity id="4">
                <Stats authTot="6;" total="6"/>
             </Severity>

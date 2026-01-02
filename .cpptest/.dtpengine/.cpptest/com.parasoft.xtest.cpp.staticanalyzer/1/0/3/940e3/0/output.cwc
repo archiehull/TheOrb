@@ -1,15 +1,5 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'it' as const
-<l>140
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.cpp
 <c>OPT-33
 <b>Returned value from function 'GetBindingDescriptions' is passed by value
 <l>268

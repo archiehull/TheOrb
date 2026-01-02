@@ -77,7 +77,7 @@ void CameraController::SwitchCamera(CameraType type, const Scene& scene) {
     }
     else if (type == CameraType::FREE_ROAM) {
         // Reset to new default position
-        auto* cam = cameras[CameraType::FREE_ROAM].get();
+        auto* const cam = cameras[CameraType::FREE_ROAM].get();
         cam->SetPosition(glm::vec3(85.0f, -65.0f, 35.0f));
         cam->SetTarget(glm::vec3(0.0f, -75.0f, 10.0f));
 		std::cout << "Switched to Free Roam Camera." << std::endl;
@@ -131,8 +131,8 @@ void CameraController::UpdateOrbitCamera(float deltaTime, const Scene& scene) {
     if (activeCameraType == CameraType::OUTSIDE_ORB) {
         // Prevent going below pedestal: Pitch clamped to [5, 89]
         // Prevent too close to orb: Radius clamped to [300, 800]
-        OrbitPitch = std::clamp(OrbitPitch, 5.0f, 60.0f);
-        OrbitRadius = std::clamp(OrbitRadius, 250.0f, 800.0f);
+        OrbitPitch = std::clamp(OrbitPitch, 5.0f, 70.0f);
+        OrbitRadius = std::clamp(OrbitRadius, 300.0f, 800.0f);
     }
     else {
         // CACTI mode defaults
@@ -151,8 +151,8 @@ void CameraController::UpdateOrbitCamera(float deltaTime, const Scene& scene) {
         targetPos = glm::vec3(0.0f, 0.0f, 0.0f);
     }
 
-    float radYaw = glm::radians(OrbitYaw);
-    float radPitch = glm::radians(OrbitPitch);
+    const float radYaw = glm::radians(OrbitYaw);
+    const float radPitch = glm::radians(OrbitPitch);
 
     glm::vec3 offset;
     offset.x = OrbitRadius * cos(radPitch) * sin(radYaw);
@@ -160,7 +160,7 @@ void CameraController::UpdateOrbitCamera(float deltaTime, const Scene& scene) {
     offset.z = OrbitRadius * cos(radPitch) * cos(radYaw);
 
     glm::vec3 newPos = targetPos + offset;
-    glm::vec3 oldPos = activeCamera->GetPosition();
+    const glm::vec3 oldPos = activeCamera->GetPosition();
 
     // Only clamp against terrain if necessary (mostly for free roam, but safe to keep)
     ClampCameraPosition(newPos, scene, oldPos);
@@ -195,7 +195,7 @@ void CameraController::UpdateFreeRoamCamera(float deltaTime, const Scene& scene)
     const float moveDelta = deltaTime * shiftMultiplier;
     const float rotateDelta = deltaTime * shiftMultiplier;
 
-    glm::vec3 oldPos = activeCamera->GetPosition();
+    const glm::vec3 oldPos = activeCamera->GetPosition();
 
     if (moveForward)  activeCamera->MoveForward(moveDelta);
     if (moveBackward) activeCamera->MoveBackward(moveDelta);
@@ -233,26 +233,26 @@ void CameraController::OnKeyPress(int key, bool pressed) {
     if (key == GLFW_KEY_LEFT_SHIFT || key == GLFW_KEY_RIGHT_SHIFT) keyShift = pressed;
 }
 
-void CameraController::ClampCameraPosition(glm::vec3& pos, const Scene& scene, const glm::vec3& prevPos) {
+void CameraController::ClampCameraPosition(glm::vec3& pos, const Scene& scene, const glm::vec3& prevPos) const {
     const float COLLISION_BUFFER = 1.7f;
 
     const auto& terrain = scene.GetTerrainConfig();
     if (terrain.exists) {
-        float localX = pos.x - terrain.position.x;
-        float localZ = pos.z - terrain.position.z;
-        float distFromCenter = glm::length(glm::vec2(localX, localZ));
-
-        float rawNoiseHeight = GeometryGenerator::GetTerrainHeight(
-            localX, localZ,
-            terrain.radius,
-            terrain.heightScale,
-            terrain.noiseFreq
-        );
-
-        float worldFloorY = rawNoiseHeight + terrain.position.y;
-        float clampHeight = worldFloorY + COLLISION_BUFFER;
+        const float localX = pos.x - terrain.position.x;
+        const float localZ = pos.z - terrain.position.z;
+        const float distFromCenter = glm::length(glm::vec2(localX, localZ));
 
         if (distFromCenter < terrain.radius) {
+            const float rawNoiseHeight = GeometryGenerator::GetTerrainHeight(
+                localX, localZ,
+                terrain.radius,
+                terrain.heightScale,
+                terrain.noiseFreq
+            );
+
+            const float worldFloorY = rawNoiseHeight + terrain.position.y;
+            const float clampHeight = worldFloorY + COLLISION_BUFFER;
+
             if (pos.y < clampHeight) {
                 pos.y = clampHeight;
             }
@@ -262,18 +262,20 @@ void CameraController::ClampCameraPosition(glm::vec3& pos, const Scene& scene, c
     for (const auto& obj : scene.GetObjects()) {
         if (!obj->hasCollision) continue;
 
-        glm::vec3 objPos = glm::vec3(obj->transform[3]);
-        float objTop = objPos.y + obj->collisionHeight;
-        float bufferedTop = objTop + COLLISION_BUFFER;
+        const glm::vec3 objPos = glm::vec3(obj->transform[3]);
+        const float objTop = objPos.y + obj->collisionHeight;
 
-        float distXZ = glm::distance(glm::vec2(pos.x, pos.z), glm::vec2(objPos.x, objPos.z));
-        float minSeparation = obj->collisionRadius + COLLISION_BUFFER;
+        const float distXZ = glm::distance(glm::vec2(pos.x, pos.z), glm::vec2(objPos.x, objPos.z));
+        const float minSeparation = obj->collisionRadius + COLLISION_BUFFER;
 
         if (distXZ < minSeparation) {
-            bool isInsideVertical = (pos.y > objPos.y) && (pos.y < bufferedTop);
-            bool wasAbove = (prevPos.y >= bufferedTop);
+            // Move bufferedTop inside for local optimization (OPT.01)
+            const float bufferedTop = objTop + COLLISION_BUFFER;
+            const bool isInsideVertical = (pos.y > objPos.y) && (pos.y < bufferedTop);
 
             if (isInsideVertical) {
+                // Move wasAbove inside for local optimization (OPT.01)
+                const bool wasAbove = (prevPos.y >= bufferedTop);
                 if (wasAbove) {
                     pos.y = bufferedTop;
                 }
@@ -282,7 +284,7 @@ void CameraController::ClampCameraPosition(glm::vec3& pos, const Scene& scene, c
                     if (glm::length(dir) < 0.001f) dir = glm::vec2(1.0f, 0.0f);
                     else dir = glm::normalize(dir);
 
-                    glm::vec2 corrected = glm::vec2(objPos.x, objPos.z) + dir * minSeparation;
+                    const glm::vec2 corrected = glm::vec2(objPos.x, objPos.z) + dir * minSeparation;
                     pos.x = corrected.x;
                     pos.z = corrected.y;
                 }

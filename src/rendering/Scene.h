@@ -112,7 +112,7 @@ struct SceneObject {
     float collisionHeight = 5.0f;   // Approximate height (Cylinder height)
 
     explicit SceneObject(std::shared_ptr<Geometry> geo, const std::string& texPath = "", const std::string& objName = "")
-        : name(objName), geometry(std::move(geo)), texturePath(texPath), originalTexturePath(texPath) {
+        : name(objName), geometry(std::move(geo)), originalTexturePath(texPath), texturePath(texPath) {
     }
 };
 

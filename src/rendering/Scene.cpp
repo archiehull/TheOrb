@@ -606,7 +606,7 @@ void Scene::SpawnDustCloud() {
     // We only need to override position/movement, not visuals!
     dust.position = m_DustPosition;
 
-    auto* sys = GetOrCreateSystem(dust);
+    auto* const sys = GetOrCreateSystem(dust);
     sys->SetSimulationBounds(glm::vec3(0.0f), 200.0f);
     m_DustEmitterId = sys->AddEmitter(dust, 750.0f);
 }

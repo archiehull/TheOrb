@@ -33,17 +33,19 @@ void Application::Run() {
  [E] / [PageUp]    Move Up
  [Shift]           Sprint
 
- [Y]               Toggle Shading (Phong / Gouraud)
- [U]               Toggle Weather
- [I]               Next Season
- [O]               Toggle Shadows (Simple / Advanced)
- [P]               Spawn Dust Cloud
-
  [R]               Reset Environment
 
  [T]               Speed Up Time
  [T] + [Shift]     Slow Down Time
  [T] + [Ctrl]      Normal Time
+
+ [Y]               Toggle Shading (Phong / Gouraud)
+ [U]               Toggle Shadows (Simple / Advanced)
+ [I]               Next Season
+ [O]               Toggle Weather
+ [P]               Spawn Dust Cloud
+
+
  [Esc]             Exit Application
 --------------------------------------------------
 )";
@@ -105,6 +107,8 @@ void Application::InitVulkan() {
 
 static const char* SUN_NAME = "Sun";
 static const char* MOON_NAME = "Moon";
+static const char* FOGSHELL_NAME = "FogShell";
+
 
 void Application::SetupScene() {
     const float dayDuration = config.seasons.durationSeconds;
@@ -193,11 +197,11 @@ void Application::SetupScene() {
     scene->SetObjectCastsShadow("CrystalBall", false);
     scene->SetObjectCollision("CrystalBall", false);
 
-    scene->AddSphere("FogShell", 32, 64, orbRadius + 1, glm::vec3(0.0f, 0.0f, 0.0f), "");
-    scene->SetObjectShadingMode("FogShell", 4);
-    scene->SetObjectCastsShadow("FogShell", false);
-    scene->SetObjectLayerMask("FogShell", 0x1 | 0x2);
-    scene->SetObjectCollision("FogShell", false);
+    scene->AddSphere(FOGSHELL_NAME, 32, 64, orbRadius + 1, glm::vec3(0.0f, 0.0f, 0.0f), "");
+    scene->SetObjectShadingMode(FOGSHELL_NAME, 4);
+    scene->SetObjectCastsShadow(FOGSHELL_NAME, false);
+    scene->SetObjectLayerMask(FOGSHELL_NAME, 0x1 | 0x2);
+    scene->SetObjectCollision(FOGSHELL_NAME, false);
 
     //scene->AddSnow();
     //scene->AddRain();
@@ -281,14 +285,14 @@ void Application::ProcessInput() {
         glfwSetWindowShouldClose(window->GetGLFWWindow(), true);
     }
 
-    const float scaleChangeRate = 2.0f;
-
-    bool shiftPressed = glfwGetKey(window->GetGLFWWindow(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS ||
+    const bool shiftPressed = glfwGetKey(window->GetGLFWWindow(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS ||
         glfwGetKey(window->GetGLFWWindow(), GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS;
-    bool ctrlPressed = glfwGetKey(window->GetGLFWWindow(), GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS ||
+    const bool ctrlPressed = glfwGetKey(window->GetGLFWWindow(), GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS ||
         glfwGetKey(window->GetGLFWWindow(), GLFW_KEY_RIGHT_CONTROL) == GLFW_PRESS;
 
     if (glfwGetKey(window->GetGLFWWindow(), GLFW_KEY_T) == GLFW_PRESS) {
+        const float scaleChangeRate = 2.0f;
+
         if (ctrlPressed) {
             timeScale = 1.0f;
         }
@@ -333,7 +337,7 @@ void Application::KeyCallback(GLFWwindow* glfwWindow, int key, int scancode, int
             }
 
             // 2. Get and Ignite the target
-            SceneObject* target = app->cameraController->GetOrbitTarget();
+            SceneObject* const target = app->cameraController->GetOrbitTarget();
             if (target) {
                 app->scene->Ignite(target);
             }
@@ -345,7 +349,7 @@ void Application::KeyCallback(GLFWwindow* glfwWindow, int key, int scancode, int
             app->scene->ToggleGlobalShadingMode();
         }
         else if (key == GLFW_KEY_U) {
-            app->scene->ToggleWeather();
+            app->scene->ToggleSimpleShadows();
         }
         else if (key == GLFW_KEY_I) {
             app->scene->NextSeason();
@@ -354,7 +358,7 @@ void Application::KeyCallback(GLFWwindow* glfwWindow, int key, int scancode, int
             app->scene->SpawnDustCloud();
         }
         else if (key == GLFW_KEY_O) {
-            app->scene->ToggleSimpleShadows();
+            app->scene->ToggleWeather();
         }
 
         app->cameraController->OnKeyPress(key, true);

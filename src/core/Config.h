@@ -61,7 +61,7 @@ struct AppConfig {
     std::vector<StaticObjectConfig> staticObjects;
 };
 
-class ConfigLoader {
+class ConfigLoader final {
 public:
     static AppConfig Load(const std::string& filepath);
 };

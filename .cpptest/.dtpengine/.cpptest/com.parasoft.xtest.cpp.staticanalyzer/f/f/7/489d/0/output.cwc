@@ -1,55 +1,5 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'angle' as const
-<l>110
-<k>15
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'x' as const
-<l>111
-<k>15
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'z' as const
-<l>112
-<k>15
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'u' as const
-<l>113
-<k>15
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'v' as const
-<l>114
-<k>15
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.cpp
 <c>OPT-33
 <b>Returned value from function 'CreateDisk' is passed by value
 <l>100

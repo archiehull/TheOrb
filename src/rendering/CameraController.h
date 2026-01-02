@@ -54,5 +54,5 @@ private:
     void SetupCameras();
     void UpdateFreeRoamCamera(float deltaTime, const Scene& scene);
     void UpdateOrbitCamera(float deltaTime, const Scene& scene);
-    void ClampCameraPosition(glm::vec3& position, const Scene& scene, const glm::vec3& previousPosition);
+    void ClampCameraPosition(glm::vec3& position, const Scene& scene, const glm::vec3& previousPosition) const;
 };

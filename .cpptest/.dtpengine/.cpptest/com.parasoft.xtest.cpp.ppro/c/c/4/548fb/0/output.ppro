@@ -192663,15 +192663,6 @@ H 146 C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
 K o
 I VK_NULL_HANDLE
 F 146
-L 281
-S 281
-f 4
-l 43
-EOR
-
-K o
-I VK_NULL_HANDLE
-F 146
 L 282
 S 282
 f 4
@@ -192681,8 +192672,17 @@ EOR
 K o
 I VK_NULL_HANDLE
 F 146
-L 285
-S 285
+L 283
+S 283
+f 4
+l 43
+EOR
+
+K o
+I VK_NULL_HANDLE
+F 146
+L 286
+S 286
 f 4
 l 43
 EOR
@@ -228924,8 +228924,8 @@ H 209 C:\Users\a\Desktop\TheOrb\src\rendering\Scene.cpp
 K o
 I RAND_MAX
 F 209
-L 821
-S 821
+L 820
+S 820
 f 25
 l 348
 EOR

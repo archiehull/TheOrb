@@ -137,7 +137,7 @@ void ParticleSystem::StopEmitter(int emitterId) {
 }
 
 void ParticleSystem::UpdateEmitter(int emitterId, const ParticleProps& props, float particlesPerSecond) {
-    auto it = std::find_if(emitters.begin(), emitters.end(),
+    const auto it = std::find_if(emitters.begin(), emitters.end(),
         [emitterId](const ParticleEmitter& e) { return e.id == emitterId; });
 
     if (it != emitters.end()) {

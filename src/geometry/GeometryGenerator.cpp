@@ -107,11 +107,11 @@ std::unique_ptr<Geometry> GeometryGenerator::CreateDisk(VkDevice device, VkPhysi
 
     // Rim
     for (int i = 0; i <= slices; ++i) {
-        float angle = (static_cast<float>(i) / slices) * 2.0f * PI;
-        float x = radius * cos(angle);
-        float z = radius * sin(angle);
-        float u = 0.5f + 0.5f * cos(angle);
-        float v = 0.5f + 0.5f * sin(angle);
+        const float angle = (static_cast<float>(i) / slices) * 2.0f * PI;
+        const float x = radius * cos(angle);
+        const float z = radius * sin(angle);
+        const float u = 0.5f + 0.5f * cos(angle);
+        const float v = 0.5f + 0.5f * sin(angle);
         geometry->AddVertex({ glm::vec3(x, 0.0f, z), glm::vec3(1.0f), glm::vec2(u, v), glm::vec3(0.0f, 1.0f, 0.0f) });
     }
 

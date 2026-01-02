@@ -12,7 +12,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>OPT-02
 <b>Local variable 'baseOrbitSpeed' declared but not used
-<l>111
+<l>115
 <k>17
 <s>false
 <N>
@@ -22,48 +22,8 @@
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>OPT-02
 <b>Local variable 'OrbitRadius' declared but not used
-<l>121
+<l>125
 <k>17
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'shiftPressed' as const
-<l>286
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'ctrlPressed' as const
-<l>288
-<k>10
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
-<c>OPT-01
-<b>Variable "scaleChangeRate" should be declared as locally as possible
-<l>284
-<k>17
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
-<c>CODSTA-CPP-53
-<b>Declare local variable 'target' as const
-<l>336
-<k>26
 <s>false
 <N>
 <f>
@@ -92,7 +52,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>OPT-02
 <b>Local variable 'baseOrbitSpeed' declared but not used
-<l>111
+<l>115
 <k>17
 <s>false
 <N>
@@ -102,17 +62,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
 <c>OPT-02
 <b>Local variable 'OrbitRadius' declared but not used
-<l>121
-<k>17
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Application.cpp
-<c>OPT-01
-<b>Variable "scaleChangeRate" should be declared as locally as possible
-<l>284
+<l>125
 <k>17
 <s>false
 <N>
@@ -294,16 +244,6 @@
 <b>Members 'OrbitData, originalTexturePath, texturePath' of structure 'SceneObject' are declared in suboptimal order for memory layout
 <l>64
 <k>8
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
-<c>INIT-10
-<b>List members in an initialization list should be in the order in which they are declared ['name', 'geometry', 'originalTexturePath', 'texturePath']
-<l>114
-<k>14
 <s>false
 <N>
 <f>
@@ -654,16 +594,6 @@
 <b>Members 'moonOrbit, proceduralPlants, seasons, staticObjects, sunOrbit' of structure 'AppConfig' are declared in suboptimal order for memory layout
 <l>41
 <k>8
-<s>false
-<N>
-<f>
-<L>0
-<->
-<F>C:\Users\a\Desktop\TheOrb\src\core\Config.h
-<c>CODSTA-MCPP-23
-<b>Class 'ConfigLoader' should be final
-<l>64
-<k>7
 <s>false
 <N>
 <f>
