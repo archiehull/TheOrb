@@ -1,0 +1,520 @@
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\UniformBufferObject.h
+<c>STL-37-DOWNGRADED
+<b>The 'lights' array should not be used
+<l>23
+<k>23
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Renderer.h
+<c>OPT-13
+<b>Members 'commandBuffer, defaultTextureResource, descriptorSet, graphicsPipeline, m_uniformBuffersMapped, particlePipelineAdditive, particlePipelineAlpha, renderPass, shadowPass, skyboxPass, syncObjects, texture, textureCache, uniformBuffers, uniformBuffersMapped' of class 'Renderer' are declared in suboptimal order for memory layout
+<l>24
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\SkyboxPass.h
+<c>OPT-13
+<b>Members 'cubemap, pipeline' of class 'SkyboxPass' are declared in suboptimal order for memory layout
+<l>11
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\SkyboxPass.h
+<c>OPT-33
+<b>Returned value from function 'GetSkyboxFaces' is passed by value
+<l>37
+<k>30
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\GraphicsPipeline.h
+<c>OPT-13
+<b>Members 'extent' of structure 'GraphicsPipelineConfig' are declared in suboptimal order for memory layout
+<l>10
+<k>8
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>OPT-13
+<b>Members 'axis, center' of structure 'OrbitData' are declared in suboptimal order for memory layout
+<l>12
+<k>8
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>OPT-13
+<b>Members 'position' of structure 'TerrainConfig' are declared in suboptimal order for memory layout
+<l>56
+<k>8
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>OPT-13
+<b>Members 'OrbitData, originalTexturePath, texturePath' of structure 'SceneObject' are declared in suboptimal order for memory layout
+<l>64
+<k>8
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>INIT-10
+<b>List members in an initialization list should be in the order in which they are declared ['name', 'geometry', 'originalTexturePath', 'texturePath']
+<l>114
+<k>14
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>OPT-13
+<b>Members 'baseRotation, maxScale, minScale' of structure 'ProceduralObjectConfig' are declared in suboptimal order for memory layout
+<l>119
+<k>8
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>OPT-13
+<b>Members 'commandPool, device, graphicsQueue, particleDescriptorLayout, particlePipelineAdditive, particlePipelineAlpha, physicalDevice' of class 'Scene' are declared in suboptimal order for memory layout
+<l>129
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>OPT-13
+<b>Members 'dustGeometryPrototype, m_DustDirection, m_DustPosition, m_SceneLights, m_TerrainConfig, objects, particleSystems, proceduralRegistry, sootTexturePath' of class 'Scene' are declared in suboptimal order for memory layout
+<l>129
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetTerrainConfig' returns handles to member data: 'm_TerrainConfig'
+<l>163
+<k>53
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetParticleSystems' returns handles to member data: 'particleSystems'
+<l>189
+<k>86
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>OPT-33
+<b>Returned value from function 'GetLights' is passed by value
+<l>201
+<k>24
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Scene.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetObjects' returns handles to member data: 'objects'
+<l>205
+<k>75
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>OPT-13
+<b>Members 'indexBuffer, vertexBuffer' of class 'Geometry' are declared in suboptimal order for memory layout
+<l>10
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetVertices' returns handles to member data: 'vertices'
+<l>29
+<k>54
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\Geometry.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetIndices' returns handles to member data: 'indices'
+<l>30
+<k>55
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>OPT-33
+<b>Returned value from function 'CreateCube' is passed by value
+<l>18
+<k>38
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>OPT-33
+<b>Returned value from function 'CreateGrid' is passed by value
+<l>19
+<k>38
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>OPT-33
+<b>Returned value from function 'CreateSphere' is passed by value
+<l>21
+<k>38
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>OPT-33
+<b>Returned value from function 'CreateTerrain' is passed by value
+<l>24
+<k>38
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>OPT-33
+<b>Returned value from function 'CreateBowl' is passed by value
+<l>28
+<k>38
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>OPT-33
+<b>Returned value from function 'CreatePedestal' is passed by value
+<l>31
+<k>38
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\geometry\GeometryGenerator.h
+<c>OPT-33
+<b>Returned value from function 'CreateDisk' is passed by value
+<l>34
+<k>38
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>OPT-13
+<b>Members 'texturePath' of structure 'ParticleProps' are declared in suboptimal order for memory layout
+<l>11
+<k>8
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>OPT-13
+<b>Members 'descriptorPool, descriptorSet, device, physicalDevice, pipeline, textureLayout' of class 'ParticleSystem' are declared in suboptimal order for memory layout
+<l>25
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>OPT-13
+<b>Members 'boundsCenter, emitters, instanceBuffers, particles, texture, texturePath, vertexBuffer' of class 'ParticleSystem' are declared in suboptimal order for memory layout
+<l>25
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>OPT-33
+<b>Returned value from function 'GetBindingDescriptions' is passed by value
+<l>65
+<k>59
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>OPT-33
+<b>Returned value from function 'GetAttributeDescriptions' is passed by value
+<l>66
+<k>61
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ParticleSystem.h
+<c>OPT-13
+<b>Members 'props' of structure 'ParticleEmitter' are declared in suboptimal order for memory layout
+<l>82
+<k>12
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>OPT-13
+<b>Members 'cachedQueueFamilies' of class 'VulkanDevice' are declared in suboptimal order for memory layout
+<l>18
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetQueueFamilies' returns handles to member data: 'cachedQueueFamilies'
+<l>37
+<k>58
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDevice.h
+<c>OPT-33
+<b>Returned value from function 'findQueueFamilies' is passed by value
+<l>49
+<k>24
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>OPT-13
+<b>Members 'swapChainExtent, swapChainImageViews, swapChainImages' of class 'VulkanSwapChain' are declared in suboptimal order for memory layout
+<l>16
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>OPT-33
+<b>Returned value from function 'QuerySwapChainSupport' is passed by value
+<l>29
+<k>36
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetImages' returns handles to member data: 'swapChainImages'
+<l>32
+<k>53
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetImageViews' returns handles to member data: 'swapChainImageViews'
+<l>33
+<k>61
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetExtent' returns handles to member data: 'swapChainExtent'
+<l>35
+<k>43
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>OPT-33
+<b>Returned value from function 'chooseSwapSurfaceFormat' is passed by value
+<l>49
+<k>24
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSwapChain.h
+<c>OPT-33
+<b>Returned value from function 'chooseSwapExtent' is passed by value
+<l>51
+<k>16
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>OPT-13
+<b>Members 'framebuffers' of class 'VulkanRenderPass' are declared in suboptimal order for memory layout
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanRenderPass.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetFramebuffers' returns handles to member data: 'framebuffers'
+<l>21
+<k>65
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanCommandBuffer.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetCommandBuffers' returns handles to member data: 'commandBuffers'
+<l>29
+<k>78
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanSyncObjects.h
+<c>OPT-13
+<b>Members 'imageAvailableSemaphores, imagesInFlight, inFlightFences, renderFinishedSemaphores' of class 'VulkanSyncObjects' are declared in suboptimal order for memory layout
+<l>6
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\vulkan\VulkanDescriptorSet.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetDescriptorSets' returns handles to member data: 'descriptorSets'
+<l>23
+<k>69
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>OPT-13
+<b>Members 'extent, pipeline' of class 'ShadowPass' are declared in suboptimal order for memory layout
+<l>10
+<k>7
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\ShadowPass.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetExtent' returns handles to member data: 'extent'
+<l>28
+<k>43
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetPosition' returns handles to member data: 'position'
+<l>40
+<k>44
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetFront' returns handles to member data: 'front'
+<l>41
+<k>41
+<s>false
+<N>
+<f>
+<L>0
+<->
+<F>C:\Users\a\Desktop\TheOrb\src\rendering\Camera.h
+<c>CODSTA-CPP-06
+<b>Member function 'GetUp' returns handles to member data: 'up'
+<l>42
+<k>38
+<s>false
+<N>
+<f>
+<L>0

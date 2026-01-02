@@ -3,6 +3,18 @@
   "WorkspaceRootPath": "C:\\Users\\a\\Desktop\\TheOrb\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\CameraController.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\rendering\\CameraController.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\rendering\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\geometry\\GeometryGenerator.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\geometry\\GeometryGenerator.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\core\\Application.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\core\\Application.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -23,20 +35,12 @@
       "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\rendering\\Scene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\CameraController.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\rendering\\CameraController.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Camera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\rendering\\Camera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\CameraController.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\rendering\\CameraController.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\rendering\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\geometry\\GeometryGenerator.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -49,10 +53,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\shaders\\shader.vert||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\shaders\\shader.vert||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\geometry\\GeometryGenerator.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|solutionrelative:src\\geometry\\GeometryGenerator.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2C29FCA0-8138-41FF-AEAB-3125173527DE}|TheOrb.vcxproj|C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\ParticleLibrary.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -188,7 +188,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -196,7 +196,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 2,
               "Title": "GeometryGenerator.h",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\geometry\\GeometryGenerator.h",
               "RelativeDocumentMoniker": "src\\geometry\\GeometryGenerator.h",
@@ -209,20 +209,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "Application.cpp",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\core\\Application.cpp",
               "RelativeDocumentMoniker": "src\\core\\Application.cpp",
               "ToolTip": "C:\\Users\\a\\Desktop\\TheOrb\\src\\core\\Application.cpp",
               "RelativeToolTip": "src\\core\\Application.cpp",
-              "ViewState": "AgIAAIEAAAAAAAAAAAAAAJIAAAAKAAAAAAAAAA==",
+              "ViewState": "AgIAAF0AAAAAAAAAAAAEwLkAAABcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-12-28T18:17:59.196Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "Scene.cpp",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Scene.cpp",
               "RelativeDocumentMoniker": "src\\rendering\\Scene.cpp",
@@ -235,7 +235,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "Scene.h",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Scene.h",
               "RelativeDocumentMoniker": "src\\rendering\\Scene.h",
@@ -248,7 +248,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "shader.vert",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\shaders\\shader.vert",
               "RelativeDocumentMoniker": "src\\shaders\\shader.vert",
@@ -261,33 +261,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
               "Title": "CameraController.cpp",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\CameraController.cpp",
               "RelativeDocumentMoniker": "src\\rendering\\CameraController.cpp",
               "ToolTip": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\CameraController.cpp",
               "RelativeToolTip": "src\\rendering\\CameraController.cpp",
-              "ViewState": "AgIAAF4AAAAAAAAAAAAEwHEAAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAABQAAAAAAAAAAAAmwCYAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-12-07T19:52:26.11Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 1,
               "Title": "Camera.h",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Camera.h",
               "RelativeDocumentMoniker": "src\\rendering\\Camera.h",
               "ToolTip": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Camera.h",
               "RelativeToolTip": "src\\rendering\\Camera.h",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAkAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-12-07T19:51:11.5Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "CameraController.h",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\CameraController.h",
               "RelativeDocumentMoniker": "src\\rendering\\CameraController.h",
@@ -300,7 +300,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "Config.h",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\core\\Config.h",
               "RelativeDocumentMoniker": "src\\core\\Config.h",
@@ -313,7 +313,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "Config.cpp",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\core\\Config.cpp",
               "RelativeDocumentMoniker": "src\\core\\Config.cpp",
@@ -326,7 +326,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "Renderer.h",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Renderer.h",
               "RelativeDocumentMoniker": "src\\rendering\\Renderer.h",
@@ -339,7 +339,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "Camera.cpp",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\rendering\\Camera.cpp",
               "RelativeDocumentMoniker": "src\\rendering\\Camera.cpp",
@@ -352,7 +352,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "GeometryGenerator.cpp",
               "DocumentMoniker": "C:\\Users\\a\\Desktop\\TheOrb\\src\\geometry\\GeometryGenerator.cpp",
               "RelativeDocumentMoniker": "src\\geometry\\GeometryGenerator.cpp",

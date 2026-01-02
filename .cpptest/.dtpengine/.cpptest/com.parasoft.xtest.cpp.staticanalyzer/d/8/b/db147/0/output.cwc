@@ -21,7 +21,7 @@
 <->
 <F>C:\Users\a\Desktop\TheOrb\src\core\Config.h
 <c>OPT-13
-<b>Members 'moonCACTI, proceduralPlants, seasons, staticObjects, sunCACTI' of structure 'AppConfig' are declared in suboptimal order for memory layout
+<b>Members 'moonOrbit, proceduralPlants, seasons, staticObjects, sunOrbit' of structure 'AppConfig' are declared in suboptimal order for memory layout
 <l>41
 <k>8
 <s>false
@@ -32,7 +32,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\core\Config.h
 <c>CODSTA-MCPP-23
 <b>Class 'ConfigLoader' should be final
-<l>63
+<l>64
 <k>7
 <s>false
 <N>
@@ -42,7 +42,7 @@
 <F>C:\Users\a\Desktop\TheOrb\src\core\Config.h
 <c>OPT-33
 <b>Returned value from function 'Load' is passed by value
-<l>65
+<l>66
 <k>22
 <s>false
 <N>

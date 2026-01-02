@@ -8,11 +8,11 @@
 
 CameraController::CameraController()
     : activeCamera(nullptr)
-    , activeCameraType(CameraType::FREE_ROAM)
+    , activeCameraType(CameraType::OUTSIDE_ORB)
 {
     SetupCameras();
     // Default pointer set to Birds Eye to match activeCameraType
-    activeCamera = cameras[CameraType::FREE_ROAM].get();
+    activeCamera = cameras[CameraType::OUTSIDE_ORB].get();
 }
 
 void CameraController::SetupCameras() {
@@ -24,13 +24,13 @@ void CameraController::SetupCameras() {
     freeRoamCam->SetTarget(glm::vec3(0.0f, -75.0f, 10.0f)); // Look forward locally
     freeRoamCam->SetMoveSpeed(35.0f);
     freeRoamCam->SetRotateSpeed(45.0f);
-    cameras[CameraType::OUTSIDE_STATIC] = std::move(freeRoamCam);
+    cameras[CameraType::FREE_ROAM] = std::move(freeRoamCam);
 
-    // 2. STATIC Camera (F1) - Outer View
+    // 2. OUTSIDE Camera (F1) - Outer View
     auto staticCam = std::make_unique<Camera>();
     staticCam->SetPosition(glm::vec3(0.0f, 60.0f, 350.0f));
     staticCam->SetTarget(glm::vec3(0.0f, 0.0f, 0.0f));
-    cameras[CameraType::FREE_ROAM] = std::move(staticCam);
+    cameras[CameraType::OUTSIDE_ORB] = std::move(staticCam);
 
     // 3. Orbit Camera (F3) - Cactus Focus
     auto OrbitCam = std::make_unique<Camera>();
@@ -65,17 +65,17 @@ void CameraController::SwitchCamera(CameraType type, const Scene& scene) {
         }
         else {
             std::cout << "No cactus found to Orbit!" << std::endl;
-            type = CameraType::OUTSIDE_STATIC;
+            type = CameraType::FREE_ROAM;
         }
     }
-    else if (type == CameraType::OUTSIDE_STATIC) {
+    else if (type == CameraType::FREE_ROAM) {
         // Reset to new default position
-        auto* cam = cameras[CameraType::OUTSIDE_STATIC].get();
+        auto* cam = cameras[CameraType::FREE_ROAM].get();
         cam->SetPosition(glm::vec3(85.0f, -65.0f, 35.0f));
         cam->SetTarget(glm::vec3(0.0f, -75.0f, 10.0f));
     }
-    else if (type == CameraType::FREE_ROAM) {
-        auto* cam = cameras[CameraType::FREE_ROAM].get();
+    else if (type == CameraType::OUTSIDE_ORB) {
+        auto* cam = cameras[CameraType::OUTSIDE_ORB].get();
         cam->SetPosition(glm::vec3(0.0f, 60.0f, 350.0f));
         cam->SetTarget(glm::vec3(0.0f, 0.0f, 0.0f));
     }
@@ -88,13 +88,13 @@ void CameraController::Update(float deltaTime, const Scene& scene) {
     if (!activeCamera) return;
 
     switch (activeCameraType) {
-    case CameraType::OUTSIDE_STATIC:
+    case CameraType::FREE_ROAM:
         UpdateFreeRoamCamera(deltaTime, scene);
         break;
     case CameraType::CACTI:
         UpdateOrbitCamera(deltaTime, scene);
         break;
-    case CameraType::FREE_ROAM:
+    case CameraType::OUTSIDE_ORB:
         break;
     }
 }
@@ -110,8 +110,8 @@ void CameraController::UpdateOrbitCamera(float deltaTime, const Scene& scene) {
     if (keyW || keyUp)    OrbitPitch += rotateSpeed * deltaTime;
     if (keyS || keyDown)  OrbitPitch -= rotateSpeed * deltaTime;
 
-    if (keyQ) OrbitRadius += zoomSpeed * deltaTime;
-    if (keyE) OrbitRadius -= zoomSpeed * deltaTime;
+    if (keyQ) OrbitRadius -= zoomSpeed * deltaTime;
+    if (keyE) OrbitRadius += zoomSpeed * deltaTime;
 
     OrbitPitch = std::clamp(OrbitPitch, -10.0f, 89.0f);
     OrbitRadius = std::clamp(OrbitRadius, 5.0f, 50.0f);
@@ -150,8 +150,8 @@ void CameraController::UpdateFreeRoamCamera(float deltaTime, const Scene& scene)
     const bool moveBackward = keyCtrl ? groupB_backward : groupA_backward;
     const bool moveLeft = keyCtrl ? groupB_left : groupA_left;
     const bool moveRight = keyCtrl ? groupB_right : groupA_right;
-    const bool moveUp = keyQ; // incl pagedwn
-    const bool moveDown = keyE; // incl pageup
+    const bool moveUp = keyE; // incl pagedwn
+    const bool moveDown = keyQ; // incl pageup
 
     const bool rotatePitchUp = keyCtrl ? groupA_forward : groupB_forward;
     const bool rotatePitchDown = keyCtrl ? groupA_backward : groupB_backward;
@@ -188,8 +188,8 @@ void CameraController::OnKeyPress(int key, bool pressed) {
     if (key == GLFW_KEY_D) keyD = pressed;
 
     // Map PageDown to Q (Down) and PageUp to E (Up)
-    if (key == GLFW_KEY_Q || key == GLFW_KEY_PAGE_UP) keyQ = pressed;
-    if (key == GLFW_KEY_E || key == GLFW_KEY_PAGE_DOWN) keyE = pressed;
+    if (key == GLFW_KEY_Q || key == GLFW_KEY_PAGE_DOWN) keyQ = pressed;
+    if (key == GLFW_KEY_E || key == GLFW_KEY_PAGE_UP) keyE = pressed;
 
     // IJKL bindings removed for movement
     // if (key == GLFW_KEY_I) keyI = pressed;

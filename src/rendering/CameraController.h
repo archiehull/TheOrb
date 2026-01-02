@@ -35,7 +35,7 @@ public:
 private:
     std::map<CameraType, std::unique_ptr<Camera>> cameras;
     Camera* activeCamera = nullptr;
-    CameraType activeCameraType = CameraType::OUTSIDE_STATIC;
+    CameraType activeCameraType = CameraType::FREE_ROAM;
 
     // Key states
     bool keyW = false, keyA = false, keyS = false, keyD = false;

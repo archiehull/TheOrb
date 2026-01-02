@@ -23,14 +23,14 @@ void Application::Run() {
 --------------------------------------------------
  CONTROLS 
 --------------------------------------------------
- [F1]              Static Camera
+ [F1]              Outside Camera
  [F2]              Free Roam Camera
  [F3]              Orbit Camera (Random Cactus)
  [F4]              Ignite Orbit Target
 
  [WASD] / [Arrows] Move Horizontal
- [Q] / [PageUp]    Move Up
- [E] / [PageDown]  Move Down
+ [Q] / [PageDown]    Move Down
+ [E] / [PageUp]  Move Up
  [Shift]           Sprint
 
  [Y]               Toggle Shading (Phong / Gouraud)
@@ -38,7 +38,6 @@ void Application::Run() {
  [I]               Next Season
  [O]               Toggle Shadows (Simple / Advanced)
  [P]               Spawn Dust Cloud
-
 
  [R]               Reset Environment
 
@@ -53,7 +52,7 @@ void Application::Run() {
     std::cout << controlsMsg << std::endl;
 
     // Initialize with Static Camera (F1)
-    cameraController->SwitchCamera(CameraType::FREE_ROAM, *scene);
+    cameraController->SwitchCamera(CameraType::OUTSIDE_ORB, *scene);
 
     MainLoop();
     Cleanup();
@@ -314,11 +313,11 @@ void Application::KeyCallback(GLFWwindow* glfwWindow, int key, int scancode, int
 
     if (action == GLFW_PRESS) {
         if (key == GLFW_KEY_F1) {
-            app->cameraController->SwitchCamera(CameraType::FREE_ROAM, *app->scene);
+            app->cameraController->SwitchCamera(CameraType::OUTSIDE_ORB, *app->scene);
             //std::cout << "Switched to Static Camera (F1)" << std::endl;
         }
         else if (key == GLFW_KEY_F2) {
-            app->cameraController->SwitchCamera(CameraType::OUTSIDE_STATIC, *app->scene);
+            app->cameraController->SwitchCamera(CameraType::FREE_ROAM, *app->scene);
             //std::cout << "Switched to Free Roam Camera (F2)" << std::endl;
         }
         else if (key == GLFW_KEY_F3) {

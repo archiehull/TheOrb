@@ -5,8 +5,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 enum class CameraType {
-    OUTSIDE_STATIC,
     FREE_ROAM,
+    OUTSIDE_ORB,
     CACTI
 };
 
