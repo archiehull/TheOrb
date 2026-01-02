@@ -29,13 +29,13 @@ AppConfig ConfigLoader::Load(const std::string& filepath) {
         else if (key == "SeasonTemps") {
             ss >> config.seasons.summerBaseTemp >> config.seasons.winterBaseTemp >> config.seasons.dayNightTempDiff;
         }
-        else if (key == "SunCACTI") {
-            ss >> config.sunCACTI.axis.x >> config.sunCACTI.axis.y >> config.sunCACTI.axis.z
-                >> config.sunCACTI.radius >> config.sunCACTI.speed >> config.sunCACTI.initialAngle;
+        else if (key == "SunOrbit") {
+            ss >> config.sunOrbit.axis.x >> config.sunOrbit.axis.y >> config.sunOrbit.axis.z
+                >> config.sunOrbit.radius >> config.sunOrbit.speed >> config.sunOrbit.initialAngle;
         }
-        else if (key == "MoonCACTI") {
-            ss >> config.moonCACTI.axis.x >> config.moonCACTI.axis.y >> config.moonCACTI.axis.z
-                >> config.moonCACTI.radius >> config.moonCACTI.speed >> config.moonCACTI.initialAngle;
+        else if (key == "MoonOrbit") {
+            ss >> config.moonOrbit.axis.x >> config.moonOrbit.axis.y >> config.moonOrbit.axis.z
+                >> config.moonOrbit.radius >> config.moonOrbit.speed >> config.moonOrbit.initialAngle;
         }
         else if (key == "SunHeatBonus") {
             ss >> config.sunHeatBonus;

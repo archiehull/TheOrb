@@ -25,12 +25,12 @@ void Application::Run() {
 --------------------------------------------------
  [F1]              Static Camera
  [F2]              Free Roam Camera
- [F3]              CACTI Camera (Random Cactus)
- [F4]              Ignite CACTI Target
+ [F3]              Orbit Camera (Random Cactus)
+ [F4]              Ignite Orbit Target
 
  [WASD] / [Arrows] Move Horizontal
- [Q] / [PageDown]  Move Down
- [E] / [PageUp]    Move Up
+ [Q] / [PageUp]    Move Up
+ [E] / [PageDown]  Move Down
  [Shift]           Sprint
 
  [Y]               Toggle Shading (Phong / Gouraud)
@@ -109,7 +109,7 @@ static const char* MOON_NAME = "Moon";
 
 void Application::SetupScene() {
     const float dayDuration = config.seasons.durationSeconds;
-    const float baseCACTISpeed = glm::two_pi<float>() / dayDuration;
+    const float baseOrbitSpeed = glm::two_pi<float>() / dayDuration;
 
     scene->SetSeasonConfig(
         config.seasons.durationSeconds,
@@ -119,7 +119,7 @@ void Application::SetupScene() {
     );
     scene->SetSunHeatBonus(config.sunHeatBonus);
 
-    const float CACTIRadius = 275.0f;
+    const float OrbitRadius = 275.0f;
     const float deltaY = -75.0f;
     const float orbRadius = 150.0f;
     const float terrainHeightScale = 3.5f;
@@ -168,8 +168,8 @@ void Application::SetupScene() {
     scene->AddSphere(SUN_NAME, 16, 32, 5.0f, glm::vec3(0.0f), "textures/sun.png");
     scene->AddLight(SUN_NAME, glm::vec3(0.0f), glm::vec3(1.0f, 0.9f, 0.8f), 1.0f, 0);
     scene->SetObjectCastsShadow(SUN_NAME, false);
-    scene->SetObjectCACTI(SUN_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), config.sunCACTI.radius, config.sunCACTI.speed, config.sunCACTI.axis, config.sunCACTI.initialAngle);
-    scene->SetLightCACTI(SUN_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), config.sunCACTI.radius, config.sunCACTI.speed, config.sunCACTI.axis, config.sunCACTI.initialAngle);
+    scene->SetObjectOrbit(SUN_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), config.sunOrbit.radius, config.sunOrbit.speed, config.sunOrbit.axis, config.sunOrbit.initialAngle);
+    scene->SetLightOrbit(SUN_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), config.sunOrbit.radius, config.sunOrbit.speed, config.sunOrbit.axis, config.sunOrbit.initialAngle);
     scene->SetObjectLayerMask(SUN_NAME, SceneLayers::ALL);
     scene->SetLightLayerMask(SUN_NAME, SceneLayers::ALL);
     scene->SetObjectCollision(SUN_NAME, false);
@@ -177,8 +177,8 @@ void Application::SetupScene() {
     scene->AddSphere(MOON_NAME, 16, 32, 2.0f, glm::vec3(0.0f), "textures/moon.jpg");
     scene->AddLight(MOON_NAME, glm::vec3(0.0f), glm::vec3(0.1f, 0.1f, 0.3f), 1.5f, 0);
     scene->SetObjectCastsShadow(MOON_NAME, false);
-    scene->SetObjectCACTI(MOON_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), config.moonCACTI.radius, config.moonCACTI.speed, config.moonCACTI.axis, config.moonCACTI.initialAngle);
-    scene->SetLightCACTI(MOON_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), config.moonCACTI.radius, config.moonCACTI.speed, config.moonCACTI.axis, config.moonCACTI.initialAngle);
+    scene->SetObjectOrbit(MOON_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), config.moonOrbit.radius, config.moonOrbit.speed, config.moonOrbit.axis, config.moonOrbit.initialAngle);
+    scene->SetLightOrbit(MOON_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), config.moonOrbit.radius, config.moonOrbit.speed, config.moonOrbit.axis, config.moonOrbit.initialAngle);
     scene->SetObjectLayerMask(MOON_NAME, SceneLayers::ALL);
     scene->SetLightLayerMask(MOON_NAME, SceneLayers::ALL);
     scene->SetObjectCollision(MOON_NAME, false);
@@ -305,6 +305,7 @@ void Application::ProcessInput() {
     if (glfwGetKey(window->GetGLFWWindow(), GLFW_KEY_R) == GLFW_PRESS) {
         timeScale = 1.0f;
         scene->ResetEnvironment();
+		std::cout << "Environment Reset." << std::endl;
     }
 }
 
@@ -322,18 +323,18 @@ void Application::KeyCallback(GLFWwindow* glfwWindow, int key, int scancode, int
         }
         else if (key == GLFW_KEY_F3) {
             app->cameraController->SwitchCamera(CameraType::CACTI, *app->scene);
-            //std::cout << "Switched to Cactus CACTI Camera (F3)" << std::endl;
+            //std::cout << "Switched to Cactus Orbit Camera (F3)" << std::endl;
         }
         // F4 Ignite Logic
         else if (key == GLFW_KEY_F4) {
-            // 1. Ensure we are in CACTI Mode
+            // 1. Ensure we are in Orbit Mode
             if (app->cameraController->GetActiveCameraType() != CameraType::CACTI) {
                 app->cameraController->SwitchCamera(CameraType::CACTI, *app->scene);
-                //std::cout << "Switched to Cactus CACTI Camera (Auto)" << std::endl;
+                //std::cout << "Switched to Cactus Orbit Camera (Auto)" << std::endl;
             }
 
             // 2. Get and Ignite the target
-            SceneObject* target = app->cameraController->GetCACTITarget();
+            SceneObject* target = app->cameraController->GetOrbitTarget();
             if (target) {
                 app->scene->Ignite(target);
             }

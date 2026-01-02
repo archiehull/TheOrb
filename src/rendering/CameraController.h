@@ -25,8 +25,8 @@ public:
     // Updated to take Scene reference for finding objects (e.g. Cacti)
     void SwitchCamera(CameraType type, const Scene& scene);
 
-    // NEW: Getter for the current CACTI target (for F4 Ignition)
-    SceneObject* GetCACTITarget() const { return CACTITargetObject; }
+    // NEW: Getter for the current Orbit target (for F4 Ignition)
+    SceneObject* GetOrbitTarget() const { return OrbitTargetObject; }
 
     // Input handling
     void OnKeyPress(int key, bool pressed);
@@ -45,14 +45,14 @@ private:
     bool keyCtrl = false;
     bool keyShift = false;
 
-    // CACTI Camera State
-    SceneObject* CACTITargetObject = nullptr; // Changed from const to mutable
-    float CACTIRadius = 15.0f;
-    float CACTIYaw = 0.0f;
-    float CACTIPitch = 20.0f;
+    // Orbit Camera State
+    SceneObject* OrbitTargetObject = nullptr; // Changed from const to mutable
+    float OrbitRadius = 15.0f;
+    float OrbitYaw = 0.0f;
+    float OrbitPitch = 20.0f;
 
     void SetupCameras();
     void UpdateFreeRoamCamera(float deltaTime, const Scene& scene);
-    void UpdateCACTICamera(float deltaTime, const Scene& scene);
+    void UpdateOrbitCamera(float deltaTime, const Scene& scene);
     void ClampCameraPosition(glm::vec3& position, const Scene& scene, const glm::vec3& previousPosition);
 };

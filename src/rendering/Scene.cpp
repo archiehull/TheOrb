@@ -630,8 +630,8 @@ void Scene::StopDust() {
     }
 }
 
-glm::vec3 Scene::InitializeCACTI(CACTIData& data, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad) const {
-    data.isCACTIing = true;
+glm::vec3 Scene::InitializeOrbit(OrbitData& data, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad) const {
+    data.isOrbiting = true;
     data.center = center;
     data.radius = radius;
     data.speed = speedRadPerSec;
@@ -645,7 +645,7 @@ glm::vec3 Scene::InitializeCACTI(CACTIData& data, const glm::vec3& center, float
     return data.center + offset;
 }
 
-void Scene::SetObjectCACTI(const std::string& name, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad) {
+void Scene::SetObjectOrbit(const std::string& name, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad) {
 
     const auto it = std::find_if(objects.begin(), objects.end(),
         [&name](const std::unique_ptr<SceneObject>& obj) {
@@ -654,16 +654,16 @@ void Scene::SetObjectCACTI(const std::string& name, const glm::vec3& center, flo
 
     if (it != objects.end()) {
         SceneObject* const objectPtr = it->get();
-        const glm::vec3 initialPosition = InitializeCACTI(objectPtr->CACTIData, center, radius, speedRadPerSec, axis, initialAngleRad);
+        const glm::vec3 initialPosition = InitializeOrbit(objectPtr->OrbitData, center, radius, speedRadPerSec, axis, initialAngleRad);
 
         objectPtr->transform[3] = glm::vec4(initialPosition, 1.0f);
     }
     else {
-        std::cerr << "Error: Scene object with name '" << name << "' not found for CACTI assignment." << std::endl;
+        std::cerr << "Error: Scene object with name '" << name << "' not found for Orbit assignment." << std::endl;
     }
 }
 
-void Scene::SetLightCACTI(const std::string& name, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad) {
+void Scene::SetLightOrbit(const std::string& name, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad) {
     const auto it = std::find_if(m_SceneLights.begin(), m_SceneLights.end(),
         [&name](const SceneLight& light) {
             return light.name == name;
@@ -671,27 +671,27 @@ void Scene::SetLightCACTI(const std::string& name, const glm::vec3& center, floa
 
     if (it != m_SceneLights.end()) {
         SceneLight& sceneLight = const_cast<SceneLight&>(*it);
-        const glm::vec3 initialPosition = InitializeCACTI(sceneLight.CACTIData, center, radius, speedRadPerSec, axis, initialAngleRad);
+        const glm::vec3 initialPosition = InitializeOrbit(sceneLight.OrbitData, center, radius, speedRadPerSec, axis, initialAngleRad);
         sceneLight.vulkanLight.position = initialPosition;
     }
     else {
-        std::cerr << "Error: Scene light with name '" << name << "' not found for CACTI assignment." << std::endl;
+        std::cerr << "Error: Scene light with name '" << name << "' not found for Orbit assignment." << std::endl;
     }
 }
 
-void Scene::SetCACTISpeed(const std::string& name, float speedRadPerSec) {
+void Scene::SetOrbitSpeed(const std::string& name, float speedRadPerSec) {
     const auto itObj = std::find_if(objects.begin(), objects.end(),
         [&](const std::unique_ptr<SceneObject>& obj) { return obj->name == name; });
 
     if (itObj != objects.end()) {
-        (*itObj)->CACTIData.speed = speedRadPerSec;
+        (*itObj)->OrbitData.speed = speedRadPerSec;
     }
 
     const auto itLight = std::find_if(m_SceneLights.begin(), m_SceneLights.end(),
         [&](const SceneLight& light) { return light.name == name; });
 
     if (itLight != m_SceneLights.end()) {
-        const_cast<SceneLight&>(*itLight).CACTIData.speed = speedRadPerSec;
+        const_cast<SceneLight&>(*itLight).OrbitData.speed = speedRadPerSec;
     }
 }
 
@@ -804,7 +804,7 @@ void Scene::Update(float deltaTime) {
 
             if (sunIt != m_SceneLights.end()) {
                 // If the Sun hasn't completed one full circle (2 PI) yet, block rain
-                const float totalRotation = std::abs(sunIt->CACTIData.currentAngle - sunIt->CACTIData.initialAngle);
+                const float totalRotation = std::abs(sunIt->OrbitData.currentAngle - sunIt->OrbitData.initialAngle);
                 if (totalRotation < glm::two_pi<float>()) {
                     allowRain = false;
                     // std::cout << "Skipping rain: First day not complete." << std::endl;
@@ -889,8 +889,8 @@ void Scene::Update(float deltaTime) {
         sunIt->vulkanLight.color = glm::mix(sunIt->vulkanLight.color, targetSunColor, deltaTime * 0.8f);
     }
 
-    // 4. Update CACTIs
-    auto CalculateNewPos = [&](CACTIData& data) -> glm::vec3 {
+    // 4. Update Orbits
+    auto CalculateNewPos = [&](OrbitData& data) -> glm::vec3 {
         data.currentAngle += data.speed * deltaTime;
         glm::quat rotation = glm::angleAxis(data.currentAngle, data.axis);
         glm::vec3 offset = rotation * glm::vec3(data.radius, 0.0f, 0.0f);
@@ -898,14 +898,14 @@ void Scene::Update(float deltaTime) {
         };
 
     for (auto& sceneLight : m_SceneLights) {
-        if (sceneLight.CACTIData.isCACTIing) {
-            sceneLight.vulkanLight.position = CalculateNewPos(sceneLight.CACTIData);
+        if (sceneLight.OrbitData.isOrbiting) {
+            sceneLight.vulkanLight.position = CalculateNewPos(sceneLight.OrbitData);
         }
     }
 
     for (const auto& obj : objects) {
-        if (obj->CACTIData.isCACTIing) {
-            const glm::vec3 newPos = CalculateNewPos(obj->CACTIData);
+        if (obj->OrbitData.isOrbiting) {
+            const glm::vec3 newPos = CalculateNewPos(obj->OrbitData);
             obj->transform[3] = glm::vec4(newPos, 1.0f);
         }
     }
@@ -1282,25 +1282,25 @@ std::string Scene::GetSeasonName() const {
 }
 
 void Scene::ResetEnvironment() {
-    // 1. Reset Lights (Sun/Moon CACTIs)
+    // 1. Reset Lights (Sun/Moon Orbits)
     for (auto& light : m_SceneLights) {
-        if (light.CACTIData.isCACTIing) {
-            light.CACTIData.currentAngle = light.CACTIData.initialAngle;
+        if (light.OrbitData.isOrbiting) {
+            light.OrbitData.currentAngle = light.OrbitData.initialAngle;
             // Recalculate position immediately
-            glm::quat rotation = glm::angleAxis(light.CACTIData.currentAngle, light.CACTIData.axis);
-            glm::vec3 offset = rotation * glm::vec3(light.CACTIData.radius, 0.0f, 0.0f);
-            light.vulkanLight.position = light.CACTIData.center + offset;
+            glm::quat rotation = glm::angleAxis(light.OrbitData.currentAngle, light.OrbitData.axis);
+            glm::vec3 offset = rotation * glm::vec3(light.OrbitData.radius, 0.0f, 0.0f);
+            light.vulkanLight.position = light.OrbitData.center + offset;
         }
     }
 
     // 2. Reset Objects
     for (auto& obj : objects) {
-        // A. Reset CACTI
-        if (obj->CACTIData.isCACTIing) {
-            obj->CACTIData.currentAngle = obj->CACTIData.initialAngle;
-            glm::quat rotation = glm::angleAxis(obj->CACTIData.currentAngle, obj->CACTIData.axis);
-            glm::vec3 offset = rotation * glm::vec3(obj->CACTIData.radius, 0.0f, 0.0f);
-            obj->transform[3] = glm::vec4(obj->CACTIData.center + offset, 1.0f);
+        // A. Reset Orbit
+        if (obj->OrbitData.isOrbiting) {
+            obj->OrbitData.currentAngle = obj->OrbitData.initialAngle;
+            glm::quat rotation = glm::angleAxis(obj->OrbitData.currentAngle, obj->OrbitData.axis);
+            glm::vec3 offset = rotation * glm::vec3(obj->OrbitData.radius, 0.0f, 0.0f);
+            obj->transform[3] = glm::vec4(obj->OrbitData.center + offset, 1.0f);
         }
 
         // B. Reset Thermodynamics / Visual State

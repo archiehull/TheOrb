@@ -32,11 +32,11 @@ void CameraController::SetupCameras() {
     staticCam->SetTarget(glm::vec3(0.0f, 0.0f, 0.0f));
     cameras[CameraType::FREE_ROAM] = std::move(staticCam);
 
-    // 3. CACTI Camera (F3) - Cactus Focus
-    auto CACTICam = std::make_unique<Camera>();
-    CACTICam->SetPosition(glm::vec3(20.0f, 10.0f, 20.0f));
-    CACTICam->SetTarget(glm::vec3(0.0f, 0.0f, 0.0f));
-    cameras[CameraType::CACTI] = std::move(CACTICam);
+    // 3. Orbit Camera (F3) - Cactus Focus
+    auto OrbitCam = std::make_unique<Camera>();
+    OrbitCam->SetPosition(glm::vec3(20.0f, 10.0f, 20.0f));
+    OrbitCam->SetTarget(glm::vec3(0.0f, 0.0f, 0.0f));
+    cameras[CameraType::CACTI] = std::move(OrbitCam);
 }
 
 void CameraController::SwitchCamera(CameraType type, const Scene& scene) {
@@ -57,14 +57,14 @@ void CameraController::SwitchCamera(CameraType type, const Scene& scene) {
             static std::mt19937 gen(rd());
             std::uniform_int_distribution<> dis(0, static_cast<int>(cacti.size()) - 1);
 
-            CACTITargetObject = cacti[dis(gen)];
-            CACTIRadius = 15.0f;
-            CACTIYaw = 0.0f;
-            CACTIPitch = 20.0f;
-            //std::cout << "CACTIing Cactus: " << CACTITargetObject->name << std::endl;
+            OrbitTargetObject = cacti[dis(gen)];
+            OrbitRadius = 15.0f;
+            OrbitYaw = 0.0f;
+            OrbitPitch = 20.0f;
+            //std::cout << "Orbiting Cactus: " << OrbitTargetObject->name << std::endl;
         }
         else {
-            std::cout << "No cactus found to CACTI!" << std::endl;
+            std::cout << "No cactus found to Orbit!" << std::endl;
             type = CameraType::OUTSIDE_STATIC;
         }
     }
@@ -92,40 +92,40 @@ void CameraController::Update(float deltaTime, const Scene& scene) {
         UpdateFreeRoamCamera(deltaTime, scene);
         break;
     case CameraType::CACTI:
-        UpdateCACTICamera(deltaTime, scene);
+        UpdateOrbitCamera(deltaTime, scene);
         break;
     case CameraType::FREE_ROAM:
         break;
     }
 }
 
-void CameraController::UpdateCACTICamera(float deltaTime, const Scene& scene) {
-    if (!CACTITargetObject) return;
+void CameraController::UpdateOrbitCamera(float deltaTime, const Scene& scene) {
+    if (!OrbitTargetObject) return;
 
     const float rotateSpeed = 50.0f;
     const float zoomSpeed = 20.0f;
 
-    if (keyA || keyLeft)  CACTIYaw -= rotateSpeed * deltaTime;
-    if (keyD || keyRight) CACTIYaw += rotateSpeed * deltaTime;
-    if (keyW || keyUp)    CACTIPitch += rotateSpeed * deltaTime;
-    if (keyS || keyDown)  CACTIPitch -= rotateSpeed * deltaTime;
+    if (keyA || keyLeft)  OrbitYaw -= rotateSpeed * deltaTime;
+    if (keyD || keyRight) OrbitYaw += rotateSpeed * deltaTime;
+    if (keyW || keyUp)    OrbitPitch += rotateSpeed * deltaTime;
+    if (keyS || keyDown)  OrbitPitch -= rotateSpeed * deltaTime;
 
-    if (keyQ) CACTIRadius -= zoomSpeed * deltaTime;
-    if (keyE) CACTIRadius += zoomSpeed * deltaTime;
+    if (keyQ) OrbitRadius += zoomSpeed * deltaTime;
+    if (keyE) OrbitRadius -= zoomSpeed * deltaTime;
 
-    CACTIPitch = std::clamp(CACTIPitch, -10.0f, 89.0f);
-    CACTIRadius = std::clamp(CACTIRadius, 5.0f, 50.0f);
+    OrbitPitch = std::clamp(OrbitPitch, -10.0f, 89.0f);
+    OrbitRadius = std::clamp(OrbitRadius, 5.0f, 50.0f);
 
-    glm::vec3 targetPos = glm::vec3(CACTITargetObject->transform[3]);
+    glm::vec3 targetPos = glm::vec3(OrbitTargetObject->transform[3]);
     targetPos.y += 3.0f;
 
-    float radYaw = glm::radians(CACTIYaw);
-    float radPitch = glm::radians(CACTIPitch);
+    float radYaw = glm::radians(OrbitYaw);
+    float radPitch = glm::radians(OrbitPitch);
 
     glm::vec3 offset;
-    offset.x = CACTIRadius * cos(radPitch) * sin(radYaw);
-    offset.y = CACTIRadius * sin(radPitch);
-    offset.z = CACTIRadius * cos(radPitch) * cos(radYaw);
+    offset.x = OrbitRadius * cos(radPitch) * sin(radYaw);
+    offset.y = OrbitRadius * sin(radPitch);
+    offset.z = OrbitRadius * cos(radPitch) * cos(radYaw);
 
     glm::vec3 newPos = targetPos + offset;
     glm::vec3 oldPos = activeCamera->GetPosition();

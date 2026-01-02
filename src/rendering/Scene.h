@@ -9,12 +9,12 @@
 #include "../vulkan/UniformBufferObject.h"
 #include "ParticleSystem.h"
 
-struct CACTIData {
-    bool isCACTIing = false;
+struct OrbitData {
+    bool isOrbiting = false;
     glm::vec3 center = glm::vec3(0.0f);
     float radius = 1.0f;
     float speed = 1.0f; // radians per second
-    glm::vec3 axis = glm::vec3(0.0f, 1.0f, 0.0f); // Normalized CACTI axis
+    glm::vec3 axis = glm::vec3(0.0f, 1.0f, 0.0f); // Normalized Orbit axis
     float initialAngle = 0.0f; // Initial angle offset (in radians)
     float currentAngle = 0.0f; // Internal state: current angle (in radians)
 };
@@ -49,7 +49,7 @@ enum class Season {
 struct SceneLight {
     std::string name;
     Light vulkanLight;
-    CACTIData CACTIData;
+    OrbitData OrbitData;
     int layerMask = SceneLayers::INSIDE;
 };
 
@@ -77,7 +77,7 @@ struct SceneObject {
     bool castsShadow = true;
     bool receiveShadows = true;
 
-    CACTIData CACTIData;
+    OrbitData OrbitData;
     int layerMask = SceneLayers::INSIDE;
 
     ObjectState state = ObjectState::NORMAL;
@@ -150,8 +150,8 @@ public:
 
     int AddLight(const std::string& name, const glm::vec3& position, const glm::vec3& color, float intensity, int type);
 
-    void SetObjectCACTI(const std::string& name, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad = 0.0f);
-    void SetLightCACTI(const std::string& name, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad = 0.0f);
+    void SetObjectOrbit(const std::string& name, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad = 0.0f);
+    void SetLightOrbit(const std::string& name, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad = 0.0f);
 
     void AddBowl(const std::string& name, float radius, int slices, int stacks, const glm::vec3& position, const std::string& texturePath);
     void AddPedestal(const std::string& name, float topRadius, float baseWidth, float height, const glm::vec3& position, const std::string& texturePath);
@@ -207,7 +207,7 @@ public:
     // Transform / visibility helpers
     void SetObjectTransform(size_t index, const glm::mat4& transform);
     void SetObjectVisible(size_t index, bool visible);
-    void SetCACTISpeed(const std::string& name, float speedRadPerSec);
+    void SetOrbitSpeed(const std::string& name, float speedRadPerSec);
 
     void SetObjectLayerMask(const std::string& name, int mask);
     void SetLightLayerMask(const std::string& name, int mask);
@@ -230,7 +230,7 @@ public:
 private:
     void AddObjectInternal(const std::string& name, std::unique_ptr<Geometry> geometry, const glm::vec3& position, const std::string& texturePath, bool isFlammable);
 
-    glm::vec3 InitializeCACTI(CACTIData& data, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad) const;
+    glm::vec3 InitializeOrbit(OrbitData& data, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad) const;
 
     float m_SeasonDuration = 60.0f;
     float m_SummerTemp = 50.0f;
