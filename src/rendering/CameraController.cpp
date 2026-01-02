@@ -11,12 +11,19 @@ CameraController::CameraController()
     , activeCameraType(CameraType::OUTSIDE_ORB)
 {
     SetupCameras();
+
+    // Set default orbit parameters for the starting Outside camera
+    OrbitRadius = 350.0f;
+    OrbitPitch = 20.0f;
+    OrbitYaw = 0.0f;
+    OrbitTargetObject = nullptr;
+
     // Default pointer set to Birds Eye to match activeCameraType
     activeCamera = cameras[CameraType::OUTSIDE_ORB].get();
 }
 
 void CameraController::SetupCameras() {
-	// camera movement and rotation speed
+    // camera movement and rotation speed
 
     // 1. FREE ROAM Camera (F2) - Inside the Orb
     auto freeRoamCam = std::make_unique<Camera>();
@@ -26,11 +33,11 @@ void CameraController::SetupCameras() {
     freeRoamCam->SetRotateSpeed(45.0f);
     cameras[CameraType::FREE_ROAM] = std::move(freeRoamCam);
 
-    // 2. OUTSIDE Camera (F1) - Outer View
-    auto staticCam = std::make_unique<Camera>();
-    staticCam->SetPosition(glm::vec3(0.0f, 60.0f, 350.0f));
-    staticCam->SetTarget(glm::vec3(0.0f, 0.0f, 0.0f));
-    cameras[CameraType::OUTSIDE_ORB] = std::move(staticCam);
+    // 2. OUTSIDE Camera (F1) - Outer View (Now Orbital)
+    auto outsideCam = std::make_unique<Camera>();
+    outsideCam->SetPosition(glm::vec3(0.0f, 60.0f, 350.0f));
+    outsideCam->SetTarget(glm::vec3(0.0f, 0.0f, 0.0f));
+    cameras[CameraType::OUTSIDE_ORB] = std::move(outsideCam);
 
     // 3. Orbit Camera (F3) - Cactus Focus
     auto OrbitCam = std::make_unique<Camera>();
@@ -75,9 +82,11 @@ void CameraController::SwitchCamera(CameraType type, const Scene& scene) {
         cam->SetTarget(glm::vec3(0.0f, -75.0f, 10.0f));
     }
     else if (type == CameraType::OUTSIDE_ORB) {
-        auto* cam = cameras[CameraType::OUTSIDE_ORB].get();
-        cam->SetPosition(glm::vec3(0.0f, 60.0f, 350.0f));
-        cam->SetTarget(glm::vec3(0.0f, 0.0f, 0.0f));
+        // Initialize orbital parameters for Outside View
+        OrbitTargetObject = nullptr; // Target the center (0,0,0)
+        OrbitRadius = 350.0f;
+        OrbitYaw = 0.0f;
+        OrbitPitch = 20.0f;
     }
 
     activeCameraType = type;
@@ -95,16 +104,19 @@ void CameraController::Update(float deltaTime, const Scene& scene) {
         UpdateOrbitCamera(deltaTime, scene);
         break;
     case CameraType::OUTSIDE_ORB:
+        UpdateOrbitCamera(deltaTime, scene); // Reuse orbital logic
         break;
     }
 }
 
 void CameraController::UpdateOrbitCamera(float deltaTime, const Scene& scene) {
-    if (!OrbitTargetObject) return;
+    // Only return if we are in CACTI mode and have no target
+    if (activeCameraType == CameraType::CACTI && !OrbitTargetObject) return;
 
     const float rotateSpeed = 50.0f;
     const float zoomSpeed = 20.0f;
 
+    // Standard Orbital Controls
     if (keyA || keyLeft)  OrbitYaw -= rotateSpeed * deltaTime;
     if (keyD || keyRight) OrbitYaw += rotateSpeed * deltaTime;
     if (keyW || keyUp)    OrbitPitch += rotateSpeed * deltaTime;
@@ -113,11 +125,29 @@ void CameraController::UpdateOrbitCamera(float deltaTime, const Scene& scene) {
     if (keyQ) OrbitRadius -= zoomSpeed * deltaTime;
     if (keyE) OrbitRadius += zoomSpeed * deltaTime;
 
-    OrbitPitch = std::clamp(OrbitPitch, -10.0f, 89.0f);
-    OrbitRadius = std::clamp(OrbitRadius, 5.0f, 50.0f);
+    // --- Constraints & Clamping ---
+    if (activeCameraType == CameraType::OUTSIDE_ORB) {
+        // Prevent going below pedestal: Pitch clamped to [5, 89]
+        // Prevent too close to orb: Radius clamped to [300, 800]
+        OrbitPitch = std::clamp(OrbitPitch, 5.0f, 60.0f);
+        OrbitRadius = std::clamp(OrbitRadius, 250.0f, 800.0f);
+    }
+    else {
+        // CACTI mode defaults
+        OrbitPitch = std::clamp(OrbitPitch, -10.0f, 89.0f);
+        OrbitRadius = std::clamp(OrbitRadius, 5.0f, 50.0f);
+    }
 
-    glm::vec3 targetPos = glm::vec3(OrbitTargetObject->transform[3]);
-    targetPos.y += 3.0f;
+    // Determine Target Position
+    glm::vec3 targetPos;
+    if (activeCameraType == CameraType::CACTI && OrbitTargetObject) {
+        targetPos = glm::vec3(OrbitTargetObject->transform[3]);
+        targetPos.y += 3.0f;
+    }
+    else {
+        // OUTSIDE_ORB targets the center
+        targetPos = glm::vec3(0.0f, 0.0f, 0.0f);
+    }
 
     float radYaw = glm::radians(OrbitYaw);
     float radPitch = glm::radians(OrbitPitch);
@@ -130,6 +160,7 @@ void CameraController::UpdateOrbitCamera(float deltaTime, const Scene& scene) {
     glm::vec3 newPos = targetPos + offset;
     glm::vec3 oldPos = activeCamera->GetPosition();
 
+    // Only clamp against terrain if necessary (mostly for free roam, but safe to keep)
     ClampCameraPosition(newPos, scene, oldPos);
 
     activeCamera->SetPosition(newPos);
@@ -190,12 +221,6 @@ void CameraController::OnKeyPress(int key, bool pressed) {
     // Map PageDown to Q (Down) and PageUp to E (Up)
     if (key == GLFW_KEY_Q || key == GLFW_KEY_PAGE_DOWN) keyQ = pressed;
     if (key == GLFW_KEY_E || key == GLFW_KEY_PAGE_UP) keyE = pressed;
-
-    // IJKL bindings removed for movement
-    // if (key == GLFW_KEY_I) keyI = pressed;
-    // if (key == GLFW_KEY_J) keyJ = pressed;
-    // if (key == GLFW_KEY_K) keyK = pressed;
-    // if (key == GLFW_KEY_L) keyL = pressed;
 
     if (key == GLFW_KEY_UP) keyUp = pressed;
     if (key == GLFW_KEY_LEFT) keyLeft = pressed;

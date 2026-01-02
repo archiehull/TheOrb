@@ -29,8 +29,8 @@ void Application::Run() {
  [F4]              Ignite Orbit Target
 
  [WASD] / [Arrows] Move Horizontal
- [Q] / [PageDown]    Move Down
- [E] / [PageUp]  Move Up
+ [Q] / [PageDown]  Move Down
+ [E] / [PageUp]    Move Up
  [Shift]           Sprint
 
  [Y]               Toggle Shading (Phong / Gouraud)
