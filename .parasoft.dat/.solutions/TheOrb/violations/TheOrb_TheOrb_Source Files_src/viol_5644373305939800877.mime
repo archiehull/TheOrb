@@ -8,4 +8,4 @@ StorageVersion: v1
 --0u2qD0na2DXEMD1Lhh8MueypoqKNl9nn2YB72u2
 
 <?xml version='1.0' encoding='UTF-8'?><ResultInfo resultId="ICodingStandardsViolation" ownerId="com.parasoft.xtest.checkers.api.standards" violKeys="null;null"><StdViol msg="Returned value from function 'GetBindingDescriptions' is passed by value" ln="268" sev="5" auth="a" rule="OPT-33" tool="c++test" cat="OPT" lang="cpp" locType="sr" config="3" hash="-704062550" locStartln="268" locStartPos="63" locEndLn="268" locEndPos="64" locFile="TheOrb/TheOrb/Source Files/src/rendering/ParticleSystem.cpp"/><StdViol msg="Returned value from function 'GetAttributeDescriptions' is passed by value" ln="284" sev="5" auth="a" rule="OPT-33" tool="c++test" cat="OPT" lang="cpp" locType="sr" config="3" hash="-704062550" locStartln="284" locStartPos="65" locEndLn="284" locEndPos="66" locFile="TheOrb/TheOrb/Source Files/src/rendering/ParticleSystem.cpp"/></ResultInfo>
---0u2qD0na2DXEMD1Lhh8MueypoqKNl9nn2YB72u2
+--0u2qD0na2DXEMD1Lhh8MueypoqKNl9nn2YB72u2--

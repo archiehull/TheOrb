@@ -490,7 +490,7 @@ int Scene::AddSmoke(const glm::vec3& position, float scale) {
 
 void Scene::Ignite(SceneObject* obj) {
     if (!obj || !obj->isFlammable) return;
-    if (obj->state == ObjectState::BURNING || obj->state == ObjectState::BURNT) return;
+    if (obj->state == ObjectState::BURNING || obj->state == ObjectState::BURNT || obj->state == ObjectState::REGROWING) return;
 
     //std::cout << "Igniting object: " << obj->name << std::endl;
 

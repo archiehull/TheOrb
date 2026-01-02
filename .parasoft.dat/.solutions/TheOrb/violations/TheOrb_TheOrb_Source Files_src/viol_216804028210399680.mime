@@ -8,4 +8,4 @@ StorageVersion: v1
 --Q2bmidF4nzSwlmMM9r1BaQCNFQhiOSf
 
 <?xml version='1.0' encoding='UTF-8'?><ResultInfo resultId="ICodingStandardsViolation" ownerId="com.parasoft.xtest.checkers.api.standards" violKeys="null"><StdViol msg="The 'lights' array should not be used" ln="23" sev="4" auth="a" rule="STL-37-DOWNGRADED" tool="c++test" cat="STL-37" lang="cpp" locType="sr" config="3" hash="1401734006" locStartln="23" locStartPos="22" locEndLn="23" locEndPos="23" locFile="TheOrb/TheOrb/Source Files/src/vulkan/UniformBufferObject.h"/></ResultInfo>
---Q2bmidF4nzSwlmMM9r1BaQCNFQhiOSf
+--Q2bmidF4nzSwlmMM9r1BaQCNFQhiOSf--

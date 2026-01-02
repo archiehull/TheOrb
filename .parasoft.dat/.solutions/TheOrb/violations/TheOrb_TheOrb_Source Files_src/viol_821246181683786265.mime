@@ -8,4 +8,4 @@ StorageVersion: v1
 --3SZo2CgPc7dS7FWRlNUaRwN5EqsKcQcST
 
 <?xml version='1.0' encoding='UTF-8'?><ResultInfo resultId="ICodingStandardsViolation" ownerId="com.parasoft.xtest.checkers.api.standards" violKeys="null"><StdViol msg="Returned value from function 'Load' is passed by value" ln="6" sev="5" auth="a" rule="OPT-33" tool="c++test" cat="OPT" lang="cpp" locType="sr" config="3" hash="1372540124" locStartln="6" locStartPos="24" locEndLn="6" locEndPos="25" locFile="TheOrb/TheOrb/Source Files/src/core/Config.cpp"/></ResultInfo>
---3SZo2CgPc7dS7FWRlNUaRwN5EqsKcQcST
+--3SZo2CgPc7dS7FWRlNUaRwN5EqsKcQcST--

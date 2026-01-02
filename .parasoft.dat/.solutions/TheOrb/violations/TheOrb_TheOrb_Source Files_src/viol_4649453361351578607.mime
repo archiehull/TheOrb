@@ -8,4 +8,4 @@ StorageVersion: v1
 --WiR6CP4Bo8kPwZkevzSGBQDnOSsmuPTTF
 
 <?xml version='1.0' encoding='UTF-8'?><ResultInfo resultId="ICodingStandardsViolation" ownerId="com.parasoft.xtest.checkers.api.standards" violKeys="null;null"><StdViol msg="Members 'cubemap, pipeline' of class 'SkyboxPass' are declared in suboptimal order for memory layout" ln="11" sev="5" auth="a" rule="OPT-13-DOWNGRADED" tool="c++test" cat="OPT-13" lang="cpp" locType="sr" config="3" hash="621600189" locStartln="11" locStartPos="6" locEndLn="11" locEndPos="7" locFile="TheOrb/TheOrb/Source Files/src/rendering/SkyboxPass.h"/><StdViol msg="Returned value from function 'GetSkyboxFaces' is passed by value" ln="37" sev="5" auth="a" rule="OPT-33" tool="c++test" cat="OPT" lang="cpp" locType="sr" config="3" hash="621600189" locStartln="37" locStartPos="29" locEndLn="37" locEndPos="30" locFile="TheOrb/TheOrb/Source Files/src/rendering/SkyboxPass.h"/></ResultInfo>
---WiR6CP4Bo8kPwZkevzSGBQDnOSsmuPTTF
+--WiR6CP4Bo8kPwZkevzSGBQDnOSsmuPTTF--
