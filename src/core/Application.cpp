@@ -3,6 +3,22 @@
 #include <iostream>
 #include <iomanip>
 
+// TODO:
+// refactor and decouple scene class to entity component system
+// refector scene object to seperate Transform, Rendering, Physics, Thermodynamics, Orbital
+// specific pass members for renderer
+// 
+// more environmental control / debugging
+// input manager class
+// debug class with console output and imgui integration
+// audio engine
+// wind + fire spread
+// bump, displacement and normal mapping
+// deferred rendering pipeline (MRT)
+// high dynamic range rendering (HDR)
+// illuminating sparks
+// ray tracing
+
 Application::Application() {
 
     config = ConfigLoader::Load("config.txt");
