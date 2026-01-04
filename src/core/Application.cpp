@@ -8,7 +8,7 @@
 // refector scene object to seperate Transform, Rendering, Physics, Thermodynamics, Orbital
 // specific pass members for renderer
 // 
-// more environmental control / debugging
+// more runtime environmental control / debugging
 // input manager class
 // debug class with console output and imgui integration
 // audio engine
@@ -18,6 +18,8 @@
 // high dynamic range rendering (HDR)
 // illuminating sparks
 // ray tracing
+// Compute Shaders for particles
+// Shadow mapping improvements (PCF, VSM, CSM)
 
 Application::Application() {
 
