@@ -2,6 +2,8 @@
 
 ## Final Lab - The Orb
 
+## Design
+
 | Category | Class Name | Role | Responsibilities |
 | :--- | :--- | :--- | :--- |
 | **Core System** | `Application` | Main Engine Class | Ties subsystems together (Window, Renderer, Scene); manages the main game loop, time scaling, and cleanup. |
@@ -33,6 +35,7 @@
 | | `VulkanUtils` | Helper Library | Provides utilities for common tasks like image creation and layout transitions. |
 
 ##
+### Core Systems
 ```mermaid
 classDiagram
     namespace Core {
@@ -92,6 +95,7 @@ classDiagram
     Application *-- Scene : owns
 ```
 ##
+### Rendering Logic
 ```mermaid
 classDiagram
     namespace Rendering {
@@ -107,76 +111,21 @@ classDiagram
             +DrawFrame()
             +Initialize()
         }
-
-        class Scene {
-            -vector~unique_ptr~SceneObject~~ objects
-            -vector~unique_ptr~ParticleSystem~~ particleSystems
-            +Update(deltaTime)
-            +GenerateProceduralObjects()
-            +UpdateThermodynamics()
-        }
-
-        class SceneObject {
-            +string name
-            +shared_ptr~Geometry~ geometry
-            +Transform transform
-            +ObjectState state
-        }
-
-        class ShadowPass {
-            +RenderShadowMap()
-        }
-
-        class SkyboxPass {
-            +Draw()
-        }
-
-        class ParticleSystem {
-            +Update(deltaTime)
-            +Draw(cmd)
-        }
-
+        
+        class ShadowPass { +RenderShadowMap() }
+        class SkyboxPass { +Draw() }
         class GraphicsPipeline
-
     }
 
     namespace VulkanAbstraction {
-        class VulkanContext {
-            +CreateInstance()
-        }
-        class VulkanDevice {
-            +PickPhysicalDevice()
-            +CreateLogicalDevice()
-        }
-        class VulkanSwapChain {
-            +Create()
-            +CreateImageViews()
-        }
+        class VulkanDevice { +PickPhysicalDevice(); +CreateLogicalDevice() }
+        class VulkanSwapChain { +Create(); +CreateImageViews() }
         class VulkanRenderPass
         class VulkanCommandBuffer
         class VulkanSyncObjects
         class VulkanDescriptorSet
-        class VulkanBuffer
     }
 
-    namespace Assets_Geometry {
-        class Geometry {
-            +Bind(cmd)
-            +Draw(cmd)
-        }
-        class Texture {
-            +LoadFromFile()
-        }
-        class OBJLoader {
-            +Load(path) Geometry
-        }
-        class GeometryGenerator {
-            +CreateSphere()
-            +CreateTerrain()
-        }
-    }
-
-    %% Relationships
     Renderer *-- VulkanRenderPass : owns
     Renderer *-- GraphicsPipeline : owns
     Renderer *-- VulkanCommandBuffer : owns
@@ -184,20 +133,50 @@ classDiagram
     Renderer *-- VulkanDescriptorSet : owns
     Renderer *-- ShadowPass : owns
     Renderer *-- SkyboxPass : owns
-
     Renderer o-- VulkanDevice : uses
     Renderer o-- VulkanSwapChain : uses
-    
+```
+##
+### Scene Rendering 
+```mermaid
+classDiagram
+    namespace Rendering {
+        class Scene {
+            -vector~unique_ptr~SceneObject~~ objects
+            -vector~unique_ptr~ParticleSystem~~ particleSystems
+            +Update(deltaTime)
+            +GenerateProceduralObjects()
+            +UpdateThermodynamics()
+        }
+        class SceneObject {
+            +string name
+            +shared_ptr~Geometry~ geometry
+            +Transform transform
+            +ObjectState state
+        }
+        class ParticleSystem {
+            +Update(deltaTime)
+            +Draw(cmd)
+        }
+    }
+
+    namespace Assets_Geometry {
+        class Geometry { +Bind(cmd); +Draw(cmd) }
+        class Texture { +LoadFromFile() }
+        class OBJLoader { +Load(path) Geometry }
+        class GeometryGenerator { +CreateSphere(); +CreateTerrain() }
+    }
+    class VulkanBuffer
+
     Scene *-- SceneObject : owns
     Scene *-- ParticleSystem : owns
     SceneObject o-- Geometry : shares
     Scene ..> OBJLoader : uses
     Scene ..> GeometryGenerator : uses
-    
-    GraphicsPipeline ..> VulkanShader : uses
     Geometry ..> VulkanBuffer : uses
 ```
 ##
+### Engine Initialisation Sequence
 ```mermaid
 sequenceDiagram
     autonumber
@@ -243,6 +222,7 @@ sequenceDiagram
     deactivate App
 ```
 ##
+### Frame Rendering
 ```mermaid
 sequenceDiagram
     autonumber
@@ -288,6 +268,7 @@ sequenceDiagram
     end
 ```
 ##
+### Particle System
 ```mermaid
 sequenceDiagram
     participant Scene
@@ -323,18 +304,34 @@ sequenceDiagram
     end
 ```
 ##
-### Q1. 
 
-**Question:**
+### Merits of the Design
+The project effectively encapsulates the Vulkan API, with the low-level initialisation details kept in dedicated classes, allowing for improved readability in higher level classes. This means classes such as *Renderer* can focus more on flow and logic, rather than API boilerplate.
+
+The *Application* class acts as a solid root for the ownership hiearchy. By using unique pointers for subsystems likes *Window*, *Renderer* and *Scene*, the design ensures a clear destruction order and prevents memory leaks.
+
+A single point of entry can be used to create the game environment using the *Scene* API, where *Add**X*** commands are ysed to add geometry, models and lighting. Object parameters can be adjusted using the API, with orbit-helpers animating objects and light sources, and layer masks providing scope for light and object visibility. Other common workflows are lifted into helpers, such as toggling weather, shadows and shading. 
+
+Particle setup, model importation and procedural generation processes are all designed to streamline the addition of new content types and effects, without the need to touch the Vulkan layers. The same applies with the seperation of the *Update* and *Draw* logic for rendering, which allows for *Scene* to handle physics/thermodynamics without needing to directly interact with the Vulkan command buffers used in *Renderer*.
+
+Environment simulation is controlled with simple setters, getters and toggles, centeralised at the scene layer. Header files provide a catalogue of parameters, making the process of tuning core mechanics more simplified. Scene specific parameters can be set using a config file, impacting seasons/weather, terrain, procedural genreation and orbit.
 
 
-**Solution:**
+### Weaknesses of the Design
+
+The *Scene* class does a lot of heavy lifting, handling environment simulation, particles, thermodynamics, procedural gerneation, orbits, shadow/shading policy and object management. Similarly, the *SceneObject* struct contains rendering data, physics and game state, resulting in many objects being forced to carry the memory overhead of unused fields.
+
+*Renderer* is tighly coupled to specific rendering implementations. It holds direct pointers/instances of the shadow, skybox and particle pipelines. Adding a new pass would mean modifying the header and implementation directly.
+
+Input handling is split between the *Application* and *CameraController*, making it more difficult to identify and modify keybinds.
 
 
-**Sample output:**
+### What changes could be made and Why?
 
+An entity component system should be used in place of the *SceneObject* struct, splitting the properties into *Transform*, *Rendering*, *Physics*, *Thermodynamics* and *Orbital* components. This would allow for objects to be composed flexibly and would mean that coupling could be reduced in the *Scene* class, creating seperate dedicated systems for each component.
 
-**Reflection:**
+Small configs and builders could be used to prevent the scattering of defaults, with seperate files controlling the scene setup, environement, particle systems, etc. 
 
+Specific pass members could be removed from *Renderer*, in place of a *RenderPass* interface that maintains a list of pass member pointers. This would decouple the renderer from specific effects and allow for the modification of passes at configuration or runtime, without modifying the core class.
 
-**Questions:**
+An input manager should be used to map physical keys to actions, meaning that other classes can listen for actions instead of direct inputs (i.e. *Action::MOVE_FORWARD*, not *GLFW_KEY_W*).
