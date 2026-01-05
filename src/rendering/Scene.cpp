@@ -511,23 +511,22 @@ void Scene::Ignite(SceneObject* obj) {
 void Scene::ToggleWeather() {
     m_IsPrecipitating = !m_IsPrecipitating;
 
-    // Reset the timer so the new state lasts for the full duration
+    // Reset the timer and pick a new target for this forced state
     m_WeatherTimer = 0.0f;
+    PickNextWeatherDuration();
 
     if (m_IsPrecipitating) {
-        // Turn ON: Check season to decide between Rain or Snow
         if (m_CurrentSeason == Season::WINTER) {
             AddSnow();
         }
         else {
             AddRain();
         }
-        std::cout << "Weather Toggled: Precipitation ON" << std::endl;
+        std::cout << "Weather Toggled: Precipitation ON (" << m_CurrentWeatherDurationTarget << "s)" << std::endl;
     }
     else {
-        // Turn OFF
         StopPrecipitation();
-        std::cout << "Weather Toggled: Clear Skies" << std::endl;
+        std::cout << "Weather Toggled: Clear Skies (" << m_CurrentWeatherDurationTarget << "s)" << std::endl;
     }
 }
 
@@ -607,7 +606,7 @@ void Scene::SpawnDustCloud() {
     dust.position = m_DustPosition;
 
     auto* const sys = GetOrCreateSystem(dust);
-    sys->SetSimulationBounds(glm::vec3(0.0f), 200.0f);
+    sys->SetSimulationBounds(glm::vec3(0.0f), 180.0f);
     m_DustEmitterId = sys->AddEmitter(dust, 750.0f);
 }
 
@@ -622,23 +621,32 @@ void Scene::StopDust() {
     }
 }
 
-glm::vec3 Scene::InitializeOrbit(OrbitData& data, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad) const {
+glm::vec3 Scene::InitializeOrbit(OrbitData& data, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, const glm::vec3& startVector, float initialAngleRad) const {
     data.isOrbiting = true;
     data.center = center;
     data.radius = radius;
     data.speed = speedRadPerSec;
     const float axisLen = glm::length(axis);
     data.axis = (axisLen > 1e-6f) ? glm::normalize(axis) : glm::vec3(0.0f, 1.0f, 0.0f);
+
+    // Normalize and scale start vector to match radius
+    if (glm::length(startVector) > 1e-6f) {
+        data.startVector = glm::normalize(startVector) * radius;
+    }
+    else {
+        data.startVector = glm::vec3(radius, 0.0f, 0.0f);
+    }
+
     data.initialAngle = initialAngleRad;
     data.currentAngle = initialAngleRad;
 
     const glm::quat rotation = glm::angleAxis(data.initialAngle, data.axis);
-    const glm::vec3 offset = rotation * glm::vec3(data.radius, 0.0f, 0.0f);
+
+    const glm::vec3 offset = rotation * data.startVector;
     return data.center + offset;
 }
 
-void Scene::SetObjectOrbit(const std::string& name, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad) {
-
+void Scene::SetObjectOrbit(const std::string& name, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, const glm::vec3& startVector, float initialAngleRad) {
     const auto it = std::find_if(objects.begin(), objects.end(),
         [&name](const std::unique_ptr<SceneObject>& obj) {
             return obj->name == name;
@@ -646,8 +654,7 @@ void Scene::SetObjectOrbit(const std::string& name, const glm::vec3& center, flo
 
     if (it != objects.end()) {
         SceneObject* const objectPtr = it->get();
-        const glm::vec3 initialPosition = InitializeOrbit(objectPtr->OrbitData, center, radius, speedRadPerSec, axis, initialAngleRad);
-
+        const glm::vec3 initialPosition = InitializeOrbit(objectPtr->OrbitData, center, radius, speedRadPerSec, axis, startVector, initialAngleRad);
         objectPtr->transform[3] = glm::vec4(initialPosition, 1.0f);
     }
     else {
@@ -655,7 +662,7 @@ void Scene::SetObjectOrbit(const std::string& name, const glm::vec3& center, flo
     }
 }
 
-void Scene::SetLightOrbit(const std::string& name, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad) {
+void Scene::SetLightOrbit(const std::string& name, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, const glm::vec3& startVector, float initialAngleRad) {
     const auto it = std::find_if(m_SceneLights.begin(), m_SceneLights.end(),
         [&name](const SceneLight& light) {
             return light.name == name;
@@ -663,7 +670,7 @@ void Scene::SetLightOrbit(const std::string& name, const glm::vec3& center, floa
 
     if (it != m_SceneLights.end()) {
         SceneLight& sceneLight = const_cast<SceneLight&>(*it);
-        const glm::vec3 initialPosition = InitializeOrbit(sceneLight.OrbitData, center, radius, speedRadPerSec, axis, initialAngleRad);
+        const glm::vec3 initialPosition = InitializeOrbit(sceneLight.OrbitData, center, radius, speedRadPerSec, axis, startVector, initialAngleRad);
         sceneLight.vulkanLight.position = initialPosition;
     }
     else {
@@ -687,31 +694,46 @@ void Scene::SetOrbitSpeed(const std::string& name, float speedRadPerSec) {
     }
 }
 
-void Scene::SetSeasonConfig(float duration, float summerTemp, float winterTemp, float dayNightDiff) {
-    m_SeasonDuration = duration;
-    m_SummerTemp = summerTemp;
-    m_WinterTemp = winterTemp;
-    m_DayNightDiff = dayNightDiff;
+void Scene::SetTimeConfig(const TimeConfig& config) {
+    m_TimeConfig = config;
 }
+
+void Scene::SetWeatherConfig(const WeatherConfig& config) {
+    m_WeatherConfig = config;
+    PickNextWeatherDuration(); // Initialize with a valid duration
+}
+
+void Scene::SetSeasonConfig(const SeasonConfig& config) {
+    m_SeasonConfig = config;
+}
+
+void Scene::PickNextWeatherDuration() {
+    static std::random_device rd;
+    static std::mt19937 gen(rd());
+
+    if (m_IsPrecipitating) {
+        // We are currently raining/snowing, decide how long it lasts
+        std::uniform_real_distribution<float> dist(m_WeatherConfig.minPrecipitationDuration, m_WeatherConfig.maxPrecipitationDuration);
+        m_CurrentWeatherDurationTarget = dist(gen);
+    }
+    else {
+        // We are currently clear, decide how long until next storm
+        std::uniform_real_distribution<float> dist(m_WeatherConfig.minClearInterval, m_WeatherConfig.maxClearInterval);
+        m_CurrentWeatherDurationTarget = dist(gen);
+    }
+}
+
 void Scene::NextSeason() {
-    m_SeasonTimer = 0.0f; // Reset timer so the new season lasts its full duration
+    m_SeasonTimer = 0.0f;
     m_CurrentSeason = static_cast<Season>((static_cast<int>(m_CurrentSeason) + 1) % 4);
 
-    // If it is currently precipitating, we need to ensure the type matches the new season
     if (m_IsPrecipitating) {
-        StopPrecipitation(); // Stop current particles (e.g. Rain)
-
-        if (m_CurrentSeason == Season::WINTER) {
-            AddSnow();
-        }
-        else {
-            AddRain();
-        }
+        StopPrecipitation();
+        if (m_CurrentSeason == Season::WINTER) AddSnow();
+        else AddRain();
     }
-
     std::cout << "Manual Season Change: " << GetSeasonName() << std::endl;
 }
-
 
 void Scene::SetSunHeatBonus(float bonus) {
     m_SunHeatBonus = bonus;
@@ -722,119 +744,80 @@ void Scene::ClearProceduralRegistry() {
 }
 
 void Scene::Update(float deltaTime) {
+    // --- Dust & Fire Suppression Logic (Existing) ---
     if (m_IsPrecipitating) {
         m_TimeSinceLastRain = 0.0f;
-        StopDust(); // Rain clears the dust
+        StopDust();
+        m_PostRainFireSuppressionTimer = m_WeatherConfig.fireSuppressionDuration;
     }
     else {
-        // Count up only if it's NOT raining
         m_TimeSinceLastRain += deltaTime;
-
-        // Auto-Spawn Condition
+        if (m_PostRainFireSuppressionTimer > 0.0f) {
+            m_PostRainFireSuppressionTimer -= deltaTime;
+        }
         if (!m_DustActive && m_TimeSinceLastRain >= 60.0f) {
             SpawnDustCloud();
         }
     }
 
     if (m_DustActive) {
-        const float speed = 15.0f; // Speed of the cloud
+        const float speed = 15.0f;
         m_DustPosition += m_DustDirection * speed * deltaTime;
-
-        // Update Emitter Position
         if (m_DustEmitterId != -1) {
             ParticleProps props = ParticleLibrary::GetDustStormProps();
-
-            // Only update spatial properties
             props.position = m_DustPosition;
-
             GetOrCreateSystem(props)->UpdateEmitter(m_DustEmitterId, props, 500.0f);
         }
-
-        // Despawn if it travels too far (e.g., 200 units from center)
-        if (glm::length(m_DustPosition) > 150.0f) {
-            StopDust();
-        }
-    }
-
-    if (m_IsPrecipitating) {
-        // Keep resetting the timer while it's raining/snowing
-        m_PostRainFireSuppressionTimer = 15.0f;
-    }
-    else if (m_PostRainFireSuppressionTimer > 0.0f) {
-        // Count down when weather is clear
-        m_PostRainFireSuppressionTimer -= deltaTime;
+        if (glm::length(m_DustPosition) > 150.0f) StopDust();
     }
 
 
-
-    // 1. Update Season Cycle
+    // --- 1. Season Cycle Update ---
+    // A season lasts for (DaysPerSeason * DayLength)
     m_SeasonTimer += deltaTime;
-    bool seasonChanged = false;
 
-    if (m_SeasonTimer >= m_SeasonDuration) {
+    const float fullSeasonDuration = m_TimeConfig.dayLengthSeconds * static_cast<float>(m_TimeConfig.daysPerSeason);
+
+    if (m_SeasonTimer >= fullSeasonDuration) {
         m_SeasonTimer = 0.0f;
         m_CurrentSeason = static_cast<Season>((static_cast<int>(m_CurrentSeason) + 1) % 4);
-        seasonChanged = true;
-        //std::cout << "Season Changed to: " << GetSeasonName() << std::endl;
-    }
 
-    if (seasonChanged && m_IsPrecipitating) {
-        StopPrecipitation();
-        if (m_CurrentSeason == Season::WINTER) AddSnow();
-        else AddRain();
-    }
-
-    m_WeatherTimer += deltaTime;
-    if (m_WeatherTimer >= m_WeatherDuration) {
-        m_WeatherTimer = 0.0f;
-        bool allowRain = true;
-
-        // Check if we are currently clear (meaning the NEXT state would be rain)
-        if (!m_IsPrecipitating) {
-            const auto sunIt = std::find_if(m_SceneLights.begin(), m_SceneLights.end(),
-                [](const SceneLight& l) { return l.name == "Sun"; });
-
-            if (sunIt != m_SceneLights.end()) {
-                // If the Sun hasn't completed one full circle (2 PI) yet, block rain
-                const float totalRotation = std::abs(sunIt->OrbitData.currentAngle - sunIt->OrbitData.initialAngle);
-                if (totalRotation < glm::two_pi<float>()) {
-                    allowRain = false;
-                    // std::cout << "Skipping rain: First day not complete." << std::endl;
-                }
-            }
-        }
-
-        // Only toggle if rain is allowed, otherwise restart the clear-sky timer
-        if (allowRain) {
-            m_IsPrecipitating = !m_IsPrecipitating; // Toggle State
-        }
-        else {
-            // Keep it clear, but reset the timer to check again later (e.g., in 30 seconds)
-            m_IsPrecipitating = false;
-            m_WeatherDuration = 30.0f;
-            return; // Exit early to skip the code below that adds rain/snow
-        }
-
-        // Randomize Duration
-        // Use a static random generator or simple rand()
-        const float randomVal = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
-
+        // Refresh precipitation type if active
         if (m_IsPrecipitating) {
-
-            m_WeatherDuration = 20.0f + (randomVal * 20.0f);
-
-
+            StopPrecipitation();
             if (m_CurrentSeason == Season::WINTER) AddSnow();
             else AddRain();
         }
-        else {
-            // Clear Sky duration
-            m_WeatherDuration = 55.0f + (randomVal * 45.0f);
-            StopPrecipitation();
+        // std::cout << "Season Changed to: " << GetSeasonName() << std::endl;
+    }
+
+    // --- 2. Weather Cycle Update ---
+    m_WeatherTimer += deltaTime;
+
+    if (m_WeatherTimer >= m_CurrentWeatherDurationTarget) {
+        m_WeatherTimer = 0.0f;
+        const bool allowToggle = true;
+
+        // Constraint: If it's clear, don't rain if the Sun is just starting a new day (optional polish)
+        if (!m_IsPrecipitating) {
+            // (Logic simplified: just allow rain based on timer)
+        }
+
+        if (allowToggle) {
+            m_IsPrecipitating = !m_IsPrecipitating;
+            PickNextWeatherDuration(); // Choose random duration for this new state
+
+            if (m_IsPrecipitating) {
+                if (m_CurrentSeason == Season::WINTER) AddSnow();
+                else AddRain();
+            }
+            else {
+                StopPrecipitation();
+            }
         }
     }
 
-    // 2. Calculate Weather
+    // --- 3. Calculate Weather Intensity (Temp) ---
     float sunHeight = 0.0f;
     if (!m_SceneLights.empty()) {
         const float rawHeight = m_SceneLights[0].vulkanLight.position.y / 275.0f;
@@ -842,38 +825,35 @@ void Scene::Update(float deltaTime) {
     }
 
     float seasonBaseTemp = 0.0f;
-    const float dayNightVariation = m_DayNightDiff; // Use variable
     glm::vec3 targetSunColor = glm::vec3(1.0f);
 
     switch (m_CurrentSeason) {
     case Season::SUMMER:
-        seasonBaseTemp = m_SummerTemp;
+        seasonBaseTemp = m_SeasonConfig.summerBaseTemp;
         targetSunColor = glm::vec3(1.0f, 0.95f, 0.8f);
         break;
     case Season::AUTUMN:
-        seasonBaseTemp = (m_SummerTemp + m_WinterTemp) * 0.5f; // Interpolate
+        seasonBaseTemp = (m_SeasonConfig.summerBaseTemp + m_SeasonConfig.winterBaseTemp) * 0.5f;
         targetSunColor = glm::vec3(1.0f, 0.85f, 0.7f);
         break;
     case Season::WINTER:
-        seasonBaseTemp = m_WinterTemp;
+        seasonBaseTemp = m_SeasonConfig.winterBaseTemp;
         targetSunColor = glm::vec3(0.75f, 0.85f, 1.0f);
         break;
     case Season::SPRING:
-        seasonBaseTemp = (m_SummerTemp + m_WinterTemp) * 0.5f;
+        seasonBaseTemp = (m_SeasonConfig.summerBaseTemp + m_SeasonConfig.winterBaseTemp) * 0.5f;
         targetSunColor = glm::vec3(1.0f, 0.98f, 0.9f);
         break;
     }
 
-    m_WeatherIntensity = seasonBaseTemp + (sunHeight * dayNightVariation);
+    m_WeatherIntensity = seasonBaseTemp + (sunHeight * m_SeasonConfig.dayNightTempDiff);
 
     if (m_IsPrecipitating) {
-        // Dark Blue-Grey for storm ambiance
-        targetSunColor = glm::vec3(0.4f, 0.45f, 0.55f);
-        // Reduce temp slightly during rain/snow
-        m_WeatherIntensity -= 10.0f;
+        targetSunColor = glm::vec3(0.4f, 0.45f, 0.55f); // Stormy
+        m_WeatherIntensity -= 10.0f; // Rain cooling
     }
 
-    // 3. Sun Tint
+    // --- 4. Sun Tint & Orbit Updates ---
     const auto sunIt = std::find_if(m_SceneLights.begin(), m_SceneLights.end(),
         [](const SceneLight& l) { return l.name == "Sun"; });
 
@@ -881,11 +861,10 @@ void Scene::Update(float deltaTime) {
         sunIt->vulkanLight.color = glm::mix(sunIt->vulkanLight.color, targetSunColor, deltaTime * 0.8f);
     }
 
-    // 4. Update Orbits
     auto CalculateNewPos = [&](OrbitData& data) -> glm::vec3 {
         data.currentAngle += data.speed * deltaTime;
         const glm::quat rotation = glm::angleAxis(data.currentAngle, data.axis);
-        const glm::vec3 offset = rotation * glm::vec3(data.radius, 0.0f, 0.0f);
+        const glm::vec3 offset = rotation * data.startVector;
         return data.center + offset;
         };
 
@@ -902,12 +881,9 @@ void Scene::Update(float deltaTime) {
         }
     }
 
-    // 5. Update Thermodynamics
+    // 5. Update Thermodynamics / Shadows / Particles
     UpdateThermodynamics(deltaTime, sunHeight);
-
     UpdateSimpleShadows();
-
-    // 6. Update Particles
     for (const auto& sys : particleSystems) {
         sys->Update(deltaTime);
     }
@@ -1246,7 +1222,7 @@ void Scene::UpdateThermodynamics(float deltaTime, float sunHeight) {
             }
             else if (obj->state == ObjectState::REGROWING) {
                 // --- Gradual Growth takes 0.75 of a day ---
-                const float growthTime = m_SeasonDuration * 0.75f;
+                const float growthTime = m_TimeConfig.dayLengthSeconds * 0.75f;
 
                 float t = glm::clamp(obj->regrowTimer / growthTime, 0.0f, 1.0f);
                 t = t * t * (3.0f - 2.0f * t); // Smoothstep curve
@@ -1282,7 +1258,7 @@ void Scene::ResetEnvironment() {
             light.OrbitData.currentAngle = light.OrbitData.initialAngle;
             // Recalculate position immediately
             const glm::quat rotation = glm::angleAxis(light.OrbitData.currentAngle, light.OrbitData.axis);
-            const glm::vec3 offset = rotation * glm::vec3(light.OrbitData.radius, 0.0f, 0.0f);
+            const glm::vec3 offset = rotation * light.OrbitData.startVector;
             light.vulkanLight.position = light.OrbitData.center + offset;
         }
     }
@@ -1293,7 +1269,7 @@ void Scene::ResetEnvironment() {
         if (obj->OrbitData.isOrbiting) {
             obj->OrbitData.currentAngle = obj->OrbitData.initialAngle;
             const glm::quat rotation = glm::angleAxis(obj->OrbitData.currentAngle, obj->OrbitData.axis);
-            const glm::vec3 offset = rotation * glm::vec3(obj->OrbitData.radius, 0.0f, 0.0f);
+            const glm::vec3 offset = rotation * obj->OrbitData.startVector;
             obj->transform[3] = glm::vec4(obj->OrbitData.center + offset, 1.0f);
         }
 
@@ -1326,7 +1302,9 @@ void Scene::ResetEnvironment() {
     StopPrecipitation();
     m_IsPrecipitating = false;
     m_WeatherTimer = 0.0f;
-    m_WeatherDuration = 15.0f; // Reset to a short delay before first weather
+
+    // Reset to a random clear interval
+    PickNextWeatherDuration();
 
     StopDust();
     m_TimeSinceLastRain = 0.0f;

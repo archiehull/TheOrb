@@ -7,6 +7,7 @@
 #include <glm/glm.hpp>
 #include <string>
 #include "../vulkan/UniformBufferObject.h"
+#include "../core/Config.h" // Include Config for struct defs
 #include "ParticleSystem.h"
 
 struct OrbitData {
@@ -15,6 +16,7 @@ struct OrbitData {
     float radius = 1.0f;
     float speed = 1.0f; // radians per second
     glm::vec3 axis = glm::vec3(0.0f, 1.0f, 0.0f); // Normalized Orbit axis
+    glm::vec3 startVector = glm::vec3(1.0f, 0.0f, 0.0f); // Defines the zero-angle position
     float initialAngle = 0.0f; // Initial angle offset (in radians)
     float currentAngle = 0.0f; // Internal state: current angle (in radians)
 };
@@ -28,14 +30,8 @@ enum class ObjectState {
 };
 
 namespace SceneLayers {
-    // Bit 0: Objects inside the crystal ball (Terrain, Trees)
-    constexpr int INSIDE = 1 << 0;  // Value: 1
-
-    // Bit 1: Objects outside the ball (Pedestal, Room)
-    constexpr int OUTSIDE = 1 << 1; // Value: 2
-
-    // Helper for objects visible everywhere (Sun, Moon)
-    // Value: 3 (Binary 0011)
+    constexpr int INSIDE = 1 << 0;
+    constexpr int OUTSIDE = 1 << 1;
     constexpr int ALL = INSIDE | OUTSIDE;
 }
 
@@ -73,7 +69,7 @@ struct SceneObject {
     std::string originalTexturePath;
     std::string texturePath;
 
-    int shadingMode = 1; // 0=Gouraud, 1=Phong (Default)
+    int shadingMode = 1;
     bool castsShadow = true;
     bool receiveShadows = true;
 
@@ -88,10 +84,10 @@ struct SceneObject {
     int fireLightIndex = -1;
 
     // Thermodynamics
-    float currentTemp = 20.0f;      // Starts at standard ambient temp
+    float currentTemp = 20.0f;
     float ignitionThreshold = 100.0f;
-    float thermalResponse = 5.0f;   // How fast it adjusts to ambient temp (replaces simple heating/cooling rates)
-    float selfHeatingRate = 15.0f;  // How much temp rises per second when ALREADY burning
+    float thermalResponse = 5.0f;
+    float selfHeatingRate = 15.0f;
 
     // Timers
     float burnTimer = 0.0f;
@@ -101,15 +97,15 @@ struct SceneObject {
     float dustDuration = 10.0f;
 
     // Visuals
-    float burnFactor = 0.0f;          // Passed to shader (0.0 to 1.0)
-    int fireParticleSystemIndex = -1; // To track attached fire particles
+    float burnFactor = 0.0f;
+    int fireParticleSystemIndex = -1;
     int simpleShadowId = -1;
 
 
     // Collisions
-    bool hasCollision = true;       // On by default
-    float collisionRadius = 2.0f;   // Approximate width (Cylinder/Sphere radius)
-    float collisionHeight = 5.0f;   // Approximate height (Cylinder height)
+    bool hasCollision = true;
+    float collisionRadius = 2.0f;
+    float collisionHeight = 5.0f;
 
     explicit SceneObject(std::shared_ptr<Geometry> geo, const std::string& texPath = "", const std::string& objName = "")
         : name(objName), geometry(std::move(geo)), originalTexturePath(texPath), texturePath(texPath) {
@@ -131,7 +127,6 @@ public:
     Scene(VkDevice vkDevice, VkPhysicalDevice physDevice);
     ~Scene() = default;
 
-    // Non-copyable
     Scene(const Scene&) = delete;
     Scene& operator=(const Scene&) = delete;
 
@@ -150,8 +145,8 @@ public:
 
     int AddLight(const std::string& name, const glm::vec3& position, const glm::vec3& color, float intensity, int type);
 
-    void SetObjectOrbit(const std::string& name, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad = 0.0f);
-    void SetLightOrbit(const std::string& name, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad = 0.0f);
+    void SetObjectOrbit(const std::string& name, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, const glm::vec3& startVector, float initialAngleRad = 0.0f);
+    void SetLightOrbit(const std::string& name, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, const glm::vec3& startVector, float initialAngleRad = 0.0f);
 
     void AddBowl(const std::string& name, float radius, int slices, int stacks, const glm::vec3& position, const std::string& texturePath);
     void AddPedestal(const std::string& name, float topRadius, float baseWidth, float height, const glm::vec3& position, const std::string& texturePath);
@@ -185,13 +180,11 @@ public:
     float GetWeatherIntensity() const { return m_WeatherIntensity; }
     std::string GetSeasonName() const;
 
-    // Accessors for Renderer
     const std::vector<std::unique_ptr<ParticleSystem>>& GetParticleSystems() const { return particleSystems; }
 
     void Update(float deltaTime);
     void ResetEnvironment();
 
-    // Shading Toggle
     void ToggleGlobalShadingMode();
 
     void AddSimpleShadow(const std::string& objectName, float radius);
@@ -200,11 +193,9 @@ public:
 
     std::vector<Light> GetLights() const;
 
-    // Scene management
     void Clear();
     const std::vector<std::unique_ptr<SceneObject>>& GetObjects() const { return objects; }
 
-    // Transform / visibility helpers
     void SetObjectTransform(size_t index, const glm::mat4& transform);
     void SetObjectVisible(size_t index, bool visible);
     void SetOrbitSpeed(const std::string& name, float speedRadPerSec);
@@ -216,8 +207,11 @@ public:
     void SetObjectReceivesShadows(const std::string& name, bool receives);
     void SetObjectShadingMode(const std::string& name, int mode);
 
-    void SetSeasonConfig(float duration, float summerTemp, float winterTemp, float dayNightDiff);
-    void SetSunHeatBonus(float bonus); // Controls the +60C thermal bonus
+    // --- Configuration Setters ---
+    void SetTimeConfig(const TimeConfig& config);
+    void SetWeatherConfig(const WeatherConfig& config);
+    void SetSeasonConfig(const SeasonConfig& config);
+    void SetSunHeatBonus(float bonus);
 
     void ToggleWeather();
     bool IsPrecipitating() const { return m_IsPrecipitating; }
@@ -231,28 +225,28 @@ private:
     void AddObjectInternal(const std::string& name, std::unique_ptr<Geometry> geometry, const glm::vec3& position, const std::string& texturePath, bool isFlammable);
     void StopObjectFire(SceneObject* obj);
 
-    glm::vec3 InitializeOrbit(OrbitData& data, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, float initialAngleRad) const;
+    glm::vec3 InitializeOrbit(OrbitData& data, const glm::vec3& center, float radius, float speedRadPerSec, const glm::vec3& axis, const glm::vec3& startVector, float initialAngleRad) const;
 
-    float m_SeasonDuration = 60.0f;
-    float m_SummerTemp = 50.0f;
-    float m_WinterTemp = -5.0f;
-    float m_DayNightDiff = 35.0f;
-
-    float m_SunHeatBonus = 60.0f; // Default matches your original hardcoded value
+    // --- Config Data ---
+    TimeConfig m_TimeConfig;
+    SeasonConfig m_SeasonConfig;
+    WeatherConfig m_WeatherConfig;
+    float m_SunHeatBonus = 60.0f;
 
     Season m_CurrentSeason = Season::SUMMER;
     float m_SeasonTimer = 0.0f;
-    float m_WeatherIntensity = 0.0f;      // The calculated "Ambient Temperature"
+    float m_WeatherIntensity = 0.0f;
 
     int m_RainEmitterId = -1;
     int m_SnowEmitterId = -1;
 
     bool m_IsPrecipitating = false;
     float m_WeatherTimer = 0.0f;
-    float m_WeatherDuration = 10.0f; // Seconds until next weather change
+    float m_CurrentWeatherDurationTarget = 10.0f; // Target for current state (either clear or rain)
     float m_PostRainFireSuppressionTimer = 0.0f;
 
     void StopPrecipitation();
+    void PickNextWeatherDuration(); // Helper to choose random duration
 
     bool m_DustActive = false;
     int m_DustEmitterId = -1;
@@ -263,10 +257,10 @@ private:
 
     void StopDust();
 
-    int globalShadingMode = 1; // 1 = Phong (Default), 0 = Gouraud
+    int globalShadingMode = 1;
 
     void UpdateSimpleShadows();
-    bool m_UseSimpleShadows = false; // Default to Normal Shadows
+    bool m_UseSimpleShadows = false;
 
     TerrainConfig m_TerrainConfig;
     std::vector<SceneLight> m_SceneLights;
@@ -278,7 +272,6 @@ private:
 
     ParticleSystem* GetOrCreateSystem(const ParticleProps& props);
 
-    // Particle Resources
     VkCommandPool commandPool = VK_NULL_HANDLE;
     VkQueue graphicsQueue = VK_NULL_HANDLE;
     GraphicsPipeline* particlePipelineAdditive = nullptr;

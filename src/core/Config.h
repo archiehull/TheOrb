@@ -10,7 +10,7 @@ struct ProceduralPlantConfig {
     float frequency;
     glm::vec3 minScale;
     glm::vec3 maxScale;
-    glm::vec3 baseRotation; // NEW: Added this
+    glm::vec3 baseRotation;
     bool isFlammable;
 };
 
@@ -25,15 +25,26 @@ struct StaticObjectConfig {
 };
 
 struct SeasonConfig {
-    float durationSeconds = 60.0f;
     float summerBaseTemp = 50.0f;
     float winterBaseTemp = -5.0f;
     float dayNightTempDiff = 35.0f;
 };
 
+struct TimeConfig {
+    float dayLengthSeconds = 60.0f;
+    int daysPerSeason = 3;
+};
+
+struct WeatherConfig {
+    float minClearInterval = 30.0f;
+    float maxClearInterval = 60.0f;
+    float minPrecipitationDuration = 20.0f;
+    float maxPrecipitationDuration = 40.0f;
+    float fireSuppressionDuration = 15.0f;
+};
+
 struct OrbitConfig {
-    glm::vec3 axis = glm::vec3(0.0f, 0.0f, 1.0f);
-    float speed = 0.1f;
+    float directionDegrees = 0.0f;
     float radius = 275.0f;
     float initialAngle = 0.0f;
 };
@@ -44,7 +55,10 @@ struct AppConfig {
     int windowHeight = 600;
 
     // Environment
+    TimeConfig time;
     SeasonConfig seasons;
+    WeatherConfig weather;
+
     OrbitConfig sunOrbit;
     OrbitConfig moonOrbit;
 

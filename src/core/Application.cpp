@@ -129,68 +129,68 @@ static const char* FOGSHELL_NAME = "FogShell";
 
 
 void Application::SetupScene() {
-    const float dayDuration = config.seasons.durationSeconds;
-    const float baseOrbitSpeed = glm::two_pi<float>() / dayDuration;
-
-    scene->SetSeasonConfig(
-        config.seasons.durationSeconds,
-        config.seasons.summerBaseTemp,
-        config.seasons.winterBaseTemp,
-        config.seasons.dayNightTempDiff
-    );
+    // Pass Configuration to Scene
+    scene->SetTimeConfig(config.time);
+    scene->SetSeasonConfig(config.seasons);
+    scene->SetWeatherConfig(config.weather);
     scene->SetSunHeatBonus(config.sunHeatBonus);
 
-    const float OrbitRadius = 275.0f;
+    // Calculate Orbit Speed based on Day Length
+    // Speed (rad/s) = 2PI / dayLength
+    const float dayLength = config.time.dayLengthSeconds;
+    const float baseOrbitSpeed = (dayLength > 0.0f) ? (glm::two_pi<float>() / dayLength) : 0.1f;
+
+    const float sunOrbitSpeed = baseOrbitSpeed;
+    const float moonOrbitSpeed = baseOrbitSpeed;
+
+    // Helper to calculate Trajectory (Start Vector direction)
+    auto GetTrajectory = [](float directionDegrees) -> glm::vec3 {
+        const float rad = glm::radians(directionDegrees);
+        glm::vec3 t(cos(rad), 0.0f, sin(rad));
+        if (glm::length(t) < 0.001f) t = glm::vec3(1.0f, 0.0f, 0.0f);
+        return glm::normalize(t);
+        };
+
+    const glm::vec3 sunTrajectory = GetTrajectory(config.sunOrbit.directionDegrees);
+    const glm::vec3 moonTrajectory = GetTrajectory(config.moonOrbit.directionDegrees);
+
+    const glm::vec3 sunAxis = glm::normalize(glm::cross(sunTrajectory, glm::vec3(0.0f, 1.0f, 0.0f)));
+    const glm::vec3 moonAxis = glm::normalize(glm::cross(moonTrajectory, glm::vec3(0.0f, 1.0f, 0.0f)));
+
+    const glm::vec3 sunStart = sunTrajectory * config.sunOrbit.radius;
+    const glm::vec3 moonStart = moonTrajectory * config.moonOrbit.radius;
+
     const float deltaY = -75.0f;
     const float orbRadius = 150.0f;
-    const float terrainHeightScale = 3.5f;
-    const float terrainNoiseFreq = 0.02f;
-
     const float adjustedRadius = scene->RadiusAdjustment(orbRadius, deltaY);
 
     scene->AddTerrain("GroundGrid", adjustedRadius, 512, 512, config.terrainHeightScale, config.terrainNoiseFreq, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), "textures/desert2.jpg");
-
     scene->AddPedestal("BasePedestal", adjustedRadius, orbRadius * 2.3, 100.0f, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), "textures/mahogany.jpg");
     scene->SetObjectCastsShadow("BasePedestal", false);
     scene->SetObjectLayerMask("BasePedestal", SceneLayers::OUTSIDE);
     scene->SetObjectCollision("BasePedestal", false);
 
     scene->ClearProceduralRegistry();
-
     if (config.proceduralPlants.empty()) {
-        // High frequency cacti
         scene->RegisterProceduralObject("models/cactus.obj", "textures/cactus.jpg", 7.0f, glm::vec3(0.01f), glm::vec3(0.02f), glm::vec3(-90.0f, 0.0f, 0.0f), true);
-        // Medium frequency dead trees
         scene->RegisterProceduralObject("models/DeadTree.obj", "textures/bark.jpg", 5.0f, glm::vec3(0.1f), glm::vec3(0.2f), glm::vec3(0.0f), true);
-        // Low frequency dead trees (larger)
         scene->RegisterProceduralObject("models/DeadTree.obj", "textures/bark.jpg", 4.0f, glm::vec3(0.25f), glm::vec3(0.35f), glm::vec3(0.0f), true);
     }
     else {
         for (const auto& plant : config.proceduralPlants) {
-            scene->RegisterProceduralObject(
-                plant.modelPath,
-                plant.texturePath,
-                plant.frequency,
-                plant.minScale,
-                plant.maxScale,
-                plant.baseRotation,
-                plant.isFlammable
-            );
+            scene->RegisterProceduralObject(plant.modelPath, plant.texturePath, plant.frequency, plant.minScale, plant.maxScale, plant.baseRotation, plant.isFlammable);
         }
     }
-
-    scene->GenerateProceduralObjects(config.proceduralObjectCount, orbRadius - 20, deltaY, terrainHeightScale, terrainNoiseFreq);
-
+    scene->GenerateProceduralObjects(config.proceduralObjectCount, orbRadius - 20, deltaY, config.terrainHeightScale, config.terrainNoiseFreq);
     for (const auto& obj : config.staticObjects) {
         scene->AddModel(obj.name, obj.position, obj.rotation, obj.scale, obj.modelPath, obj.texturePath, obj.isFlammable);
     }
 
-
     scene->AddSphere(SUN_NAME, 16, 32, 5.0f, glm::vec3(0.0f), "textures/sun.png");
     scene->AddLight(SUN_NAME, glm::vec3(0.0f), glm::vec3(1.0f, 0.9f, 0.8f), 1.0f, 0);
     scene->SetObjectCastsShadow(SUN_NAME, false);
-    scene->SetObjectOrbit(SUN_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), config.sunOrbit.radius, config.sunOrbit.speed, config.sunOrbit.axis, config.sunOrbit.initialAngle);
-    scene->SetLightOrbit(SUN_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), config.sunOrbit.radius, config.sunOrbit.speed, config.sunOrbit.axis, config.sunOrbit.initialAngle);
+    scene->SetObjectOrbit(SUN_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), config.sunOrbit.radius, sunOrbitSpeed, sunAxis, sunStart, config.sunOrbit.initialAngle);
+    scene->SetLightOrbit(SUN_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), config.sunOrbit.radius, sunOrbitSpeed, sunAxis, sunStart, config.sunOrbit.initialAngle);
     scene->SetObjectLayerMask(SUN_NAME, SceneLayers::ALL);
     scene->SetLightLayerMask(SUN_NAME, SceneLayers::ALL);
     scene->SetObjectCollision(SUN_NAME, false);
@@ -198,8 +198,8 @@ void Application::SetupScene() {
     scene->AddSphere(MOON_NAME, 16, 32, 2.0f, glm::vec3(0.0f), "textures/moon.jpg");
     scene->AddLight(MOON_NAME, glm::vec3(0.0f), glm::vec3(0.1f, 0.1f, 0.3f), 1.5f, 0);
     scene->SetObjectCastsShadow(MOON_NAME, false);
-    scene->SetObjectOrbit(MOON_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), config.moonOrbit.radius, config.moonOrbit.speed, config.moonOrbit.axis, config.moonOrbit.initialAngle);
-    scene->SetLightOrbit(MOON_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), config.moonOrbit.radius, config.moonOrbit.speed, config.moonOrbit.axis, config.moonOrbit.initialAngle);
+    scene->SetObjectOrbit(MOON_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), config.moonOrbit.radius, moonOrbitSpeed, moonAxis, moonStart, config.moonOrbit.initialAngle);
+    scene->SetLightOrbit(MOON_NAME, glm::vec3(0.0f, 0.0f + deltaY, 0.0f), config.moonOrbit.radius, moonOrbitSpeed, moonAxis, moonStart, config.moonOrbit.initialAngle);
     scene->SetObjectLayerMask(MOON_NAME, SceneLayers::ALL);
     scene->SetLightLayerMask(MOON_NAME, SceneLayers::ALL);
     scene->SetObjectCollision(MOON_NAME, false);
@@ -220,9 +220,6 @@ void Application::SetupScene() {
     scene->SetObjectCastsShadow(FOGSHELL_NAME, false);
     scene->SetObjectLayerMask(FOGSHELL_NAME, 0x1 | 0x2);
     scene->SetObjectCollision(FOGSHELL_NAME, false);
-
-    //scene->AddSnow();
-    //scene->AddRain();
 }
 
 void Application::RecreateSwapChain() {
@@ -326,7 +323,7 @@ void Application::ProcessInput() {
     if (glfwGetKey(window->GetGLFWWindow(), GLFW_KEY_R) == GLFW_PRESS) {
         timeScale = 1.0f;
         scene->ResetEnvironment();
-		std::cout << "Environment Reset." << std::endl;
+        std::cout << "Environment Reset." << std::endl;
     }
 }
 

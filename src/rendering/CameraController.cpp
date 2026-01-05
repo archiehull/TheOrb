@@ -116,7 +116,7 @@ void CameraController::UpdateOrbitCamera(float deltaTime, const Scene& scene) {
     if (activeCameraType == CameraType::CACTI && !OrbitTargetObject) return;
 
     const float rotateSpeed = 50.0f;
-    const float zoomSpeed = 20.0f;
+    const float zoomSpeed = (activeCameraType == CameraType::OUTSIDE_ORB) ? 75.0f : 20.0f;
 
     // Standard Orbital Controls
     if (keyA || keyLeft)  OrbitYaw -= rotateSpeed * deltaTime;
