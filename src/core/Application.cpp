@@ -120,7 +120,7 @@ void Application::InitVulkan() {
 
     renderer->SetupSceneParticles(*scene);
 
-    cameraController = std::make_unique<CameraController>();
+    cameraController = std::make_unique<CameraController>(config.customCameras);
 }
 
 static const char* SUN_NAME = "Sun";
@@ -359,6 +359,18 @@ void Application::KeyCallback(GLFWwindow* glfwWindow, int key, int scancode, int
             else {
                 std::cout << "No target to ignite!" << std::endl;
             }
+        }
+        else if (key == GLFW_KEY_F5) {
+            app->cameraController->SwitchCamera(CameraType::CUSTOM_1, *app->scene);
+        }
+        else if (key == GLFW_KEY_F6) {
+            app->cameraController->SwitchCamera(CameraType::CUSTOM_2, *app->scene);
+        }
+        else if (key == GLFW_KEY_F7) {
+            app->cameraController->SwitchCamera(CameraType::CUSTOM_3, *app->scene);
+        }
+        else if (key == GLFW_KEY_F8) {
+            app->cameraController->SwitchCamera(CameraType::CUSTOM_4, *app->scene);
         }
         else if (key == GLFW_KEY_Y) {
             app->scene->ToggleGlobalShadingMode();

@@ -7,7 +7,12 @@
 enum class CameraType {
     FREE_ROAM,
     OUTSIDE_ORB,
-    CACTI
+    CACTI,
+    // --- NEW TYPES ---
+    CUSTOM_1,
+    CUSTOM_2,
+    CUSTOM_3,
+    CUSTOM_4
 };
 
 class Camera final {

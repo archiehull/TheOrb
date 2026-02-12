@@ -37,6 +37,24 @@ SunHeatBonus 30.0
 TerrainParams 3.5 0.02
 ProceduralObjectCount 75
 
+
+# --- Custom Camera Configurations (F5 - F8) ---
+# Format: CustomCamera [Name] [Type] [PosX] [PosY] [PosZ] [TargetX] [TargetY] [TargetZ]
+# Types: Static, FreeRoam, Orbit
+
+# F5: High Overview (Static)
+CustomCamera Overview Static 0.0 200.0 200.0 0.0 0.0 0.0
+
+# F6: Canyon View (FreeRoam start point)
+CustomCamera Canyon FreeRoam 50.0 -60.0 50.0 0.0 -60.0 0.0
+
+# F7: Side Orbit (Orbit around center)
+CustomCamera SideOrbit Orbit 100.0 0.0 0.0 0.0 0.0 0.0
+
+# F8: Low Angle (Static)
+CustomCamera LowAngle Static -80.0 -70.0 -80.0 0.0 20.0 0.0
+
+
 # --- Objects ---
 # Procedural Plants
 # Format: Model Texture Frequency MinScale(3) MaxScale(3) BaseRot(3) Flammable(1/0)

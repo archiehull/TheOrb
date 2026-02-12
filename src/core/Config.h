@@ -24,6 +24,13 @@ struct StaticObjectConfig {
     bool isFlammable;
 };
 
+struct CustomCameraConfig {
+    std::string name;
+    std::string type; // "FreeRoam", "Orbit", "Static"
+    glm::vec3 position;
+    glm::vec3 target;
+};
+
 struct SeasonConfig {
     float summerBaseTemp = 50.0f;
     float winterBaseTemp = -5.0f;
@@ -73,6 +80,9 @@ struct AppConfig {
     int proceduralObjectCount = 75;
     std::vector<ProceduralPlantConfig> proceduralPlants;
     std::vector<StaticObjectConfig> staticObjects;
+
+    // --- Custom Cameras ---
+    std::vector<CustomCameraConfig> customCameras;
 };
 
 class ConfigLoader final {

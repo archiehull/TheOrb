@@ -75,6 +75,15 @@ AppConfig ConfigLoader::Load(const std::string& filepath) {
             obj.isFlammable = (flammableStr == "1" || flammableStr == "true");
             config.staticObjects.push_back(obj);
         }
+        // --- Custom Camera Parsing ---
+        else if (key == "CustomCamera") {
+            // Format: CustomCamera Name Type PosX PosY PosZ TargetX TargetY TargetZ
+            CustomCameraConfig cam;
+            ss >> cam.name >> cam.type
+                >> cam.position.x >> cam.position.y >> cam.position.z
+                >> cam.target.x >> cam.target.y >> cam.target.z;
+            config.customCameras.push_back(cam);
+        }
     }
 
     return config;

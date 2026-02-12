@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Camera.h"
+#include "../core/Config.h" // Added for CustomCameraConfig
 #include <memory>
 #include <map>
 #include <vector>
@@ -10,7 +11,8 @@ struct SceneObject;
 
 class CameraController final {
 public:
-    CameraController();
+    // Updated constructor to take custom camera configs
+    CameraController(const std::vector<CustomCameraConfig>& customConfigs);
     ~CameraController() = default;
 
     // Non-copyable
@@ -22,7 +24,6 @@ public:
     inline Camera* GetActiveCamera() const { return activeCamera; }
     CameraType GetActiveCameraType() const { return activeCameraType; }
 
-    // Updated to take Scene reference for finding objects (e.g. Cacti)
     void SwitchCamera(CameraType type, const Scene& scene);
 
     // NEW: Getter for the current Orbit target (for F4 Ignition)
@@ -34,6 +35,15 @@ public:
 
 private:
     std::map<CameraType, std::unique_ptr<Camera>> cameras;
+
+    // Store type information for custom cameras
+    struct CustomCameraInfo {
+        std::string name;
+        std::string type; // "FreeRoam", "Orbit", "Static"
+        glm::vec3 initialTarget;
+    };
+    std::map<CameraType, CustomCameraInfo> customCameraMeta;
+
     Camera* activeCamera = nullptr;
     CameraType activeCameraType = CameraType::FREE_ROAM;
 
@@ -46,12 +56,13 @@ private:
     bool keyShift = false;
 
     // Orbit Camera State
-    SceneObject* OrbitTargetObject = nullptr; // Changed from const to mutable
+    SceneObject* OrbitTargetObject = nullptr;
+    glm::vec3 FixedOrbitCenter = glm::vec3(0.0f); // For custom orbits that don't target an object
     float OrbitRadius = 15.0f;
     float OrbitYaw = 0.0f;
     float OrbitPitch = 20.0f;
 
-    void SetupCameras();
+    void SetupCameras(const std::vector<CustomCameraConfig>& customConfigs);
     void UpdateFreeRoamCamera(float deltaTime, const Scene& scene);
     void UpdateOrbitCamera(float deltaTime, const Scene& scene);
     void ClampCameraPosition(glm::vec3& position, const Scene& scene, const glm::vec3& previousPosition) const;
